@@ -1,0 +1,2886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="K11 America — The professional HVAC-R sealant that permanently stops micro-leaks and detects them with UV fluorescence. Distributed by Wylco from Miami, FL. Ships nationwide.">
+<meta property="og:title" content="K11 America | Professional HVAC-R Leak Sealant">
+<meta name="robots" content="index,follow">
+<title>K11 America | Professional HVAC-R Leak Sealant — Wylco, Miami FL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────
+   DESIGN SYSTEM
+───────────────────────────────────────────── */
+:root {
+  --white: #FFFFFF;
+  --bg: #FAFAFA;
+  --bg2: #F5F5F7;
+  --bg3: #E8E8ED;
+  --dark: #1D1D1F;
+  --mid: #424245;
+  --muted: #6E6E73;
+  --light: #86868B;
+  --blue: #0071E3;
+  --blue-hover: #0064CC;
+  --blue-light: rgba(0,113,227,0.08);
+  --green: #1A7A3F;
+  --green-light: rgba(26,122,63,0.08);
+  --gold: #C8890E;
+  --border: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.14);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 2px 12px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --max-w: 1160px;
+  --nav-h: 56px;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { font-family: var(--font-body); background: var(--white); color: var(--dark); overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: var(--font-body); cursor: pointer; }
+ul, ol { list-style: none; }
+
+/* ─── REVEAL ANIMATION ─── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.45; } }
+@keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+.reveal { opacity:0; transform:translateY(28px); transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1); }
+.reveal.in { opacity:1; transform:translateY(0); }
+.reveal.d1 { transition-delay:.08s; }
+.reveal.d2 { transition-delay:.16s; }
+.reveal.d3 { transition-delay:.24s; }
+.reveal.d4 { transition-delay:.32s; }
+.reveal.d5 { transition-delay:.40s; }
+
+/* ─── PAGE SYSTEM ─── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ─────────────────────────────────────────────
+   NAV
+───────────────────────────────────────────── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:1000;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 max(24px, 4vw);
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
+  border-bottom: .5px solid rgba(0,0,0,0.10);
+  transition: background .3s;
+}
+nav.scrolled { background: rgba(255,255,255,0.95); }
+.nav-logo {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  font-family: var(--font-display); font-size: 1.25rem; letter-spacing: 2px; color: var(--dark);
+}
+.nav-logo img { height: 34px; width: 34px; object-fit: contain; flex-shrink: 0; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 2px; color: var(--dark); }
+.nav-links { display: flex; align-items: center; gap: 1.8rem; }
+.nav-links a {
+  font-size: 13px; font-weight: 500; color: var(--muted);
+  letter-spacing: -.01em; transition: color .2s; cursor: pointer;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--dark); }
+.nav-cta {
+  background: var(--blue); color: #fff;
+  font-size: 13px; font-weight: 600;
+  padding: 7px 18px; border-radius: 980px;
+  transition: background .2s, transform .15s;
+  white-space: nowrap; cursor: pointer; border: none;
+}
+.nav-cta:hover { background: var(--blue-hover); transform: scale(1.02); }
+
+/* Mobile nav */
+.nav-mobile-btn {
+  display: none; background: none; border: none;
+  padding: 8px; flex-direction: column; gap: 5px; cursor: pointer;
+}
+.nav-mobile-btn span { display: block; width: 20px; height: 1.5px; background: var(--dark); border-radius: 2px; transition: .3s; }
+.mobile-menu {
+  display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+  background: rgba(255,255,255,0.98); backdrop-filter: blur(24px);
+  border-bottom: .5px solid var(--border); padding: 16px 24px 24px; z-index:999;
+}
+.mobile-menu.open { display: block; animation: fadeIn .2s ease; }
+.mobile-menu a {
+  display: block; font-size: 16px; font-weight: 500; color: var(--dark);
+  padding: 13px 0; border-bottom: .5px solid var(--border); cursor: pointer;
+}
+.mobile-menu a:last-child { border: none; color: var(--blue); }
+
+/* ─────────────────────────────────────────────
+   BUTTONS (Universal)
+───────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--font-body); font-weight: 600;
+  border: none; cursor: pointer; transition: all .2s;
+  white-space: nowrap; text-align: center;
+}
+.btn-primary {
+  background: var(--blue); color: #fff;
+  font-size: 15px; padding: 13px 26px; border-radius: 980px;
+}
+.btn-primary:hover { background: var(--blue-hover); transform: scale(1.02); box-shadow: 0 6px 20px rgba(0,113,227,.25); }
+.btn-secondary {
+  background: var(--dark); color: #fff;
+  font-size: 15px; padding: 13px 26px; border-radius: 980px;
+}
+.btn-secondary:hover { background: #3a3a3c; transform: scale(1.02); }
+.btn-ghost {
+  background: rgba(0,0,0,.06); color: var(--dark);
+  font-size: 15px; padding: 13px 26px; border-radius: 980px;
+}
+.btn-ghost:hover { background: rgba(0,0,0,.10); transform: scale(1.02); }
+.btn-outline {
+  background: transparent; color: var(--blue);
+  font-size: 14px; padding: 10px 22px; border-radius: 980px;
+  border: 1.5px solid rgba(0,113,227,.35);
+}
+.btn-outline:hover { background: var(--blue-light); border-color: var(--blue); }
+.btn-text {
+  background: none; border: none; color: var(--blue);
+  font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 5px;
+  transition: gap .2s;
+}
+.btn-text:hover { gap: 9px; }
+.btn-sm { font-size: 13px; padding: 8px 18px; }
+
+/* Arrow SVG inside buttons */
+.arr { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:2; flex-shrink:0; }
+
+/* ─────────────────────────────────────────────
+   BADGES / TAGS
+───────────────────────────────────────────── */
+.tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 6px;
+}
+.tag-blue { background: var(--blue-light); color: var(--blue); }
+.tag-green { background: var(--green-light); color: var(--green); }
+.tag-gray { background: rgba(0,0,0,.06); color: var(--muted); }
+.tag-gold { background: rgba(200,137,14,.1); color: var(--gold); }
+
+/* ─────────────────────────────────────────────
+   SECTION SHARED STYLES
+───────────────────────────────────────────── */
+.section-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 max(24px, 5vw); }
+.section-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::before { content:''; display:block; width:20px; height:1.5px; background:var(--blue); flex-shrink:0; }
+.section-eyebrow.green { color:var(--green); }
+.section-eyebrow.green::before { background:var(--green); }
+.section-title {
+  font-family: var(--font-display); font-size: clamp(2.4rem, 4vw, 4rem);
+  line-height: .95; letter-spacing: .02em; color: var(--dark); margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 1.06rem; font-weight: 300; color: var(--muted);
+  line-height: 1.75; letter-spacing: -.01em;
+}
+
+/* ─────────────────────────────────────────────
+   HERO SECTION
+───────────────────────────────────────────── */
+#page-home .hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: 0;
+  padding-top: var(--nav-h);
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+}
+.hero-left {
+  padding: 80px max(40px, 5vw) 80px max(40px, 7vw);
+  display: flex; flex-direction: column; align-items: flex-start;
+  max-width: 640px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 24px;
+  animation: fadeIn .8s ease both;
+}
+.hero-dot { width:6px; height:6px; border-radius:50%; background:var(--blue); animation:pulse 2s infinite; }
+.hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 5.5vw, 6rem);
+  line-height: .93; letter-spacing: .01em;
+  color: var(--dark); margin-bottom: 24px;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .1s both;
+}
+.hero-h1 em { color: var(--blue); font-style: normal; }
+.hero-sub {
+  font-size: 1.12rem; font-weight: 300; color: var(--muted);
+  line-height: 1.72; letter-spacing: -.01em; max-width: 460px;
+  margin-bottom: 36px;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .18s both;
+}
+.hero-actions {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .26s both;
+}
+.hero-text-link {
+  margin-top: 16px; margin-bottom: 48px;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .32s both;
+}
+.hero-trust {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  animation: fadeUp .9s cubic-bezier(.16,1,.3,1) .38s both;
+}
+.trust-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: -.01em;
+}
+.trust-item svg { width:14px; height:14px; stroke:var(--blue); fill:none; stroke-width:2; flex-shrink:0; }
+
+/* Hero Right — Product Visual */
+.hero-right {
+  height: 100%;
+  min-height: calc(100vh - var(--nav-h));
+  background: var(--bg2);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  border-left: .5px solid var(--border);
+}
+.hero-right-inner {
+  position: relative; width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px 48px;
+}
+@keyframes cardFadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+@keyframes cardFadeOut { from { opacity:1; transform:translateY(0); } to { opacity:0; transform:translateY(-10px); } }
+.hero-product-card {
+  position: relative; z-index: 2;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), 0 0 0 .5px rgba(0,0,0,0.06);
+  overflow: hidden;
+  width: 100%; max-width: 420px;
+  animation: fadeIn 1s ease .4s both;
+}
+.hero-product-card img {
+  width: 100%; height: 280px; object-fit: contain;
+  background: var(--bg2); padding: 32px;
+  transition: opacity .3s ease;
+}
+.hero-product-card.transitioning { pointer-events: none; }
+.hero-product-card.transitioning img,
+.hero-product-card.transitioning .hero-product-card-info { opacity: 0; transform: translateY(8px); }
+.hero-product-card-info {
+  padding: 24px 28px 28px;
+  border-top: .5px solid var(--border);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.hero-product-card-info .tag { margin-bottom: 10px; }
+.hero-product-card-info h3 {
+  font-family: var(--font-display); font-size: 1.6rem; letter-spacing: .02em;
+  color: var(--dark); margin-bottom: 6px;
+}
+.hero-product-card-info p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+/* Carousel dots */
+.hero-card-dots {
+  display: flex; gap: 6px; justify-content: center;
+  padding: 14px 0 18px;
+  border-top: .5px solid var(--border);
+  background: var(--white);
+}
+.hero-card-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--bg3); border: none; padding: 0; cursor: pointer;
+  transition: all .3s; flex-shrink: 0;
+}
+.hero-card-dot.active { width: 20px; border-radius: 3px; background: var(--blue); }
+.hero-card-dot:hover:not(.active) { background: var(--light); }
+.hero-float-stat {
+  position: absolute; background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md), 0 0 0 .5px rgba(0,0,0,0.06);
+  padding: 14px 18px; z-index: 3;
+  animation: float 5s ease-in-out infinite;
+}
+.hero-float-stat .stat-num {
+  font-family: var(--font-display); font-size: 1.8rem;
+  color: var(--dark); line-height: 1;
+}
+.hero-float-stat .stat-num em { color: var(--blue); font-style: normal; }
+.hero-float-stat .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.hfs-1 { top: 14%; right: 6%; animation-delay: 0s; }
+.hfs-2 { bottom: 18%; left: 5%; animation-delay: 1.5s; }
+.hero-bg-grid {
+  position: absolute; inset:0; pointer-events: none;
+  background-image: linear-gradient(rgba(0,113,227,.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,113,227,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 60% 40%, black, transparent);
+}
+
+/* ─────────────────────────────────────────────
+   PROOF BAR  (trust ticker below hero)
+───────────────────────────────────────────── */
+.proof-bar {
+  background: var(--dark);
+  padding: 14px max(24px, 5vw);
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+  gap: 32px;
+}
+.proof-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; color: rgba(255,255,255,.65); letter-spacing: .02em;
+}
+.proof-item svg { width:14px; height:14px; stroke:rgba(255,255,255,.4); fill:none; stroke-width:2; flex-shrink:0; }
+.proof-divider { width:.5px; height:14px; background:rgba(255,255,255,.12); }
+
+/* ─────────────────────────────────────────────
+   METRICS SECTION
+───────────────────────────────────────────── */
+.metrics-section {
+  padding: 96px max(24px, 5vw);
+  background: var(--white);
+  border-bottom: .5px solid var(--border);
+}
+.metrics-inner { max-width: var(--max-w); margin:0 auto; }
+.metrics-header { margin-bottom: 56px; }
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .5px;
+  background: var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: .5px solid var(--border);
+}
+.metric-card {
+  background: var(--white);
+  padding: 36px 28px;
+  transition: background .25s;
+}
+.metric-card:hover { background: var(--bg2); }
+.metric-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem,3.5vw,3rem); color: var(--dark);
+  line-height: 1; margin-bottom: 6px;
+}
+.metric-num em { color: var(--blue); font-style: normal; }
+.metric-label { font-size: 12px; font-weight: 500; color: var(--muted); line-height: 1.55; letter-spacing: -.01em; }
+
+/* ─────────────────────────────────────────────
+   HOW IT WORKS
+───────────────────────────────────────────── */
+.how-section {
+  padding: 112px max(24px, 5vw);
+  background: var(--bg2);
+  border-top: .5px solid var(--border);
+  border-bottom: .5px solid var(--border);
+}
+.how-inner { max-width: var(--max-w); margin:0 auto; }
+.how-header { text-align: center; max-width: 600px; margin: 0 auto 72px; }
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5px;
+  background: var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: .5px solid var(--border);
+}
+.step-card {
+  background: var(--white);
+  padding: 48px 36px;
+  position: relative;
+  transition: background .25s;
+}
+.step-card:hover { background: var(--bg); }
+.step-num {
+  font-family: var(--font-display); font-size: 4.5rem;
+  color: rgba(0,0,0,.04); line-height: 1;
+  position: absolute; top: 20px; right: 24px;
+  user-select: none;
+}
+.step-icon-wrap {
+  width: 52px; height: 52px; border-radius: var(--radius-sm);
+  background: var(--blue-light);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
+}
+.step-icon-wrap svg { width:24px; height:24px; stroke:var(--blue); fill:none; stroke-width:1.7; }
+.step-title {
+  font-family: var(--font-display); font-size: 1.8rem;
+  letter-spacing: .02em; color: var(--dark); margin-bottom: 12px;
+}
+.step-desc { font-size: 14px; color: var(--muted); line-height: 1.75; letter-spacing: -.01em; }
+.step-connector {
+  position: absolute; right: -1px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: none;
+}
+
+/* ─────────────────────────────────────────────
+   WHY K11 SECTION
+───────────────────────────────────────────── */
+.why-section {
+  padding: 112px max(24px, 5vw);
+  background: var(--white);
+  border-bottom: .5px solid var(--border);
+}
+.why-inner { max-width: var(--max-w); margin: 0 auto; }
+.why-header { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: end; margin-bottom: 64px; }
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5px;
+  background: var(--border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: .5px solid var(--border);
+}
+.why-card {
+  background: var(--white);
+  padding: 36px 32px;
+  transition: background .25s;
+}
+.why-card:hover { background: var(--bg2); }
+.why-card-icon {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  background: var(--bg2); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.why-card-icon svg { width: 20px; height: 20px; stroke: var(--dark); fill: none; stroke-width: 1.8; }
+.why-card h3 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 8px; letter-spacing: -.01em; }
+.why-card p { font-size: 13px; color: var(--muted); line-height: 1.75; letter-spacing: -.01em; }
+
+/* ─────────────────────────────────────────────
+   PRODUCTS SECTION
+───────────────────────────────────────────── */
+.products-section {
+  padding: 112px max(24px, 5vw);
+  background: var(--bg2);
+  border-bottom: .5px solid var(--border);
+}
+.products-inner { max-width: var(--max-w); margin: 0 auto; }
+.products-header { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 48px; }
+.prod-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.prod-tab {
+  background: rgba(0,0,0,.05); color: var(--muted);
+  font-size: 13px; font-weight: 600; padding: 7px 16px;
+  border-radius: 980px; border: .5px solid transparent;
+  cursor: pointer; transition: all .2s; font-family: var(--font-body);
+}
+.prod-tab:hover { background: rgba(0,0,0,.08); color: var(--dark); }
+.prod-tab.active { background: var(--dark); color: #fff; }
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.prod-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: .5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all .3s cubic-bezier(.16,1,.3,1);
+  cursor: pointer;
+  display: flex; flex-direction: column;
+}
+.prod-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.prod-card-img {
+  background: var(--bg2);
+  display: flex; align-items: center; justify-content: center;
+  padding: 28px; aspect-ratio: 1;
+  overflow: hidden;
+}
+.prod-card-img img { max-height: 140px; width: auto; object-fit: contain; transition: transform .4s cubic-bezier(.16,1,.3,1); }
+.prod-card:hover .prod-card-img img { transform: scale(1.05) translateY(-4px); }
+.prod-card-body { padding: 20px 20px 24px; flex: 1; display: flex; flex-direction: column; }
+.prod-card-body .tag { margin-bottom: 10px; }
+.prod-card-name { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.3; }
+.prod-card-desc { font-size: 12px; color: var(--muted); line-height: 1.65; flex: 1; margin-bottom: 16px; }
+.prod-card .btn { font-size: 13px; padding: 9px 18px; align-self: flex-start; }
+
+/* Featured product (spans 2 cols) */
+.prod-card.featured {
+  grid-column: span 2;
+  display: grid; grid-template-columns: 1fr 1fr;
+  aspect-ratio: auto;
+}
+.prod-card.featured .prod-card-img {
+  height: 100%; aspect-ratio: auto;
+  border-radius: 0; padding: 40px;
+}
+.prod-card.featured .prod-card-img img { max-height: 200px; }
+.prod-card.featured .prod-card-body { padding: 36px; justify-content: center; border-left: .5px solid var(--border); }
+.prod-card.featured .prod-card-name { font-size: 22px; font-family: var(--font-display); letter-spacing: .02em; margin-bottom: 8px; }
+.prod-card.featured .prod-card-desc { font-size: 13.5px; margin-bottom: 20px; }
+
+/* ─────────────────────────────────────────────
+   COMPARISON
+───────────────────────────────────────────── */
+.comp-section {
+  padding: 96px max(24px, 5vw);
+  background: var(--white);
+  border-bottom: .5px solid var(--border);
+}
+.comp-inner { max-width: 920px; margin: 0 auto; }
+.comp-header { text-align: center; margin-bottom: 48px; }
+.comp-header .section-eyebrow { justify-content: center; }
+.comp-header .section-eyebrow::before { display: none; }
+.comp-table {
+  border: .5px solid var(--border); border-radius: var(--radius-lg);
+  overflow: hidden; background: var(--white); box-shadow: var(--shadow-sm);
+}
+.comp-row {
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  align-items: center; padding: 14px 24px; border-bottom: .5px solid var(--border);
+  font-size: 13px; gap: 8px;
+}
+.comp-row:last-child { border-bottom: none; }
+.comp-row.hdr {
+  background: var(--bg2); font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--light); padding: 12px 24px;
+}
+.comp-row.winner { background: rgba(0,113,227,.03); border-left: 2.5px solid var(--blue); }
+.comp-brand { color: var(--mid); font-weight: 500; }
+.comp-brand-k11 { color: var(--blue); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.you-badge {
+  background: var(--blue); color: #fff;
+  font-size: 9px; font-weight: 700; padding: 2px 7px;
+  border-radius: 980px; letter-spacing: .03em;
+}
+.ci { color: #1A7A3F; font-weight: 700; font-size: 13px; }
+.cx { color: var(--bg3); font-size: 18px; }
+.cp { color: #7A4B00; font-weight: 500; }
+
+/* ─────────────────────────────────────────────
+   DISTRIBUTOR SECTION
+───────────────────────────────────────────── */
+.dist-section {
+  padding: 112px max(24px, 5vw);
+  background: var(--dark);
+  position: relative; overflow: hidden;
+}
+.dist-inner { max-width: var(--max-w); margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.dist-bg {
+  position: absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(0,113,227,.08), transparent);
+}
+.dist-left .section-eyebrow { color: rgba(255,255,255,.5); }
+.dist-left .section-eyebrow::before { background: rgba(255,255,255,.3); }
+.dist-title {
+  font-family: var(--font-display); font-size: clamp(2.5rem,4.5vw,4.5rem);
+  line-height: .93; letter-spacing: .02em; color: #fff; margin-bottom: 20px;
+}
+.dist-title em { color: var(--blue); font-style: normal; }
+.dist-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,.55); line-height: 1.7; margin-bottom: 36px; letter-spacing: -.01em; }
+.dist-benefits { display: grid; gap: 12px; }
+.dist-benefit {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,.04);
+  border: .5px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-md);
+  transition: background .2s;
+}
+.dist-benefit:hover { background: rgba(255,255,255,.07); }
+.dist-benefit-icon {
+  width: 36px; height: 36px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.dist-benefit-icon svg { width:16px; height:16px; stroke:rgba(255,255,255,.7); fill:none; stroke-width:2; }
+.dist-benefit h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; letter-spacing: -.01em; }
+.dist-benefit p { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.55; letter-spacing: -.01em; }
+.dist-right { display: flex; flex-direction: column; gap: 16px; }
+.dist-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px; }
+.dist-stat {
+  background: rgba(255,255,255,.05);
+  border: .5px solid rgba(255,255,255,.08);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  text-align: center;
+  transition: background .2s;
+}
+.dist-stat:hover { background: rgba(255,255,255,.08); }
+.dist-stat-num { font-family: var(--font-display); font-size: 2.5rem; color: #fff; line-height:1; margin-bottom:4px; }
+.dist-stat-num em { color: var(--blue); font-style: normal; }
+.dist-stat-label { font-size: 11px; color: rgba(255,255,255,.4); letter-spacing: .05em; text-transform: uppercase; }
+.dist-cta-card {
+  background: var(--blue); border-radius: var(--radius-lg); padding: 28px 28px 24px;
+}
+.dist-cta-card h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.dist-cta-card p { font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 20px; line-height: 1.6; }
+.btn-white { background: #fff; color: var(--blue); font-size: 14px; padding: 11px 22px; border-radius: 980px; font-weight: 700; border: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all .2s; }
+.btn-white:hover { background: rgba(255,255,255,.92); transform: scale(1.02); }
+
+/* ─────────────────────────────────────────────
+   TESTIMONIALS
+───────────────────────────────────────────── */
+.test-section {
+  padding: 112px max(24px, 5vw);
+  background: var(--white);
+  border-bottom: .5px solid var(--border);
+}
+.test-inner { max-width: var(--max-w); margin:0 auto; }
+.test-header { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:end; margin-bottom:56px; }
+.test-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.test-card {
+  background: var(--bg2);
+  border: .5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  transition: all .3s cubic-bezier(.16,1,.3,1);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.test-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); background: var(--white); border-color: var(--border-strong); }
+.test-stars { display:flex; gap:3px; margin-bottom:16px; }
+.test-stars span { color: var(--gold); font-size:14px; }
+.test-quote { font-size:15px; font-weight:300; color:var(--dark); line-height:1.75; font-style:italic; letter-spacing:-.01em; margin-bottom:28px; flex:1; }
+.test-author { display:flex; align-items:center; gap:12px; }
+.test-avatar {
+  width:36px; height:36px; border-radius:50%;
+  background: var(--blue-light); display:flex; align-items:center; justify-content:center;
+  font-family: var(--font-display); font-size:.9rem; color:var(--blue); flex-shrink:0;
+}
+.test-name { font-size:13px; font-weight:700; color:var(--dark); letter-spacing:-.01em; }
+.test-role { font-size:11px; color:var(--muted); margin-top:1px; }
+
+/* ─────────────────────────────────────────────
+   MARKET / BILLBOARD
+───────────────────────────────────────────── */
+.market-section {
+  padding: 96px max(24px, 5vw);
+  background: var(--bg2);
+  border-top: .5px solid var(--border);
+  border-bottom: .5px solid var(--border);
+  text-align: center;
+}
+.market-inner { max-width: var(--max-w); margin:0 auto; }
+.market-section .section-eyebrow { justify-content: center; }
+.market-section .section-eyebrow::before { display: none; }
+.market-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:.5px; background:var(--border); border-radius:var(--radius-lg); overflow:hidden; border:.5px solid var(--border); margin-top:60px; }
+.market-stat { background:var(--white); padding:36px 20px; transition:background .25s; }
+.market-stat:hover { background:var(--bg); }
+.market-stat-num { font-family:var(--font-display); font-size:clamp(2.4rem,4vw,3.5rem); color:var(--dark); line-height:1; margin-bottom:8px; }
+.market-stat-num em { color:var(--blue); font-style:normal; }
+.market-stat-label { font-size:12px; font-weight:500; color:var(--muted); letter-spacing:.04em; text-transform:uppercase; }
+
+/* ─────────────────────────────────────────────
+   SDS DOCS STRIP
+───────────────────────────────────────────── */
+.docs-strip {
+  padding: 64px max(24px, 5vw);
+  background: var(--white);
+  border-bottom: .5px solid var(--border);
+}
+.docs-strip-inner {
+  max-width: var(--max-w); margin:0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+}
+.docs-strip-left { max-width: 520px; }
+.docs-strip-left h2 { font-family:var(--font-display); font-size:1.8rem; letter-spacing:.02em; color:var(--dark); margin-bottom:8px; }
+.docs-strip-left p { font-size:14px; color:var(--muted); line-height:1.65; }
+.docs-strip-right { display:flex; gap:10px; flex-wrap:wrap; }
+
+/* ─────────────────────────────────────────────
+   FINAL CTA
+───────────────────────────────────────────── */
+.final-cta {
+  padding: 120px max(24px, 5vw);
+  background: var(--bg2);
+  text-align: center;
+  border-bottom: .5px solid var(--border);
+}
+.final-cta-inner { max-width: 680px; margin:0 auto; }
+.final-cta h2 {
+  font-family: var(--font-display); font-size: clamp(3rem,6vw,6rem);
+  line-height: .9; letter-spacing: .02em; color: var(--dark); margin-bottom: 20px;
+}
+.final-cta h2 em { color: var(--blue); font-style: normal; display:block; }
+.final-cta p { font-size:1.05rem; font-weight:300; color:var(--muted); line-height:1.7; max-width:420px; margin:0 auto 44px; }
+.final-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+footer {
+  background: var(--dark);
+  padding: 64px max(24px, 5vw) 32px;
+}
+.footer-inner { max-width: var(--max-w); margin:0 auto; }
+.footer-top {
+  display: grid; grid-template-columns:2fr 1fr 1fr 1fr;
+  gap: 48px; margin-bottom: 48px;
+}
+.footer-brand-logo {
+  display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  cursor:pointer;
+}
+.footer-brand-logo img { width:32px; height:32px; object-fit:contain; }
+.footer-brand-logo span { font-family:var(--font-display); font-size:1.1rem; letter-spacing:3px; color:#fff; }
+.footer-tagline { font-size:13px; color:rgba(255,255,255,.4); line-height:1.65; max-width:220px; margin-bottom:20px; }
+.footer-social { display:flex; gap:8px; }
+.social-btn {
+  width:30px; height:30px; border-radius:50%;
+  background:rgba(255,255,255,.08); border:.5px solid rgba(255,255,255,.1);
+  display:flex; align-items:center; justify-content:center;
+  transition:all .2s; color:rgba(255,255,255,.5);
+}
+.social-btn:hover { background:rgba(255,255,255,.15); color:#fff; transform:scale(1.08); }
+.social-btn svg { width:14px; height:14px; fill:currentColor; }
+.footer-col h4 { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.3); margin-bottom:16px; }
+.footer-col ul { display:grid; gap:10px; }
+.footer-col ul li a, .footer-col ul li button {
+  font-size:13px; color:rgba(255,255,255,.55); transition:color .2s;
+  background:none; border:none; font-family:var(--font-body); padding:0; cursor:pointer;
+  text-align:left;
+}
+.footer-col ul li a:hover, .footer-col ul li button:hover { color:#fff; }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:24px; border-top:.5px solid rgba(255,255,255,.1);
+  font-size:12px; color:rgba(255,255,255,.3); flex-wrap:wrap; gap:12px;
+}
+.footer-bottom a { color:rgba(255,255,255,.4); transition:color .2s; }
+.footer-bottom a:hover { color:#fff; }
+.footer-badge {
+  background:rgba(0,113,227,.2); border:.5px solid rgba(0,113,227,.3);
+  color:rgba(255,255,255,.7); font-size:10px; font-weight:700;
+  letter-spacing:.04em; padding:3px 9px; border-radius:980px;
+}
+
+/* ─────────────────────────────────────────────
+   WHATSAPP FLOAT
+───────────────────────────────────────────── */
+.wa-float {
+  position:fixed; bottom:28px; right:28px; z-index:900;
+  width:52px; height:52px; border-radius:50%;
+  background:#25D366; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 20px rgba(37,211,102,.4); transition:all .25s;
+  animation: fadeIn 1s ease 1.5s both;
+}
+.wa-float:hover { transform:scale(1.1); box-shadow:0 8px 28px rgba(37,211,102,.5); }
+.wa-float svg { width:26px; height:26px; fill:#fff; }
+
+/* ─────────────────────────────────────────────
+   INNER PAGES (shared)
+───────────────────────────────────────────── */
+.page-hero {
+  padding: 120px max(24px, 5vw) 80px;
+  background: var(--white);
+  border-bottom: .5px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.page-hero-bg {
+  position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 50% 70% at 80% 50%, rgba(0,113,227,.04), transparent);
+}
+.breadcrumb { display:flex; gap:6px; font-size:12px; color:var(--light); margin-bottom:20px; letter-spacing:-.01em; }
+.breadcrumb a { color:var(--blue); cursor:pointer; }
+.breadcrumb a:hover { opacity:.7; }
+.breadcrumb span { color:var(--light); }
+.page-h1 { font-family:var(--font-display); font-size:clamp(3rem,6vw,6rem); line-height:.93; letter-spacing:.02em; color:var(--dark); margin-bottom:16px; }
+.page-sub { font-size:1.1rem; font-weight:300; color:var(--muted); max-width:540px; line-height:1.75; }
+
+/* Products page */
+.filter-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+.filter-btn {
+  background:rgba(0,0,0,.05); color:var(--muted);
+  font-size:13px; font-weight:600; padding:7px 16px;
+  border-radius:980px; border:.5px solid transparent;
+  cursor:pointer; transition:all .2s; font-family:var(--font-body);
+}
+.filter-btn:hover { background:rgba(0,0,0,.08); color:var(--dark); }
+.filter-btn.active { background:var(--dark); color:#fff; border-color:var(--dark); }
+
+.pf-grid { display:grid; gap:2px; background:var(--border); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-md); }
+.pf-card { background:var(--white); display:grid; grid-template-columns:1fr 1fr; transition:background .2s; min-height:560px; }
+.pf-card:nth-child(even) .pf-img-wrap { order:2; }
+.pf-card:nth-child(even) .pf-content { order:1; border-left:none; border-right:2px solid var(--border); }
+.pf-card:hover { background:var(--bg); }
+
+/* Image wrapper */
+.pf-img-wrap {
+  position:relative; overflow:hidden;
+  background:linear-gradient(150deg, #efefef 0%, #e6e6e6 100%);
+  display:flex; flex-direction:column;
+}
+.pf-img-main {
+  flex:1; display:flex; align-items:center; justify-content:center;
+  padding:10% 9%; min-height:360px;
+  position:relative; overflow:hidden;
+}
+.pf-img-main img {
+  width:100%; height:100%;
+  max-height:380px;
+  object-fit:contain;
+  display:block;
+  filter:drop-shadow(0 16px 40px rgba(0,0,0,0.15));
+  transition:transform .65s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+.pf-card:hover .pf-img-main img { transform:scale(1.06) translateY(-6px); }
+
+/* Badge overlay */
+.pf-img-badge {
+  position:absolute; top:18px; left:18px; z-index:2;
+  font-family:var(--font-body); font-size:.7rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  background:rgba(255,255,255,.9); backdrop-filter:blur(10px);
+  border:.5px solid rgba(0,0,0,.09); color:var(--dark);
+  padding:5px 13px; border-radius:980px;
+}
+
+/* Thumbnail strip */
+.pf-img-thumbs {
+  display:flex; gap:2px; background:var(--border);
+  border-top:2px solid var(--border);
+  flex-shrink:0;
+}
+.pf-img-thumb {
+  flex:1; height:100px; cursor:pointer;
+  background:var(--bg3);
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s, outline .15s;
+  outline:2px solid transparent; outline-offset:-2px;
+}
+.pf-img-thumb:hover { background:var(--bg2); }
+.pf-img-thumb.active { background:var(--white); outline-color:var(--blue); }
+.pf-img-thumb img {
+  width:100%; height:100%; object-fit:contain;
+  padding:12px;
+  transition:transform .3s ease;
+}
+.pf-img-thumb:hover img { transform:scale(1.1); }
+
+/* Legacy .pf-img (fallback) */
+.pf-img {
+  position:relative; overflow:hidden;
+  background:linear-gradient(150deg, #efefef 0%, #e6e6e6 100%);
+  display:flex; align-items:center; justify-content:center;
+  padding:8% 10%; min-height:420px;
+}
+.pf-img img {
+  width:auto; max-width:85%; height:auto; max-height:360px;
+  object-fit:contain; display:block;
+  filter:drop-shadow(0 10px 30px rgba(0,0,0,0.13));
+  transition:transform .5s cubic-bezier(.16,1,.3,1);
+}
+.pf-card:hover .pf-img img { transform:scale(1.05) translateY(-4px); }
+
+.pf-content { padding:3rem 2.8rem; border-left:2px solid var(--border); display:flex; flex-direction:column; justify-content:center; }
+.pf-num { font-family:var(--font-display); font-size:5rem; color:rgba(0,0,0,.04); line-height:1; margin-bottom:.8rem; }
+.pf-title { font-family:var(--font-display); font-size:2.2rem; letter-spacing:.03em; line-height:1; margin-bottom:.7rem; color:var(--dark); }
+.pf-desc { font-size:.9rem; color:var(--muted); line-height:1.8; margin-bottom:1.4rem; }
+.pf-features { display:grid; gap:.5rem; margin-bottom:1.6rem; }
+.pf-features li { display:flex; align-items:flex-start; gap:.7rem; font-size:.85rem; color:var(--muted); line-height:1.55; }
+.pf-features li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--blue); flex-shrink:0; margin-top:.45rem; }
+.pf-compat { display:flex; flex-wrap:wrap; gap:.3rem; margin-bottom:1.6rem; }
+.compat-pill { background:rgba(0,0,0,.05); border:.5px solid rgba(0,0,0,.08); color:var(--muted); font-size:11px; font-weight:600; padding:3px 9px; border-radius:980px; letter-spacing:-.01em; }
+.pf-actions { display:flex; gap:.8rem; flex-wrap:wrap; align-items:center; }
+
+/* Brand Banner */
+.brand-banner {
+  position: relative; width: 100%; height: 520px; overflow: hidden;
+  background: #1a1a1a;
+}
+.brand-banner-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 30%;
+  display: block;
+  transition: transform 8s ease;
+}
+.brand-banner:hover .brand-banner-img { transform: scale(1.03); }
+.brand-banner-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0) 40%,
+    rgba(0,0,0,0.45) 100%
+  );
+  pointer-events: none;
+}
+.brand-banner-label {
+  position: absolute; bottom: 28px; left: max(24px, 5vw);
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-body); font-size: .85rem; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: rgba(255,255,255,.9);
+}
+.brand-banner-sep { opacity: .4; }
+
+/* Dosing table (Solutions Guide) */
+.dosing-section { padding:80px max(24px,5vw); background:var(--white); border-top:.5px solid var(--border); }
+.dt-main-title { font-family:var(--font-display); font-size:clamp(2rem,4vw,2.8rem); color:#4a90e2; letter-spacing:.02em; margin-bottom:3rem; text-align:center; text-transform:uppercase; }
+.dosing-table-new { display:flex; flex-direction:column; gap:0; max-width:1100px; margin:0 auto; font-family:var(--font-body); }
+.dtn-row { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr 1.2fr; border-bottom:2px solid #55c896; min-height:120px; align-items:center; }
+.dtn-row:last-child { border-bottom:none; }
+.dtn-row.hdr { border-bottom:3px solid #4a90e2; min-height:auto; padding-bottom:1rem; align-items:end; }
+.dtn-col { padding:1rem; position:relative; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; font-size:.95rem; color:var(--dark); line-height:1.4; height:100%; }
+.dtn-col:not(:first-child):not(:last-child)::after { content:''; position:absolute; right:0; top:15%; bottom:15%; width:1px; border-right:2px dashed #4a90e2; opacity:.5; }
+.dtn-row:nth-child(even) .dtn-col:not(:first-child):not(:last-child)::after { border-color:#55c896; }
+.dtn-row.hdr .dtn-col { font-family:var(--font-display); font-size:1.5rem; font-weight:normal; letter-spacing:.04em; color:var(--dark); height:auto; }
+.dtn-row.hdr .dtn-col::after { top:10%; bottom:10%; border-right:2px dashed #4a90e2; }
+.dtn-img { width:100%; max-width:200px; height:auto; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(0,0,0,.08)); margin-right:auto; }
+.dt-blue { color:var(--dark); font-weight:600; font-size:1.05rem; }
+
+/* Compat page */
+.compat-full { background:var(--white); padding:80px max(24px,5vw); border-top:.5px solid var(--border); }
+.compat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; margin-top:2.5rem; }
+.compat-card { background:var(--bg2); border:.5px solid var(--border); border-radius:var(--radius-sm); padding:1.1rem; text-align:center; transition:all .2s; }
+.compat-card:hover { border-color:rgba(0,113,227,.3); transform:translateY(-2px); }
+.compat-card .ref { font-family:var(--font-display); font-size:1.4rem; color:var(--blue); margin-bottom:.2rem; }
+.compat-card .ref-name { font-size:.75rem; color:var(--muted); }
+
+/* How It Works page */
+.how-page { background:var(--white); }
+.steps-wrap { display:grid; grid-template-columns:1fr 1fr; gap:5rem; margin-top:4rem; align-items:start; }
+.steps-list { position:relative; }
+.steps-list::before { content:''; position:absolute; left:23px; top:46px; bottom:46px; width:1px; background:var(--border); }
+.step-row { display:flex; gap:1.5rem; padding:2rem 0; cursor:pointer; }
+.step-circle { width:48px; height:48px; border-radius:50%; flex-shrink:0; border:1.5px solid var(--border); background:var(--white); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.2rem; color:var(--muted); transition:all .3s; position:relative; z-index:1; }
+.step-row.active .step-circle { background:var(--blue); border-color:var(--blue); color:#fff; }
+.step-row h3 { font-size:1rem; font-weight:700; margin-bottom:.4rem; color:var(--dark); }
+.step-row.active h3 { color:var(--blue); }
+.step-row p { font-size:.88rem; color:var(--muted); line-height:1.7; }
+.step-visual { position:sticky; top:76px; background:var(--bg2); border:.5px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; padding:2.5rem; aspect-ratio:1; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--shadow-sm); }
+@keyframes scanline { 0% { top:-10%; } 100% { top:110%; } }
+.sv-scan { position:absolute; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(0,113,227,.4),transparent); animation:scanline 3s linear infinite; opacity:.6; }
+.sv-title { font-family:var(--font-display); font-size:1.2rem; letter-spacing:2px; color:var(--blue); }
+.sv-stepnum { font-size:.72rem; font-weight:600; color:var(--muted); letter-spacing:2px; margin-top:.2rem; }
+.sv-diagram { flex:1; display:flex; align-items:center; justify-content:center; }
+.sv-ring { width:140px; height:140px; border-radius:50%; border:1.5px solid rgba(0,113,227,.25); display:flex; align-items:center; justify-content:center; position:relative; animation:float 4s ease-in-out infinite; }
+.sv-ring::after { content:''; position:absolute; inset:-14px; border-radius:50%; border:1px solid rgba(0,113,227,.1); }
+.sv-ring strong { display:block; font-family:var(--font-display); font-size:2rem; color:var(--blue); text-align:center; }
+.sv-ring span { display:block; font-size:.65rem; font-weight:600; color:var(--muted); letter-spacing:2px; text-transform:uppercase; text-align:center; }
+.sv-dots { display:flex; gap:.4rem; margin-top:1rem; }
+.sv-dot { width:6px; height:6px; border-radius:50%; background:var(--border); transition:background .3s; }
+.sv-dot.on { background:var(--blue); }
+.leak-guide { background:var(--bg2); padding:6rem max(24px,5vw); border-top:.5px solid var(--border); }
+.leak-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-top:3rem; box-shadow:var(--shadow-sm); }
+.leak-card { background:var(--white); padding:2.5rem; text-align:center; transition:background .2s; }
+.leak-card:hover { background:var(--bg); }
+.leak-days { font-family:var(--font-display); font-size:3.5rem; line-height:1; margin-bottom:.8rem; }
+.leak-type { font-size:.7rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem; padding:.3rem .8rem; border-radius:4px; display:inline-block; }
+.lt-green { color:var(--green); background:rgba(26,122,63,.1); }
+.lt-yellow { color:#7A4B00; background:rgba(122,75,0,.1); }
+.lt-red { color:#7A1A1A; background:rgba(122,26,26,.1); }
+.leak-card p { font-size:.88rem; color:var(--muted); line-height:1.7; }
+
+/* FAQ section */
+.faq-section { background:var(--bg2); padding:96px max(24px,5vw); border-top:.5px solid var(--border); }
+.faq-inner { max-width:760px; margin:0 auto; }
+.faq-list { margin-top:48px; display:grid; gap:2px; }
+.faq-item { background:var(--white); border-radius:var(--radius-md); overflow:hidden; }
+.faq-q { display:flex; justify-content:space-between; align-items:center; padding:18px 22px; cursor:pointer; font-size:15px; font-weight:600; color:var(--dark); letter-spacing:-.01em; user-select:none; transition:background .2s; gap:16px; }
+.faq-q:hover { background:rgba(0,0,0,.02); }
+.faq-icon { width:22px; height:22px; border-radius:50%; background:var(--bg2); flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:transform .3s, background .3s; position:relative; }
+.faq-icon::before, .faq-icon::after { content:''; position:absolute; background:var(--muted); border-radius:1px; transition:all .3s; }
+.faq-icon::before { width:8px; height:1.5px; }
+.faq-icon::after { width:1.5px; height:8px; }
+.faq-item.open .faq-icon { transform:rotate(45deg); background:var(--blue); }
+.faq-item.open .faq-icon::before, .faq-item.open .faq-icon::after { background:#fff; }
+.faq-a { max-height:0; overflow:hidden; transition:max-height .4s cubic-bezier(.16,1,.3,1); }
+.faq-a-inner { padding:0 22px 18px; font-size:14px; color:var(--muted); line-height:1.8; border-top:.5px solid var(--border); padding-top:14px; }
+.faq-item.open .faq-a { max-height:300px; }
+
+/* About */
+.about-layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; margin-top:4rem; }
+.about-photo { border-radius:var(--radius-lg); overflow:hidden; border:.5px solid var(--border); box-shadow:var(--shadow-md); }
+.about-photo img { width:100%; height:100%; object-fit:cover; display:block; aspect-ratio:4/3; }
+.about-text p { font-size:.95rem; color:var(--muted); line-height:1.82; margin-bottom:1.2rem; }
+.about-text strong { color:var(--dark); font-weight:600; }
+.tl-wrap { padding:6rem max(24px,5vw); background:var(--bg2); border-top:.5px solid var(--border); }
+.tl-list { position:relative; margin-top:3.5rem; padding-left:2.5rem; }
+.tl-list::before { content:''; position:absolute; left:0; top:8px; bottom:8px; width:1px; background:var(--border); }
+.tl-item { position:relative; padding-bottom:2.5rem; }
+.tl-item:last-child { padding-bottom:0; }
+.tl-dot { position:absolute; left:-2.5rem; top:6px; width:12px; height:12px; border-radius:50%; background:var(--white); border:1.5px solid var(--border); transform:translateX(-5px); transition:all .3s; }
+.tl-item:hover .tl-dot { border-color:var(--blue); background:rgba(0,113,227,.15); }
+.tl-year { font-family:var(--font-display); font-size:1rem; color:var(--blue); letter-spacing:2px; margin-bottom:.3rem; }
+.tl-item h3 { font-size:1rem; font-weight:700; margin-bottom:.4rem; color:var(--dark); }
+.tl-item p { font-size:.88rem; color:var(--muted); line-height:1.65; max-width:560px; }
+.vals-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-top:3.5rem; box-shadow:var(--shadow-sm); }
+.val-card { background:var(--white); padding:2.5rem; transition:background .2s; }
+.val-card:hover { background:var(--bg2); }
+.val-icon { width:44px; height:44px; border-radius:10px; background:var(--bg2); display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem; }
+.val-icon svg { width:20px; height:20px; stroke:var(--blue); fill:none; stroke-width:1.8; }
+.val-card h3 { font-size:1rem; font-weight:700; margin-bottom:.5rem; color:var(--dark); }
+.val-card p { font-size:.88rem; color:var(--muted); line-height:1.65; }
+.k11-layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; margin-top:3rem; }
+.k11-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-sm); }
+.k11-stat { background:var(--white); padding:2rem; text-align:center; }
+.k11-stat-num { font-family:var(--font-display); font-size:3rem; color:var(--blue); line-height:1; margin-bottom:.4rem; }
+.k11-stat-label { font-size:.72rem; font-weight:600; color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; }
+.team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3.5rem; }
+.team-card { background:var(--white); border:.5px solid var(--border); border-radius:var(--radius-md); padding:2rem; text-align:center; transition:all .25s; box-shadow:var(--shadow-sm); }
+.team-card:hover { border-color:rgba(0,113,227,.3); transform:translateY(-3px); }
+.team-avatar { width:72px; height:72px; border-radius:50%; margin:0 auto 1.2rem; background:var(--blue-light); border:1.5px solid rgba(0,113,227,.2); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.6rem; color:var(--blue); }
+.team-name { font-size:1rem; font-weight:700; margin-bottom:.25rem; color:var(--dark); }
+.team-role { font-size:.78rem; color:var(--blue); margin-bottom:.7rem; font-weight:600; }
+.team-bio { font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+/* Contact */
+.contact-layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; margin-top:4rem; align-items:start; }
+.cform { background:var(--white); border:.5px solid var(--border); border-radius:var(--radius-lg); padding:2.5rem; box-shadow:var(--shadow-sm); }
+.cform-title { font-family:var(--font-display); font-size:2rem; margin-bottom:.4rem; color:var(--dark); }
+.cform-sub { font-size:.9rem; color:var(--muted); margin-bottom:2rem; line-height:1.6; }
+.fg { margin-bottom:1.2rem; }
+.fr { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+label { display:block; font-size:.73rem; font-weight:700; color:var(--light); letter-spacing:.08em; text-transform:uppercase; margin-bottom:.4rem; }
+input, select, textarea { width:100%; background:var(--bg2); border:.5px solid var(--border); color:var(--dark); font-family:var(--font-body); font-size:.9rem; padding:.75rem 1rem; border-radius:var(--radius-sm); outline:none; transition:border-color .2s; -webkit-appearance:none; }
+input:focus, select:focus, textarea:focus { border-color:rgba(0,113,227,.4); background:var(--white); }
+input::placeholder, textarea::placeholder { color:var(--light); }
+select option { background:#fff; color:var(--dark); }
+textarea { resize:vertical; min-height:110px; }
+.sbtn { width:100%; padding:.95rem; border-radius:var(--radius-sm); background:var(--blue); color:#fff; font-family:var(--font-body); font-size:1rem; font-weight:700; cursor:pointer; border:none; transition:all .2s; margin-top:.5rem; }
+.sbtn:hover { background:var(--blue-hover); transform:translateY(-1px); }
+.success-msg { display:none; background:rgba(26,122,63,.08); border:.5px solid rgba(26,122,63,.3); border-radius:var(--radius-sm); padding:.9rem 1.1rem; font-size:.88rem; color:var(--green); margin-top:1rem; text-align:center; }
+.info-cards { display:grid; gap:1.2rem; }
+.icard { background:var(--white); border:.5px solid var(--border); border-radius:var(--radius-md); padding:1.5rem; transition:border-color .2s; box-shadow:var(--shadow-sm); }
+.icard:hover { border-color:rgba(0,113,227,.25); }
+.icard-icon { width:36px; height:36px; background:var(--blue-light); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; margin-bottom:.8rem; }
+.icard-icon svg { width:16px; height:16px; stroke:var(--blue); fill:none; stroke-width:2; }
+.icard h3 { font-size:.85rem; font-weight:700; color:var(--dark); margin-bottom:.2rem; }
+.icard p, .icard a { font-size:.88rem; color:var(--muted); line-height:1.55; }
+.icard a:hover { color:var(--blue); }
+.dist-section-contact { background:var(--bg2); padding:6rem max(24px,5vw); border-top:.5px solid var(--border); }
+.dist-layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; margin-top:3.5rem; }
+.dist-benefits-list { display:grid; gap:.8rem; }
+.dist-item { display:flex; align-items:flex-start; gap:1rem; padding:1.1rem; background:var(--white); border-radius:var(--radius-sm); border:.5px solid var(--border); transition:border-color .2s; box-shadow:var(--shadow-sm); }
+.dist-item:hover { border-color:rgba(26,122,63,.3); }
+.dist-num { font-family:var(--font-display); font-size:2rem; color:var(--blue); line-height:1; flex-shrink:0; min-width:2.2rem; }
+.dist-item h4 { font-size:.9rem; font-weight:700; margin-bottom:.25rem; color:var(--dark); }
+.dist-item p { font-size:.83rem; color:var(--muted); line-height:1.55; }
+.dist-form-card { background:var(--white); border:.5px solid rgba(26,122,63,.2); border-radius:var(--radius-md); padding:2.5rem; box-shadow:var(--shadow-sm); }
+.dist-form-title { font-family:var(--font-display); font-size:1.8rem; margin-bottom:.3rem; color:var(--dark); }
+.dist-form-sub { font-size:.88rem; color:var(--muted); margin-bottom:2rem; line-height:1.6; }
+.dsbtn { width:100%; padding:.95rem; border-radius:var(--radius-sm); background:var(--green); color:#fff; font-family:var(--font-body); font-size:1rem; font-weight:700; cursor:pointer; border:none; transition:all .2s; margin-top:.5rem; }
+.dsbtn:hover { background:#155e34; transform:translateY(-1px); }
+
+/* Docs page  */
+.docs-section { padding:80px max(24px,5vw); background:var(--white); }
+.docs-inner { max-width:1100px; margin:0 auto; }
+.docs-note { background:var(--blue-light); border:.5px solid rgba(0,113,227,.15); border-radius:var(--radius-md); padding:18px 22px; display:flex; gap:12px; align-items:flex-start; font-size:14px; color:var(--mid); line-height:1.6; margin-bottom:48px; }
+.docs-note svg { width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:2; flex-shrink:0; margin-top:1px; }
+.docs-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--border); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-sm); }
+.doc-card { background:var(--white); padding:36px; transition:background .2s; }
+.doc-card:hover { background:var(--bg2); }
+.doc-card-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px; }
+.doc-icon { width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; }
+.doc-icon.blue { background:var(--blue-light); }
+.doc-icon.gold { background:rgba(200,137,14,.1); }
+.doc-icon.green { background:var(--green-light); }
+.doc-icon.gray { background:rgba(0,0,0,.06); }
+.doc-icon svg { width:20px; height:20px; fill:none; stroke-width:1.8; }
+.doc-icon.blue svg { stroke:var(--blue); }
+.doc-icon.gold svg { stroke:var(--gold); }
+.doc-icon.green svg { stroke:var(--green); }
+.doc-icon.gray svg { stroke:var(--muted); }
+.doc-product { font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--light); margin-bottom:5px; }
+.doc-title { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--dark); line-height:1.05; margin-bottom:7px; }
+.doc-desc { font-size:13px; color:var(--muted); line-height:1.6; margin-bottom:18px; }
+.doc-meta { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px; }
+.doc-meta-item { display:flex; align-items:center; gap:4px; font-size:11px; color:var(--light); }
+.doc-meta-item svg { width:11px; height:11px; stroke:var(--light); fill:none; stroke-width:2; }
+.doc-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.btn-download { display:inline-flex; align-items:center; gap:6px; background:var(--dark); color:#fff; font-size:13px; font-weight:600; padding:9px 16px; border-radius:980px; transition:all .2s; }
+.btn-download:hover { background:#3a3a3c; transform:scale(1.02); }
+.btn-download.disabled { background:var(--bg3); color:var(--light); cursor:not-allowed; pointer-events:none; }
+.btn-request { display:inline-flex; align-items:center; gap:6px; background:transparent; color:var(--blue); font-size:13px; font-weight:600; padding:8px 16px; border-radius:980px; border:1px solid rgba(0,113,227,.25); transition:all .2s; }
+.btn-request:hover { background:var(--blue-light); border-color:var(--blue); }
+.doc-card.featured { grid-column:span 2; display:grid; grid-template-columns:auto 1fr; padding:0; overflow:hidden; }
+.featured-stripe { background:var(--dark); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:36px 28px; min-width:160px; }
+.featured-stripe-text { font-family:'Bebas Neue',sans-serif; font-size:.95rem; color:rgba(255,255,255,.4); letter-spacing:3px; text-transform:uppercase; writing-mode:vertical-rl; transform:rotate(180deg); }
+.featured-stripe-dot { width:8px; height:8px; border-radius:50%; background:var(--blue); margin:16px auto 0; }
+.featured-content { padding:36px; }
+.sds-sections { background:var(--bg2); padding:80px max(24px,5vw); border-top:.5px solid var(--border); }
+.sds-inner { max-width:1100px; margin:0 auto; }
+.sds-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:40px; }
+.sds-item { background:var(--white); border:.5px solid var(--border); border-radius:var(--radius-md); padding:22px; transition:all .2s; }
+.sds-item:hover { border-color:rgba(0,113,227,.3); box-shadow:0 4px 16px rgba(0,0,0,.06); }
+.sds-num { font-size:10px; font-weight:700; color:var(--light); letter-spacing:.08em; text-transform:uppercase; margin-bottom:7px; }
+.sds-title { font-family:'Bebas Neue',sans-serif; font-size:17px; color:var(--dark); line-height:1.1; margin-bottom:7px; }
+.sds-desc { font-size:12px; color:var(--muted); line-height:1.6; }
+.request-banner { background:var(--dark); padding:80px max(24px,5vw); text-align:center; }
+.request-banner h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.4rem,5vw,4.5rem); color:#fff; line-height:.95; margin-bottom:12px; }
+.request-banner p { font-size:15px; font-weight:300; color:rgba(255,255,255,.5); max-width:420px; margin:0 auto 32px; line-height:1.6; }
+
+/* Privacy / Terms  */
+.legal-wrap { max-width:720px; margin:0 auto; padding:80px 40px; font-size:15px; line-height:1.85; color:var(--mid); }
+.legal-wrap h1 { font-family:var(--font-display); font-size:3rem; color:var(--dark); margin-bottom:.5rem; }
+.legal-wrap h2 { font-family:var(--font-display); font-size:1.6rem; color:var(--dark); margin:2.5rem 0 .5rem; }
+.legal-wrap p, .legal-wrap li { margin-bottom:.8rem; }
+.legal-wrap ul { padding-left:1.5rem; list-style:disc; }
+.legal-wrap a { color:var(--blue); }
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+@media(max-width:1024px){
+  .metrics-grid { grid-template-columns:repeat(3,1fr); }
+  .metric-card:nth-child(4), .metric-card:nth-child(5) { grid-column: span 1; }
+  .why-header { grid-template-columns:1fr; }
+  .why-grid { grid-template-columns:repeat(2,1fr); }
+  .products-header { grid-template-columns:1fr; }
+}
+@media(max-width:900px){
+  nav { padding:0 20px; }
+  .nav-links { display:none !important; }
+  .nav-cta { display:none; }
+  .nav-mobile-btn { display:flex !important; }
+  #page-home .hero { grid-template-columns:1fr; min-height:auto; }
+  .hero-left { padding:100px 28px 48px; max-width:100%; }
+  .hero-trust { grid-template-columns:1fr; }
+  .hero-right { min-height:380px; border-left:none; border-top:.5px solid var(--border); }
+  .hero-float-stat { display:none; }
+  .metrics-grid { grid-template-columns:repeat(2,1fr); }
+  .how-section .steps-grid { grid-template-columns:1fr; }
+  .why-grid { grid-template-columns:1fr; }
+  .prod-grid { grid-template-columns:1fr 1fr; }
+  .prod-card.featured { grid-column:auto; grid-template-columns:1fr; }
+  .prod-card.featured .prod-card-img { height:220px; aspect-ratio:auto; }
+  .prod-card.featured .prod-card-body { border-left:none; border-top:.5px solid var(--border); }
+  .comp-row { grid-template-columns:1fr 1fr; }
+  .comp-row > *:nth-child(n+4) { display:none; }
+  .dist-inner { grid-template-columns:1fr; gap:40px; }
+  .dist-stat-grid { grid-template-columns:repeat(2,1fr); }
+  .test-header { grid-template-columns:1fr; }
+  .test-grid { grid-template-columns:1fr; }
+  .market-stats { grid-template-columns:repeat(2,1fr); }
+  .docs-grid { grid-template-columns:1fr; }
+  .doc-card.featured { grid-column:auto; grid-template-columns:1fr; }
+  .featured-stripe { writing-mode:horizontal-tb; transform:none; min-width:auto; padding:20px 28px; }
+  .featured-stripe-text { writing-mode:horizontal-tb; transform:none; }
+  .sds-grid { grid-template-columns:1fr 1fr; }
+  .footer-top { grid-template-columns:1fr 1fr; gap:32px; }
+  .about-layout, .k11-layout, .contact-layout, .dist-layout { grid-template-columns:1fr; }
+  .vals-grid, .team-grid { grid-template-columns:1fr; }
+  .steps-wrap { grid-template-columns:1fr; }
+  .step-visual { display:none; }
+  .leak-grid { grid-template-columns:1fr; }
+  .fr { grid-template-columns:1fr; }
+  .docs-strip-inner { flex-direction:column; gap:24px; }
+}
+@media(max-width:640px){
+  .metrics-grid { grid-template-columns:1fr 1fr; }
+  .prod-grid { grid-template-columns:1fr; }
+  .dist-stat-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+  .sds-grid { grid-template-columns:1fr; }
+  .vals-grid { grid-template-columns:1fr; }
+  .hero-h1 { font-size:3rem; }
+  .final-cta h2 { font-size:3rem; }
+  .market-stats { grid-template-columns:1fr 1fr; }
+}
+
+/* Pre-Order Campaign CSS */
+.top-bar { background: var(--blue); color: #fff; padding: 10px 24px; text-align: center; font-size: .85rem; font-weight: 500; font-family: var(--font-body); position: relative; z-index: 1000; letter-spacing: 0.02em; }
+.top-bar a { color: #fff; text-decoration: underline; font-weight: 600; margin-left: 8px; cursor: pointer; transition: opacity 0.2s; }
+.top-bar a:hover { opacity: .8; }
+.preorder-section { background: var(--dark); color: #fff; padding: 100px max(24px,5vw); text-align: center; position: relative; overflow: hidden; }
+.preorder-bg { position: absolute; inset: 0; background: radial-gradient(circle at 50% -20%, rgba(0,113,227,0.2) 0%, transparent 60%); pointer-events: none; }
+.preorder-inner { position: relative; z-index: 2; max-width: 650px; margin: 0 auto; }
+.preorder-h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.05; margin-bottom: 1.5rem; letter-spacing: .02em; }
+.preorder-p { font-size: 1.1rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 2.5rem; }
+.preorder-form { display: flex; flex-direction: column; gap: 15px; }
+.preorder-form input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 18px 24px; color: #fff; font-size: 1rem; outline: none; transition: border-color .2s; }
+.preorder-form input::placeholder { color: rgba(255,255,255,0.4); }
+.preorder-form input:focus { border-color: var(--blue); }
+.preorder-form button { background: var(--blue); color: #fff; border: none; border-radius: 8px; padding: 18px; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: background .2s; line-height: 1; }
+.preorder-form button:hover { background: var(--blue-hover); }
+.preorder-success { display: none; background: rgba(26,122,63,.1); border: 1px solid rgba(26,122,63,.3); border-radius: 8px; padding: 2.5rem 2rem; color: #55c896; animation: fadeUp 0.5s ease; }
+.preorder-success h3 { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: .8rem; color:#fff; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════════ -->
+<div class="top-bar">
+  🚀 K11 2025 US Launch — Pre-order now and get 20% off your first bulk purchase. <a onclick="nav('home'); setTimeout(() => document.getElementById('preorder').scrollIntoView({behavior:'smooth', block:'center'}), 100)">Claim Discount</a>
+</div>
+<nav id="navbar">
+  <div class="nav-logo" onclick="nav('home')">
+    <img src="https://k11.com.mx/wp-content/uploads/2025/05/AMICA-700-x-500-px.png" alt="Wylco K11" style="height:34px;width:34px;object-fit:contain">
+    <span class="nav-logo-name">WYLCO</span>
+  </div>
+  <div class="nav-links">
+    <a id="nl-home" onclick="nav('home')">Home</a>
+    <a id="nl-products" onclick="nav('products')">Products</a>
+    <a id="nl-how" onclick="nav('how')">How It Works</a>
+    <a id="nl-contact" onclick="nav('contact','distributors')">Distributors</a>
+    <a id="nl-docs" onclick="nav('docs')">SDS Docs</a>
+    <a id="nl-contactb" onclick="nav('contact')">Contact</a>
+    <button class="nav-cta" onclick="nav('contact')">Get a Quote</button>
+  </div>
+  <button class="nav-mobile-btn" onclick="toggleMenu()" aria-label="Menu" style="display:none">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="nav('home');toggleMenu()">Home</a>
+  <a onclick="nav('products');toggleMenu()">Products</a>
+  <a onclick="nav('how');toggleMenu()">How It Works</a>
+  <a onclick="nav('contact','distributors');toggleMenu()">Distributors</a>
+  <a onclick="nav('docs');toggleMenu()">SDS Docs</a>
+  <a onclick="nav('contact');toggleMenu()">Contact</a>
+  <a onclick="nav('contact');toggleMenu()">Get a Quote →</a>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════
+   HOME PAGE
+═══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-dot"></span>
+      Official K11 Distributor · Miami, FL
+    </div>
+    <h1 class="hero-h1">
+      One Injection.<br>
+      <em>Permanent</em><br>
+      Leak Protection.
+    </h1>
+    <p class="hero-sub">
+      K11 is the professional HVAC-R sealant that permanently stops micro-leaks and detects them with UV fluorescence — simultaneously, in a single injection. Built for US contractors.
+    </p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="nav('home'); document.getElementById('preorder').scrollIntoView({behavior:'smooth', block:'center'})">
+        Pre-Order Now
+        <svg class="arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <button class="btn btn-ghost" onclick="nav('how')">See How It Works</button>
+    </div>
+    <div class="hero-text-link">
+      <button class="btn-text" onclick="nav('contact','distributors')">
+        Become a Distributor
+        <svg class="arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Compatible with all refrigerants
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>
+        No system evacuation required
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Ships from Miami — nationwide
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2c-1.72-.18-3.37-.7-4.86-1.5a15 15 0 01-3.5-3.5 15 15 0 01-1.5-4.88 2 2 0 011.98-2.18h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.89a2 2 0 01-.45 2.11l-1.27 1.27a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.92.35 1.88.59 2.88.72A2 2 0 0122 16.92z"/></svg>
+        Technical support available
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-right-inner">
+      <div class="hero-product-card" id="hero-card">
+        <img id="hero-card-img" src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="K11 TapaFugas 2-in-1 professional HVAC-R sealant">
+        <div class="hero-product-card-info" id="hero-card-info">
+          <span class="tag" id="hero-card-tag">Bestseller · 2-in-1 Technology</span>
+          <h3 id="hero-card-name">K11 TapaFugas 2-in-1</h3>
+          <p id="hero-card-desc">Seals AND detects — simultaneously. The only sealant of its kind in the US market.</p>
+        </div>
+        <div class="hero-card-dots" id="hero-card-dots"></div>
+      </div>
+      <div class="hero-float-stat hfs-1">
+        <div class="stat-num">12<em>+</em></div>
+        <div class="stat-label">Years OEM Validated</div>
+      </div>
+      <div class="hero-float-stat hfs-2">
+        <div class="stat-num">80<em>%</em></div>
+        <div class="stat-label">AC Failures from Leaks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>ASHRAE Certified</div>
+  <div class="proof-divider"></div>
+  <div class="proof-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>OEM Manufacturer Validated</div>
+  <div class="proof-divider"></div>
+  <div class="proof-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>12+ Years Proven in the Field</div>
+  <div class="proof-divider"></div>
+  <div class="proof-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Miami, Florida · Ships Nationwide</div>
+  <div class="proof-divider"></div>
+  <div class="proof-item"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Same-Day Dispatch Available</div>
+</div>
+
+<!-- BRAND BANNER -->
+<div class="brand-banner reveal">
+  <img src="k11-banner.jpg.png" alt="K11 America — HVAC-R technician Miami rooftop nationwide" class="brand-banner-img">
+  <div class="brand-banner-overlay"></div>
+  <div class="brand-banner-label">
+    <span>K11 America</span>
+    <span class="brand-banner-sep">·</span>
+    <span>Advancing HVAC-R Innovation Across the USA</span>
+  </div>
+</div>
+
+<!-- METRICS -->
+<section class="metrics-section">
+  <div class="metrics-inner">
+    <div class="metrics-header reveal">
+      <div class="section-eyebrow">By the Numbers</div>
+      <div class="section-title">K11 America at a glance.</div>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card reveal d1">
+        <div class="metric-num">12<em>+</em></div>
+        <div class="metric-label">Years proven in the field by OEM manufacturers</div>
+      </div>
+      <div class="metric-card reveal d2">
+        <div class="metric-num">$9.6<em>B</em></div>
+        <div class="metric-label">Florida HVAC market size in 2026</div>
+      </div>
+      <div class="metric-card reveal d3">
+        <div class="metric-num">9.8<em>K</em></div>
+        <div class="metric-label">HVAC businesses in Florida alone</div>
+      </div>
+      <div class="metric-card reveal d4">
+        <div class="metric-num">24<em>h</em></div>
+        <div class="metric-label">Nationwide shipping from Miami, FL</div>
+      </div>
+      <div class="metric-card reveal d5">
+        <div class="metric-num">80<em>%</em></div>
+        <div class="metric-label">Of AC failures originate from micro-leaks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="how-header reveal">
+      <div class="section-eyebrow">Application</div>
+      <div class="section-title">Simple. Fast. Professional.</div>
+      <p class="section-sub" style="margin-top:12px">Three steps. One injection. No system downtime.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card reveal d1">
+        <div class="step-num">01</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        </div>
+        <div class="step-title">01 — Inject</div>
+        <p class="step-desc">Connect the K11 adapter to the low-pressure service port. With the system running, inject the precise dose of K11 TapaFugas 2-in-1 directly into the refrigerant circuit. No evacuation required.</p>
+      </div>
+      <div class="step-card reveal d2">
+        <div class="step-num">02</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="step-title">02 — Seal</div>
+        <p class="step-desc">K11 circulates through the system. When it reaches a micro-leak site and contacts air or moisture, it activates — forming a permanent, polymer-free seal. The rest stays inert in the circuit.</p>
+      </div>
+      <div class="step-card reveal d3">
+        <div class="step-num">03</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="step-title">03 — Verify</div>
+        <p class="step-desc">The UV fluorescent tracer marks the sealed point visibly under UV or violet light. Show the client exactly where the leak was. Document it. Build trust. Eliminate callbacks.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px" class="reveal">
+      <button class="btn btn-ghost" onclick="nav('how')">
+        Full Application Guide
+        <svg class="arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- WHY K11 -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-header">
+      <div class="reveal">
+        <div class="section-eyebrow">Value Proposition</div>
+        <div class="section-title">Why professionals choose K11.</div>
+      </div>
+      <p class="section-sub reveal d1" style="align-self:flex-end">Not just a sealant — a complete field solution that reduces service callbacks, improves system life, and builds trust with every job.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal d1">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>Permanent Micro-Leak Sealing</h3>
+        <p>K11 forms a durable, permanent seal at the leak point — not a temporary patch. The system's remaining life is protected from day one.</p>
+      </div>
+      <div class="why-card reveal d2">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <h3>Built-In UV Detection</h3>
+        <p>The 2-in-1 formula contains a UV fluorescent tracer that marks the sealed site. Show clients exactly where the leak was. No separate dye needed.</p>
+      </div>
+      <div class="why-card reveal d3">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>No System Evacuation</h3>
+        <p>Inject while the system is running. K11 works in live refrigerant circuits — no downtime, no recovery, no re-charge required.</p>
+      </div>
+      <div class="why-card reveal d4">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.89a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.92.35 1.88.59 2.89.72A2 2 0 0122 16.92z"/></svg></div>
+        <h3>Eliminates Callbacks</h3>
+        <p>Stop repeat service calls. Clients who were losing charge every 30–60 days stay sealed — permanently. One visit. One invoice. Done.</p>
+      </div>
+      <div class="why-card reveal d5">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>OEM-Validated Formula</h3>
+        <p>12+ years of validation by OEM manufacturers across Latin America. ASHRAE 97 certified. NSF approved. Safe for all system components.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <h3>Precision Dosing System</h3>
+        <p>10ml for small residential up to 60ml+ for commercial systems. Precision dosing prevents waste, ensures full protection, and reduces cost per job.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE -->
+<section class="products-section">
+  <div class="products-inner">
+    <div class="products-header">
+      <div class="reveal">
+        <div class="section-eyebrow">Product Line</div>
+        <div class="section-title">The complete K11 toolkit.</div>
+      </div>
+      <div class="reveal d1">
+        <p class="section-sub">Professional-grade products for every HVAC-R leak management need. Compatible with all major refrigerants.</p>
+        <button class="btn btn-ghost" style="margin-top:20px" onclick="nav('products')">View All Products <svg class="arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+      </div>
+    </div>
+
+    <div class="prod-grid reveal">
+      <!-- Featured product -->
+      <div class="prod-card featured">
+        <div class="prod-card-img">
+          <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="K11 TapaFugas 2-in-1">
+        </div>
+        <div class="prod-card-body">
+          <span class="tag tag-gold" style="margin-bottom:12px">Bestseller · 2-in-1 Tech</span>
+          <div class="prod-card-name">K11 TapaFugas 2-in-1<br>Seal + UV Detect</div>
+          <p class="prod-card-desc">The only product on the US market that seals micro-leaks AND detects them with UV fluorescence — simultaneously. Permanently. In a single injection. OEM-validated for 12+ years.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px">
+            <span class="compat-pill">R22</span><span class="compat-pill">R410A</span><span class="compat-pill">R32</span><span class="compat-pill">R134a</span><span class="compat-pill">All HVAC-R</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-primary" onclick="nav('home'); document.getElementById('preorder').scrollIntoView({behavior:'smooth', block:'center'})">Pre-Order Now</button>
+            <button class="btn btn-ghost" onclick="nav('products','tapafugas')">Learn More</button>
+          </div>
+        </div>
+      </div>
+      <!-- Other products -->
+      <div class="prod-card reveal d1">
+        <div class="prod-card-img">
+          <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png" alt="K11 Revela Fugas UV Dye">
+        </div>
+        <div class="prod-card-body">
+          <span class="tag tag-blue">UV Detection</span>
+          <div class="prod-card-name">K11 Revela Fugas</div>
+          <p class="prod-card-desc">Ultra-high fluorescence UV dye. Find leaks under UV light with zero system impact. Works with all refrigerants and oil types.</p>
+          <button class="btn btn-outline" onclick="nav('products','revelafugas')">View Product</button>
+        </div>
+      </div>
+      <div class="prod-card reveal d2">
+        <div class="prod-card-img" style="background:var(--bg3)">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="prod-card-body">
+          <span class="tag tag-gray">Sealant + Lube</span>
+          <div class="prod-card-name">Sella Plus K11</div>
+          <p class="prod-card-desc">Premium HVAC-R sealant AND lubricant. Seals flanges and connections. ASHRAE + NSF certified. Never hardens.</p>
+          <button class="btn btn-outline" onclick="nav('products','sellaplus')">View Product</button>
+        </div>
+      </div>
+      <div class="prod-card reveal d3">
+        <div class="prod-card-img">
+          <img src="https://k11.com.mx/wp-content/uploads/2025/05/AMICA-7.png" alt="K11 Adapters">
+        </div>
+        <div class="prod-card-body">
+          <span class="tag tag-gray">Accessories</span>
+          <div class="prod-card-name">K11 Adapters</div>
+          <p class="prod-card-desc">Anti-backflow injection adapters. 1/4&quot; and 5/16&quot; — fits every US service port standard. Required for correct K11 application.</p>
+          <button class="btn btn-outline" onclick="nav('products','adapters')">View Product</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="comp-section">
+  <div class="comp-inner">
+    <div class="comp-header reveal">
+      <div class="section-eyebrow">vs. The Competition</div>
+      <div class="section-title">The only 2-in-1 on the US market.</div>
+      <p class="section-sub" style="max-width:480px;margin:0 auto;text-align:center">Every other US sealant does one thing. K11 does both — and is the only one with OEM manufacturer validation.</p>
+    </div>
+    <div class="comp-table reveal">
+      <div class="comp-row hdr"><span>Product</span><span>Seal + UV Detect</span><span>All Refrigerants</span><span>Precision Dose</span><span>OEM Validated</span></div>
+      <div class="comp-row winner"><span class="comp-brand-k11">Wylco / K11 2-in-1 <span class="you-badge">You</span></span><span class="ci">✓ Both</span><span class="ci">✓ All</span><span class="ci">✓ 10–60ml</span><span class="ci">✓ Yes</span></div>
+      <div class="comp-row"><span class="comp-brand">Leak Saver Direct Inject</span><span class="cp">~ UV add-on</span><span class="ci">✓</span><span class="cx">—</span><span class="cx">—</span></div>
+      <div class="comp-row"><span class="comp-brand">Nu-Calgon EasySeal</span><span class="cx">—</span><span class="ci">✓</span><span class="cp">2.5oz only</span><span class="cx">—</span></div>
+      <div class="comp-row"><span class="comp-brand">RectorSeal AC Freeze Pro</span><span class="cx">—</span><span class="ci">✓</span><span class="cp">1.5oz only</span><span class="cx">—</span></div>
+      <div class="comp-row"><span class="comp-brand">BlueDevil Red Angel</span><span class="cx">—</span><span class="cp">R134a only</span><span class="cx">—</span><span class="cx">—</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- DISTRIBUTOR SECTION -->
+<section class="dist-section">
+  <div class="dist-bg"></div>
+  <div class="dist-inner">
+    <div class="dist-left reveal">
+      <div class="section-eyebrow">B2B & Distribution</div>
+      <div class="dist-title">Built for Contractors.<br><em>Ready</em> for Distribution.</div>
+      <p class="dist-sub">Whether you're an HVAC contractor adding a new product line, a supply house looking for differentiated solutions, or a regional wholesaler — Wylco is your US partner for K11.</p>
+      <div class="dist-benefits">
+        <div class="dist-benefit">
+          <div class="dist-benefit-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <h4>Miami-Based Operations</h4>
+            <p>US-local logistics, inventory, and support. No international shipping delays.</p>
+          </div>
+        </div>
+        <div class="dist-benefit">
+          <div class="dist-benefit-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <div>
+            <h4>Fast Nationwide Distribution</h4>
+            <p>Same-day dispatch on orders before 2 PM EST. Delivered in 2–5 business days.</p>
+          </div>
+        </div>
+        <div class="dist-benefit">
+          <div class="dist-benefit-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div>
+            <h4>Dedicated Technical Support</h4>
+            <p>Real HVAC expertise with every order. Training, datasheets, and field support included.</p>
+          </div>
+        </div>
+        <div class="dist-benefit">
+          <div class="dist-benefit-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          <div>
+            <h4>Wholesale & Volume Pricing</h4>
+            <p>Competitive distributor pricing for supply houses, contractor fleets, and wholesalers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dist-right reveal d2">
+      <div class="dist-stat-grid">
+        <div class="dist-stat">
+          <div class="dist-stat-num">$9.6<em>B</em></div>
+          <div class="dist-stat-label">FL HVAC Market</div>
+        </div>
+        <div class="dist-stat">
+          <div class="dist-stat-num">9.8<em>K</em></div>
+          <div class="dist-stat-label">HVAC Firms in FL</div>
+        </div>
+        <div class="dist-stat">
+          <div class="dist-stat-num">37<em>K</em></div>
+          <div class="dist-stat-label">Technicians in FL</div>
+        </div>
+        <div class="dist-stat">
+          <div class="dist-stat-num">12<em>+</em></div>
+          <div class="dist-stat-label">Years Proven</div>
+        </div>
+      </div>
+      <div class="dist-cta-card">
+        <h3>Interested in becoming a distributor?</h3>
+        <p>Contact us to discuss wholesale pricing, territories, and technical onboarding for your team.</p>
+        <button class="btn-white" onclick="nav('contact','distributors')">
+          Apply to Distribute
+          <svg class="arr" style="stroke:var(--blue)" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="test-section">
+  <div class="test-inner">
+    <div class="test-header">
+      <div class="reveal">
+        <div class="section-eyebrow">In the Field</div>
+        <div class="section-title">What HVAC pros say.</div>
+      </div>
+      <p class="section-sub reveal d1" style="align-self:flex-end">Real results from contractors, technicians, and service companies who carry K11 on every truck.</p>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal d1">
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="test-quote">"Used K11 on a stubborn R410A mini-split losing charge every 6 weeks. Three months later — the customer hasn't called back. That's the result I needed."</p>
+        <div class="test-author"><div class="test-avatar">MR</div><div><div class="test-name">Miguel R.</div><div class="test-role">HVAC Contractor · Miami, FL</div></div></div>
+      </div>
+      <div class="test-card reveal d2">
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="test-quote">"The UV detection sold me immediately. I showed the client the exact point on the condenser coil. They didn't question the repair at all. Professional grade."</p>
+        <div class="test-author"><div class="test-avatar">JT</div><div><div class="test-name">James T.</div><div class="test-role">AC Service Tech · Fort Lauderdale</div></div></div>
+      </div>
+      <div class="test-card reveal d3">
+        <div class="test-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="test-quote">"I carry K11 on every truck now. The precision dosing is what gets me — 10ml for small units, 30ml for the bigger commercial systems. No guessing. No waste."</p>
+        <div class="test-author"><div class="test-avatar">CS</div><div><div class="test-name">Carlos S.</div><div class="test-role">HVAC Business Owner · Doral, FL</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET STATS -->
+<section class="market-section">
+  <div class="market-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">Market Opportunity</div>
+      <div class="section-title">The #1 HVAC Market in America.</div>
+      <p class="section-sub" style="max-width:520px;margin:0 auto;text-align:center">Florida runs AC 12 months a year. 9,800+ HVAC businesses. One distributor bringing the world's most advanced leak solution to the US market.</p>
+    </div>
+    <div class="market-stats reveal">
+      <div class="market-stat">
+        <div class="market-stat-num">$9.6<em>B</em></div>
+        <div class="market-stat-label">FL HVAC Market 2026</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat-num">9,800<em>+</em></div>
+        <div class="market-stat-label">HVAC Businesses in FL</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat-num">37,370</div>
+        <div class="market-stat-label">Technicians Statewide</div>
+      </div>
+      <div class="market-stat">
+        <div class="market-stat-num">12<em>mo</em></div>
+        <div class="market-stat-label">Year-round AC Demand</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SDS DOCS STRIP -->
+<div class="docs-strip">
+  <div class="docs-strip-inner">
+    <div class="docs-strip-left reveal">
+      <h2>Need Technical Documentation?</h2>
+      <p>Access Safety Data Sheets, Technical Data Sheets, and compliance documents for all K11 products. OSHA-compliant. GHS formatted. Ready for your team.</p>
+    </div>
+    <div class="docs-strip-right reveal d1">
+      <button class="btn btn-secondary" onclick="nav('docs')">View SDS Docs</button>
+      <button class="btn btn-ghost" onclick="nav('contact')">Contact Technical Support</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="reveal">
+      <div class="section-eyebrow">FAQ</div>
+      <div class="section-title" style="font-size:clamp(2rem,3.5vw,3rem)">Questions answered.</div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal d1">
+        <div class="faq-q">How do I know if K11 is right for my system?<div class="faq-icon"></div></div>
+        <div class="faq-a"><div class="faq-a-inner">Over 30 days to lose full charge? Micro-leak — K11 is made for this. 15–30 days? Medium leak, K11 may work. Under 15 days? Large leak requiring welding. The 2-in-1 formula seals and confirms results simultaneously with UV verification. <button class="btn-text" onclick="nav('how','leak-guide')">See the full leak classification guide →</button></div></div>
+      </div>
+      <div class="faq-item reveal d2">
+        <div class="faq-q">Is K11 safe for compressors, TXVs, and expansion valves?<div class="faq-icon"></div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. K11 TapaFugas is polymer-free and only activates at leak points when it contacts air and moisture. Safe for all system components — TXVs, TEVs, capillary tubes, Schrader valves, and all common seal materials. ASHRAE 97 certified.</div></div>
+      </div>
+      <div class="faq-item reveal d3">
+        <div class="faq-q">What refrigerants are compatible with K11?<div class="faq-icon"></div></div>
+        <div class="faq-a"><div class="faq-a-inner">All common refrigerants: R22, R410A, R32, R134a, R404A, R290, R600a, R1234yf, and all A2L replacements. The only exception is ammonia (R717). Compatible with all refrigerant oil types: mineral, POE, PAG, and alkylbenzene.</div></div>
+      </div>
+      <div class="faq-item reveal d4">
+        <div class="faq-q">How much K11 do I need for my system?<div class="faq-icon"></div></div>
+        <div class="faq-a"><div class="faq-a-inner">10ml for systems up to 3TR (36,000 BTU). 20ml up to 5TR. 30ml up to 8TR. Over 8TR — mix with oil at 1:30 ratio (3.25%). Precision dosing prevents waste and ensures full coverage. <button class="btn-text" onclick="nav('how','dosing')">See the dosing guide →</button></div></div>
+      </div>
+      <div class="faq-item reveal d5">
+        <div class="faq-q">How long does the seal last?<div class="faq-icon"></div></div>
+        <div class="faq-a"><div class="faq-a-inner">The seal is permanent — it lasts the remaining operational life of the system. Documented cases holding strong after 5+ years of continuous operation. The product also circulates preventively to protect against future micro-leaks.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">How do I order and how fast does Wylco ship?<div class="faq-icon"></div></div>
+        <div class="faq-a"><div class="faq-a-inner">Contact us for B2B pricing, wholesale orders, and distributor inquiries. We ship nationwide from Miami, FL with same-day dispatch on orders placed before 2 PM EST. Standard delivery is 2–5 business days. <button class="btn-text" onclick="nav('contact')">Contact us to place an order →</button></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner reveal">
+    <div class="section-eyebrow" style="justify-content:center"><div style="display:none"></div>Ready to Start</div>
+    <h2>Ready to Bring<br><em>K11 to Your</em><br>Customers?</h2>
+    <p>Order through Wylco. Miami-based. Ships nationwide. Real HVAC support on every order.</p>
+    <div class="final-btns">
+      <button class="btn btn-primary" onclick="nav('contact')" style="font-size:16px;padding:15px 30px">Get a Quote</button>
+      <button class="btn btn-secondary" onclick="nav('contact','distributors')" style="font-size:16px;padding:15px 30px">Become a Distributor</button>
+      <a href="https://wa.me/17869035295?text=Hi%2C+I%27d+like+to+know+more+about+K11+products" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:16px;padding:15px 30px">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.533 5.849L.057 23.516a.5.5 0 00.609.61l5.805-1.522A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.956 9.956 0 01-5.187-1.453l-.371-.221-3.845 1.008 1.026-3.741-.242-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        WhatsApp Us
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRE-ORDER CAMPAIGN -->
+<section class="preorder-section" id="preorder">
+  <div class="preorder-bg"></div>
+  <div class="preorder-inner">
+    <div class="tag tag-blue" style="margin-bottom:1.5rem;background:rgba(0,113,227,.2)">Pre-Order Exclusive</div>
+    <h2 class="preorder-h2">Secure your supply.<br>Lock in your discount.</h2>
+    <p class="preorder-p">No payment required now. Register to guarantee stock and lock your <strong>20% early-bird discount</strong> once we launch in the US.</p>
+    
+    <form class="preorder-form" id="po-form" onsubmit="submitPreorder(event)">
+      <input type="text" id="po-company" placeholder="Company Name" required>
+      <input type="email" id="po-email" placeholder="Work Email" required>
+      <button type="submit">Claim 20% Discount</button>
+      <p style="font-size:.85rem;color:rgba(255,255,255,.4);margin-top:5px">Your data is safe. We only use this to send your discount code.</p>
+    </form>
+
+    <div class="preorder-success" id="po-success">
+      <svg viewBox="0 0 24 24" width="56" height="56" stroke="currentColor" fill="none" stroke-width="2" style="margin-bottom:1rem;stroke:#55c896;display:inline-block"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h3>Discount Locked!</h3>
+      <p style="color:rgba(255,255,255,.8);font-size:1.05rem;line-height:1.5">We've reserved your 20% discount. We'll email you with purchasing instructions as soon as the K11 inventory is ready for dispatch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-logo" onclick="nav('home')">
+          <img src="https://k11.com.mx/wp-content/uploads/2025/05/AMICA-700-x-500-px.png" alt="Wylco">
+          <span>WYLCO</span>
+        </div>
+        <p class="footer-tagline">Official K11 distributor for the United States. Professional HVAC-R leak solutions. Miami, Florida.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/wylco_miami" target="_blank" rel="noopener" class="social-btn"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+          <a href="https://www.youtube.com/@K11maximaperformance" target="_blank" rel="noopener" class="social-btn"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          <a href="https://wa.me/17869035295" target="_blank" rel="noopener" class="social-btn"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.533 5.849L.057 23.516a.5.5 0 00.609.61l5.805-1.522A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.956 9.956 0 01-5.187-1.453l-.371-.221-3.845 1.008 1.026-3.741-.242-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg></a>
+          <a href="https://www.linkedin.com/company/wylco" target="_blank" rel="noopener" class="social-btn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Products</h4><ul>
+        <li><button onclick="nav('products','tapafugas')">TapaFugas 2-in-1</button></li>
+        <li><button onclick="nav('products','revelafugas')">Revela Fugas UV Dye</button></li>
+        <li><button onclick="nav('products','sellaplus')">Sella Plus K11</button></li>
+        <li><button onclick="nav('products','adapters')">K11 Adapters</button></li>
+        <li><button onclick="nav('products','dosing')">Dosing Guide</button></li>
+        <li><button onclick="nav('products','compat')">Compatibility Chart</button></li>
+      </ul></div>
+      <div class="footer-col"><h4>Company</h4><ul>
+        <li><button onclick="nav('about')">About Wylco</button></li>
+        <li><button onclick="nav('about','k11')">About K11</button></li>
+        <li><button onclick="nav('contact','distributors')">Distributors</button></li>
+        <li><button onclick="nav('contact')">Contact Us</button></li>
+        <li><button onclick="nav('privacy')">Privacy Policy</button></li>
+        <li><button onclick="nav('terms')">Terms of Use</button></li>
+      </ul></div>
+      <div class="footer-col"><h4>Support</h4><ul>
+        <li><button onclick="nav('how')">Application Guide</button></li>
+        <li><button onclick="nav('how','dosing')">Dosing Guide</button></li>
+        <li><button onclick="nav('docs')">SDS &amp; Safety Docs</button></li>
+        <li><button onclick="nav('contact')">FAQ &amp; Support</button></li>
+        <li><a href="tel:+17869035295">+1 (786) 903-5295</a></li>
+        <li><a href="https://wa.me/17869035295" target="_blank" rel="noopener">WhatsApp Us</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Wylco LLC · Miami, FL · All rights reserved</span>
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <button onclick="nav('privacy')" style="background:none;border:none;color:rgba(255,255,255,.4);font-family:var(--font-body);font-size:12px;cursor:pointer;transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Privacy Policy</button>
+        <button onclick="nav('terms')" style="background:none;border:none;color:rgba(255,255,255,.4);font-family:var(--font-body);font-size:12px;cursor:pointer;transition:color .2s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Terms of Use</button>
+        <span class="footer-badge">Official K11 USA Distributor</span>
+      </div>
+    </div>
+  </div>
+</footer>
+</div><!-- end page-home -->
+
+<!-- ═══════════════════════════════════════════
+   PRODUCTS PAGE
+═══════════════════════════════════════════ -->
+<div id="page-products" class="page">
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div style="max-width:var(--max-w);margin:0 auto;padding:0 max(24px,5vw)">
+    <div class="breadcrumb"><a onclick="nav('home')">Home</a><span>/</span><span>Products</span></div>
+    <div class="section-eyebrow">K11 Product Line</div>
+    <h1 class="page-h1">Professional tools<br>for every leak.</h1>
+    <p class="page-sub">Four products. One mission: give HVAC-R technicians the most precise, reliable leak management system available in the US market.</p>
+  </div>
+</section>
+<section style="background:var(--white);padding:64px max(24px,5vw) 0">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="filterProds(this,'all','products')">All Products</button>
+      <button class="filter-btn" onclick="filterProds(this,'seal','products')">Seal &amp; Detect</button>
+      <button class="filter-btn" onclick="filterProds(this,'access','products')">Accessories</button>
+    </div>
+    <div class="pf-grid" id="prod-grid">
+
+      <!-- 01 TapaFugas -->
+      <div class="pf-card" id="tapafugas" data-cat="seal">
+        <div class="pf-img-wrap">
+          <div class="pf-img-main" id="tf-main">
+            <div class="pf-img-badge">01 / Bestseller</div>
+            <img id="tf-main-img" src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="K11 TapaFugas 2-in-1 professional syringe and kit">
+          </div>
+          <div class="pf-img-thumbs">
+            <div class="pf-img-thumb active" onclick="swapImg('tf-main-img','https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png',this,'tf-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="TapaFugas syringe view">
+            </div>
+            <div class="pf-img-thumb" id="tf-thumbs" onclick="swapImg('tf-main-img','https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png',this,'tf-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png" alt="TapaFugas box front">
+            </div>
+            <div class="pf-img-thumb" onclick="swapImg('tf-main-img','https://k11.com.mx/wp-content/uploads/2025/05/AMICA-7.png',this,'tf-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/05/AMICA-7.png" alt="K11 injection adapter">
+            </div>
+          </div>
+        </div>
+        <div class="pf-content">
+          <div class="pf-num">01</div>
+          <span class="tag tag-gold" style="margin-bottom:14px">Bestseller &nbsp;·&nbsp; 2-in-1 Technology</span>
+          <div class="pf-title">K11 TapaFugas 2-in-1<br>Seal + UV Detect</div>
+          <p class="pf-desc">The only product on the US market that seals refrigerant micro-leaks AND detects their exact location using UV fluorescence — simultaneously, in a single injection. No second product needed. No extra visit required.</p>
+          <ul class="pf-features">
+            <li>Permanently seals micro-leaks on contact with moisture/air at the leak site</li>
+            <li>UV-fluorescent tracer marks exact location for client documentation</li>
+            <li>Circulates preventively — protects against future leaks</li>
+            <li>Validated by OEM manufacturers for 12+ years</li>
+            <li>No system evacuation required — inject and run</li>
+          </ul>
+          <div class="pf-compat">
+            <span class="compat-pill">R22</span><span class="compat-pill">R410A</span><span class="compat-pill">R32</span><span class="compat-pill">R134a</span><span class="compat-pill">R404A</span><span class="compat-pill">R290</span><span class="compat-pill">R600a</span><span class="compat-pill">All HVAC-R</span>
+          </div>
+          <div class="pf-actions">
+            <button class="btn btn-primary" onclick="nav('home'); document.getElementById('preorder').scrollIntoView({behavior:'smooth', block:'center'})">Pre-Order: Claim Discount</button>
+            <button class="btn btn-ghost" onclick="nav('how')">Application Guide</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 Revela Fugas -->
+      <div class="pf-card" id="revelafugas" data-cat="seal">
+        <div class="pf-img-wrap">
+          <div class="pf-img-main">
+            <div class="pf-img-badge">02 / UV Detection</div>
+            <img id="rf-main-img" src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png" alt="K11 Revela Fugas UV fluorescent dye bottle">
+          </div>
+          <div class="pf-img-thumbs">
+            <div class="pf-img-thumb active" onclick="swapImg('rf-main-img','https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png',this,'rf-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png" alt="Revela Fugas bottle front">
+            </div>
+            <div class="pf-img-thumb" id="rf-thumbs" onclick="swapImg('rf-main-img','https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png',this,'rf-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="K11 TapaFugas bundled system">
+            </div>
+          </div>
+        </div>
+        <div class="pf-content">
+          <div class="pf-num">02</div>
+          <span class="tag tag-blue" style="margin-bottom:14px">UV Detection</span>
+          <div class="pf-title">K11 Revela Fugas<br>UV Fluorescent Dye</div>
+          <p class="pf-desc">High-performance UV contrast agent for rapid, precise detection of micro-leaks in refrigerant and lubricant oil circuits. Glows brilliantly under UV or violet light at the exact leak point — without affecting system efficiency.</p>
+          <ul class="pf-features">
+            <li>Extremely high UV fluorescence — visible even in well-lit conditions</li>
+            <li>Does not react with system components, seals, or refrigerant</li>
+            <li>Stable across all operating temperatures and pressures</li>
+            <li>Works with all lubricant oil types: mineral, POE, PAG, alkylbenzene</li>
+          </ul>
+          <div class="pf-compat">
+            <span class="compat-pill">All refrigerants</span><span class="compat-pill">All oil types</span><span class="compat-pill">Zero system impact</span>
+          </div>
+          <div class="pf-actions"><button class="btn btn-primary" onclick="nav('home'); document.getElementById('preorder').scrollIntoView({behavior:'smooth', block:'center'})">Pre-Order: Claim Discount</button></div>
+        </div>
+      </div>
+
+      <!-- 03 Sella Plus -->
+      <div class="pf-card" id="sellaplus" data-cat="seal">
+        <div class="pf-img-wrap">
+          <div class="pf-img-main">
+            <div class="pf-img-badge">03 / Gasket &amp; Thread Sealant</div>
+            <img id="sp-main-img" src="sella_plus.png" alt="K11 Sella Plus bottle — gasket and thread sealant">
+          </div>
+          <div class="pf-img-thumbs">
+            <div class="pf-img-thumb active" onclick="swapImg('sp-main-img','sella_plus.png',this,'sp-thumbs')">
+              <img src="sella_plus.png" alt="Sella Plus bottle">
+            </div>
+            <div class="pf-img-thumb" id="sp-thumbs" onclick="swapImg('sp-main-img','https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png',this,'sp-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="K11 full system kit">
+            </div>
+          </div>
+        </div>
+        <div class="pf-content">
+          <div class="pf-num">03</div>
+          <span class="tag tag-gray" style="margin-bottom:14px">Gasket &amp; Thread Sealant</span>
+          <div class="pf-title">K11 Sella Plus<br>Gasket &amp; Thread Sealant</div>
+          <p class="pf-desc">Professional sealant engineered for gaskets and threads — ideal for securing hermetic joints in refrigeration and air conditioning systems. Provides maximum adhesion, eliminates leaks, and improves the long-term durability of every connection.</p>
+          <ul class="pf-features">
+            <li>Designed for flanges, threaded connections, and gaskets</li>
+            <li>Creates hermetic seals in refrigeration and HVAC-R systems</li>
+            <li>High-adhesion formula — bonds reliably without hardening over time</li>
+            <li>Prevents leaks at connection points and extends service life</li>
+            <li>Compatible with all refrigerants and system materials</li>
+          </ul>
+          <div class="pf-compat">
+            <span class="compat-pill">Flanges</span>
+            <span class="compat-pill">Connections</span>
+            <span class="compat-pill">Gaskets</span>
+            <span class="compat-pill">35ml</span>
+            <span class="compat-pill">All refrigerants</span>
+          </div>
+          <div class="pf-actions"><button class="btn btn-primary" onclick="nav('home'); document.getElementById('preorder').scrollIntoView({behavior:'smooth', block:'center'})">Pre-Order: Claim Discount</button></div>
+        </div>
+      </div>
+
+      <!-- 04 Adapters -->
+      <div class="pf-card" id="adapters" data-cat="access">
+        <div class="pf-img-wrap">
+          <div class="pf-img-main">
+            <div class="pf-img-badge">04 / Accessories</div>
+            <img id="ad-main-img" src="https://k11.com.mx/wp-content/uploads/2025/05/AMICA-7.png" alt="K11 professional injection adapters">
+          </div>
+          <div class="pf-img-thumbs">
+            <div class="pf-img-thumb active" onclick="swapImg('ad-main-img','https://k11.com.mx/wp-content/uploads/2025/05/AMICA-7.png',this,'ad-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/05/AMICA-7.png" alt="Adapters front view">
+            </div>
+            <div class="pf-img-thumb" id="ad-thumbs" onclick="swapImg('ad-main-img','https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png',this,'ad-thumbs')">
+              <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="K11 syringe with adapter">
+            </div>
+          </div>
+        </div>
+        <div class="pf-content">
+          <div class="pf-num">04</div>
+          <span class="tag tag-gray" style="margin-bottom:14px">Accessories</span>
+          <div class="pf-title">K11 Professional<br>Injection Adapters</div>
+          <p class="pf-desc">Anti-backflow syringe connectors with valve for precise injection of K11 TapaFugas and other fluids into HVAC systems. Available in 1/4&quot; and 5/16&quot; sizes for all service port standards in the US market.</p>
+          <ul class="pf-features">
+            <li>Anti-backflow valve prevents refrigerant from entering the syringe</li>
+            <li>Fits 1/4&quot; (standard) and 5/16&quot; (mini-split) service ports</li>
+            <li>Reusable — built for multiple service calls</li>
+            <li>Required for correct application of K11 TapaFugas 2-in-1</li>
+          </ul>
+          <div class="pf-compat">
+            <span class="compat-pill">1/4&quot; standard</span><span class="compat-pill">5/16&quot; mini-split</span><span class="compat-pill">Reusable</span>
+          </div>
+          <div class="pf-actions"><button class="btn btn-outline" onclick="nav('home'); document.getElementById('preorder').scrollIntoView({behavior:'smooth', block:'center'})">Pre-Order Now</button></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="dosing-section" id="dosing">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="section-title dt-main-title">Refrigerant Leak Solutions</div>
+
+    <div class="dosing-table-new">
+      <div class="dtn-row hdr">
+        <div class="dtn-col" style="border:none">&nbsp;</div>
+        <div class="dtn-col">Dosage</div>
+        <div class="dtn-col">Action</div>
+        <div class="dtn-col">Usage</div>
+        <div class="dtn-col">Time</div>
+      </div>
+
+      <!-- Tapa Fugas 10ml -->
+      <div class="dtn-row">
+        <div class="dtn-col" style="border:none">
+          <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="Tapa Fugas K11 10ml" class="dtn-img">
+        </div>
+        <div class="dtn-col">
+          3 tons<br>3.5 HP<br>36,000 BTU
+        </div>
+        <div class="dtn-col dt-blue">
+          Seals<br>micro-leaks
+        </div>
+        <div class="dtn-col">
+          Equipment maintains performance for +30 days
+        </div>
+        <div class="dtn-col">
+          2h – 3h<br>in residential systems
+        </div>
+      </div>
+
+      <!-- Revela Fugas -->
+      <div class="dtn-row">
+        <div class="dtn-col" style="border:none">
+          <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png" alt="Revela Fugas K11" class="dtn-img">
+        </div>
+        <div class="dtn-col">
+          3 liters of<br>oil
+        </div>
+        <div class="dtn-col dt-blue">
+          Reveals<br>all leaks
+        </div>
+        <div class="dtn-col">
+          Preventive<br>Corrective
+        </div>
+        <div class="dtn-col">
+          15 to 20 minutes
+        </div>
+      </div>
+
+      <!-- Tapa Fugas 2-in-1 -->
+      <div class="dtn-row" style="border-bottom:2px solid #55c896">
+        <div class="dtn-col" style="border:none">
+          <img src="https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png" alt="Tapa Fugas K11 2-in-1" class="dtn-img">
+        </div>
+        <div class="dtn-col">
+          3 tons<br>10.5 HP<br>36,000 BTU
+        </div>
+        <div class="dtn-col dt-blue">
+          Reveals leaks<br>+<br>Seals micro-leaks
+        </div>
+        <div class="dtn-col">
+          Ideal for<br>24/7 loops
+        </div>
+        <div class="dtn-col">
+          REVEALS: 20 minutes<br>SEALS: 2 – 3 hours
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="compat-full" id="compat">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="section-eyebrow">Compatibility</div>
+    <div class="section-title">Works with every refrigerant you carry</div>
+    <div class="compat-grid">
+      <div class="compat-card"><div class="ref">R22</div><div class="ref-name">Legacy systems</div></div>
+      <div class="compat-card"><div class="ref">R32</div><div class="ref-name">New standard</div></div>
+      <div class="compat-card"><div class="ref">R410A</div><div class="ref-name">Split systems</div></div>
+      <div class="compat-card"><div class="ref">R134a</div><div class="ref-name">Automotive / chiller</div></div>
+      <div class="compat-card"><div class="ref">R404A</div><div class="ref-name">Refrigeration</div></div>
+      <div class="compat-card"><div class="ref">R407C</div><div class="ref-name">Drop-in R22</div></div>
+      <div class="compat-card"><div class="ref">R290</div><div class="ref-name">Propane (A3)</div></div>
+      <div class="compat-card"><div class="ref">R600a</div><div class="ref-name">Isobutane (A3)</div></div>
+      <div class="compat-card"><div class="ref">R1234yf</div><div class="ref-name">New automotive</div></div>
+      <div class="compat-card"><div class="ref">R448A</div><div class="ref-name">R22 replacement</div></div>
+      <div class="compat-card"><div class="ref">R449A</div><div class="ref-name">R404A replacement</div></div>
+      <div class="compat-card"><div class="ref">R454B</div><div class="ref-name">R410A A2L sub.</div></div>
+    </div>
+  </div>
+</section>
+</div><!-- end page-products -->
+
+<!-- ═══════════════════════════════════════════
+   HOW IT WORKS PAGE
+═══════════════════════════════════════════ -->
+<div id="page-how" class="page">
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div style="max-width:var(--max-w);margin:0 auto;padding:0 max(24px,5vw)">
+    <div class="breadcrumb"><a onclick="nav('home')">Home</a><span>/</span><span>How It Works</span></div>
+    <div class="section-eyebrow">Application Guide</div>
+    <h1 class="page-h1">How K11 works<br>in the field.</h1>
+    <p class="page-sub">Step-by-step guide for HVAC-R technicians. From injection to UV verification — the complete K11 field process.</p>
+  </div>
+</section>
+
+<section style="background:var(--white);padding:80px max(24px,5vw)">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="steps-wrap">
+      <div class="steps-list">
+        <div class="step-row active" id="step-row-1" onclick="setStep(1)">
+          <div class="step-circle">1</div>
+          <div>
+            <h3>Classify the Leak</h3>
+            <p>Determine if K11 is appropriate based on how quickly the system loses charge. Over 30 days = micro-leak (K11 recommended). 15–30 days = medium. Under 15 days = large (welding required).</p>
+          </div>
+        </div>
+        <div class="step-row" id="step-row-2" onclick="setStep(2)">
+          <div class="step-circle">2</div>
+          <div>
+            <h3>Run the System</h3>
+            <p>Operate the AC system normally before injection. The compressor must be running for correct distribution of K11 through the refrigerant circuit.</p>
+          </div>
+        </div>
+        <div class="step-row" id="step-row-3" onclick="setStep(3)">
+          <div class="step-circle">3</div>
+          <div>
+            <h3>Connect the Adapter</h3>
+            <p>Attach the K11 anti-backflow adapter to the low-pressure (suction) service port. Load the correct dose of K11 TapaFugas 2-in-1 into the syringe.</p>
+          </div>
+        </div>
+        <div class="step-row" id="step-row-4" onclick="setStep(4)">
+          <div class="step-circle">4</div>
+          <div>
+            <h3>Inject K11</h3>
+            <p>Slowly inject the full syringe into the circuit with the system running. The refrigerant flow carries K11 throughout the entire circuit within minutes.</p>
+          </div>
+        </div>
+        <div class="step-row" id="step-row-5" onclick="setStep(5)">
+          <div class="step-circle">5</div>
+          <div>
+            <h3>Let K11 Circulate</h3>
+            <p>Run the system for 15–30 minutes. K11 circulates through all components and activates permanently at any leak site it encounters.</p>
+          </div>
+        </div>
+        <div class="step-row" id="step-row-6" onclick="setStep(6)">
+          <div class="step-circle">6</div>
+          <div>
+            <h3>Verify with UV Light</h3>
+            <p>Use a UV or violet light to inspect the system. The fluorescent tracer in K11 marks the sealed point visibly. Document it. Show the client. Job complete.</p>
+          </div>
+        </div>
+      </div>
+      <div class="step-visual" id="step-visual" style="padding:0; position:relative; overflow:hidden; aspect-ratio:auto; background:transparent; border:none; box-shadow:none">
+        <img id="sv-image" src="k11_step_1.png" alt="How it works step" style="width:100%; height:auto; object-fit:contain; transition:opacity 0.3s ease">
+        <div class="sv-dots" id="sv-dots" style="position:absolute; bottom:15px; left:0; right:0; justify-content:center; gap:8px; z-index:10">
+          <div class="sv-dot on"></div><div class="sv-dot"></div><div class="sv-dot"></div>
+          <div class="sv-dot"></div><div class="sv-dot"></div><div class="sv-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="leak-guide" id="leak-guide">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="section-eyebrow">Leak Classification</div>
+    <div class="section-title">Know when K11 is the right call.</div>
+    <div class="leak-grid">
+      <div class="leak-card">
+        <div class="leak-days" style="color:#1A7A3F">30+</div>
+        <div class="leak-type lt-green">Micro-Leak</div>
+        <p>Days to lose full charge. This is K11's target application. Seal it permanently in one injection. No evacuation. No downtime.</p>
+      </div>
+      <div class="leak-card">
+        <div class="leak-days" style="color:#7A4B00">15–30</div>
+        <div class="leak-type lt-yellow">Medium Leak</div>
+        <p>Days to lose full charge. K11 may work depending on leak location. Evaluate the circuit. Consider professional diagnosis.</p>
+      </div>
+      <div class="leak-card">
+        <div class="leak-days" style="color:#7A1A1A">&lt;15</div>
+        <div class="leak-type lt-red">Large Leak</div>
+        <p>Days to lose full charge. Welding or physical repair required. K11 is not the right tool. Locate and repair the leak mechanically.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-eyebrow">FAQ</div>
+    <div class="section-title" style="font-size:clamp(2rem,3.5vw,3rem)">Technical questions.</div>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q">Is K11 safe for compressors, TXVs, and expansion valves?<div class="faq-icon"></div></div><div class="faq-a"><div class="faq-a-inner">Yes. K11 TapaFugas is polymer-free and only activates at leak points when it contacts air and moisture. Safe for all system components — TXVs, TEVs, capillary tubes, and all common seal materials. ASHRAE 97 certified.</div></div></div>
+      <div class="faq-item"><div class="faq-q">Can K11 be used preventively?<div class="faq-icon"></div></div><div class="faq-a"><div class="faq-a-inner">Yes. OEM manufacturers in Latin America now use K11 as a factory preventive treatment on new units. It circulates continuously, protecting against future micro-leaks before they form. Preventive + corrective in a single product.</div></div></div>
+      <div class="faq-item"><div class="faq-q">What refrigerants are compatible?<div class="faq-icon"></div></div><div class="faq-a"><div class="faq-a-inner">All common refrigerants: R22, R410A, R32, R134a, R404A, R290, R600a, R1234yf, and all A2L replacements. The only exception is ammonia (R717).</div></div></div>
+      <div class="faq-item"><div class="faq-q">How long does the seal last?<div class="faq-icon"></div></div><div class="faq-a"><div class="faq-a-inner">The seal is permanent and lasts the remaining operational life of the system. Documented cases on record after 5+ years of continuous operation.</div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:36px"><button class="btn btn-ghost" onclick="nav('contact')">Contact Technical Support</button></div>
+  </div>
+</section>
+</div><!-- end page-how -->
+
+<!-- ═══════════════════════════════════════════
+   ABOUT PAGE
+═══════════════════════════════════════════ -->
+<div id="page-about" class="page">
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div style="max-width:var(--max-w);margin:0 auto;padding:0 max(24px,5vw)">
+    <div class="breadcrumb"><a onclick="nav('home')">Home</a><span>/</span><span>About</span></div>
+    <div class="section-eyebrow">Our Story</div>
+    <h1 class="page-h1">Miami-based.<br>Built for the US.</h1>
+    <p class="page-sub">Wylco is the official K11 distributor for the United States — bringing the world's most advanced HVAC-R leak solution to American professionals.</p>
+  </div>
+</section>
+<section style="background:var(--white);padding:80px max(24px,5vw)">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="about-layout">
+      <div class="about-photo">
+        <img src="https://k11.com.mx/wp-content/uploads/2025/05/AMICA-700-x-500-px.png" alt="Wylco Miami — K11 America" style="aspect-ratio:4/3;object-fit:contain;background:var(--bg2);padding:32px">
+      </div>
+      <div class="about-text">
+        <div class="section-eyebrow">About Wylco</div>
+        <div class="section-title" style="font-size:clamp(2rem,3.5vw,3rem)">The US home<br>of K11.</div>
+        <p><strong>Wylco LLC</strong> is the exclusive official distributor of K11 products in the United States, operating from Miami, Florida — the epicenter of the American HVAC-R market.</p>
+        <p>We exist because American HVAC contractors deserve access to the most advanced refrigerant leak solutions on the market. K11 has been validated by OEM manufacturers across Latin America for over 12 years. We're bringing that proven technology to the United States.</p>
+        <p>Based in Miami, we understand the demands of year-round AC operation, high-density commercial systems, and the fast-paced nature of field service. Our team provides technical support, same-day shipping, and direct partnership opportunities for contractors, supply houses, and distributors.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:24px">
+          <button class="btn btn-primary" onclick="nav('contact')">Contact Us</button>
+          <button class="btn btn-ghost" onclick="nav('contact','distributors')">Distributor Program</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tl-wrap">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="section-eyebrow">Timeline</div>
+    <div class="section-title" style="font-size:clamp(2rem,3.5vw,3rem)">K11: 12+ Years of Proof</div>
+    <div class="tl-list">
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2012</div><h3>K11 Developed in Brazil</h3><p>The K11 formula is developed in Brazil and begins validation testing with refrigeration equipment manufacturers.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2015</div><h3>First OEM Partnerships</h3><p>Three major HVAC OEM manufacturers in Latin America adopt K11 as a preventive factory treatment on new units.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2019</div><h3>ASHRAE Certification</h3><p>K11 TapaFugas receives ASHRAE 97 certification — the critical standard for HVAC refrigerant additive safety.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2023</div><h3>K11 America Launches</h3><p>The US rollout begins. Wylco LLC is established in Miami, FL as the exclusive K11 distributor for the United States market.</p></div>
+      <div class="tl-item"><div class="tl-dot"></div><div class="tl-year">2025</div><h3>Nationwide Distribution</h3><p>Full US distribution infrastructure operational. Same-day dispatch from Miami. Distributor partnerships expanding across all 50 states.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:80px max(24px,5vw);background:var(--white)" id="k11">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="section-eyebrow">About K11</div>
+    <div class="k11-layout">
+      <div>
+        <div class="section-title" style="font-size:clamp(2rem,3.5vw,3rem)">The technology<br>behind the seal.</div>
+        <p style="font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:1rem">K11 TapaFugas uses a unique polymer-free chemistry that remains inert in the refrigerant circuit until it reaches a leak site. On contact with air and moisture at the point of escape, it activates and forms a durable permanent seal.</p>
+        <p style="font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:1rem">The integrated UV fluorescent tracer travels with the sealant, marking the exact sealed location for verification and documentation — completing two jobs in one product, one injection.</p>
+        <button class="btn btn-primary" onclick="nav('products','tapafugas')" style="margin-top:8px">View TapaFugas 2-in-1</button>
+      </div>
+      <div class="k11-stats">
+        <div class="k11-stat"><div class="k11-stat-num">12+</div><div class="k11-stat-label">Years OEM Validated</div></div>
+        <div class="k11-stat"><div class="k11-stat-num">3+</div><div class="k11-stat-label">OEM Partnerships</div></div>
+        <div class="k11-stat"><div class="k11-stat-num">ASHRAE</div><div class="k11-stat-label">97 Certified</div></div>
+        <div class="k11-stat"><div class="k11-stat-num">NSF</div><div class="k11-stat-label">Food Grade Approved</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:80px max(24px,5vw);background:var(--bg2);border-top:.5px solid var(--border)">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="section-eyebrow">Our Values</div>
+    <div class="section-title" style="font-size:clamp(2rem,3.5vw,3rem)">What we stand for.</div>
+    <div class="vals-grid">
+      <div class="val-card"><div class="val-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Professional Grade</h3><p>Every product we distribute meets the rigorous standards expected by US HVAC professionals — ASHRAE certified, field-validated, and safe for all system components.</p></div>
+      <div class="val-card"><div class="val-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Local Support</h3><p>Miami-based. US-based inventory. Real people answering the phone. We understand the South Florida HVAC market because we operate in it every day.</p></div>
+      <div class="val-card"><div class="val-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Proven Technology</h3><p>We don't distribute anything we don't believe in. K11 has 12+ years of OEM validation, real-world case studies, and documented results across thousands of systems.</p></div>
+    </div>
+  </div>
+</section>
+</div><!-- end page-about -->
+
+<!-- ═══════════════════════════════════════════
+   CONTACT PAGE
+═══════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div style="max-width:var(--max-w);margin:0 auto;padding:0 max(24px,5vw)">
+    <div class="breadcrumb"><a onclick="nav('home')">Home</a><span>/</span><span>Contact</span></div>
+    <div class="section-eyebrow">Get in Touch</div>
+    <h1 class="page-h1">Let's talk<br>K11.</h1>
+    <p class="page-sub">B2B inquiries, wholesale pricing, distributor applications, and technical support. Our Miami team responds within 24 hours.</p>
+  </div>
+</section>
+<section style="background:var(--white);padding:80px max(24px,5vw)">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="contact-layout">
+      <div class="cform">
+        <div class="cform-title">Contact Wylco</div>
+        <p class="cform-sub">Fill out the form and our team will get back to you within 24 hours.</p>
+        <form onsubmit="submitForm(event,'contact-success','contact-btn')">
+          <div class="fr">
+            <div class="fg"><label>First Name</label><input type="text" placeholder="John" required></div>
+            <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith" required></div>
+          </div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="john@company.com" required></div>
+          <div class="fg"><label>Company</label><input type="text" placeholder="HVAC Services LLC"></div>
+          <div class="fg"><label>Phone</label><input type="tel" placeholder="+1 (555) 000-0000"></div>
+          <div class="fg"><label>Inquiry Type</label>
+            <select>
+              <option>General Inquiry</option>
+              <option>Order / Quote Request</option>
+              <option>Distributor Application</option>
+              <option>Technical Support</option>
+              <option>SDS / Document Request</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell us about your business and how we can help..."></textarea></div>
+          <button type="submit" class="sbtn" id="contact-btn">Send Message</button>
+          <div class="success-msg" id="contact-success">✓ Message sent! We'll get back to you within 24 hours.</div>
+          <p style="font-size:.72rem;color:var(--light);margin-top:.8rem;text-align:center">Your information is never shared. We respond within 24 business hours.</p>
+        </form>
+      </div>
+      <div class="info-cards">
+        <div class="icard">
+          <div class="icard-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>Miami, Florida</h3>
+          <p>Wylco LLC · Miami, FL · United States</p>
+          <p class="hours">Operations Monday–Friday, 9 AM – 6 PM EST</p>
+        </div>
+        <div class="icard">
+          <div class="icard-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.89a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.92.35 1.88.59 2.89.72A2 2 0 0122 16.92z"/></svg></div>
+          <h3>Phone &amp; WhatsApp</h3>
+          <a href="tel:+17869035295">+1 (786) 903-5295</a>
+          <p class="hours">WhatsApp available for quick inquiries</p>
+        </div>
+        <div class="icard">
+          <div class="icard-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <h3>Email</h3>
+          <a href="mailto:info@wylco.us">info@wylco.us</a>
+          <p class="hours">We respond within 24 business hours</p>
+        </div>
+        <div class="icard">
+          <div class="icard-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+          <h3>Shipping</h3>
+          <p>Nationwide US distribution from Miami, FL. Same-day dispatch before 2 PM EST. 2–5 business days standard.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dist-section-contact" id="distributors">
+  <div style="max-width:var(--max-w);margin:0 auto">
+    <div class="section-eyebrow green">Distributor Program</div>
+    <div class="section-title" style="font-size:clamp(2rem,3.5vw,3rem)">Become a K11 distributor.</div>
+    <p class="section-sub">We're building the K11 network across the US. HVAC supply houses, contractor fleets, regional wholesalers — let's talk about your territory and opportunity.</p>
+    <div class="dist-layout">
+      <div class="dist-benefits-list">
+        <div class="dist-item"><div class="dist-num">01</div><div><h4>Exclusive Territory</h4><p>We work with a limited number of distributors per region to protect your investment and market position.</p></div></div>
+        <div class="dist-item"><div class="dist-num">02</div><div><h4>Competitive Wholesale Pricing</h4><p>Volume-based pricing tiers for supply houses, contractor fleets, and regional wholesalers.</p></div></div>
+        <div class="dist-item"><div class="dist-num">03</div><div><h4>Technical Onboarding</h4><p>Full product training, datasheets, SDS documents, and application guides for your team and customers.</p></div></div>
+        <div class="dist-item"><div class="dist-num">04</div><div><h4>Marketing Support</h4><p>Product materials, demos, and Wylco support to help you sell K11 in your market effectively.</p></div></div>
+        <div class="dist-item"><div class="dist-num">05</div><div><h4>Fast Restocking</h4><p>Miami-based inventory with same-day shipping ensures your shelves are never empty.</p></div></div>
+      </div>
+      <div class="dist-form-card">
+        <div class="dist-form-title">Apply to Distribute</div>
+        <p class="dist-form-sub">Tell us about your business. Our team will review your application and follow up within 2 business days.</p>
+        <form onsubmit="submitForm(event,'dist-success','dist-btn')">
+          <div class="fg"><label>Company Name</label><input type="text" placeholder="HVAC Supply House LLC" required></div>
+          <div class="fr">
+            <div class="fg"><label>Contact Name</label><input type="text" placeholder="John Smith" required></div>
+            <div class="fg"><label>Role / Title</label><input type="text" placeholder="Owner / Purchasing Mgr"></div>
+          </div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="john@company.com" required></div>
+          <div class="fg"><label>Phone</label><input type="tel" placeholder="+1 (555) 000-0000"></div>
+          <div class="fg"><label>State / Region</label><input type="text" placeholder="Florida, Southeast US..."></div>
+          <div class="fg"><label>Business Type</label>
+            <select>
+              <option>HVAC Supply House</option>
+              <option>HVAC Contractor Fleet</option>
+              <option>Regional Wholesaler</option>
+              <option>Online Retailer</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message (Optional)</label><textarea placeholder="Tell us about your business, territory, and monthly volume estimates..." style="min-height:90px"></textarea></div>
+          <button type="submit" class="dsbtn" id="dist-btn">Submit Application</button>
+          <div class="success-msg" id="dist-success">✓ Application received! We'll contact you within 2 business days.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- end page-contact -->
+
+<!-- ═══════════════════════════════════════════
+   SDS DOCS PAGE
+═══════════════════════════════════════════ -->
+<div id="page-docs" class="page">
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div style="max-width:var(--max-w);margin:0 auto;padding:0 max(24px,5vw)">
+    <div class="breadcrumb"><a onclick="nav('home')">Home</a><span>/</span><a onclick="nav('products')">Products</a><span>/</span><span>Documentation</span></div>
+    <div class="section-eyebrow">Technical Documentation</div>
+    <h1 class="page-h1">SDS Docs &amp;<br>Technical Files.</h1>
+    <p class="page-sub">Safety Data Sheets, Technical Data Sheets, and compliance documents for all K11 products. OSHA-compliant. GHS formatted.</p>
+  </div>
+</section>
+
+<section class="docs-section">
+  <div class="docs-inner">
+    <div class="docs-note">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      All K11 products comply with OSHA Hazard Communication Standard (29 CFR 1910.1200) and the Globally Harmonized System (GHS). Safety Data Sheets are available in English for all US customers and distributors.
+    </div>
+    <div class="docs-grid">
+      <div class="doc-card featured">
+        <div class="featured-stripe">
+          <div class="featured-stripe-text">Safety Data Sheet</div>
+          <div class="featured-stripe-dot"></div>
+        </div>
+        <div class="featured-content">
+          <div class="doc-card-header">
+            <div class="doc-icon blue"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <span class="tag tag-blue">SDS</span>
+          </div>
+          <div class="doc-product">K11 TapaFugas 2-in-1</div>
+          <div class="doc-title">Safety Data Sheet — K11 TapaFugas 2-in-1 Seal + UV Detect</div>
+          <p class="doc-desc">Complete OSHA-compliant Safety Data Sheet for K11 TapaFugas 2-in-1. Includes composition, hazard identification, handling procedures, PPE requirements, and disposal guidance. GHS formatted, US English.</p>
+          <div class="doc-meta">
+            <div class="doc-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Updated 2025</div>
+            <div class="doc-meta-item"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF available</div>
+            <div class="doc-meta-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="20 6 9 17 4 12"/></svg>GHS compliant</div>
+          </div>
+          <div class="doc-actions">
+            <a href="#" class="btn-download"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download SDS</a>
+            <a href="https://wa.me/17869035295?text=Hi%2C+I%27d+like+to+request+technical+documentation+for+K11" target="_blank" class="btn-request">Request via WhatsApp</a>
+          </div>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">
+          <div class="doc-icon gold"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <span class="tag tag-gold">TDS</span>
+        </div>
+        <div class="doc-product">K11 TapaFugas 2-in-1</div>
+        <div class="doc-title">Technical Data Sheet</div>
+        <p class="doc-desc">Full technical specifications, application parameters, chemical composition overview, compatibility data, and performance metrics.</p>
+        <div class="doc-meta">
+          <div class="doc-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Updated 2025</div>
+          <div class="doc-meta-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>ASHRAE 97 certified</div>
+        </div>
+        <div class="doc-actions">
+          <a href="#" class="btn-request">Request Document</a>
+        </div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">
+          <div class="doc-icon blue"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <span class="tag tag-blue">SDS</span>
+        </div>
+        <div class="doc-product">K11 Revela Fugas</div>
+        <div class="doc-title">Safety Data Sheet — UV Fluorescent Dye</div>
+        <p class="doc-desc">OSHA-compliant SDS for K11 Revela Fugas UV detection dye. Includes full hazard classification, handling, and first aid information.</p>
+        <div class="doc-meta">
+          <div class="doc-meta-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Updated 2025</div>
+          <div class="doc-meta-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>GHS compliant</div>
+        </div>
+        <div class="doc-actions"><a href="#" class="btn-request">Request Document</a></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">
+          <div class="doc-icon green"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <span class="tag tag-green">CERT</span>
+        </div>
+        <div class="doc-product">K11 TapaFugas</div>
+        <div class="doc-title">ASHRAE 97 Certification</div>
+        <p class="doc-desc">Official ASHRAE Standard 97 certification document confirming K11 TapaFugas safety for use in sealed refrigerant circuits. Required for professional validation.</p>
+        <div class="doc-meta"><div class="doc-meta-item"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>ASHRAE certified</div></div>
+        <div class="doc-actions"><a href="#" class="btn-request">Request Document</a></div>
+      </div>
+      <div class="doc-card">
+        <div class="doc-card-header">
+          <div class="doc-icon gray"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <span class="tag tag-gray">GUIDE</span>
+        </div>
+        <div class="doc-product">All K11 Products</div>
+        <div class="doc-title">Application &amp; Dosing Guide</div>
+        <p class="doc-desc">Step-by-step application guide for field technicians. Includes leak classification, dosing table, injection procedure, and UV verification process.</p>
+        <div class="doc-meta"><div class="doc-meta-item"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF download</div></div>
+        <div class="doc-actions">
+          <a href="#" class="btn-download" style="font-size:12px;padding:8px 14px"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sds-sections">
+  <div class="sds-inner">
+    <div class="section-eyebrow">GHS SDS Sections</div>
+    <div class="section-title" style="font-size:clamp(2rem,3vw,2.8rem)">What our SDS covers.</div>
+    <p class="section-sub">All K11 Safety Data Sheets comply with OSHA 29 CFR 1910.1200 and include all 16 GHS sections required for US commercial use.</p>
+    <div class="sds-grid">
+      <div class="sds-item"><div class="sds-num">Section 1</div><div class="sds-title">Product Identification</div><div class="sds-desc">Product name, manufacturer details, and intended use classification.</div></div>
+      <div class="sds-item"><div class="sds-num">Section 2</div><div class="sds-title">Hazard Identification</div><div class="sds-desc">GHS hazard classification, signal words, pictograms, and precautionary statements.</div></div>
+      <div class="sds-item"><div class="sds-num">Section 3</div><div class="sds-title">Composition</div><div class="sds-desc">Chemical ingredients, CAS numbers, concentration ranges, and trade secret protections.</div></div>
+      <div class="sds-item"><div class="sds-num">Section 4</div><div class="sds-title">First Aid Measures</div><div class="sds-desc">Treatment procedures for inhalation, skin contact, eye contact, and ingestion.</div></div>
+      <div class="sds-item"><div class="sds-num">Sections 5–8</div><div class="sds-title">Fire, Reactivity &amp; Handling</div><div class="sds-desc">Fire-fighting measures, accidental release, exposure controls, and PPE requirements.</div></div>
+      <div class="sds-item"><div class="sds-num">Sections 9–16</div><div class="sds-title">Physical &amp; Regulatory</div><div class="sds-desc">Physical properties, stability, toxicological data, disposal, transport, and regulatory info.</div></div>
+      <div class="sds-item"><div class="sds-num">Appendix</div><div class="sds-title">Compatibility Data</div><div class="sds-desc">Refrigerant compatibility matrix, oil compatibility data, and system component safety table.</div></div>
+      <div class="sds-item"><div class="sds-num">Addendum</div><div class="sds-title">ASHRAE Certification</div><div class="sds-desc">Reference to ASHRAE Standard 97 certification for sealed refrigerant system safety.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="request-banner">
+  <h2>Need a specific document?</h2>
+  <p>Contact our technical support team. We'll provide the correct SDS, TDS, or certification documentation within 24 hours.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <button class="btn btn-primary" onclick="nav('contact')">Contact Technical Support</button>
+    <a href="https://wa.me/17869035295?text=Hi%2C+I+need+technical+documentation+for+K11" target="_blank" rel="noopener" class="btn btn-ghost">WhatsApp Request</a>
+  </div>
+</div>
+</div><!-- end page-docs -->
+
+<!-- ═══════════════════════════════════════════
+   PRIVACY PAGE
+═══════════════════════════════════════════ -->
+<div id="page-privacy" class="page">
+  <div style="padding-top:var(--nav-h)">
+    <div class="legal-wrap">
+      <div class="breadcrumb" style="margin-bottom:24px"><a onclick="nav('home')">Home</a><span>/</span><span>Privacy Policy</span></div>
+      <h1>Privacy Policy</h1>
+      <p style="color:var(--light);font-size:.85rem;margin-bottom:2rem">Last updated: January 2026</p>
+      <p>Wylco LLC ("Wylco", "we", "our") operates the K11 America website. This Privacy Policy describes how we collect, use, and protect your information.</p>
+      <h2>Information We Collect</h2>
+      <p>We collect information you provide directly: name, email, phone number, company, and message content submitted through our contact forms. We may also collect analytics data about how you use our website.</p>
+      <h2>How We Use Your Information</h2>
+      <ul><li>To respond to your inquiries and quote requests</li><li>To process distributor applications</li><li>To send relevant product updates (with your consent)</li><li>To improve our website and services</li></ul>
+      <h2>Data Sharing</h2>
+      <p>We do not sell, trade, or rent your personal information to third parties. We may share information with service providers who assist us in operating our business, subject to confidentiality agreements.</p>
+      <h2>Contact</h2>
+      <p>For privacy inquiries, contact us at <a href="mailto:info@wylco.us">info@wylco.us</a> or via WhatsApp at +1 (786) 903-5295.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS PAGE -->
+<div id="page-terms" class="page">
+  <div style="padding-top:var(--nav-h)">
+    <div class="legal-wrap">
+      <div class="breadcrumb" style="margin-bottom:24px"><a onclick="nav('home')">Home</a><span>/</span><span>Terms of Use</span></div>
+      <h1>Terms of Use</h1>
+      <p style="color:var(--light);font-size:.85rem;margin-bottom:2rem">Last updated: January 2026</p>
+      <p>By accessing and using this website, you accept and agree to be bound by the following terms and conditions.</p>
+      <h2>Use of Website</h2>
+      <p>This website is provided for informational and commercial inquiry purposes. All product information is provided in good faith. Technical specifications are subject to change without notice.</p>
+      <h2>Products &amp; Ordering</h2>
+      <p>Product availability, pricing, and shipping terms are subject to change. All orders are subject to confirmation by Wylco LLC. B2B pricing requires a formal quote.</p>
+      <h2>Intellectual Property</h2>
+      <p>All content on this website — including text, images, and branding — is the property of Wylco LLC or its licensors and may not be reproduced without written permission.</p>
+      <h2>Limitation of Liability</h2>
+      <p>Wylco LLC is not liable for any indirect, incidental, or consequential damages arising from the use of our products or website. Product application should follow professional guidelines.</p>
+      <h2>Contact</h2>
+      <p>For questions about these terms: <a href="mailto:info@wylco.us">info@wylco.us</a></p>
+    </div>
+  </div>
+</div>
+
+</main><!-- end main -->
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/17869035295?text=Hi%2C+I%27d+like+to+know+more+about+K11+products" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.533 5.849L.057 23.516a.5.5 0 00.609.61l5.805-1.522A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.956 9.956 0 01-5.187-1.453l-.371-.221-3.845 1.008 1.026-3.741-.242-.386A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+</a>
+
+<script>
+/* ─── NAV SYSTEM ─── */
+const _pages = ['home','products','how','about','contact','docs','privacy','terms'];
+
+function nav(page, anchor) {
+  _pages.forEach(p => {
+    const el = document.getElementById('page-' + p);
+    if (el) el.classList.toggle('active', p === page);
+  });
+  // update nav active state
+  document.querySelectorAll('.nav-links a[id^="nl-"]').forEach(a => a.classList.remove('active'));
+  const activeLink = document.getElementById('nl-' + page);
+  if (activeLink) activeLink.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // trigger reveal for newly shown page
+  setTimeout(() => {
+    initReveal();
+    if (anchor) {
+      const el = document.getElementById(anchor);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 60);
+
+  try { history.pushState({ page, anchor }, '', '#' + page + (anchor ? '/' + anchor : '')); } catch(e) {}
+}
+
+/* ─── REVEAL ON SCROLL ─── */
+function initReveal() {
+  const els = document.querySelectorAll('.page.active .reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+}
+
+/* ─── NAV SCROLL ─── */
+const _nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (_nav) _nav.classList.toggle('scrolled', window.scrollY > 30);
+});
+
+/* ─── MOBILE MENU ─── */
+function toggleMenu() {
+  const m = document.getElementById('mobile-menu');
+  if (m) m.classList.toggle('open');
+}
+
+/* ─── FAQ ACCORDION ─── */
+document.addEventListener('click', e => {
+  const q = e.target.closest('.faq-q');
+  if (!q) return;
+  const item = q.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+});
+
+/* ─── FORMS ─── */
+function submitPreorder(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = 'Locking Discount...';
+  btn.style.opacity = '0.7';
+  setTimeout(() => {
+    document.getElementById('po-form').style.display = 'none';
+    document.getElementById('po-success').style.display = 'block';
+  }, 1200);
+}
+
+function submitForm(e, msgId, btnId) {
+  e.preventDefault();
+  const btn = document.getElementById(btnId);
+  if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
+  setTimeout(() => {
+    if (btn) { btn.textContent = 'Sent ✓'; }
+    const m = document.getElementById(msgId);
+    if (m) m.style.display = 'block';
+  }, 1200);
+}
+
+/* ─── PRODUCT FILTER ─── */
+function filterProds(btn, cat, page) {
+  const pageEl = document.getElementById('page-' + (page || 'products'));
+  if (!pageEl) return;
+  pageEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  pageEl.querySelectorAll('.pf-card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+function swapImg(mainImgId, newSrc, clickedThumb, groupId) {
+  const mainImg = document.getElementById(mainImgId);
+  if (!mainImg) return;
+
+  // Find all thumbs in the same strip
+  const strip = clickedThumb.closest('.pf-img-thumbs');
+  if (strip) {
+    strip.querySelectorAll('.pf-img-thumb').forEach(t => t.classList.remove('active'));
+  }
+  clickedThumb.classList.add('active');
+
+  // Fade out → swap → fade in
+  mainImg.style.opacity = '0';
+  mainImg.style.transform = 'scale(0.96)';
+  setTimeout(() => {
+    mainImg.src = newSrc;
+    mainImg.onload = () => {
+      mainImg.style.opacity = '1';
+      mainImg.style.transform = '';
+    };
+    // Fallback in case onload already fired
+    if (mainImg.complete) {
+      mainImg.style.opacity = '1';
+      mainImg.style.transform = '';
+    }
+  }, 180);
+}
+
+/* ─── HOW IT WORKS STEPS ─── */
+const stepLabels = ['CLASSIFY','RUN SYSTEM','CONNECT','INJECT','CIRCULATE','VERIFY UV'];
+const stepTags = ['ASSESS','PREP','SETUP','INJECT','WAIT','CONFIRM'];
+
+const stepImages = ['k11_step_1.png', 'k11_step_2.png', 'k11_step_3.png', 'k11_step_4.png', 'k11_step_5.png', 'k11_step_6.png'];
+function setStep(n) {
+  for (let i = 1; i <= 6; i++) {
+    const row = document.getElementById('step-row-' + i);
+    if (row) row.classList.toggle('active', i === n);
+  }
+  const svImage = document.getElementById('sv-image');
+  if (svImage) {
+    svImage.style.opacity = '0.5';
+    setTimeout(() => {
+      svImage.src = stepImages[n - 1];
+      svImage.style.opacity = '1';
+    }, 150);
+  }
+  const dots = document.querySelectorAll('#sv-dots .sv-dot');
+  dots.forEach((d, i) => d.classList.toggle('on', i === n - 1));
+}
+
+/* ─── INIT ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  // restore from hash
+  let hash = '';
+  try { hash = location.hash.replace('#', ''); } catch(e) {}
+  if (hash) {
+    const [p, a] = hash.split('/');
+    if (_pages.includes(p)) { nav(p, a); return; }
+  }
+  nav('home');
+  initReveal();
+});
+
+window.addEventListener('popstate', e => {
+  if (e.state?.page) nav(e.state.page, e.state.anchor);
+});
+
+/* ─── HERO PRODUCT CAROUSEL ─── */
+(function() {
+  const products = [
+    {
+      img: 'https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1-1024x1024.png',
+      alt: 'K11 TapaFugas 2-in-1',
+      tagClass: 'tag-gold',
+      tag: 'Bestseller · 2-in-1 Technology',
+      name: 'K11 TapaFugas 2-in-1',
+      desc: 'Seals AND detects — simultaneously. The only sealant of its kind in the US market.',
+      page: 'products', anchor: 'tapafugas'
+    },
+    {
+      img: 'https://k11.com.mx/wp-content/uploads/2025/08/Diseno-sin-titulo-1024x1024.png',
+      alt: 'K11 Revela Fugas UV Dye',
+      tagClass: 'tag-blue',
+      tag: 'UV Detection',
+      name: 'K11 Revela Fugas',
+      desc: 'Find leaks instantly under UV light. High-contrast fluorescence with zero system impact.',
+      page: 'products', anchor: 'revelafugas'
+    },
+    {
+      img: 'sella_plus.png',
+      alt: 'K11 Sella Plus Gasket Sealant',
+      tagClass: 'tag-gray',
+      tag: 'Gasket & Thread Sealant',
+      name: 'K11 Sella Plus',
+      desc: 'Maximum adhesion for flanges, threads and gaskets. Hermetic seals for refrigeration systems.',
+      page: 'products', anchor: 'sellaplus'
+    },
+    {
+      img: 'https://k11.com.mx/wp-content/uploads/2025/05/AMICA-7.png',
+      alt: 'K11 Professional Adapters',
+      tagClass: 'tag-gray',
+      tag: 'Accessories',
+      name: 'K11 Adapters',
+      desc: 'Anti-backflow injection adapters. 1/4" and 5/16" — fits every US service port standard.',
+      page: 'products', anchor: 'adapters'
+    }
+  ];
+
+  let current = 0;
+  let timer = null;
+  let isAnimating = false;
+
+  const card = document.getElementById('hero-card');
+  const img = document.getElementById('hero-card-img');
+  const info = document.getElementById('hero-card-info');
+  const tagEl = document.getElementById('hero-card-tag');
+  const nameEl = document.getElementById('hero-card-name');
+  const descEl = document.getElementById('hero-card-desc');
+  const dotsWrap = document.getElementById('hero-card-dots');
+
+  if (!card || !img) return;
+
+  // Build dots
+  products.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'hero-card-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Product ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    if (dotsWrap) dotsWrap.appendChild(dot);
+  });
+
+  function getDots() {
+    return dotsWrap ? dotsWrap.querySelectorAll('.hero-card-dot') : [];
+  }
+
+  function updateDots(idx) {
+    getDots().forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  function goTo(idx) {
+    if (isAnimating || idx === current) return;
+    isAnimating = true;
+
+    // Fade out
+    card.classList.add('transitioning');
+
+    setTimeout(() => {
+      const p = products[idx];
+      img.src = p.img;
+      img.alt = p.alt;
+      tagEl.className = 'tag ' + p.tagClass;
+      tagEl.textContent = p.tag;
+      nameEl.textContent = p.name;
+      descEl.textContent = p.desc;
+      card.onclick = () => nav(p.page, p.anchor);
+
+      current = idx;
+      updateDots(current);
+
+      // Fade in
+      card.classList.remove('transitioning');
+      isAnimating = false;
+    }, 320);
+  }
+
+  function next() {
+    goTo((current + 1) % products.length);
+  }
+
+  function startTimer() {
+    timer = setInterval(next, 3500);
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+  }
+
+  // Pause on hover
+  card.addEventListener('mouseenter', stopTimer);
+  card.addEventListener('mouseleave', startTimer);
+
+  // Make card clickable
+  card.style.cursor = 'pointer';
+  card.onclick = () => nav(products[0].page, products[0].anchor);
+
+  // Init
+  updateDots(0);
+  startTimer();
+})();
+</script>
+</body>
+</html>

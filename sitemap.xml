@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- ── Home / Primary landing page ── -->
+  <url>
+    <loc>https://wylcosolutions.com/</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://wylcosolutions.com/"/>
+    <xhtml:link rel="alternate" hreflang="es"    href="https://wylcosolutions.com/?lang=es"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://wylcosolutions.com/"/>
+    <image:image>
+      <image:loc>https://wylcosolutions.com/assets/k11-banner.jpg.png</image:loc>
+      <image:title>K11 TapaFugas — HVAC-R UV Leak Detection Dye &amp; Sealant | Spectroline Alternative</image:title>
+    </image:image>
+  </url>
+
+  <!-- ── Products — HVAC-R UV Leak Detection Dye & Sealant ── -->
+  <url>
+    <loc>https://wylcosolutions.com/#products</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://wylcosolutions.com/#products"/>
+    <xhtml:link rel="alternate" hreflang="es"    href="https://wylcosolutions.com/?lang=es#products"/>
+    <image:image>
+      <image:loc>https://wylcosolutions.com/assets/tile_tapafugas.png</image:loc>
+      <image:title>K11 TapaFugas 2-in-1 — HVAC-R UV Leak Detection Dye &amp; Micro-Leak Sealant</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://wylcosolutions.com/assets/tile_revelafugas.png</image:loc>
+      <image:title>K11 Revela Fugas — Professional HVAC-R UV Fluorescent Leak Detection Dye</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://wylcosolutions.com/assets/tile_sellaplus.png</image:loc>
+      <image:title>K11 Sella Plus — HVAC-R Gasket Thread Sealant &amp; Lubricant</image:title>
+    </image:image>
+  </url>
+
+  <!-- ── How It Works — UV dye injection guide ── -->
+  <url>
+    <loc>https://wylcosolutions.com/#how</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://wylcosolutions.com/#how"/>
+    <xhtml:link rel="alternate" hreflang="es"    href="https://wylcosolutions.com/?lang=es#how"/>
+  </url>
+
+  <!-- ── Distributors — B2B wholesale HVAC supply ── -->
+  <url>
+    <loc>https://wylcosolutions.com/#distributors</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://wylcosolutions.com/#distributors"/>
+    <xhtml:link rel="alternate" hreflang="es"    href="https://wylcosolutions.com/?lang=es#distributors"/>
+  </url>
+
+  <!-- ── Contact — HVAC wholesale pricing inquiry ── -->
+  <url>
+    <loc>https://wylcosolutions.com/#contact</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://wylcosolutions.com/#contact"/>
+    <xhtml:link rel="alternate" hreflang="es"    href="https://wylcosolutions.com/?lang=es#contact"/>
+  </url>
+
+  <!-- ── SDS / Technical Docs ── -->
+  <url>
+    <loc>https://wylcosolutions.com/#docs</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="en-us" href="https://wylcosolutions.com/#docs"/>
+    <xhtml:link rel="alternate" hreflang="es"    href="https://wylcosolutions.com/?lang=es#docs"/>
+  </url>
+
+  <!-- ── About ── -->
+  <url>
+    <loc>https://wylcosolutions.com/#about</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+
+</urlset>

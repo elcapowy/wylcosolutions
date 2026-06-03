@@ -1,0 +1,17 @@
+{
+  "name": "K11 America by Wylco",
+  "short_name": "K11 America",
+  "description": "Professional HVAC-R refrigerant leak sealant + UV detection. Distributed by Wylco from Miami, FL.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F1117",
+  "theme_color": "#D4541A",
+  "icons": [
+    {
+      "src": "assets/logo-wylco.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

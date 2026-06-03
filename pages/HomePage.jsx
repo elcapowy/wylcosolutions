@@ -327,7 +327,7 @@ function ProductsSection({ lang, setPage }) {
 function CompSection({ lang }) {
   const T = window.T[lang].comp;
   const rows = [
-    { brand:'Wylco / K11 2-in-1', you:true, cols:['✓ Both','✓ All','✓ 10–60ml','✓ Yes'], cls:'winner' },
+    { brand:'Wylco / K11 2-in-1', you:true, cols:['✓ Both','✓ All','✓ 10–60ml (0.3–2 oz)','✓ Yes'], cls:'winner' },
     { brand:'Leak Saver Direct Inject', cols:['~ UV add-on','✓','—','—'] },
     { brand:'Nu-Calgon EasySeal', cols:['—','✓','2.5oz only','—'] },
     { brand:'RectorSeal AC Freeze Pro', cols:['—','✓','1.5oz only','—'] },

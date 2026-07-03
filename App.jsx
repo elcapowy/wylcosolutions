@@ -28,7 +28,18 @@ function App() {
         el.classList.remove('in');
         io.observe(el);
       });
-      return () => io.disconnect();
+      /* safety net: if the observer ever misses an element (fast scroll,
+         re-render, restored scroll position), force-reveal anything still
+         hidden so content is never stuck at opacity:0 */
+      const safety = setInterval(() => {
+        document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+        });
+      }, 400);
+      window.__revealSafety && clearInterval(window.__revealSafety);
+      window.__revealSafety = safety;
+      return () => { io.disconnect(); clearInterval(safety); };
     }, 60);
   }, [page]);
 

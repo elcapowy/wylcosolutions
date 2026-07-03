@@ -286,6 +286,20 @@
   .comp-row { background: var(--white); }
   .comp-row.winner { background: rgba(212,84,26,.04); }
   .comp-row.hdr { background: var(--warm-2); }
+
+  /* ═══════════ SITE STYLE OVERRIDES ═══════════ */
+
+  /* 1) Logo más grande */
+  .nav-logo-img { height: 46px !important; width: 46px !important; }
+  .nav-logo-name { font-size: 1.35rem !important; }
+
+  /* 5) Why cards — hover beige claro + títulos más grandes */
+  .why-card:hover { background: #EFE7DC !important; }
+  .why-card:hover h3 { color: #1a1a1a !important; }
+  .why-card:hover p  { color: rgba(0,0,0,.55) !important; }
+  .why-card:hover .why-icon-wrap { background: rgba(0,0,0,.06) !important; }
+  .why-card:hover .why-icon-wrap svg { stroke: rgba(0,0,0,.7) !important; }
+  .why-card h3 { font-size: 20px !important; margin-bottom: 10px !important; }
 </style>
 </head>
 
@@ -359,7 +373,7 @@
 <script type="text/babel" src="components/Footer.jsx"></script>
 
 <!-- Pages -->
-<script type="text/babel" src="pages/HomePage.jsx"></script>
+<script type="text/babel" src="pages/HomePageBeta.jsx"></script>
 <script type="text/babel" src="pages/ProductsPage.jsx"></script>
 <script type="text/babel" src="pages/HowPage.jsx"></script>
 <script type="text/babel" src="pages/AboutPage.jsx"></script>

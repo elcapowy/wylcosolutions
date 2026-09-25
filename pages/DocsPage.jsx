@@ -110,7 +110,7 @@ function DocsPage({ lang, setPage }) {
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                       {lang==='en'?'Download SDS':'Descargar SDS'}
                     </a>
-                    <a href="https://wa.me/17869035295?text=Hi%2C+I+need+SDS+for+K11+TapaFugas" target="_blank" rel="noopener" className="btn-request">
+                    <a href="https://wa.me/19548818870?text=Hi%2C+I+need+SDS+for+K11+TapaFugas" target="_blank" rel="noopener" className="btn-request">
                       {lang==='en'?'Request via WhatsApp':'Solicitar por WhatsApp'}
                     </a>
                   </div>
@@ -141,7 +141,7 @@ function DocsPage({ lang, setPage }) {
                         <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         {lang==='en'?'Download':'Descargar'}
                       </a>
-                    : <a href="https://wa.me/17869035295?text=Hi%2C+I+need+K11+documentation" target="_blank" rel="noopener" className="btn-request">{lang==='en'?'Request Document':'Solicitar Documento'}</a>
+                    : <a href="https://wa.me/19548818870?text=Hi%2C+I+need+K11+documentation" target="_blank" rel="noopener" className="btn-request">{lang==='en'?'Request Document':'Solicitar Documento'}</a>
                   }
                 </div>
               </div>
@@ -176,7 +176,7 @@ function DocsPage({ lang, setPage }) {
           <button className="btn btn-dark btn-lg" onClick={() => { window.setPage('contact'); window.scrollTo({top:0}); }}>
             {lang==='en'?'Contact Technical Support':'Contactar Soporte Técnico'}
           </button>
-          <a href="https://wa.me/17869035295?text=Hi%2C+I+need+technical+documentation+for+K11" target="_blank" rel="noopener"
+          <a href="https://wa.me/19548818870?text=Hi%2C+I+need+technical+documentation+for+K11" target="_blank" rel="noopener"
              className="btn btn-ghost-light btn-lg" style={{ textDecoration:'none' }}>
             {lang==='en'?'WhatsApp Request':'Solicitud por WhatsApp'}
           </a>

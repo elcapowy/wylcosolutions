@@ -30,9 +30,23 @@ function ProductsPage({ lang, setPage, openPreorder }) {
       ]
     },
     {
+      id:'sellaplus', cat:'sealant',
+      badge: lang==='en' ? 'Sealant + Lubricant' : 'Sellador + Lubricante',
+      num:'02', title:'K11 SELLA PLUS',
+      video: 'assets/hero-video.mp4',
+      desc: lang==='en'
+        ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Zero system impact — circulates and detects without affecting performance.'
+        : 'Tinte UV de ultra-alta fluorescencia para localización rápida de fugas en cualquier sistema HVAC-R. Compatible con todos los tipos de refrigerante y aceite. Sin impacto en el sistema.',
+      features: lang==='en'
+        ? ['Ultra-high UV fluorescence intensity','Compatible with all refrigerant types','Compatible with mineral, POE, PAG oils','Zero impact on system performance','Visible under standard UV/violet light','Stays active in circuit for long-term monitoring']
+        : ['Ultra-alta intensidad de fluorescencia UV','Compatible con todos los tipos de refrigerante','Compatible con aceites mineral, POE, PAG','Sin impacto en el rendimiento del sistema','Visible bajo luz UV/violeta estándar','Permanece activo en el circuito para monitoreo'],
+      compat:['All refrigerants','All fluids','Flanges','Connections','Gaskets','O-rings'],
+      imgs:['assets/tile_sellaplus.png']
+    },
+    {
       id:'revelafugas', cat:'detection',
       badge: lang==='en' ? 'UV Detection' : 'Detección UV',
-      num:'02', title:'K11 REVELA FUGAS',
+      num:'03', title:'K11 REVELA FUGAS',
       video: 'assets/hero-video.mp4',
       desc: lang==='en'
         ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Zero system impact — circulates and detects without affecting performance.'
@@ -45,36 +59,6 @@ function ProductsPage({ lang, setPage, openPreorder }) {
         'assets/tile_revelafugas.png',
         'assets/tile_tapafugas.png',
       ]
-    },
-    {
-      id:'sellaplus', cat:'sealant',
-      badge: lang==='en' ? 'Sealant + Lubricant' : 'Sellador + Lubricante',
-      num:'03', title:'K11 SELLA PLUS',
-      video: 'assets/sella-plus-video.mp4',
-      desc: lang==='en'
-        ? 'Premium HVAC-R sealant AND lubricant. High-performance formulation designed to guarantee reliable sealing and superior lubrication for flanges, joints, connections, and O-rings. Blue in color for easy identification. Never hardens or crystallizes.'
-        : 'Sellador Y lubricante HVAC-R premium. Fórmula de alto rendimiento diseñada para garantizar un sellado confiable y una lubricación superior en bridas, juntas, conexiones y O-rings. Color azul para fácil identificación. Nunca endurece ni cristaliza.',
-      features: lang==='en'
-        ? [
-            'Seals flanges, connections, gaskets and O-rings',
-            'Integrated lubricant — easy application',
-            'Never hardens or crystallizes — stays flexible',
-            'Blue color: easy control during installation and future maintenance',
-            'Safe for all refrigerant systems and fluids',
-            'ASHRAE 97 certified — Guaranteed Chemical Stability',
-            '35ml precision applicator bottle (Code: SPK11)'
-          ]
-        : [
-            'Sella bridas, conexiones, juntas y O-rings',
-            'Lubricante integrado — aplicación fácil',
-            'Nunca endurece ni cristaliza — permanece flexible',
-            'Color azul: fácil control durante instalación e identificación futura',
-            'Seguro para todos los sistemas y fluidos de refrigeración',
-            'Certificado ASHRAE 97 — Estabilidad Química Garantizada',
-            'Botella aplicadora de precisión 35ml (Cód: SPK11)'
-          ],
-      compat:['All refrigerants','All fluids','Flanges','Connections','Gaskets','O-rings'],
-      imgs:['assets/tile_sellaplus.png']
     },
     {
       id:'adapters', cat:'accessories',
@@ -96,8 +80,6 @@ function ProductsPage({ lang, setPage, openPreorder }) {
 
   const dosingItems = [
     { img:'assets/tile_tapafugas.png', dosage:'3 tons / 36,000 BTU', action: lang==='en'?'Seals micro-leaks':'Sella micro-fugas', usage: lang==='en'?'System maintains performance for +30 days':'Equipo mantiene rendimiento por +30 días', time: lang==='en'?'2h – 3h residential':'2h – 3h residencial' },
-    { img:'assets/tile_revelafugas.png', dosage: lang==='en'?'3 liters of oil':'3 litros de aceite', action: lang==='en'?'Reveals all leaks':'Revela todas las fugas', usage: lang==='en'?'Preventive · Corrective':'Preventivo · Correctivo', time:'15 – 20 min' },
-    { img:'assets/tile_tapafugas.png', dosage:'3 tons / 10.5 HP', action: lang==='en'?'Reveals + Seals':'Revela + Sella', usage: lang==='en'?'Ideal for 24/7 loops':'Ideal para circuitos 24/7', time: lang==='en'?'REVEALS: 20min · SEALS: 2–3h':'REVELA: 20min · SELLA: 2–3h' },
     { img:'assets/tile_sellaplus.png', dosage: lang==='en'?'Apply as needed\nto surface':'Aplicar según\nnecesidad', action: lang==='en'?'Seals &\nLubricates':'Sella y\nLubrica', usage: lang==='en'?'Flanges · Connections\nGaskets · O-rings':'Bridas · Conexiones\nJuntas · O-rings', time: lang==='en'?'Instant\napplication':'Aplicación\ninmediata' },
   ];
 
@@ -116,7 +98,7 @@ function ProductsPage({ lang, setPage, openPreorder }) {
           </div>
           <div className="eyebrow white">{lang==='en'?'Product Line':'Línea de Productos'}</div>
           <h1 className="page-h1">{lang==='en'?<span>The Complete<br/><em>K11 Toolkit.</em></span>:<span>El Kit<br/><em>Completo K11.</em></span>}</h1>
-          <p className="page-sub">{lang==='en'?'Professional-grade solutions for every HVAC-R leak management need. All products ship from Miami, FL.':'Soluciones profesionales para cada necesidad de gestión de fugas HVAC-R. Todos los productos se envían desde Miami, FL.'}</p>
+          <p className="page-sub">{lang==='en'?'Professional-grade solutions for every HVAC-R leak management need. Coming soon to Miami, FL — pre-orders open.':'Soluciones profesionales para cada necesidad de gestión de fugas HVAC-R. Todos los productos se envían desde Miami, FL.'}</p>
         </div>
       </section>
 
@@ -179,7 +161,7 @@ function ProductsPage({ lang, setPage, openPreorder }) {
                       <button className="btn btn-primary btn-sm" onClick={openPreorder}>
                         {lang==='en'?'Pre-Order Now':'Pre-Ordenar'} <svg className="arr" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                       </button>
-                      <a href="https://wa.me/17869035295" target="_blank" rel="noopener" className="btn btn-outline-orange btn-sm">
+                      <a href="https://wa.me/19548818870" target="_blank" rel="noopener" className="btn btn-outline-orange btn-sm">
                         {lang==='en'?'WhatsApp Order':'Pedir por WhatsApp'}
                       </a>
                     </div>

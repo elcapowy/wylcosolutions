@@ -42,7 +42,7 @@ function Footer({ setPage, lang }) {
             </p>
             <div style={{ display:'flex', gap:'8px' }}>
               {/* WhatsApp */}
-              <a href="https://wa.me/17869035295" target="_blank" rel="noopener"
+              <a href="https://wa.me/19548818870" target="_blank" rel="noopener"
                  style={{ width:'30px', height:'30px', borderRadius:'50%',
                           background:'rgba(255,255,255,.08)', border:'.5px solid rgba(255,255,255,.1)',
                           display:'flex', alignItems:'center', justifyContent:'center',

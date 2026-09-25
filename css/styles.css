@@ -1036,3 +1036,5 @@ textarea { resize:vertical; min-height:110px; }
   .hero-h1 { font-size:3.5rem; }
   .final-cta h2 { font-size:3rem; }
 }
+
+.avail-bar{margin-top:40px;position:relative;z-index:1;background:var(--orange);color:#fff;text-align:center;font-size:.85rem;line-height:1.4;padding:10px 20px;text-wrap:pretty}.avail-bar strong{font-weight:700}

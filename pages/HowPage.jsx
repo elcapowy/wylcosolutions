@@ -51,30 +51,6 @@ function HowPage({ lang, setPage }) {
       ],
     },
     {
-      id:'revelafugas',
-      tab:'Revela Fugas',
-      sub: isEN
-        ? 'How to locate any leak with the ultra-high fluorescence UV dye — from injection to inspection under UV light.'
-        : 'Cómo localizar cualquier fuga con el tinte UV de ultra-alta fluorescencia — desde la inyección hasta la inspección bajo luz UV.',
-      leakGuide: false,
-      pills: isEN ? ['Inject dye','Circulate','UV scan'] : ['Inyectar tinte','Circular','Escaneo UV'],
-      steps: isEN ? [
-        { num:1, title:'Confirm the Fault', desc:'The system is losing charge but the leak point is unknown. Revela Fugas is designed to pinpoint the exact location, even on multiple simultaneous leaks.', label:'Step 01', icon:'classify', foot:<span><strong>Unknown leak?</strong> This is what the UV dye is for — it finds what pressure tests miss.</span> },
-        { num:2, title:'Connect the Adapter', desc:'Attach the K11 anti-backflow adapter to the low-pressure service port and load the correct dose of Revela Fugas UV dye.', label:'Step 02', icon:'adapter', foot:<span><strong>Anti-backflow adapter.</strong> Safe, precise injection into a live circuit.</span> },
-        { num:3, title:'Inject the Dye', desc:'Inject the dye into the running circuit. It is compatible with all refrigerants and with mineral, POE and PAG oils — zero impact on system performance.', label:'Step 03', icon:'drop', foot:<span><strong>All oils & refrigerants.</strong> Mineral, POE, PAG — no effect on pressures or capacity.</span> },
-        { num:4, title:'Let It Circulate', desc:'Run the system for 15–30 minutes so the dye reaches every component, joint and fitting in the circuit.', label:'Step 04', icon:'circulate', foot:<span><strong>15–30 minutes.</strong> The dye travels to every leak point in the system.</span> },
-        { num:5, title:'Inspect with UV Light', desc:'Scan coils, joints, valves and fittings with a standard UV or violet lamp. The dye glows brightly at each leak point.', label:'Step 05', icon:'uv', foot:<span><strong>Standard UV lamp.</strong> No special equipment — the fluorescence does the work.</span> },
-        { num:6, title:'Mark & Act', desc:'Mark every glowing leak. Repair mechanically where needed, or keep the dye in circuit for ongoing long-term leak monitoring.', label:'Step 06', icon:'check', foot:<span><strong>Stays active.</strong> Leave it in circuit for long-term monitoring on future service calls.</span> },
-      ] : [
-        { num:1, title:'Confirmar la Falla', desc:'El sistema pierde carga pero no se sabe dónde. Revela Fugas está diseñado para señalar la ubicación exacta, incluso con varias fugas simultáneas.', label:'Paso 01', icon:'classify', foot:<span><strong>¿Fuga desconocida?</strong> Para eso está el tinte UV — encuentra lo que las pruebas de presión no ven.</span> },
-        { num:2, title:'Conectar el Adaptador', desc:'Adjuntá el adaptador anti-retorno K11 al puerto de servicio de baja presión y cargá la dosis correcta de tinte UV Revela Fugas.', label:'Paso 02', icon:'adapter', foot:<span><strong>Adaptador anti-retorno.</strong> Inyección segura y precisa en circuito activo.</span> },
-        { num:3, title:'Inyectar el Tinte', desc:'Inyectá el tinte en el circuito en marcha. Es compatible con todos los refrigerantes y con aceites mineral, POE y PAG — sin impacto en el rendimiento del sistema.', label:'Paso 03', icon:'drop', foot:<span><strong>Todos los aceites y refrigerantes.</strong> Mineral, POE, PAG — sin afectar presiones ni capacidad.</span> },
-        { num:4, title:'Dejar Circular', desc:'Corré el sistema por 15–30 minutos para que el tinte llegue a cada componente, junta y conexión del circuito.', label:'Paso 04', icon:'circulate', foot:<span><strong>15–30 minutos.</strong> El tinte viaja a cada punto de fuga del sistema.</span> },
-        { num:5, title:'Inspeccionar con Luz UV', desc:'Escaneá serpentinas, juntas, válvulas y conexiones con una lámpara UV o violeta estándar. El tinte brilla intensamente en cada punto de fuga.', label:'Paso 05', icon:'uv', foot:<span><strong>Lámpara UV estándar.</strong> Sin equipo especial — la fluorescencia hace el trabajo.</span> },
-        { num:6, title:'Marcar y Actuar', desc:'Marcá cada fuga que brilla. Reparás mecánicamente donde haga falta, o dejá el tinte en el circuito para monitoreo de fugas a largo plazo.', label:'Paso 06', icon:'check', foot:<span><strong>Permanece activo.</strong> Dejalo en el circuito para monitoreo en futuras visitas de servicio.</span> },
-      ],
-    },
-    {
       id:'sellaplus',
       tab:'Sella Plus',
       sub: isEN
@@ -96,6 +72,30 @@ function HowPage({ lang, setPage }) {
         { num:4, title:'Ensamblar y Ajustar', desc:'Uní y ajustá la junta al torque especificado. Sella Plus lubrica mientras ensamblás y sella la conexión al mismo tiempo.', label:'Paso 04', icon:'wrench', foot:<span><strong>Sella + lubrica.</strong> Un solo producto hace ambos mientras ajustás la junta.</span> },
         { num:5, title:'Verificar el Sellado', desc:'El color azul confirma cobertura completa. Verificá una conexión limpia y sin fugas antes de devolver el sistema a servicio.', label:'Paso 05', icon:'check', foot:<span><strong>Azul = cubierto.</strong> Confirmación visual de una junta sellada y lubricada.</span> },
         { num:6, title:'Hecho para Durar', desc:'Sella Plus nunca endurece ni cristaliza — permanece flexible por la vida de la junta y facilita cualquier mantenimiento futuro. Certificado ASHRAE 97.', label:'Paso 06', icon:'shield', foot:<span><strong>Nunca endurece.</strong> Permanece flexible — las juntas siguen desmontables. Certificado ASHRAE 97.</span> },
+      ],
+    },
+    {
+      id:'revelafugas',
+      tab:'Revela Fugas',
+      sub: isEN
+        ? 'How to locate any leak with the ultra-high fluorescence UV dye — from injection to inspection under UV light.'
+        : 'Cómo localizar cualquier fuga con el tinte UV de ultra-alta fluorescencia — desde la inyección hasta la inspección bajo luz UV.',
+      leakGuide: false,
+      pills: isEN ? ['Inject dye','Circulate','UV scan'] : ['Inyectar tinte','Circular','Escaneo UV'],
+      steps: isEN ? [
+        { num:1, title:'Confirm the Fault', desc:'The system is losing charge but the leak point is unknown. Revela Fugas is designed to pinpoint the exact location, even on multiple simultaneous leaks.', label:'Step 01', icon:'classify', foot:<span><strong>Unknown leak?</strong> This is what the UV dye is for — it finds what pressure tests miss.</span> },
+        { num:2, title:'Connect the Adapter', desc:'Attach the K11 anti-backflow adapter to the low-pressure service port and load the correct dose of Revela Fugas UV dye.', label:'Step 02', icon:'adapter', foot:<span><strong>Anti-backflow adapter.</strong> Safe, precise injection into a live circuit.</span> },
+        { num:3, title:'Inject the Dye', desc:'Inject the dye into the running circuit. It is compatible with all refrigerants and with mineral, POE and PAG oils — zero impact on system performance.', label:'Step 03', icon:'drop', foot:<span><strong>All oils & refrigerants.</strong> Mineral, POE, PAG — no effect on pressures or capacity.</span> },
+        { num:4, title:'Let It Circulate', desc:'Run the system for 15–30 minutes so the dye reaches every component, joint and fitting in the circuit.', label:'Step 04', icon:'circulate', foot:<span><strong>15–30 minutes.</strong> The dye travels to every leak point in the system.</span> },
+        { num:5, title:'Inspect with UV Light', desc:'Scan coils, joints, valves and fittings with a standard UV or violet lamp. The dye glows brightly at each leak point.', label:'Step 05', icon:'uv', foot:<span><strong>Standard UV lamp.</strong> No special equipment — the fluorescence does the work.</span> },
+        { num:6, title:'Mark & Act', desc:'Mark every glowing leak. Repair mechanically where needed, or keep the dye in circuit for ongoing long-term leak monitoring.', label:'Step 06', icon:'check', foot:<span><strong>Stays active.</strong> Leave it in circuit for long-term monitoring on future service calls.</span> },
+      ] : [
+        { num:1, title:'Confirmar la Falla', desc:'El sistema pierde carga pero no se sabe dónde. Revela Fugas está diseñado para señalar la ubicación exacta, incluso con varias fugas simultáneas.', label:'Paso 01', icon:'classify', foot:<span><strong>¿Fuga desconocida?</strong> Para eso está el tinte UV — encuentra lo que las pruebas de presión no ven.</span> },
+        { num:2, title:'Conectar el Adaptador', desc:'Adjuntá el adaptador anti-retorno K11 al puerto de servicio de baja presión y cargá la dosis correcta de tinte UV Revela Fugas.', label:'Paso 02', icon:'adapter', foot:<span><strong>Adaptador anti-retorno.</strong> Inyección segura y precisa en circuito activo.</span> },
+        { num:3, title:'Inyectar el Tinte', desc:'Inyectá el tinte en el circuito en marcha. Es compatible con todos los refrigerantes y con aceites mineral, POE y PAG — sin impacto en el rendimiento del sistema.', label:'Paso 03', icon:'drop', foot:<span><strong>Todos los aceites y refrigerantes.</strong> Mineral, POE, PAG — sin afectar presiones ni capacidad.</span> },
+        { num:4, title:'Dejar Circular', desc:'Corré el sistema por 15–30 minutos para que el tinte llegue a cada componente, junta y conexión del circuito.', label:'Paso 04', icon:'circulate', foot:<span><strong>15–30 minutos.</strong> El tinte viaja a cada punto de fuga del sistema.</span> },
+        { num:5, title:'Inspeccionar con Luz UV', desc:'Escaneá serpentinas, juntas, válvulas y conexiones con una lámpara UV o violeta estándar. El tinte brilla intensamente en cada punto de fuga.', label:'Paso 05', icon:'uv', foot:<span><strong>Lámpara UV estándar.</strong> Sin equipo especial — la fluorescencia hace el trabajo.</span> },
+        { num:6, title:'Marcar y Actuar', desc:'Marcá cada fuga que brilla. Reparás mecánicamente donde haga falta, o dejá el tinte en el circuito para monitoreo de fugas a largo plazo.', label:'Paso 06', icon:'check', foot:<span><strong>Permanece activo.</strong> Dejalo en el circuito para monitoreo en futuras visitas de servicio.</span> },
       ],
     },
     {

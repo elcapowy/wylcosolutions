@@ -139,7 +139,7 @@ function App() {
       />
 
       <main style={{ flex:1, paddingTop:'var(--nav-h)' }}>
-        <div className="avail-bar">{lang==='en'?<span><strong>Coming soon to Miami.</strong> K11 products aren't in stock in Miami yet — pre-order now and we'll ship as soon as they arrive.</span>:<span><strong>Próximamente en Miami.</strong> Los productos K11 aún no están disponibles en Miami — pre-ordená ahora y los enviamos apenas lleguen.</span>}</div>
+        <div className="avail-bar" style={{background:'#D9581B',color:'#fff',textAlign:'center',fontSize:'.85rem',lineHeight:1.4,padding:'10px 20px',position:'relative',zIndex:1}}>{lang==='en'?<span><strong>Coming soon to Miami.</strong> K11 products aren't in stock in Miami yet — pre-order now and we'll ship as soon as they arrive.</span>:<span><strong>Próximamente en Miami.</strong> Los productos K11 aún no están disponibles en Miami — pre-ordená ahora y los enviamos apenas lleguen.</span>}</div>
         {pages[page] || pages.home}
       </main>
 

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Kit impresión K11 · Wylco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/papeleria.css">
+<style>
+.d1.page{display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--wm)}
+.d1 .hd{background:var(--dk);color:#fff;padding:.4in .55in .34in;position:relative;overflow:hidden}
+.d1 .hd .row{display:flex;justify-content:space-between;align-items:center}
+.d1 .hd .brand b{color:#fff}
+.d1 .hd .brand small{color:rgba(255,255,255,.6)}
+.d1 .hd h1{font-family:var(--fd);font-weight:900;font-size:46pt;line-height:.88;text-transform:uppercase;letter-spacing:.01em;margin-top:.28in;max-width:7in}
+.d1 .hd h1 em{color:var(--or);font-style:normal}
+.d1 .hd .es-h{font-family:var(--fd);font-weight:700;font-size:17pt;text-transform:uppercase;letter-spacing:.04em;color:rgba(255,255,255,.72);margin-top:8px}
+.d1 .hd .sub{font-size:10pt;line-height:1.45;color:rgba(255,255,255,.85);max-width:6in;margin-top:.14in}
+.d1 .hd .k{position:absolute;right:-.2in;top:.9in;font-family:var(--fd);font-weight:900;font-size:190pt;line-height:1;color:rgba(212,84,26,.16)}
+.d1 .bd{padding:.3in .55in .24in;display:grid;grid-template-rows:auto 1fr;gap:.24in}
+.d1 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.14in}
+.d1 .pc{background:#fff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.d1 .pc .im{height:1.35in;display:flex;align-items:center;justify-content:center;padding:6px}
+.d1 .pc .im img{max-height:100%;max-width:100%;object-fit:contain}
+.d1 .pc .tx{padding:9px 11px 12px;border-top:.5pt solid var(--wm3)}
+.d1 .pc h3{font-family:var(--fd);font-weight:800;font-size:13pt;text-transform:uppercase;line-height:1}
+.d1 .pc p{font-size:8pt;line-height:1.4;color:var(--mid);margin-top:4px}
+.d1 .pc p.es{color:var(--mu);margin-top:2px}
+.d1 .why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.2in;align-content:start}
+.d1 .why div{border-top:2pt solid var(--or);padding-top:8px}
+.d1 .why b{font-family:var(--fd);font-weight:800;font-size:13pt;text-transform:uppercase;display:block;line-height:1.05}
+.d1 .why span{font-size:8.5pt;color:var(--mid);display:block;margin-top:4px;line-height:1.4}
+.d1 .ft{background:var(--or);color:#fff;padding:.3in .55in;display:grid;grid-template-columns:1fr auto;gap:.3in;align-items:center}
+.d1 .ft .c{font-family:var(--fd);font-weight:900;font-size:27pt;text-transform:uppercase;line-height:.95}
+.d1 .ft .d{font-size:10pt;margin-top:8px;line-height:1.5;font-weight:500}
+.d1 .ft .qr{background:#fff;padding:7px;border-radius:8px;text-align:center}
+.d1 .ft .qr img{width:1.05in;height:1.05in;display:block}
+.d1 .ft .qr small{font-family:var(--fd);font-weight:700;font-size:7.5pt;letter-spacing:.12em;color:var(--tx);text-transform:uppercase;display:block;margin-top:4px}
+.d2.page{padding:.5in .55in;display:flex;flex-direction:column;gap:.22in}
+.d2 .top{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5pt solid var(--dk);padding-bottom:10px}
+.d2 .top .r{font-family:var(--fd);font-weight:700;font-size:9pt;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);text-align:right}
+.d2 .hero{display:grid;grid-template-columns:2.3in 1fr;gap:.3in;align-items:center}
+.d2 .hero .im{background:var(--wm);border-radius:12px;height:2.9in;display:flex;align-items:center;justify-content:center}
+.d2 .hero .im img{max-height:94%;max-width:94%;object-fit:contain}
+.d2 h1{font-family:var(--fd);font-weight:900;font-size:40pt;line-height:.9;text-transform:uppercase;margin-top:6px}
+.d2 h1 em{color:var(--or);font-style:normal}
+.d2 .lead{font-size:10.5pt;line-height:1.5;margin-top:10px}
+.d2 .lead.es{font-size:9.5pt;margin-top:6px}
+.d2 .cols{display:grid;grid-template-columns:1fr 1fr;gap:.3in}
+.d2 h2{font-family:var(--fd);font-weight:800;font-size:13pt;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.d2 ul.ft{list-style:none;display:grid;gap:5px;font-size:9pt;line-height:1.35}
+.d2 ul.ft li{display:grid;grid-template-columns:10px 1fr;gap:6px}
+.d2 ul.ft li::before{content:"";width:6px;height:6px;background:var(--or);border-radius:50%;margin-top:5px}
+.d2 ul.ft li i{color:var(--mu);display:block;font-size:8.5pt}
+.d2 .refs{display:flex;flex-wrap:wrap;gap:4px}
+.d2 .spec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--dk);color:#fff;border-radius:10px;overflow:hidden}
+.d2 .spec div{padding:12px 14px;border-right:.5pt solid rgba(255,255,255,.12)}
+.d2 .spec div:last-child{border:none}
+.d2 .spec small{font-family:var(--fd);font-weight:700;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--or);display:block}
+.d2 .spec b{font-family:var(--fd);font-weight:800;font-size:15pt;text-transform:uppercase;display:block;margin-top:3px;line-height:1}
+.d2 .spec span{font-size:7.5pt;color:rgba(255,255,255,.65);display:block;margin-top:3px}
+.d2 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.14in;counter-reset:s}
+.d2 .steps div{border-top:2pt solid var(--or);padding-top:7px;font-size:8.5pt;line-height:1.35;counter-increment:s}
+.d2 .steps div::before{content:"0" counter(s);font-family:var(--fd);font-weight:900;font-size:16pt;display:block;color:var(--or);line-height:1}
+.d2 .steps i{color:var(--mu);display:block;margin-top:2px}
+.d2 .foot{margin-top:auto;display:flex;justify-content:space-between;font-size:8pt;color:var(--mu);border-top:.5pt solid var(--wm3);padding-top:8px}
+.d2 .prow{display:grid;grid-template-columns:1.5in 1fr;gap:.26in;padding:.16in 0;border-bottom:.5pt solid var(--wm3)}
+.d2 .prow:last-of-type{border:none}
+.d2 .prow .im{background:var(--wm);border-radius:10px;height:1.8in;display:flex;align-items:center;justify-content:center}
+.d2 .prow .im img{max-height:92%;max-width:92%;object-fit:contain}
+.d2 .prow h3{font-family:var(--fd);font-weight:900;font-size:22pt;text-transform:uppercase;line-height:.95}
+.d2 .prow p{font-size:9.5pt;line-height:1.45;margin-top:5px}
+.d2 .prow p.es{font-size:8.8pt;margin-top:3px}
+.d2 .prow ul.ft{grid-template-columns:1fr 1fr;margin-top:8px;column-gap:14px}
+.d3.page{padding:.5in .55in;display:flex;flex-direction:column;gap:.24in}
+.d3 .top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5pt solid var(--dk);padding-bottom:10px}
+.d3 h1{font-family:var(--fd);font-weight:900;font-size:30pt;line-height:.9;text-transform:uppercase;text-align:right}
+.d3 h1 small{display:block;font-size:11pt;letter-spacing:.12em;color:var(--mu);font-weight:700;margin-top:4px}
+.d3 .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.2in;font-size:8.5pt}
+.d3 .meta label{font-family:var(--fd);font-weight:700;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:3px}
+.d3 .tbl td.p{font-weight:700;text-align:right;width:.9in}
+.d3 .tbl th.p{text-align:right}
+.d3 .tbl td b{font-family:var(--fd);font-size:11.5pt;text-transform:uppercase;letter-spacing:.02em}
+.d3 .tbl td i{display:block;color:var(--mu);font-size:8pt}
+.d3 .blank{display:inline-block;min-width:.6in;border-bottom:.75pt solid #9aa0ab;height:13px}
+.d3 h2{font-family:var(--fd);font-weight:800;font-size:13pt;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.d3 .terms{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;font-size:9pt}
+.d3 .terms div{display:grid;grid-template-columns:1.5in 1fr;gap:8px;align-items:end}
+.d3 .terms span{color:var(--mid)}
+.d3 .note{font-size:8pt;color:var(--mu);line-height:1.5}
+.d3 .foot{margin-top:auto;display:flex;justify-content:space-between;font-size:8pt;color:var(--mu);border-top:.5pt solid var(--wm3);padding-top:8px}
+.d4.page{padding:.6in .75in .55in;display:flex;flex-direction:column}
+.d4.page::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.12in;background:var(--or)}
+.d4 .top{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:.75pt solid var(--wm3)}
+.d4 .top .r{font-size:8.5pt;color:var(--mu);text-align:right;line-height:1.5}
+.d4 .to{margin-top:.45in;font-size:10.5pt;line-height:1.6}
+.d4 .to .line{width:3in;margin-bottom:6px;min-height:18px}
+.d4 .body{margin-top:.35in;font-size:10.5pt;line-height:1.62;display:grid;gap:11px;text-wrap:pretty}
+.d4 .body h2{font-family:var(--fd);font-weight:800;font-size:18pt;text-transform:uppercase;line-height:1;margin-bottom:4px}
+.d4 .body ul{list-style:none;display:grid;gap:5px;padding-left:2px}
+.d4 .body li{display:grid;grid-template-columns:12px 1fr;gap:6px}
+.d4 .body li::before{content:"";width:6px;height:6px;background:var(--or);border-radius:50%;margin-top:7px}
+.d4 .sig{margin-top:.35in;font-size:10pt;line-height:1.5}
+.d4 .sig b{font-family:var(--fd);font-weight:800;font-size:15pt;text-transform:uppercase;display:block}
+.d4 .foot{margin-top:auto;display:flex;justify-content:space-between;font-size:8pt;color:var(--mu);border-top:.5pt solid var(--wm3);padding-top:8px}
+.d5.page{padding:.5in .55in;display:flex;flex-direction:column;gap:.2in}
+.d5 .top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5pt solid var(--dk);padding-bottom:10px}
+.d5 h1{font-family:var(--fd);font-weight:900;font-size:26pt;line-height:.9;text-transform:uppercase;text-align:right}
+.d5 h1 small{display:block;font-size:10.5pt;letter-spacing:.12em;color:var(--mu);font-weight:700;margin-top:4px}
+.d5 h2{font-family:var(--fd);font-weight:800;font-size:12pt;text-transform:uppercase;letter-spacing:.06em;background:var(--wm);padding:5px 9px;border-radius:4px}
+.d5 .g{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px 16px;margin-top:10px}
+.d5 .f{display:flex;flex-direction:column;gap:3px}
+.d5 .f label{font-size:7.5pt;color:var(--mu);font-weight:500}
+.d5 .f label i{color:#8a8f9b}
+.d5 .s2{grid-column:span 2}
+.d5 .s3{grid-column:span 3}
+.d5 .s4{grid-column:span 4}
+.d5 .s6{grid-column:span 6}
+.d5 .chk{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:8.5pt}
+.d5 .chk span::before{content:"";display:inline-block;width:9px;height:9px;border:.75pt solid var(--mid);margin-right:5px;vertical-align:-1px;border-radius:2px}
+.d5 .tbl td{height:30px}
+.d5 .tbl td.c{text-align:center;width:.75in}
+.d5 .tbl td b{font-family:var(--fd);font-size:11pt;text-transform:uppercase}
+.d5 .tot{display:grid;grid-template-columns:1fr 2.4in;gap:.3in}
+.d5 .tot .r{display:grid;gap:7px;font-size:9pt}
+.d5 .tot .r div{display:grid;grid-template-columns:1fr 1.1in;gap:8px;align-items:end}
+.d5 .tot .r div:last-child{font-weight:700}
+.d5 .sig{display:grid;grid-template-columns:1fr 1fr;gap:.4in;margin-top:auto}
+.d5 .sig .f label{margin-top:4px}
+.d5 .note{font-size:7.5pt;color:var(--mu);line-height:1.45}
+.d6.page{padding:.45in .55in;display:flex;flex-direction:column;gap:.22in}
+.d6 .top{display:flex;justify-content:space-between;align-items:center}
+.d6 .hero{background:var(--dk);color:#fff;border-radius:14px;padding:.3in .34in;display:grid;grid-template-columns:1fr auto;gap:.2in;align-items:center}
+.d6 .hero h1{font-family:var(--fd);font-weight:900;font-size:40pt;line-height:.88;text-transform:uppercase;max-width:5in}
+.d6 .hero h1 em{color:var(--or);font-style:normal}
+.d6 .hero .es-h{font-family:var(--fd);font-weight:700;font-size:15pt;text-transform:uppercase;color:rgba(255,255,255,.7);margin-top:8px;letter-spacing:.03em}
+.d6 .hero .big{text-align:right}
+.d6 .hero .big b{font-family:var(--fd);font-weight:900;font-size:78pt;line-height:.85;color:var(--or);display:block}
+.d6 .hero .big span{font-family:var(--fd);font-weight:700;font-size:10pt;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.d6 .tbl{font-size:9pt}
+.d6 .tbl th{font-size:8pt;padding:7px 7px;line-height:1.15;vertical-align:bottom}
+.d6 .tbl th.n,.d6 .tbl td.n{text-align:right;white-space:nowrap}
+.d6 .tbl td b{font-family:var(--fd);font-size:11.5pt;text-transform:uppercase}
+.d6 .tbl td i{display:block;color:var(--mu);font-size:7.5pt}
+.d6 .tbl td.s{font-weight:700}
+.d6 .tbl td.m{font-family:var(--fd);font-weight:900;font-size:14pt;color:var(--or)}
+.d6 .tbl th i{display:block;font-style:normal;opacity:.6;font-weight:600;letter-spacing:.04em;text-transform:none;font-family:var(--fb);font-size:7pt}
+.d6 .flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.14in}
+.d6 .flow div{background:var(--wm);border-radius:10px;padding:12px 14px;position:relative}
+.d6 .flow small{font-family:var(--fd);font-weight:700;font-size:8.5pt;letter-spacing:.12em;text-transform:uppercase;color:var(--or)}
+.d6 .flow b{display:block;font-family:var(--fd);font-weight:900;font-size:24pt;line-height:1;margin:4px 0 3px}
+.d6 .flow span{font-size:8.5pt;color:var(--mid);line-height:1.35;display:block}
+.d6 .flow span i{color:var(--mu)}
+.d6 h2{font-family:var(--fd);font-weight:800;font-size:14pt;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
+.d6 .why{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.16in}
+.d6 .why div{border-top:2pt solid var(--or);padding-top:7px;font-size:8.5pt;line-height:1.4;color:var(--mid)}
+.d6 .why b{display:block;font-family:var(--fd);font-weight:800;font-size:12pt;text-transform:uppercase;color:var(--tx);line-height:1.05;margin-bottom:3px}
+.d6 .why .qrv{display:grid;grid-template-columns:.85in 1fr;gap:8px;align-items:start}
+.d6 .why .qrv img{width:.85in;height:.85in;display:block}
+.d6 .note{font-size:7.5pt;color:var(--mu);line-height:1.45}
+.d6 .foot{margin-top:auto;display:flex;justify-content:space-between;font-size:8pt;color:var(--mu);border-top:.5pt solid var(--wm3);padding-top:8px}
+</style></head><body>
+<doc-page>
+
+<section class="page d1" data-screen-label="Flyer · Flyer">
+<div class="hd"><div class="k">K11</div><div class="row"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><span class="soon">Coming soon to Miami · Próximamente</span></div>
+<h1>We're looking for<br><em>distributors</em> in Miami.</h1>
+<div class="es-h">Buscamos distribuidores en Miami</div>
+<p class="sub">K11 is a professional line that seals and detects refrigerant micro-leaks in AC/R systems. We're choosing our first partners in South Florida.<br><span style="opacity:.75">K11 es una línea profesional que sella y detecta micro-fugas de refrigerante. Estamos eligiendo a nuestros primeros socios en el sur de Florida.</span></p></div>
+<div class="bd">
+<div class="grid">
+<div class="pc"><div class="im"><img src="assets/tile_tapafugas.png" alt=""></div><div class="tx"><h3>TapaFugas 2-in-1</h3><p>Seals + UV-tracks micro-leaks. 10 ml, up to 36,000 BTU.</p><p class="es">Sella y detecta micro-fugas.</p></div></div>
+<div class="pc"><div class="im"><img src="assets/tile_sellaplus.png" alt=""></div><div class="tx"><h3>Sella Plus</h3><p>Seals &amp; lubricates flanges, threads, gaskets, O-rings.</p><p class="es">Sella y lubrica conexiones.</p></div></div>
+<div class="pc"><div class="im"><img src="assets/tile_revelafugas.png" alt=""></div><div class="tx"><h3>Revela Fugas</h3><p>High-fluorescence UV dye for any refrigerant and oil.</p><p class="es">Tinte UV para localizar fugas.</p></div></div>
+<div class="pc"><div class="im"><img src="assets/tile_adapter.png" alt=""></div><div class="tx"><h3>Adapters</h3><p>Anti-backflow injection, 1/4" and 5/16" mini-split.</p><p class="es">Adaptadores de inyección.</p></div></div>
+</div>
+<div class="why"><div><b>Fast-moving SKU</b><span>Small, high-margin counter item for every service call.<br><i>Producto de mostrador, alta rotación.</i></span></div><div><b>Every refrigerant</b><span>R22 · R410A · R32 · R454B · R134a · R404A · R290 and more.<br><i>Compatible con todos.</i></span></div><div><b>Bilingual support</b><span>Training, POS material and support in English and Spanish.<br><i>Capacitación y soporte en ambos idiomas.</i></span></div></div>
+</div>
+<div class="ft"><div><div class="c">Let's talk · Hablemos</div><div class="d">Fernando Lette · +1 (954) 881-8870 (call / WhatsApp)<br>info@wylcosolutions.com · wylcosolutions.com</div></div><div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data=https%3A%2F%2Fwa.me%2F19548818870" alt="QR"><small>WhatsApp</small></div></div>
+</section>
+
+
+<section class="page d2" data-screen-label="Ficha · 01 TapaFugas">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><div class="r">Technical Data Sheet<br>Ficha técnica · 01</div></div>
+<div class="hero"><div class="im"><img src="assets/tile_tapafugas.png" alt="K11 TapaFugas 2-in-1"></div><div><div class="eb">Micro-leak sealant + UV tracer</div><h1>K11 TapaFugas<br><em>2-in-1</em></h1><p class="lead">Seals refrigerant micro-leaks and marks them with a UV tracer in one injection, with no evacuation or downtime.</p><p class="lead es">Sella las micro-fugas de refrigerante y las marca con trazador UV en una sola inyección, sin evacuar el sistema.</p></div></div>
+<div class="spec"><div><small>Format · Formato</small><b>10 ml syringe</b><span>Jeringa 10 ml</span></div><div><small>Dose · Dosis</small><b>36,000 BTU</b><span>Up to 3 TR per syringe</span></div><div><small>Action time · Tiempo</small><b>2–3 h</b><span>Residential · Residencial</span></div><div><small>Result · Resultado</small><b>+30 days</b><span>Performance kept · Rendimiento</span></div></div>
+<div class="cols"><div><h2>Features · Características</h2><ul class="ft"><li><span>Polymer-free formula, safe for all components<i>Sin polímeros, seguro para todos los componentes</i></span></li><li><span>Activates only at the leak, on contact with air/moisture<i>Se activa solo en el punto de fuga</i></span></li><li><span>UV tracer marks the exact sealed spot<i>El trazador UV marca el punto sellado</i></span></li><li><span>No evacuation, no downtime<i>Sin evacuación ni tiempo muerto</i></span></li></ul></div>
+<div><h2>Compatible refrigerants · Refrigerantes</h2><div class="refs"><span class="pill">R22</span><span class="pill">R32</span><span class="pill">R410A</span><span class="pill">R134a</span><span class="pill">R404A</span><span class="pill">R290</span><span class="pill">R600a</span><span class="pill">R1234yf</span><span class="pill">R448A</span><span class="pill">R449A</span><span class="pill">R454B</span></div><h2 style="margin-top:14px">Oils · Aceites</h2><div class="refs"><span class="pill">Mineral</span><span class="pill">POE</span><span class="pill">PAG</span><span class="pill">AB</span></div></div></div>
+<div><h2>How to apply · Cómo se aplica</h2><div class="steps"><div>Run system, connect K11 adapter to low-side port.<i>Equipo encendido, adaptador K11 en baja.</i></div><div>Inject one syringe per 36,000 BTU.<i>Una jeringa cada 36.000 BTU.</i></div><div>Let it circulate 2–3 h.<i>Dejar circular 2–3 h.</i></div><div>Check with UV light; recharge if needed.<i>Verificar con luz UV; completar carga.</i></div></div></div>
+<div class="foot"><span>Wylco LLC · Miami, FL · wylcosolutions.com</span><span>+1 (954) 881-8870 · info@wylcosolutions.com</span></div>
+</section>
+<section class="page d2" data-screen-label="Ficha · 02 Línea K11">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><div class="r">Technical Data Sheet<br>Ficha técnica · 02</div></div>
+<div class="prow"><div class="im"><img src="assets/tile_sellaplus.png" alt=""></div><div><div class="eb">Sealant + lubricant</div><h3>K11 Sella Plus</h3><p>Seals and lubricates threaded connections, flanges, gaskets and O-rings on HVAC-R systems.</p><p class="es">Sella y lubrica roscas, bridas, juntas y O-rings en sistemas HVAC-R.</p><ul class="ft"><li><span>Instant application<i>Aplicación inmediata</i></span></li><li><span>All refrigerants and fluids<i>Todos los refrigerantes y fluidos</i></span></li><li><span>Flanges · flare · connections<i>Bridas · flare · conexiones</i></span></li><li><span>Gaskets · O-rings<i>Juntas · O-rings</i></span></li></ul></div></div>
+<div class="prow"><div class="im"><img src="assets/tile_revelafugas.png" alt=""></div><div><div class="eb">UV leak detection</div><h3>K11 Revela Fugas</h3><p>Ultra-high fluorescence UV dye for fast leak location. Circulates without affecting system performance.</p><p class="es">Tinte UV de ultra-alta fluorescencia para localizar fugas rápido, sin afectar el rendimiento.</p><ul class="ft"><li><span>All refrigerant types<i>Todos los refrigerantes</i></span></li><li><span>Mineral, POE, PAG oils<i>Aceites mineral, POE, PAG</i></span></li><li><span>Visible under UV/violet light<i>Visible con luz UV/violeta</i></span></li><li><span>Stays active for monitoring<i>Queda activo para monitoreo</i></span></li></ul></div></div>
+<div class="prow"><div class="im"><img src="assets/tile_adapter.png" alt=""></div><div><div class="eb">Accessories</div><h3>K11 Adapters</h3><p>Anti-backflow injection adapters for safe, precise injection into live circuits. Reusable.</p><p class="es">Adaptadores anti-retorno para inyección segura en circuitos activos. Reutilizables.</p><ul class="ft"><li><span>1/4" standard<i>Residencial / comercial</i></span></li><li><span>5/16" mini-split<i>Para mini-split</i></span></li></ul></div></div>
+<div class="foot"><span>Wylco LLC · Miami, FL · wylcosolutions.com</span><span>SDS available on request · Hojas de seguridad a pedido</span></div>
+</section>
+
+
+<section class="page d3" data-screen-label="Lista · Lista de precios">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><h1>Wholesale Price List<small>Lista de precios mayorista · 2026</small></h1></div>
+<div class="meta"><div><label>Prepared for · Para</label><div class="line"></div></div><div><label>Date · Fecha</label><div class="line"></div></div><div><label>Valid until · Válida hasta</label><div class="line"></div></div></div>
+<table class="tbl"><thead><tr><th>SKU</th><th>Product · Producto</th><th>Pack · Presentación</th><th>Units/case</th><th class="p">Unit price</th><th class="p">Case price</th></tr></thead><tbody><tr><td>TFK11-10</td><td><b>TapaFugas K11</b><i>Sellador de micro-fugas</i></td><td>10 ml syringe · 3 TR</td><td>192</td><td class="p">$15.75</td><td class="p">$3,024.00</td></tr><tr><td>TFK11-CO</td><td><b>TapaFugas K11 + Adapter</b><i>Jeringa + conector</i></td><td>10 ml syringe + adapter</td><td>192</td><td class="p">$19.40</td><td class="p">$3,724.80</td></tr><tr><td>K11-2:1-11</td><td><b>TapaFugas 2-in-1</b><i>Sella + trazador UV</i></td><td>11 ml syringe</td><td>192</td><td class="p">$19.60</td><td class="p">$3,763.20</td></tr><tr><td>SPK11-B35</td><td><b>Sella Plus K11</b><i>Sellador + lubricante</i></td><td>35 ml bottle</td><td>48</td><td class="p">$8.75</td><td class="p">$420.00</td></tr><tr><td>20002</td><td><b>Coupler 1/4"</b><i>Acople estándar</i></td><td>1 unit</td><td>400</td><td class="p">$1.50</td><td class="p">$600.00</td></tr></tbody></table>
+<div><h2>Terms · Condiciones</h2><div class="terms"><div><span>Minimum order · Pedido mínimo</span><div class="line"></div></div><div><span>Payment · Forma de pago</span><div class="line"></div></div><div><span>Volume discount · Descuento</span><div class="line"></div></div><div><span>Delivery · Entrega</span><div class="line">EXW México</div></div><div><span>Territory · Zona</span><div class="line"></div></div><div><span>Launch date · Lanzamiento</span><div class="line"></div></div></div></div>
+<p class="note">Prices in USD, EXW México, before sales tax. Sold by full case. Products are not yet stocked in Miami; first shipments are expected soon and pre-orders are being accepted. Precios en USD, EXW México, sin impuestos. Venta por caja cerrada. Los productos aún no están en Miami; se aceptan pre-pedidos.</p>
+<div class="foot"><span>Wylco LLC · Miami, FL · wylcosolutions.com</span><span>Fernando Lette · +1 (954) 881-8870 · info@wylcosolutions.com</span></div>
+</section>
+
+
+<section class="page d4" data-screen-label="Carta · 01 English">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><div class="r">Wylco LLC · Miami, FL<br>wylcosolutions.com</div></div>
+<div class="to"><div class="line"></div><div class="line"></div>Miami, November 2026</div>
+<div class="body"><h2>Partnering with you on K11</h2>
+<p>Dear Purchasing Manager,</p>
+<p>My name is Fernando Lette and I represent Wylco, the company bringing the K11 line of HVAC-R leak solutions to the United States. We're selecting a small group of distributors in Miami-Dade to launch the line, and your counter is a natural fit.</p>
+<p>The flagship, <b>K11 TapaFugas 2-in-1</b>, seals refrigerant micro-leaks and marks them with a UV tracer in a single injection — no evacuation, no downtime. It's complemented by <b>Sella Plus</b> (sealant and lubricant for connections), <b>Revela Fugas</b> (UV dye) and injection <b>adapters</b>.</p>
+<ul><li>A compact, high-turnover counter item that technicians buy on every service call.</li><li>Compatible with R22, R410A, R32, R454B, R134a, R404A, R290 and more.</li><li>Training, point-of-sale material and support in English and Spanish.</li></ul>
+<p>The products are not yet stocked in Miami; first shipments are coming soon and we are taking pre-orders from launch partners now. I've enclosed the data sheet and wholesale price list. I'd welcome 20 minutes to show you the product and discuss terms for your store.</p></div>
+<div class="sig">Kind regards,<b>Fernando Lette</b>Wylco · +1 (954) 881-8870 (call / WhatsApp)<br>info@wylcosolutions.com</div>
+<div class="foot"><span>Wylco LLC · Miami, FL</span><span>wylcosolutions.com</span></div>
+</section>
+<section class="page d4" data-screen-label="Carta · 02 Español">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><div class="r">Wylco LLC · Miami, FL<br>wylcosolutions.com</div></div>
+<div class="to"><div class="line"></div><div class="line"></div>Miami, noviembre de 2026</div>
+<div class="body"><h2>Una alianza con K11</h2>
+<p>Estimado/a responsable de compras:</p>
+<p>Mi nombre es Fernando Lette y represento a Wylco, la empresa que trae a Estados Unidos la línea K11 de soluciones para fugas HVAC-R. Estamos seleccionando un grupo reducido de distribuidores en Miami-Dade para el lanzamiento, y su mostrador es ideal para la línea.</p>
+<p>El producto principal, <b>K11 TapaFugas 2-en-1</b>, sella las micro-fugas de refrigerante y las marca con trazador UV en una sola inyección, sin evacuar el sistema. Lo complementan <b>Sella Plus</b> (sellador y lubricante de conexiones), <b>Revela Fugas</b> (tinte UV) y los <b>adaptadores</b> de inyección.</p>
+<ul><li>Producto de mostrador compacto y de alta rotación, que el técnico compra en cada servicio.</li><li>Compatible con R22, R410A, R32, R454B, R134a, R404A, R290 y más.</li><li>Capacitación, material de punto de venta y soporte en español e inglés.</li></ul>
+<p>Los productos aún no se encuentran en Miami; los primeros envíos llegan pronto y ya estamos tomando pre-pedidos de los socios de lanzamiento. Adjunto la ficha técnica y la lista de precios mayorista. Me encantaría tener 20 minutos para mostrarle el producto y conversar las condiciones.</p></div>
+<div class="sig">Saludos cordiales,<b>Fernando Lette</b>Wylco · +1 (954) 881-8870 (llamada / WhatsApp)<br>info@wylcosolutions.com</div>
+<div class="foot"><span>Wylco LLC · Miami, FL</span><span>wylcosolutions.com</span></div>
+</section>
+
+
+<section class="page d5" data-screen-label="Formulario · 01 Alta distribuidor">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><h1>Distributor Application<small>Alta de distribuidor</small></h1></div>
+<div><h2>Company · Empresa</h2><div class="g">
+<div class="f s4"><div class="line"></div><label>Legal name · Razón social</label></div><div class="f s2"><div class="line"></div><label>DBA / Store name · Nombre comercial</label></div>
+<div class="f s3"><div class="line"></div><label>Federal Tax ID (EIN)</label></div><div class="f s3"><div class="line"></div><label>FL Resale Certificate # · Certificado de reventa</label></div>
+<div class="f s4"><div class="line"></div><label>Address · Dirección</label></div><div class="f"><div class="line"></div><label>City · Ciudad</label></div><div class="f"><div class="line"></div><label>ZIP</label></div>
+<div class="f s2"><div class="line"></div><label>Phone · Teléfono</label></div><div class="f s2"><div class="line"></div><label>Email</label></div><div class="f s2"><div class="line"></div><label>Website · Web</label></div>
+</div></div>
+<div><h2>Contacts · Contactos</h2><div class="g">
+<div class="f s2"><div class="line"></div><label>Purchasing · Compras</label></div><div class="f s2"><div class="line"></div><label>Phone / WhatsApp</label></div><div class="f s2"><div class="line"></div><label>Email</label></div>
+<div class="f s2"><div class="line"></div><label>Accounts payable · Pagos</label></div><div class="f s2"><div class="line"></div><label>Phone / WhatsApp</label></div><div class="f s2"><div class="line"></div><label>Email</label></div>
+</div></div>
+<div><h2>Business profile · Perfil</h2><div class="g">
+<div class="f s6"><label>Type · Tipo</label><div class="chk"><span>HVAC-R distributor</span><span>A/C parts store · Repuestos A/C</span><span>Refrigeration supply</span><span>Contractor</span><span>Other · Otro ________</span></div></div>
+<div class="f s2"><div class="line"></div><label>Branches · Sucursales</label></div><div class="f s2"><div class="line"></div><label>Years in business · Años</label></div><div class="f s2"><div class="line"></div><label>Est. monthly volume · Volumen mensual</label></div>
+<div class="f s6"><label>Payment preference · Forma de pago</label><div class="chk"><span>Prepaid · Prepago</span><span>Net 15</span><span>Net 30</span><span>Credit card · Tarjeta</span><span>ACH / Wire</span></div></div>
+<div class="f s6"><div class="line"></div><label>Trade references · Referencias comerciales</label></div>
+</div></div>
+<div class="sig"><div class="f"><div class="line"></div><label>Signature &amp; name · Firma y aclaración</label></div><div class="f"><div class="line"></div><label>Date · Fecha</label></div></div>
+<p class="note">Return to Fernando Lette · +1 (954) 881-8870 · info@wylcosolutions.com. Wylco LLC · Miami, FL.</p>
+</section>
+<section class="page d5" data-screen-label="Formulario · 02 Pedido">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><h1>Order Form<small>Nota de pedido · N° ______</small></h1></div>
+<div class="g"><div class="f s3"><div class="line"></div><label>Customer · Cliente</label></div><div class="f s2"><div class="line"></div><label>PO # · Orden de compra</label></div><div class="f"><div class="line"></div><label>Date · Fecha</label></div><div class="f s4"><div class="line"></div><label>Ship to · Entregar en</label></div><div class="f s2"><label>Type · Tipo</label><div class="chk"><span>Pre-order</span><span>Stock</span></div></div></div>
+<table class="tbl"><thead><tr><th>SKU</th><th>Product · Producto</th><th style="text-align:center">Cases</th><th style="text-align:center">Units</th><th style="text-align:right">Unit $</th><th style="text-align:right">Total $</th></tr></thead><tbody><tr><td>TFK11-10</td><td><b>TapaFugas K11</b> · 10 ml syringe · 3 TR · 192/case</td><td></td><td></td><td style="text-align:right">$15.75</td><td></td></tr><tr><td>TFK11-CO</td><td><b>TapaFugas K11 + Adapter</b> · 10 ml syringe + adapter · 192/case</td><td></td><td></td><td style="text-align:right">$19.40</td><td></td></tr><tr><td>K11-2:1-11</td><td><b>TapaFugas 2-in-1</b> · 11 ml syringe · 192/case</td><td></td><td></td><td style="text-align:right">$19.60</td><td></td></tr><tr><td>SPK11-B35</td><td><b>Sella Plus K11</b> · 35 ml bottle · 48/case</td><td></td><td></td><td style="text-align:right">$8.75</td><td></td></tr><tr><td>20002</td><td><b>Coupler 1/4"</b> · 1 unit · 400/case</td><td></td><td></td><td style="text-align:right">$1.50</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+<div class="tot"><div class="f"><div class="line" style="min-height:60px"></div><label>Notes · Observaciones</label></div><div class="r"><div><span>Subtotal</span><div class="line"></div></div><div><span>Discount · Descuento</span><div class="line"></div></div><div><span>Shipping · Envío</span><div class="line"></div></div><div><span>Total USD</span><div class="line"></div></div></div></div>
+<div class="sig"><div class="f"><div class="line"></div><label>Customer signature · Firma cliente</label></div><div class="f"><div class="line"></div><label>Wylco · Fernando Lette</label></div></div>
+<p class="note">Products are not yet stocked in Miami. Pre-orders ship on arrival of the first inventory; delivery date confirmed in writing. Los productos aún no están en Miami; los pre-pedidos se entregan al llegar el primer stock.</p>
+</section>
+
+
+<section class="page d6" data-screen-label="Márgenes · Márgenes distribuidor">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><span class="soon">Launch partners · Socios de lanzamiento</span></div>
+<div class="hero"><div><h1>Your margin<br>on <em>every syringe.</em></h1><div class="es-h">Su margen en cada jeringa</div></div><div class="big"><b>47%</b><span>Distributor margin · TapaFugas</span></div></div>
+<table class="tbl"><thead><tr><th>SKU</th><th>Product<i>Producto</i></th><th class="n">Units/case<i>Un./caja</i></th><th class="n">Your cost<i>Su costo</i></th><th class="n">Suggested resale<i>Venta sugerida</i></th><th class="n">Profit/unit<i>Ganancia/un.</i></th><th class="n">Margin<i>Margen</i></th><th class="n">Profit/case<i>Ganancia/caja</i></th></tr></thead><tbody><tr><td>TFK11-10</td><td><b>TapaFugas K11</b><i>10 ml syringe · 3 TR</i></td><td class="n">192</td><td class="n">$15.75</td><td class="n">$29.95</td><td class="n">$14.20</td><td class="n m">47%</td><td class="n s">$2,726</td></tr><tr><td>TFK11-CO</td><td><b>TapaFugas K11 + Adapter</b><i>10 ml syringe + adapter</i></td><td class="n">192</td><td class="n">$19.40</td><td class="n">$34.95</td><td class="n">$15.55</td><td class="n m">44%</td><td class="n s">$2,986</td></tr><tr><td>K11-2:1-11</td><td><b>TapaFugas 2-in-1</b><i>11 ml syringe · seal + UV</i></td><td class="n">192</td><td class="n">$19.60</td><td class="n">$34.95</td><td class="n">$15.35</td><td class="n m">44%</td><td class="n s">$2,947</td></tr><tr><td>SPK11-B35</td><td><b>Sella Plus K11</b><i>35 ml bottle</i></td><td class="n">48</td><td class="n">$8.75</td><td class="n">$15.95</td><td class="n">$7.20</td><td class="n m">45%</td><td class="n s">$346</td></tr><tr><td>20002</td><td><b>Coupler 1/4"</b><i>Injection coupler</i></td><td class="n">400</td><td class="n">$1.50</td><td class="n">$3.95</td><td class="n">$2.45</td><td class="n m">62%</td><td class="n s">$980</td></tr></tbody></table>
+<div><h2>One case of TapaFugas · Una caja de TapaFugas</h2><div class="flow">
+<div><small>You invest · Invierte</small><b>$3,024</b><span>192 syringes at $15.75<br><i>192 jeringas a $15.75</i></span></div>
+<div><small>You sell · Vende</small><b>$5,750</b><span>192 syringes at $29.95 suggested<br><i>A precio sugerido</i></span></div>
+<div style="background:var(--or);color:#fff"><small style="color:#fff">You keep · Gana</small><b>$2,726</b><span style="color:#fff">Gross profit per case<br><i style="color:rgba(255,255,255,.85)">Ganancia bruta por caja</i></span></div>
+</div></div>
+<div class="why"><div><b>Sells itself</b>Every leak call needs it. Techs come back for more.<br><i>Cada servicio de fuga lo necesita.</i></div><div><b>Small footprint</b>Counter display, no shelf space, no hazmat bulk.<br><i>Ocupa poco lugar en el mostrador.</i></div><div><b>Two-in-one</b>Seals and UV-locates in one injection.<br><i>Sella y detecta en una inyección.</i></div><div class="qrv"><img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data=https%3A%2F%2Fwww.youtube.com%2Fresults%3Fsearch_query%3DK11%2BAmerica%2BTapa%2BFugas" alt="QR videos K11"><span><b>Watch it work</b>Scan for K11 America videos.<br><i>Escanee y vea los videos.</i></span></div></div>
+<p class="note">Suggested resale prices are a reference; each distributor sets its own final price. Margin = (resale − cost) ÷ resale. Costs in USD, EXW, sold by full case; freight quoted separately. Products not yet stocked in Miami — launch partners receive first inventory. · Los precios de venta sugeridos son de referencia; cada distribuidor define su precio final. Flete se cotiza aparte.</p>
+<div class="foot"><span>Wylco LLC · Miami, FL · wylcosolutions.com</span><span>Fernando Lette · +1 (954) 881-8870 · info@wylcosolutions.com</span></div>
+</section>
+
+</doc-page>
+<script src="doc-page.js"></script>
+</body></html>

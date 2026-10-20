@@ -1,4 +1,7 @@
 User-agent: *
+Disallow: /k11
+Disallow: /materiales
+Disallow: /api/
 Allow: /
 
 # Sitemap

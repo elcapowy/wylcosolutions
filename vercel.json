@@ -1,6 +1,21 @@
 {
+  "redirects": [
+    { "source": "/k11", "destination": "/Materiales%20K11.html", "permanent": false },
+    { "source": "/materiales", "destination": "/Materiales%20K11.html", "permanent": false },
+    { "source": "/k11/kit", "destination": "/Kit%20impresion%20K11.html", "permanent": false },
+    { "source": "/k11/flyer", "destination": "/Flyer%20distribuidores.html", "permanent": false },
+    { "source": "/k11/ficha", "destination": "/Ficha%20tecnica%20K11.html", "permanent": false },
+    { "source": "/k11/precios", "destination": "/Lista%20de%20precios%20mayorista.html", "permanent": false },
+    { "source": "/k11/margenes", "destination": "/Margenes%20distribuidor%20K11.html", "permanent": false },
+    { "source": "/k11/carta", "destination": "/Carta%20de%20presentacion.html", "permanent": false },
+    { "source": "/k11/formulario", "destination": "/Formulario%20distribuidor%20y%20pedido.html", "permanent": false },
+    { "source": "/k11/tarjeta", "destination": "/Tarjeta%20personal.html", "permanent": false }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ],
+  "crons": [
+    { "path": "/api/enviar", "schedule": "0 13 * * *" }
   ],
   "headers": [
     {

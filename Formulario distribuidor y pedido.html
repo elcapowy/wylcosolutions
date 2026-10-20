@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Formulario de alta de distribuidor y pedido — Wylco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/papeleria.css">
+<style>
+.page{padding:.5in .55in;display:flex;flex-direction:column;gap:.2in}
+.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5pt solid var(--dk);padding-bottom:10px}
+h1{font-family:var(--fd);font-weight:900;font-size:26pt;line-height:.9;text-transform:uppercase;text-align:right}
+h1 small{display:block;font-size:10.5pt;letter-spacing:.12em;color:var(--mu);font-weight:700;margin-top:4px}
+h2{font-family:var(--fd);font-weight:800;font-size:12pt;text-transform:uppercase;letter-spacing:.06em;background:var(--wm);padding:5px 9px;border-radius:4px}
+.g{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px 16px;margin-top:10px}
+.f{display:flex;flex-direction:column;gap:3px}
+.f label{font-size:7.5pt;color:var(--mu);font-weight:500}
+.f label i{color:#8a8f9b}
+.s2{grid-column:span 2}.s3{grid-column:span 3}.s4{grid-column:span 4}.s6{grid-column:span 6}
+.chk{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:8.5pt}
+.chk span::before{content:"";display:inline-block;width:9px;height:9px;border:.75pt solid var(--mid);margin-right:5px;vertical-align:-1px;border-radius:2px}
+.tbl td{height:30px}
+.tbl td.c{text-align:center;width:.75in}
+.tbl td b{font-family:var(--fd);font-size:11pt;text-transform:uppercase}
+.tot{display:grid;grid-template-columns:1fr 2.4in;gap:.3in}
+.tot .r{display:grid;gap:7px;font-size:9pt}
+.tot .r div{display:grid;grid-template-columns:1fr 1.1in;gap:8px;align-items:end}
+.tot .r div:last-child{font-weight:700}
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:.4in;margin-top:auto}
+.sig .f label{margin-top:4px}
+.note{font-size:7.5pt;color:var(--mu);line-height:1.45}
+</style></head><body>
+<doc-page>
+<section class="page" data-screen-label="01 Alta distribuidor">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><h1>Distributor Application<small>Alta de distribuidor</small></h1></div>
+<div><h2>Company · Empresa</h2><div class="g">
+<div class="f s4"><div class="line"></div><label>Legal name · Razón social</label></div><div class="f s2"><div class="line"></div><label>DBA / Store name · Nombre comercial</label></div>
+<div class="f s3"><div class="line"></div><label>Federal Tax ID (EIN)</label></div><div class="f s3"><div class="line"></div><label>FL Resale Certificate # · Certificado de reventa</label></div>
+<div class="f s4"><div class="line"></div><label>Address · Dirección</label></div><div class="f"><div class="line"></div><label>City · Ciudad</label></div><div class="f"><div class="line"></div><label>ZIP</label></div>
+<div class="f s2"><div class="line"></div><label>Phone · Teléfono</label></div><div class="f s2"><div class="line"></div><label>Email</label></div><div class="f s2"><div class="line"></div><label>Website · Web</label></div>
+</div></div>
+<div><h2>Contacts · Contactos</h2><div class="g">
+<div class="f s2"><div class="line"></div><label>Purchasing · Compras</label></div><div class="f s2"><div class="line"></div><label>Phone / WhatsApp</label></div><div class="f s2"><div class="line"></div><label>Email</label></div>
+<div class="f s2"><div class="line"></div><label>Accounts payable · Pagos</label></div><div class="f s2"><div class="line"></div><label>Phone / WhatsApp</label></div><div class="f s2"><div class="line"></div><label>Email</label></div>
+</div></div>
+<div><h2>Business profile · Perfil</h2><div class="g">
+<div class="f s6"><label>Type · Tipo</label><div class="chk"><span>HVAC-R distributor</span><span>A/C parts store · Repuestos A/C</span><span>Refrigeration supply</span><span>Contractor</span><span>Other · Otro ________</span></div></div>
+<div class="f s2"><div class="line"></div><label>Branches · Sucursales</label></div><div class="f s2"><div class="line"></div><label>Years in business · Años</label></div><div class="f s2"><div class="line"></div><label>Est. monthly volume · Volumen mensual</label></div>
+<div class="f s6"><label>Payment preference · Forma de pago</label><div class="chk"><span>Prepaid · Prepago</span><span>Net 15</span><span>Net 30</span><span>Credit card · Tarjeta</span><span>ACH / Wire</span></div></div>
+<div class="f s6"><div class="line"></div><label>Trade references · Referencias comerciales</label></div>
+</div></div>
+<div class="sig"><div class="f"><div class="line"></div><label>Signature &amp; name · Firma y aclaración</label></div><div class="f"><div class="line"></div><label>Date · Fecha</label></div></div>
+<p class="note">Return to Fernando Lette · +1 (954) 881-8870 · info@wylcosolutions.com. Wylco LLC · Miami, FL.</p>
+</section>
+<section class="page" data-screen-label="02 Pedido">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><h1>Order Form<small>Nota de pedido · N° ______</small></h1></div>
+<div class="g"><div class="f s3"><div class="line"></div><label>Customer · Cliente</label></div><div class="f s2"><div class="line"></div><label>PO # · Orden de compra</label></div><div class="f"><div class="line"></div><label>Date · Fecha</label></div><div class="f s4"><div class="line"></div><label>Ship to · Entregar en</label></div><div class="f s2"><label>Type · Tipo</label><div class="chk"><span>Pre-order</span><span>Stock</span></div></div></div>
+<table class="tbl"><thead><tr><th>SKU</th><th>Product · Producto</th><th style="text-align:center">Cases</th><th style="text-align:center">Units</th><th style="text-align:right">Unit $</th><th style="text-align:right">Total $</th></tr></thead><tbody><tr><td>TFK11-10</td><td><b>TapaFugas K11</b> · 10 ml syringe · 3 TR · 192/case</td><td></td><td></td><td style="text-align:right">$15.75</td><td></td></tr><tr><td>TFK11-CO</td><td><b>TapaFugas K11 + Adapter</b> · 10 ml syringe + adapter · 192/case</td><td></td><td></td><td style="text-align:right">$19.40</td><td></td></tr><tr><td>K11-2:1-11</td><td><b>TapaFugas 2-in-1</b> · 11 ml syringe · 192/case</td><td></td><td></td><td style="text-align:right">$19.60</td><td></td></tr><tr><td>SPK11-B35</td><td><b>Sella Plus K11</b> · 35 ml bottle · 48/case</td><td></td><td></td><td style="text-align:right">$8.75</td><td></td></tr><tr><td>20002</td><td><b>Coupler 1/4"</b> · 1 unit · 400/case</td><td></td><td></td><td style="text-align:right">$1.50</td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+<div class="tot"><div class="f"><div class="line" style="min-height:60px"></div><label>Notes · Observaciones</label></div><div class="r"><div><span>Subtotal</span><div class="line"></div></div><div><span>Discount · Descuento</span><div class="line"></div></div><div><span>Shipping · Envío</span><div class="line"></div></div><div><span>Total USD</span><div class="line"></div></div></div></div>
+<div class="sig"><div class="f"><div class="line"></div><label>Customer signature · Firma cliente</label></div><div class="f"><div class="line"></div><label>Wylco · Fernando Lette</label></div></div>
+<p class="note">Products are not yet stocked in Miami. Pre-orders ship on arrival of the first inventory; delivery date confirmed in writing. Los productos aún no están en Miami; los pre-pedidos se entregan al llegar el primer stock.</p>
+</section>
+</doc-page>
+<script src="doc-page.js"></script>
+</body></html>

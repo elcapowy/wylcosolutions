@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>K11 · Distributor materials · Wylco</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/papeleria.css">
+<style>
+body{background:var(--wm);color:var(--dk);font-family:var(--fb,'DM Sans',sans-serif)}
+a{color:var(--or)}a:hover{color:var(--or-d)}
+.hd{background:var(--dk);color:#fff;padding:28px 24px 34px}
+.in{max-width:960px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px}.brand img{width:38px;height:38px}.brand b{font-family:var(--fd);font-weight:900;font-size:24px;letter-spacing:.14em}
+h1{font-family:var(--fd);font-weight:900;font-size:clamp(40px,7vw,64px);line-height:.92;text-transform:uppercase;margin-top:26px}h1 em{font-style:normal;color:var(--or)}
+.sub{margin-top:10px;font-size:15px;color:#d8d3ca;text-wrap:pretty}
+.kit{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;background:var(--or);color:#fff;text-decoration:none;font-family:var(--fd);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:15px;border:0;cursor:pointer}
+.btn:hover{background:var(--or-d);color:#fff}.btn.o{background:transparent;border:1.5px solid #fff}.btn.o:hover{background:#fff;color:var(--dk)}
+main{padding:28px 24px 48px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1px;background:var(--wm3);border:1px solid var(--wm3)}
+.it{background:#fff;padding:20px;display:flex;flex-direction:column;gap:6px}
+.n{font-family:var(--fd);font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--mu)}
+.it h2{font-family:var(--fd);font-weight:800;font-size:24px;text-transform:uppercase;line-height:1}
+.it p{font-size:13.5px;color:var(--mid);line-height:1.45;flex:1;text-wrap:pretty}.it p i{display:block;color:var(--mu)}
+.act{display:flex;gap:14px;align-items:center;margin-top:8px;font-size:13.5px;font-weight:700}
+.act a{text-decoration:none}.act button{background:none;border:0;padding:0;font:inherit;color:var(--mu);cursor:pointer}.act button:hover{color:var(--dk)}
+.url{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--mu);word-break:break-all}
+.ft{margin-top:28px;font-size:14px;color:var(--mid);display:flex;flex-wrap:wrap;gap:6px 24px}
+</style></head><body>
+<header class="hd"><div class="in">
+<div class="brand"><img src="assets/logo-knockout.png" alt=""><b>WYLCO</b></div>
+<h1>K11 distributor <em>materials</em></h1>
+<p class="sub">Product sheets, wholesale pricing and forms · Fichas, precios mayoristas y formularios. Open any piece, print it or save it as PDF.</p>
+<div class="kit"><a class="btn" href="/k11/kit">Full print kit · Kit completo (PDF)</a><button class="btn o" data-copy="/k11">Copy this page link · Copiar link</button></div>
+</div></header>
+<main><div class="in">
+<div class="grid" id="g"></div>
+<div class="ft"><span>Fernando Lette · +1 (954) 881-8870 (call / WhatsApp)</span><a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a><a href="/">wylcosolutions.com</a></div>
+</div></main>
+<script>
+const M=[
+['flyer','Flyer','We\'re looking for distributors in Miami.','Buscamos distribuidores.'],
+['ficha','Technical sheet','TapaFugas 2-in-1 and full K11 line specs.','Ficha técnica de la línea K11.'],
+['precios','Wholesale price list','Case and unit pricing for distributors.','Lista de precios mayorista.'],
+['margenes','Distributor margins','Your cost, suggested resale and profit per case.','Márgenes del distribuidor.'],
+['carta','Introduction letter','English and Spanish versions.','Carta de presentación EN / ES.'],
+['formulario','Application & order form','Distributor sign-up and purchase order.','Alta de distribuidor y nota de pedido.'],
+['tarjeta','Business card','Fernando Lette · Distributor Development.','Tarjeta personal.']
+];
+const o=location.origin.startsWith('http')?location.origin:'https://wylcosolutions.com';
+document.getElementById('g').innerHTML=M.map(([s,t,d,e],i)=>`<div class="it"><span class="n">${String(i+1).padStart(2,'0')}</span><h2>${t}</h2><p>${d}<i>${e}</i></p><span class="url">${o.replace(/^https?:\/\//,'')}/k11/${s}</span><div class="act"><a href="/k11/${s}" target="_blank" rel="noopener">Open · Abrir</a><button data-copy="/k11/${s}">Copy link · Copiar</button></div></div>`).join('');
+document.addEventListener('click',ev=>{const b=ev.target.closest('[data-copy]');if(!b)return;navigator.clipboard.writeText(o+b.dataset.copy).then(()=>{const t=b.textContent;b.textContent='Copied ✓';setTimeout(()=>b.textContent=t,1500)})});
+</script>
+</body></html>

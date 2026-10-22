@@ -1,5 +1,4 @@
 {
-  "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
     {
@@ -53,8 +52,63 @@
       "permanent": false
     },
     {
-      "source": "/index",
+      "source": "/K11",
+      "destination": "/Materiales%20K11.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/kit",
+      "destination": "/Kit%20impresion%20K11.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/flyer",
+      "destination": "/Flyer%20distribuidores.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/ficha",
+      "destination": "/Ficha%20tecnica%20K11.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/precios",
+      "destination": "/Lista%20de%20precios%20mayorista.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/margenes",
+      "destination": "/Margenes%20distribuidor%20K11.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/carta",
+      "destination": "/Carta%20de%20presentacion.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/formulario",
+      "destination": "/Formulario%20distribuidor%20y%20pedido.html",
+      "permanent": false
+    },
+    {
+      "source": "/K11/tarjeta",
+      "destination": "/Tarjeta%20personal.html",
+      "permanent": false
+    },
+    {
+      "source": "/Materiales",
+      "destination": "/Materiales%20K11.html",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/es/index.html",
+      "destination": "/es",
       "permanent": true
     }
   ],
@@ -62,6 +116,50 @@
     {
       "source": "/es/:dir(assets|css|js|components|pages)/:path*",
       "destination": "/:dir/:path*"
+    },
+    {
+      "source": "/products",
+      "destination": "/products.html"
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/how-it-works.html"
+    },
+    {
+      "source": "/distributors",
+      "destination": "/distributors.html"
+    },
+    {
+      "source": "/docs",
+      "destination": "/docs.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/es/products",
+      "destination": "/es/products.html"
+    },
+    {
+      "source": "/es/how-it-works",
+      "destination": "/es/how-it-works.html"
+    },
+    {
+      "source": "/es/distributors",
+      "destination": "/es/distributors.html"
+    },
+    {
+      "source": "/es/docs",
+      "destination": "/es/docs.html"
+    },
+    {
+      "source": "/es/about",
+      "destination": "/es/about.html"
+    },
+    {
+      "source": "/es",
+      "destination": "/es/index.html"
     },
     {
       "source": "/es/:path((?!api/).*)",

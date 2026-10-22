@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K11 Technical Documents — SDS, TDS &amp; ASHRAE 97 Test Report | Wylco</title>
+<meta name="description" content="Safety Data Sheets (OSHA HazCom / GHS), technical data sheets and ASHRAE Standard 97 test documentation for K11 HVAC-R products.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="geo.region" content="US-FL">
+<meta name="geo.placename" content="Miami, Florida">
+<meta name="theme-color" content="#D4541A">
+<link rel="canonical" href="https://wylcosolutions.com/docs">
+<link rel="alternate" hreflang="en-us" href="https://wylcosolutions.com/docs">
+<link rel="alternate" hreflang="es" href="https://wylcosolutions.com/es/docs">
+<link rel="alternate" hreflang="x-default" href="https://wylcosolutions.com/docs">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="assets/logo-wylco.png">
+<link rel="apple-touch-icon" href="assets/logo-wylco.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="K11 America by Wylco">
+<meta property="og:title" content="K11 Technical Documents — SDS, TDS &amp; ASHRAE 97 Test Report | Wylco">
+<meta property="og:description" content="Safety Data Sheets (OSHA HazCom / GHS), technical data sheets and ASHRAE Standard 97 test documentation for K11 HVAC-R products.">
+<meta property="og:url" content="https://wylcosolutions.com/docs">
+<meta property="og:image" content="https://wylcosolutions.com/assets/k11-banner.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="K11 Technical Documents — SDS, TDS &amp; ASHRAE 97 Test Report | Wylco">
+<meta name="twitter:description" content="Safety Data Sheets (OSHA HazCom / GHS), technical data sheets and ASHRAE Standard 97 test documentation for K11 HVAC-R products.">
+<meta name="twitter:image" content="https://wylcosolutions.com/assets/k11-banner.png">
+<script src="js/analytics.js"></script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://wylcosolutions.com/#organization",
+   "name": "Wylco LLC",
+   "alternateName": "K11 America by Wylco",
+   "url": "https://wylcosolutions.com/",
+   "logo": "https://wylcosolutions.com/assets/logo-wylco.png",
+   "email": "info@wylcosolutions.com",
+   "telephone": "+1-954-881-8870",
+   "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Miami",
+    "addressRegion": "FL",
+    "addressCountry": "US"
+   },
+   "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+   }
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://wylcosolutions.com/#website",
+   "url": "https://wylcosolutions.com/",
+   "name": "K11 America by Wylco",
+   "publisher": {
+    "@id": "https://wylcosolutions.com/#organization"
+   },
+   "inLanguage": [
+    "en-US",
+    "es"
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://wylcosolutions.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Technical docs",
+     "item": "https://wylcosolutions.com/docs"
+    }
+   ]
+  }
+ ]
+}
+</script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="css/styles.css?v=2" rel="stylesheet">
+
+<style>
+  /* Loading state */
+  #root:empty::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: #0F1117;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .page-loading {
+    position: fixed; inset: 0; background: #0F1117;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999; transition: opacity .4s;
+  }
+  .page-loading.done { opacity: 0; pointer-events: none; }
+  .loader-logo {
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .loader-logo img { width: 60px; height: 60px; animation: float 2s ease-in-out infinite; }
+  .loader-bar {
+    width: 120px; height: 2px; background: rgba(255,255,255,.1); border-radius: 1px; overflow: hidden;
+  }
+  .loader-bar::after {
+    content: ''; display: block; height: 100%; width: 40%;
+    background: #D4541A; border-radius: 1px;
+    animation: shimmer 1.2s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, #D4541A, transparent);
+    background-size: 200% 100%;
+  }
+
+  /* Mobile nav override */
+  @media(max-width:900px) {
+    .nav-mobile-btn { display: flex !important; }
+  }
+
+  /* Ensure top-bar + nav stack correctly */
+  .top-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 1001; height: 40px; display: flex; align-items: center; justify-content: center; }
+  nav { top: 40px !important; }
+
+  /* Comp table white bg */
+  .comp-table { background: var(--white); }
+  .comp-row { background: var(--white); }
+  .comp-row.winner { background: rgba(212,84,26,.04); }
+  .comp-row.hdr { background: var(--warm-2); }
+
+  /* ═══════════ SITE STYLE OVERRIDES ═══════════ */
+
+  /* 1) Logo más grande */
+  .nav-logo-img { height: 46px !important; width: 46px !important; }
+  .nav-logo-name { font-size: 1.35rem !important; }
+
+  /* 5) Why cards — hover beige claro + títulos más grandes */
+  .why-card:hover { background: #EFE7DC !important; }
+  .why-card:hover h3 { color: #1a1a1a !important; }
+  .why-card:hover p  { color: rgba(0,0,0,.55) !important; }
+  .why-card:hover .why-icon-wrap { background: rgba(0,0,0,.06) !important; }
+  .why-card:hover .why-icon-wrap svg { stroke: rgba(0,0,0,.7) !important; }
+  .why-card h3 { font-size: 20px !important; margin-bottom: 10px !important; }
+</style>
+</head>
+
+<body>
+<!-- Loading screen -->
+<div class="page-loading" id="loader">
+  <div class="loader-logo">
+    <img src="assets/logo-wylco.png" alt="Wylco">
+    <div class="loader-bar"></div>
+  </div>
+</div>
+
+<div id="root"><div class="seo-static" style="max-width:900px;margin:0 auto;padding:140px 24px 40px;font-family:sans-serif;color:#eee;line-height:1.7"><nav><a href="/">K11 America by Wylco</a> · <a href="/products">Products</a> · <a href="/how-it-works">How it works</a> · <a href="/distributors">Distributors</a> · <a href="/docs">Technical docs</a> · <a href="/about">About</a> · <a href="/es">Español</a></nav><h1>K11 technical documentation</h1><ul><li>Safety Data Sheets (SDS) in English, compliant with OSHA Hazard Communication Standard (29 CFR 1910.1200) and GHS.</li><li>Technical Data Sheets (TDS) for K11 TapaFugas, Revela Fugas and Sella Plus.</li><li>ASHRAE Standard 97 test documentation (sealed glass tube method, chemical stability).</li></ul><p>Need a document? Email <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> and we send it within 24 hours.</p><footer><p>Wylco LLC · Miami, FL, USA · <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a></p><p>K11 products are coming soon to Miami. Pre-orders open.</p></footer></div></div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="js/emailjs-config.js?v=2"></script>
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- i18n (plain JS — no babel needed) -->
+<script src="js/i18n.js?v=2"></script>
+
+<!-- Components -->
+<script type="text/babel" src="components/Nav.jsx?v=2"></script>
+<script type="text/babel" src="components/Footer.jsx?v=2"></script>
+
+<!-- Pages -->
+<script type="text/babel" src="pages/HomePageBeta.jsx?v=2"></script>
+<script type="text/babel" src="pages/ProductsPage.jsx?v=2"></script>
+<script type="text/babel" src="pages/HowPage.jsx?v=2"></script>
+<script type="text/babel" src="pages/AboutPage.jsx?v=2"></script>
+<script type="text/babel" src="pages/ContactPage.jsx?v=2"></script>
+<script type="text/babel" src="pages/DocsPage.jsx?v=2"></script>
+
+<!-- App entry -->
+<script type="text/babel" src="App.jsx?v=2"></script>
+
+<script>
+  // Hide loader once React mounts
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      if (loader) {
+        loader.classList.add('done');
+        setTimeout(() => loader.remove(), 500);
+      }
+    }, 600);
+  });
+</script>
+</body>
+</html>

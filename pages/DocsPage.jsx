@@ -10,8 +10,8 @@ function DocsPage({ lang, setPage }) {
     { icon:'gold', iconSvg:<><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></>,
       badge:'SDS', product:'K11 Sella Plus',
       title: lang==='en'?'Safety Data Sheet — K11 Sella Plus':'Hoja de Seguridad — K11 Sella Plus',
-      desc: lang==='en'?'OSHA-compliant SDS for K11 Sella Plus HVAC-R Sealant + Lubricant. Includes hazard classification, handling, first aid, and disposal guidance. ASHRAE 97 certified product.':'SDS conforme OSHA para K11 Sella Plus Sellador + Lubricante HVAC-R. Incluye clasificación de peligros, manejo, primeros auxilios y orientación de eliminación. Producto certificado ASHRAE 97.',
-      meta: lang==='en'?['Updated 2026','ASHRAE 97 certified']:['Actualizado 2026','Certificado ASHRAE 97'],
+      desc: lang==='en'?'OSHA-compliant SDS for K11 Sella Plus HVAC-R Sealant + Lubricant. Includes hazard classification, handling, first aid, and disposal guidance. Product tested per ASHRAE 97.':'SDS conforme OSHA para K11 Sella Plus Sellador + Lubricante HVAC-R. Incluye clasificación de peligros, manejo, primeros auxilios y orientación de eliminación. Producto ensayado según ASHRAE 97.',
+      meta: lang==='en'?['Updated 2026','Tested per ASHRAE 97']:['Actualizado 2026','Ensayado según ASHRAE 97'],
       download:false },
     { icon:'orange', iconSvg:<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>,
       badge:'SDS', product:'K11 Revela Fugas',
@@ -21,9 +21,9 @@ function DocsPage({ lang, setPage }) {
       download:false },
     { icon:'green', iconSvg:<><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>,
       badge:'CERT', product:'K11 TapaFugas',
-      title: lang==='en'?'ASHRAE 97 Certification':'Certificación ASHRAE 97',
-      desc: lang==='en'?'Official ASHRAE Standard 97 certification document confirming K11 TapaFugas safety for use in sealed refrigerant circuits. Required for professional validation.':'Documento oficial de certificación ASHRAE Estándar 97 que confirma la seguridad de K11 TapaFugas para uso en circuitos de refrigerante sellados.',
-      meta: lang==='en'?['ASHRAE certified']:['Certificado ASHRAE'],
+      title: lang==='en'?'ASHRAE 97 Test Report':'Informe de Ensayo ASHRAE 97',
+      desc: lang==='en'?'Test report for K11 TapaFugas per ASHRAE Standard 97 (sealed glass tube method) for chemical stability in refrigerant circuits.':'Informe de ensayo de K11 TapaFugas según la norma ASHRAE 97 (método de tubo de vidrio sellado) de estabilidad química en circuitos de refrigerante.',
+      meta: lang==='en'?['ASHRAE 97']:['ASHRAE 97'],
       download:false },
     { icon:'gray', iconSvg:<><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></>,
       badge:'GUIDE', product: lang==='en'?'All K11 Products':'Todos los Productos K11',
@@ -41,7 +41,7 @@ function DocsPage({ lang, setPage }) {
     { num:'Sections 5–8', title:'Fire, Reactivity & Handling', desc:'Fire-fighting measures, accidental release, exposure controls, and PPE requirements.' },
     { num:'Sections 9–16', title:'Physical & Regulatory', desc:'Physical properties, stability, toxicological data, disposal, transport, and regulatory info.' },
     { num:'Appendix', title:'Compatibility Data', desc:'Refrigerant compatibility matrix, oil compatibility data, and system component safety table.' },
-    { num:'Addendum', title:'ASHRAE Certification', desc:'Reference to ASHRAE Standard 97 certification for sealed refrigerant system safety.' },
+    { num:'Addendum', title:'ASHRAE 97 Testing', desc:'Reference to testing per ASHRAE Standard 97 for chemical stability in sealed refrigerant systems.' },
   ] : [
     { num:'Sección 1', title:'Identificación del Producto', desc:'Nombre del producto, datos del fabricante y clasificación del uso previsto.' },
     { num:'Sección 2', title:'Identificación de Peligros', desc:'Clasificación de peligros GHS, palabras de señal, pictogramas y declaraciones de precaución.' },
@@ -50,7 +50,7 @@ function DocsPage({ lang, setPage }) {
     { num:'Secciones 5–8', title:'Incendio, Reactividad y Manejo', desc:'Medidas contra incendios, liberación accidental, controles de exposición y requisitos de EPP.' },
     { num:'Secciones 9–16', title:'Físico y Regulatorio', desc:'Propiedades físicas, estabilidad, datos toxicológicos, eliminación, transporte e información regulatoria.' },
     { num:'Apéndice', title:'Datos de Compatibilidad', desc:'Matriz de compatibilidad de refrigerantes, datos de compatibilidad de aceite y tabla de seguridad de componentes.' },
-    { num:'Adendum', title:'Certificación ASHRAE', desc:'Referencia a la certificación ASHRAE Estándar 97 para seguridad en sistemas de refrigerante sellados.' },
+    { num:'Adendum', title:'Ensayo ASHRAE 97', desc:'Referencia al ensayo según la norma ASHRAE 97 de estabilidad química en sistemas de refrigerante sellados.' },
   ];
 
   const tagMap = { SDS:'tag-orange', TDS:'tag-gold', CERT:'tag-green', GUIDE:'tag-gray' };

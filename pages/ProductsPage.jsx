@@ -12,15 +12,15 @@ function ProductsPage({ lang, setPage, openPreorder }) {
   const products = [
     {
       id:'tapafugas', cat:'sealant',
-      badge: lang==='en' ? 'Bestseller' : 'Más Vendido',
+      badge: lang==='en' ? 'Flagship' : 'Producto Estrella',
       num:'01', title:'K11 TAPAFUGAS 2-IN-1',
       video: 'assets/tapafugas-video.mp4', videoEnd: 7.6,
       desc: lang==='en'
-        ? 'The professional HVAC-R micro-leak sealant with integrated UV fluorescent tracer. The only product on the US market that permanently seals leaks AND detects them — simultaneously, in a single injection.'
-        : 'El sellador profesional de micro-fugas HVAC-R con trazador UV fluorescente integrado. El único en el mercado USA que sella Y detecta — simultáneamente, en una sola inyección.',
+        ? 'The professional HVAC-R micro-leak sealant with integrated UV fluorescent tracer. It seals micro-leaks AND marks them with UV — in a single injection.'
+        : 'El sellador profesional de micro-fugas HVAC-R con trazador UV fluorescente integrado. Sella micro-fugas Y las marca con UV — en una sola inyección.',
       features: lang==='en'
-        ? ['Polymer-free formula — safe for all components','Activates ONLY at leak contact with air/moisture','UV tracer marks exact sealed location','No system evacuation or downtime required','OEM manufacturer validated for 12+ years','ASHRAE 97 certified · NSF food grade approved']
-        : ['Fórmula sin polímeros — segura para todos los componentes','Se activa SOLO en el punto de fuga al contactar aire/humedad','El trazador UV marca la ubicación exacta sellada','Sin evacuación del sistema ni tiempo muerto','Validado por OEM por más de 12 años','Certificado ASHRAE 97 · Aprobado NSF grado alimentario'],
+        ? ['Polymer-free formula — safe for all components','Activates ONLY at leak contact with air/moisture','UV tracer marks exact sealed location','No system evacuation or downtime required','12+ years of field use in Latin America','Tested per ASHRAE 97']
+        : ['Fórmula sin polímeros — segura para todos los componentes','Se activa SOLO en el punto de fuga al contactar aire/humedad','El trazador UV marca la ubicación exacta sellada','Sin evacuación del sistema ni tiempo muerto','Más de 12 años de uso en Latinoamérica','Ensayado según ASHRAE 97'],
       compat:['R22','R32','R410A','R134a','R404A','R290','R600a','R1234yf','R448A','R449A','R454B'],
       imgs:[
         'assets/tile_tapafugas.png',
@@ -35,10 +35,10 @@ function ProductsPage({ lang, setPage, openPreorder }) {
       num:'02', title:'K11 SELLA PLUS',
       video: 'assets/hero-video.mp4',
       desc: lang==='en'
-        ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Zero system impact — circulates and detects without affecting performance.'
+        ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Designed to circulate and detect without affecting performance.'
         : 'Tinte UV de ultra-alta fluorescencia para localización rápida de fugas en cualquier sistema HVAC-R. Compatible con todos los tipos de refrigerante y aceite. Sin impacto en el sistema.',
       features: lang==='en'
-        ? ['Ultra-high UV fluorescence intensity','Compatible with all refrigerant types','Compatible with mineral, POE, PAG oils','Zero impact on system performance','Visible under standard UV/violet light','Stays active in circuit for long-term monitoring']
+        ? ['Ultra-high UV fluorescence intensity','Compatible with all refrigerant types','Compatible with mineral, POE, PAG oils','Designed not to affect performance','Visible under standard UV/violet light','Stays active in circuit for long-term monitoring']
         : ['Ultra-alta intensidad de fluorescencia UV','Compatible con todos los tipos de refrigerante','Compatible con aceites mineral, POE, PAG','Sin impacto en el rendimiento del sistema','Visible bajo luz UV/violeta estándar','Permanece activo en el circuito para monitoreo'],
       compat:['All refrigerants','All fluids','Flanges','Connections','Gaskets','O-rings'],
       imgs:['assets/tile_sellaplus.png']
@@ -49,10 +49,10 @@ function ProductsPage({ lang, setPage, openPreorder }) {
       num:'03', title:'K11 REVELA FUGAS',
       video: 'assets/hero-video.mp4',
       desc: lang==='en'
-        ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Zero system impact — circulates and detects without affecting performance.'
+        ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Designed to circulate and detect without affecting performance.'
         : 'Tinte UV de ultra-alta fluorescencia para localización rápida de fugas en cualquier sistema HVAC-R. Compatible con todos los tipos de refrigerante y aceite. Sin impacto en el sistema.',
       features: lang==='en'
-        ? ['Ultra-high UV fluorescence intensity','Compatible with all refrigerant types','Compatible with mineral, POE, PAG oils','Zero impact on system performance','Visible under standard UV/violet light','Stays active in circuit for long-term monitoring']
+        ? ['Ultra-high UV fluorescence intensity','Compatible with all refrigerant types','Compatible with mineral, POE, PAG oils','Designed not to affect performance','Visible under standard UV/violet light','Stays active in circuit for long-term monitoring']
         : ['Ultra-alta intensidad de fluorescencia UV','Compatible con todos los tipos de refrigerante','Compatible con aceites mineral, POE, PAG','Sin impacto en el rendimiento del sistema','Visible bajo luz UV/violeta estándar','Permanece activo en el circuito para monitoreo'],
       compat:['R22','R32','R410A','R134a','R404A','R407C','R290','All refrigerants'],
       imgs:[

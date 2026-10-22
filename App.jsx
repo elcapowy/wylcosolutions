@@ -2,8 +2,18 @@
 const { useState: useStateApp, useEffect: useEffectApp, useRef: useRefApp } = React;
 
 function App() {
-  const [page, setPage] = useStateApp('home');
-  const [lang, setLang] = useStateApp(() => localStorage.getItem('wylco_lang') || 'en');
+  const ROUTES = { home:'/', products:'/products', how:'/how-it-works', about:'/about', contact:'/distributors', docs:'/docs', privacy:'/privacy', terms:'/terms' };
+  const fromPath = () => {
+    const p = window.location.pathname.replace(/\/+$/,'') || '/';
+    const es = p === '/es' || p.startsWith('/es/');
+    const rest = es ? (p.slice(3) || '/') : p;
+    const pg = Object.keys(ROUTES).find(k => ROUTES[k] === rest);
+    const h = window.location.hash.replace('#','');
+    return { es, page: pg || (ROUTES[h] ? h : 'home') };
+  };
+  const init = fromPath();
+  const [page, setPage] = useStateApp(init.page);
+  const [lang, setLang] = useStateApp(() => init.es ? 'es' : (window.location.pathname === '/' && localStorage.getItem('wylco_lang')) || 'en');
   const preorderRef = useRefApp(null);
 
   /* persist lang */
@@ -65,17 +75,14 @@ function App() {
     }
   }
 
-  /* handle browser back/forward */
   useEffectApp(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (hash && ['home','products','how','about','contact','docs','privacy','terms'].includes(hash)) {
-      setPage(hash);
-    }
-  }, []);
-
-  useEffectApp(() => {
-    window.history.pushState({ page }, '', '#' + page);
-  }, [page]);
+    const url = (lang === 'es' ? (page === 'home' ? '/es' : '/es') : '') + (lang === 'es' && page === 'home' ? '' : ROUTES[page] || '/');
+    const live = /wylcosolutions\.com$|vercel\.app$|^localhost$/.test(window.location.hostname);
+    if (!live) { if (window.location.hash !== '#' + page) window.history.pushState({ page }, '', '#' + page); }
+    else if (window.location.pathname !== url) window.history.pushState({ page }, '', url);
+    document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+    window.gaPage && window.gaPage(url);
+  }, [page, lang]);
 
   useEffectApp(() => {
     const onPop = (e) => { if (e.state?.page) setPage(e.state.page); };

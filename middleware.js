@@ -10,7 +10,8 @@ export const config = { matcher: ['/((?!api/|assets/|css/|js/|favicon).*)'] };
 
 export default function middleware(request) {
   const p = decodeURIComponent(new URL(request.url).pathname).toLowerCase();
-  const privada = p === '/k11' || p.startsWith('/k11/') || p === '/materiales' || PRIVADAS.includes(p.slice(1));
+  const q = p.slice(1), qh = q.endsWith('.html') ? q : q + '.html';
+  const privada = p === '/k11' || p.startsWith('/k11/') || p === '/materiales' || PRIVADAS.includes(q) || PRIVADAS.includes(qh) || q.startsWith('data/');
   if (!privada) return;
   const U = process.env.MATERIALES_USER || 'wylco', P = process.env.MATERIALES_PASS;
   const h = request.headers.get('authorization') || '';

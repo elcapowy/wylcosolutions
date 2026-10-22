@@ -8,16 +8,16 @@ window.T = {
     nav: { home:'Home', products:'Products', how:'How It Works', distributors:'Distributors', docs:'SDS Docs', contact:'Contact', cta:'Get a Quote' },
     hero: {
       eyebrow: 'Official K11 Distributor · Miami, FL',
-      h1a:'ONE', h1b:'INJECTION.', h1c:'PERMANENT', h1d:'PROTECTION.',
-      sub:'K11 is the professional HVAC-R sealant that permanently stops micro-leaks and detects them with UV fluorescence — simultaneously, in a single injection.',
+      h1a:'ONE', h1b:'INJECTION.', h1c:'LASTING', h1d:'PROTECTION.',
+      sub:'K11 is the professional HVAC-R sealant that stops micro-leaks and marks them with UV fluorescence — in a single injection.',
       cta1:'Pre-Order Now', cta2:'How It Works', cta3:'Become a Distributor',
       trust:['Compatible with all refrigerants','No system evacuation required','Ships from Miami — nationwide','Technical support available']
     },
-    proof:['ASHRAE Certified','OEM Manufacturer Validated','12+ Years Proven','Miami, FL · Ships Nationwide','Same-Day Dispatch Available'],
+    proof:['Tested per ASHRAE 97','12+ Years of Field Use in Latin America','Polymer-Free Formula','Miami, FL · Ships Nationwide','Technical Support Available'],
     metrics: {
       eyebrow:'By the Numbers', title:'K11 America at a glance.',
       items:[
-        {num:'12',suf:'+',label:'Years proven by OEM manufacturers'},
+        {num:'12',suf:'+',label:'Years of field use in Latin America'},
         {num:'$9.6',suf:'B',label:'Florida HVAC market size 2026'},
         {num:'9.8',suf:'K',label:'HVAC businesses in Florida'},
         {num:'24',suf:'h',label:'Nationwide shipping from Miami'},
@@ -28,7 +28,7 @@ window.T = {
       eyebrow:'Application', title:'Simple. Fast.\nProfessional.', sub:'Three steps. One injection. No system downtime.',
       steps:[
         {num:'01',title:'INJECT',desc:'Connect the K11 adapter to the low-pressure service port. With the system running, inject the precise dose of K11 TapaFugas 2-in-1 directly into the refrigerant circuit. No evacuation required.'},
-        {num:'02',title:'SEAL',desc:'K11 circulates through the system. When it reaches a micro-leak site and contacts air or moisture, it activates — forming a permanent seal. The rest stays inert in the circuit.'},
+        {num:'02',title:'SEAL',desc:'K11 circulates through the system. When it reaches a micro-leak site and contacts air or moisture, it activates — forming a long-lasting seal. The rest stays inert in the circuit.'},
         {num:'03',title:'VERIFY',desc:'The UV fluorescent tracer marks the sealed point visibly under UV or violet light. Show the client exactly where the leak was. Document it. Build trust. Eliminate callbacks.'}
       ],
       cta:'Full Application Guide'
@@ -37,11 +37,11 @@ window.T = {
       eyebrow:'Value Proposition', title:'Why professionals\nchoose K11.',
       sub:'Not just a sealant — a complete field solution that reduces service callbacks, improves system life, and builds trust with every job.',
       items:[
-        {title:'Permanent Micro-Leak Sealing',desc:'K11 forms a durable, permanent seal at the leak point — not a temporary patch. The system\'s remaining life is protected from day one.'},
+        {title:'Long-Lasting Micro-Leak Sealing',desc:'K11 forms a durable seal at the leak point, designed to last — not a temporary patch.'},
         {title:'Built-In UV Detection',desc:'The 2-in-1 formula contains a UV fluorescent tracer that marks the sealed site. Show clients exactly where the leak was. No separate dye needed.'},
         {title:'No System Evacuation',desc:'Inject while the system is running. K11 works in live refrigerant circuits — no downtime, no recovery, no re-charge required.'},
-        {title:'Eliminates Callbacks',desc:'Stop repeat service calls. Clients who were losing charge every 30–60 days stay sealed — permanently. One visit. One invoice. Done.'},
-        {title:'OEM-Validated Formula',desc:'12+ years of validation by OEM manufacturers across Latin America. ASHRAE 97 certified. NSF approved. Safe for all system components.'},
+        {title:'Fewer Callbacks',desc:'Cut repeat service calls on systems that lose charge every 30–60 days. One visit, one invoice.'},
+        {title:'Field-Proven Formula',desc:'12+ years of field use with HVAC manufacturers and contractors in Latin America. Tested per ASHRAE 97. Polymer-free.'},
         {title:'Precision Dosing System',desc:'10ml for small residential up to 60ml+ for commercial systems. Precision dosing prevents waste, ensures full protection, and reduces cost per job.'}
       ]
     },
@@ -51,15 +51,15 @@ window.T = {
       cta:'View All Products'
     },
     comp: {
-      eyebrow:'vs. The Competition', title:'The only 2-in-1\non the US market.',
-      sub:'Every other US sealant does one thing. K11 does both — and is the only one with OEM manufacturer validation.'
+      eyebrow:'How K11 Compares', title:'Seal + detect.\nOne product.',
+      sub:'Most leak products do one job: seal or detect. K11 TapaFugas does both in a single injection.'
     },
     dist: {
       eyebrow:'B2B & Distribution', title:'Built for Contractors.\nReady for Distribution.',
       sub:'Whether you\'re an HVAC contractor, a supply house, or a regional wholesaler — Wylco is your US partner for K11.',
       benefits:[
         {title:'Miami-Based Operations',desc:'US-local logistics, inventory, and support. No international shipping delays.'},
-        {title:'Fast Nationwide Distribution',desc:'Same-day dispatch on orders before 2 PM EST. Delivered in 2–5 business days.'},
+        {title:'Nationwide Distribution',desc:'Ships from Miami, FL. Typical delivery in 2–5 business days.'},
         {title:'Dedicated Technical Support',desc:'Real HVAC expertise with every order. Training, datasheets, and field support included.'},
         {title:'Wholesale & Volume Pricing',desc:'Competitive distributor pricing for supply houses, contractor fleets, and wholesalers.'}
       ],
@@ -78,8 +78,8 @@ window.T = {
       ]
     },
     market: {
-      eyebrow:'Market Opportunity', title:'The #1 HVAC Market\nin America.',
-      sub:'Florida runs AC 12 months a year. 9,800+ HVAC businesses. One distributor bringing the world\'s most advanced leak solution to the US market.',
+      eyebrow:'Market Opportunity', title:'One of the Largest\nHVAC Markets in the US.',
+      sub:'Florida runs AC 12 months a year. 9,800+ HVAC businesses. Wylco is bringing K11\'s field-proven leak solution to the US market.',
       items:[
         {num:'$9.6',suf:'B',label:'FL HVAC Market 2026'},
         {num:'9,800',suf:'+',label:'HVAC Businesses in FL'},
@@ -104,11 +104,11 @@ window.T = {
       eyebrow:'FAQ', title:'Questions answered.',
       items:[
         {q:'How do I know if K11 is right for my system?',a:'Over 30 days to lose full charge? Micro-leak — K11 is made for this. 15–30 days? Medium leak, K11 may work. Under 15 days? Large leak requiring welding. The 2-in-1 formula seals and confirms results simultaneously with UV verification.'},
-        {q:'Is K11 safe for compressors, TXVs, and expansion valves?',a:'Yes. K11 TapaFugas is polymer-free and only activates at leak points when it contacts air and moisture. Safe for all system components — TXVs, TEVs, capillary tubes, Schrader valves, and all common seal materials. ASHRAE 97 certified.'},
+        {q:'Is K11 safe for compressors, TXVs, and expansion valves?',a:'Yes. K11 TapaFugas is polymer-free and only activates at leak points when it contacts air and moisture. Safe for all system components — TXVs, TEVs, capillary tubes, Schrader valves, and common seal materials. Tested per ASHRAE 97.'},
         {q:'What refrigerants are compatible with K11?',a:'All common refrigerants: R22, R410A, R32, R134a, R404A, R290, R600a, R1234yf, and all A2L replacements. The only exception is ammonia (R717). Compatible with all refrigerant oil types: mineral, POE, PAG, and alkylbenzene.'},
         {q:'How much K11 do I need for my system?',a:'10ml for systems up to 3TR (36,000 BTU). 20ml up to 5TR. 30ml up to 8TR. Over 8TR — mix with oil at 1:30 ratio (3.25%). Precision dosing prevents waste and ensures full coverage.'},
-        {q:'How long does the seal last?',a:'The seal is permanent — it lasts the remaining operational life of the system. Documented cases holding strong after 5+ years of continuous operation.'},
-        {q:'How do I order and how fast does Wylco ship?',a:'Contact us for B2B pricing, wholesale orders, and distributor inquiries. We ship nationwide from Miami, FL with same-day dispatch on orders placed before 2 PM EST. Standard delivery is 2–5 business days.'}
+        {q:'How long does the seal last?',a:'The seal is designed to be long-lasting. Field cases in Latin America have held for 5+ years of continuous operation. Results depend on leak size and system condition.'},
+        {q:'How do I order and how fast does Wylco ship?',a:'Contact us for B2B pricing, wholesale orders, and distributor inquiries. We ship nationwide from Miami, FL. Typical delivery is 2–5 business days.'}
       ]
     },
     finalCta: {
@@ -135,16 +135,16 @@ window.T = {
     nav: { home:'Inicio', products:'Productos', how:'Cómo Funciona', distributors:'Distribuidores', docs:'Documentos SDS', contact:'Contacto', cta:'Obtener Cotización' },
     hero: {
       eyebrow: 'Distribuidor Oficial K11 · Miami, FL',
-      h1a:'UNA', h1b:'INYECCIÓN.', h1c:'PROTECCIÓN', h1d:'PERMANENTE.',
-      sub:'K11 es el sellador HVAC-R profesional que detiene permanentemente las micro-fugas y las detecta con fluorescencia UV — simultáneamente, en una sola inyección.',
+      h1a:'UNA', h1b:'INYECCIÓN.', h1c:'PROTECCIÓN', h1d:'DURADERA.',
+      sub:'K11 es el sellador HVAC-R profesional que detiene las micro-fugas y las marca con fluorescencia UV — en una sola inyección.',
       cta1:'Pre-Ordenar Ahora', cta2:'Cómo Funciona', cta3:'Ser Distribuidor',
       trust:['Compatible con todos los refrigerantes','Sin evacuación del sistema','Envíos desde Miami — nacional','Soporte técnico disponible']
     },
-    proof:['Certificado ASHRAE','Validado por Fabricantes OEM','12+ Años Comprobados','Miami, FL · Envíos Nacionales','Despacho el Mismo Día'],
+    proof:['Ensayado según ASHRAE 97','12+ Años de Uso en Latinoamérica','Fórmula Sin Polímeros','Miami, FL · Envíos Nacionales','Soporte Técnico'],
     metrics: {
       eyebrow:'En Números', title:'K11 America de un vistazo.',
       items:[
-        {num:'12',suf:'+',label:'Años validados por fabricantes OEM'},
+        {num:'12',suf:'+',label:'Años de uso en Latinoamérica'},
         {num:'$9.6',suf:'B',label:'Mercado HVAC Florida 2026'},
         {num:'9.8',suf:'K',label:'Empresas HVAC en Florida'},
         {num:'24',suf:'h',label:'Envío nacional desde Miami'},
@@ -155,7 +155,7 @@ window.T = {
       eyebrow:'Aplicación', title:'Simple. Rápido.\nProfesional.', sub:'Tres pasos. Una inyección. Sin tiempo de inactividad.',
       steps:[
         {num:'01',title:'INYECTAR',desc:'Conecta el adaptador K11 al puerto de servicio de baja presión. Con el sistema en marcha, inyecta la dosis precisa de K11 TapaFugas 2-en-1 directamente al circuito de refrigerante. Sin evacuación.'},
-        {num:'02',title:'SELLAR',desc:'K11 circula por el sistema. Al llegar al punto de micro-fuga y contactar con aire o humedad, se activa — formando un sello permanente. El resto permanece inerte en el circuito.'},
+        {num:'02',title:'SELLAR',desc:'K11 circula por el sistema. Al llegar al punto de micro-fuga y contactar con aire o humedad, se activa — formando un sello duradero. El resto permanece inerte en el circuito.'},
         {num:'03',title:'VERIFICAR',desc:'El trazador UV fluorescente marca el punto sellado visiblemente bajo luz UV o violeta. Muéstrale al cliente exactamente dónde estaba la fuga. Documéntalo. Genera confianza.'}
       ],
       cta:'Guía de Aplicación Completa'
@@ -164,11 +164,11 @@ window.T = {
       eyebrow:'Propuesta de Valor', title:'Por qué los profesionales\neligen K11.',
       sub:'No solo un sellador — una solución de campo completa que reduce las llamadas de servicio, mejora la vida del sistema y genera confianza en cada trabajo.',
       items:[
-        {title:'Sellado Permanente de Micro-Fugas',desc:'K11 forma un sello duradero y permanente en el punto de fuga. La vida útil restante del sistema queda protegida desde el primer día.'},
+        {title:'Sellado Duradero de Micro-Fugas',desc:'K11 forma un sello duradero en el punto de fuga — no un parche temporal.'},
         {title:'Detección UV Integrada',desc:'La fórmula 2-en-1 contiene un trazador UV fluorescente que marca el sitio sellado. Muéstrale al cliente exactamente dónde estaba la fuga.'},
         {title:'Sin Evacuación del Sistema',desc:'Inyecta con el sistema en funcionamiento. K11 trabaja en circuitos de refrigerante activos — sin tiempo muerto, sin recuperación, sin recarga.'},
-        {title:'Elimina las Devoluciones',desc:'Detiene las llamadas de servicio repetidas. Los clientes que perdían carga cada 30-60 días quedan sellados — permanentemente.'},
-        {title:'Fórmula Validada por OEM',desc:'Más de 12 años de validación por fabricantes OEM en Latinoamérica. Certificado ASHRAE 97. Aprobado NSF.'},
+        {title:'Menos Llamadas de Servicio',desc:'Reduce las visitas repetidas en equipos que pierden carga cada 30–60 días.'},
+        {title:'Fórmula Probada en Campo',desc:'Más de 12 años de uso con fabricantes y técnicos en Latinoamérica. Ensayado según ASHRAE 97. Sin polímeros.'},
         {title:'Sistema de Dosificación Precisa',desc:'10ml para residencial pequeño hasta 60ml+ para sistemas comerciales. La dosificación precisa evita el desperdicio y reduce el costo por trabajo.'}
       ]
     },
@@ -178,15 +178,15 @@ window.T = {
       cta:'Ver Todos los Productos'
     },
     comp: {
-      eyebrow:'vs. La Competencia', title:'El único 2-en-1\nen el mercado USA.',
-      sub:'Cada otro sellador en EE.UU. hace una sola cosa. K11 hace ambas — y es el único con validación de fabricantes OEM.'
+      eyebrow:'Cómo se Compara K11', title:'Sella + detecta.\nUn solo producto.',
+      sub:'La mayoría de los productos hace una sola cosa: sellar o detectar. K11 TapaFugas hace ambas en una sola inyección.'
     },
     dist: {
       eyebrow:'B2B & Distribución', title:'Hecho para Contratistas.\nListo para Distribución.',
       sub:'Ya seas un contratista HVAC, una casa de suministros o un mayorista regional — Wylco es tu socio K11 en EE.UU.',
       benefits:[
         {title:'Operaciones con Base en Miami',desc:'Logística, inventario y soporte en EE.UU. Sin demoras por envíos internacionales.'},
-        {title:'Distribución Nacional Rápida',desc:'Despacho el mismo día en pedidos antes de las 2 PM EST. Entrega en 2–5 días hábiles.'},
+        {title:'Distribución Nacional',desc:'Envíos desde Miami, FL. Entrega habitual en 2–5 días hábiles.'},
         {title:'Soporte Técnico Dedicado',desc:'Experiencia real en HVAC con cada pedido. Capacitación, fichas técnicas y soporte en campo incluidos.'},
         {title:'Precios al por Mayor',desc:'Precios competitivos para casas de suministros, flotas de contratistas y mayoristas.'}
       ],
@@ -205,8 +205,8 @@ window.T = {
       ]
     },
     market: {
-      eyebrow:'Oportunidad de Mercado', title:'El Mercado HVAC #1\nen América.',
-      sub:'Florida usa AC los 12 meses del año. Más de 9,800 empresas HVAC. Un distribuidor trayendo la solución de fugas más avanzada del mundo al mercado estadounidense.',
+      eyebrow:'Oportunidad de Mercado', title:'Uno de los Mayores\nMercados HVAC de EE.UU.',
+      sub:'Florida usa AC los 12 meses del año. Más de 9,800 empresas HVAC. Wylco trae al mercado estadounidense la solución de fugas probada de K11.',
       items:[
         {num:'$9.6',suf:'B',label:'Mercado HVAC FL 2026'},
         {num:'9,800',suf:'+',label:'Empresas HVAC en FL'},
@@ -231,11 +231,11 @@ window.T = {
       eyebrow:'FAQ', title:'Preguntas respondidas.',
       items:[
         {q:'¿Cómo sé si K11 es adecuado para mi sistema?',a:'¿Más de 30 días para perder carga completa? Micro-fuga — K11 es para esto. ¿15–30 días? Fuga media, K11 puede funcionar. ¿Menos de 15 días? Fuga grande que requiere soldadura.'},
-        {q:'¿Es K11 seguro para compresores, TXV y válvulas de expansión?',a:'Sí. K11 TapaFugas no contiene polímeros y solo se activa en los puntos de fuga al contactar con aire y humedad. Seguro para todos los componentes del sistema. Certificado ASHRAE 97.'},
+        {q:'¿Es K11 seguro para compresores, TXV y válvulas de expansión?',a:'Sí. K11 TapaFugas no contiene polímeros y solo se activa en los puntos de fuga al contactar con aire y humedad. Seguro para los componentes del sistema. Ensayado según ASHRAE 97.'},
         {q:'¿Con qué refrigerantes es compatible K11?',a:'Todos los refrigerantes comunes: R22, R410A, R32, R134a, R404A, R290, R600a, R1234yf, y todos los sustitutos A2L. La única excepción es el amoniaco (R717).'},
         {q:'¿Cuánto K11 necesito para mi sistema?',a:'10ml para sistemas hasta 3TR (36,000 BTU). 20ml hasta 5TR. 30ml hasta 8TR. Más de 8TR — mezclar con aceite en relación 1:30 (3.25%). La dosificación precisa evita el desperdicio.'},
-        {q:'¿Cuánto dura el sellado?',a:'El sellado es permanente — dura la vida operativa restante del sistema. Casos documentados resistiendo más de 5 años de operación continua.'},
-        {q:'¿Cómo hago un pedido y qué tan rápido envía Wylco?',a:'Contáctanos para precios B2B, pedidos al por mayor e inquietudes de distribución. Enviamos a todo EE.UU. desde Miami, FL con despacho el mismo día en pedidos antes de las 2 PM EST.'}
+        {q:'¿Cuánto dura el sellado?',a:'El sellado está pensado para ser duradero. Hay casos en Latinoamérica que se mantienen tras más de 5 años de operación continua. El resultado depende del tamaño de la fuga y del estado del equipo.'},
+        {q:'¿Cómo hago un pedido y qué tan rápido envía Wylco?',a:'Contáctanos para precios B2B, pedidos al por mayor e inquietudes de distribución. Enviamos a todo EE.UU. desde Miami, FL. Entrega habitual en 2–5 días hábiles.'}
       ]
     },
     finalCta: {

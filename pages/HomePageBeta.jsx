@@ -14,11 +14,11 @@ function HeroSection({ lang, setPage, openPreorder }) {
 
   const products = [
     { img:'assets/tile_tapafugas.png',
-      tagCls:'tag-orange', tag: lang==='en'?'Bestseller · 2-in-1 Technology':'Bestseller · Tecnología 2-en-1',
-      name:'K11 TapaFugas 2-in-1', desc: lang==='en'?'Seals AND detects — simultaneously. The only sealant of its kind in the US market.':'Sella Y detecta — simultáneamente. El único sellador de su tipo en el mercado USA.' },
+      tagCls:'tag-orange', tag: lang==='en'?'Flagship · 2-in-1 Technology':'Producto Estrella · Tecnología 2-en-1',
+      name:'K11 TapaFugas 2-in-1', desc: lang==='en'?'Seals AND marks leaks with UV — in a single injection.':'Sella Y marca la fuga con UV — en una sola inyección.' },
     { img:'assets/tile_sellaplus.png', video:'assets/sella-plus-video.mp4',
       tagCls:'tag-gray', tag: lang==='en'?'Gasket & Thread Sealant':'Sellador de Juntas',
-      name:'K11 Sella Plus', desc: lang==='en'?'Maximum adhesion for flanges, threads and gaskets. ASHRAE + NSF certified.':'Máxima adhesión para bridas, roscas y juntas. Certificado ASHRAE + NSF.' },
+      name:'K11 Sella Plus', desc: lang==='en'?'High adhesion for flanges, threads and gaskets. Tested per ASHRAE 97.':'Alta adhesión para bridas, roscas y juntas. Ensayado según ASHRAE 97.' },
   ];
 
   function goTo(idx) {
@@ -100,7 +100,7 @@ function HeroSection({ lang, setPage, openPreorder }) {
 
           <div className="hero-float hf1">
             <div className="hero-float-num">12<em>+</em></div>
-            <div className="hero-float-label">{lang==='en'?'Years OEM Validated':'Años Validado OEM'}</div>
+            <div className="hero-float-label">{lang==='en'?'Years of Field Use':'Años de Uso en Campo'}</div>
           </div>
           <div className="hero-float hf2">
             <div className="hero-float-num">80<em>%</em></div>
@@ -251,9 +251,9 @@ function WhySection({ lang }) {
 function ProductsSection({ lang, setPage }) {
   const T = window.T[lang].products;
   const prods = [
-    { img:'assets/tile_tapafugas.png', video:'assets/tapafugas-video.mp4', videoEnd:7.6, tagCls:'tag-orange', tag:lang==='en'?'Bestseller · 2-in-1':'Bestseller · 2-en-1', name:lang==='en'?'K11 TapaFugas 2-in-1\nSeal + UV Detect':'K11 TapaFugas 2-en-1\nSella + Detecta UV', desc:lang==='en'?'The only product on the US market that seals micro-leaks AND detects them with UV fluorescence — simultaneously. OEM-validated for 12+ years.':'El único en el mercado USA que sella Y detecta fugas con UV — simultáneamente. Validado por OEM por más de 12 años.', compat:['R22','R410A','R32','R134a','All HVAC-R'], featured:true, page:'products', anchor:'tapafugas' },
-    { img:'assets/tile_sellaplus.png', video:'assets/sella-plus-video.mp4', tagCls:'tag-gray', tag:lang==='en'?'Sealant + Lubricant':'Sellador + Lubricante', name:lang==='en'?'K11 Sella Plus\nSeal + Lubricate':'K11 Sella Plus\nSella + Lubrica', desc:lang==='en'?'Premium HVAC-R sealant AND lubricant for flanges, connections, gaskets & O-rings. Blue color for easy ID. Never hardens. ASHRAE 97 certified.':'Sellador Y lubricante HVAC-R premium para bridas, conexiones, juntas y O-rings. Color azul para identificación. Nunca endurece. Certificado ASHRAE 97.', compat:['All refrigerants','All fluids','Flanges','O-rings'], featured:true, page:'products', anchor:'sellaplus' },
-    { img:'assets/tile_revelafugas.png', video:'assets/hero-video.mp4', tagCls:'tag-green', tag:lang==='en'?'UV Detection':'Detección UV', name:'K11 Revela Fugas', desc:lang==='en'?'Ultra-high fluorescence UV dye. Find leaks under UV light with zero system impact.':'Tinte UV de ultra-alta fluorescencia. Encuentra fugas sin impactar el sistema.', featured:false, page:'products', anchor:'revelafugas' },
+    { img:'assets/tile_tapafugas.png', video:'assets/tapafugas-video.mp4', videoEnd:7.6, tagCls:'tag-orange', tag:lang==='en'?'Flagship · 2-in-1':'Producto Estrella · 2-en-1', name:lang==='en'?'K11 TapaFugas 2-in-1\nSeal + UV Detect':'K11 TapaFugas 2-en-1\nSella + Detecta UV', desc:lang==='en'?'Seals micro-leaks AND marks them with UV fluorescence — in a single injection. 12+ years of field use in Latin America.':'Sella micro-fugas Y las marca con UV — en una sola inyección. Más de 12 años de uso en Latinoamérica.', compat:['R22','R410A','R32','R134a','All HVAC-R'], featured:true, page:'products', anchor:'tapafugas' },
+    { img:'assets/tile_sellaplus.png', video:'assets/sella-plus-video.mp4', tagCls:'tag-gray', tag:lang==='en'?'Sealant + Lubricant':'Sellador + Lubricante', name:lang==='en'?'K11 Sella Plus\nSeal + Lubricate':'K11 Sella Plus\nSella + Lubrica', desc:lang==='en'?'Premium HVAC-R sealant AND lubricant for flanges, connections, gaskets & O-rings. Blue color for easy ID. Never hardens. Tested per ASHRAE 97.':'Sellador Y lubricante HVAC-R premium para bridas, conexiones, juntas y O-rings. Color azul para identificación. Nunca endurece. Ensayado según ASHRAE 97.', compat:['All refrigerants','All fluids','Flanges','O-rings'], featured:true, page:'products', anchor:'sellaplus' },
+    { img:'assets/tile_revelafugas.png', video:'assets/hero-video.mp4', tagCls:'tag-green', tag:lang==='en'?'UV Detection':'Detección UV', name:'K11 Revela Fugas', desc:lang==='en'?'Ultra-high fluorescence UV dye. Find leaks under UV light — designed not to affect system performance.':'Tinte UV de ultra-alta fluorescencia. Encuentra fugas sin impactar el sistema.', featured:false, page:'products', anchor:'revelafugas' },
     { img:'assets/tile_adapter.png', video:'assets/adapters-video.mp4', tagCls:'tag-gray', tag:lang==='en'?'Accessories':'Accesorios', name:lang==='en'?'K11 Adapters':'Adaptadores K11', desc:lang==='en'?'Anti-backflow injection adapters. 1/4" and 5/16" — fits every US service port.':'Adaptadores anti-retorno. 1/4" y 5/16" — compatibles con todos los puertos.', featured:false, page:'products', anchor:'adapters' },
   ];
   return (
@@ -324,15 +324,14 @@ function ProductsSection({ lang, setPage }) {
 function CompSection({ lang }) {
   const T = window.T[lang].comp;
   const rows = [
-    { brand:'Wylco / K11 2-in-1', you:true, cols:['✓ Both','✓ All','✓ 10–60ml (0.3–2 oz)','✓ Yes'], cls:'winner' },
-    { brand:'Leak Saver Direct Inject', cols:['~ UV add-on','✓','—','—'] },
-    { brand:'Nu-Calgon EasySeal', cols:['—','✓','2.5oz only','—'] },
-    { brand:'RectorSeal AC Freeze Pro', cols:['—','✓','1.5oz only','—'] },
-    { brand:'BlueDevil Red Angel', cols:['—','R134a only','—','—'] },
+    { brand:'K11 TapaFugas 2-in-1', you:true, cols:['✓','✓','✓ 1 step','✓ 10–60ml (0.3–2 oz)'], cls:'winner' },
+    { brand:lang==='en'?'Sealant only':'Solo sellador', cols:['✓','—','—','~'] },
+    { brand:lang==='en'?'UV dye only':'Solo tinte UV', cols:['—','✓','—','~'] },
+    { brand:lang==='en'?'Sealant + separate dye':'Sellador + tinte aparte', cols:['✓','✓',lang==='en'?'2 steps':'2 pasos','~'] },
   ];
   const hdrs = lang==='en'
-    ? ['Product','Seal + UV Detect','All Refrigerants','Precision Dose','OEM Validated']
-    : ['Producto','Sella + Detecta UV','Todos Refrig.','Dosis Precisa','Validado OEM'];
+    ? ['Product type','Seals','UV Detect','Injections','Dose options']
+    : ['Tipo de producto','Sella','Detecta UV','Inyecciones','Dosis'];
 
   return (
     <section className="section section-white" style={{ borderBottom:'.5px solid var(--bd-light)' }}>
@@ -350,7 +349,7 @@ function CompSection({ lang }) {
             <div key={i} className={`comp-row ${row.cls||''}`}>
               <span className={row.you ? 'comp-brand-k11' : 'comp-brand'}>
                 {row.brand}
-                {row.you && <span className="you-badge">{lang==='en'?'You':'Vos'}</span>}
+                {row.you && <span className="you-badge">K11</span>}
               </span>
               {row.cols.map((c, j) => (
                 <span key={j} className={c.startsWith('✓') ? 'ci' : c==='—' ? 'cx' : 'cp'}>{c}</span>
@@ -542,19 +541,19 @@ const PRODUCT_FAQ = {
       { q:'How do I know if K11 TapaFugas is right for my system?', a:'Check how long the system takes to lose its full charge. Over 30 days? A micro-leak — exactly what K11 is built for. 15–30 days? Medium leak, K11 may work. Under 15 days? Large leak that needs mechanical repair first.' },
       { q:'Which refrigerants is it compatible with?', a:'All common refrigerants: R22, R32, R410A, R134a, R404A, R290, R600a, R1234yf, R448A, R449A, R454B and all A2L replacements. The only exception is ammonia (R717).' },
       { q:'How much do I dose per system?', a:'10ml for systems up to 3TR (36,000 BTU), 20ml up to 5TR, 30ml up to 8TR. Over 8TR, mix with oil at a 1:30 ratio (3.25%). Precision dosing prevents overloading the circuit.' },
-      { q:'How long does the seal last?', a:'The seal is permanent — it lasts the remaining operational life of the system. Documented cases hold strong after 5+ years of continuous operation.' },
+      { q:'How long does the seal last?', a:'The seal is designed to be long-lasting. Field cases in Latin America have held for 5+ years of continuous operation. Results depend on leak size and system condition.' },
       { q:'Do I need to evacuate the system to apply it?', a:'No. K11 is injected into a live, running circuit with no evacuation or downtime. It stays inert and only activates at a leak point when it contacts air and moisture.' },
     ]},
     { id:'sellaplus', tab:'Sella Plus', items:[
       { q:'What does K11 Sella Plus do?', a:'It seals AND lubricates in one product — designed for flanges, connections, gaskets and O-rings. Reliable sealing plus superior lubrication for service and assembly.' },
       { q:'Will it harden or clog the system?', a:'No. Sella Plus never hardens or crystallizes — it stays flexible over time, so joints remain serviceable.' },
       { q:'Why is it blue?', a:'The blue color lets you visually control application during installation and easily identify treated joints during future maintenance.' },
-      { q:'Is it safe and certified?', a:'Yes. It is ASHRAE 97 certified for guaranteed chemical stability and is safe for all refrigerant systems and fluids. Supplied in a 35ml precision applicator bottle (Code: SPK11).' },
+      { q:'Is it safe and tested?', a:'Yes. It is tested per ASHRAE 97 for chemical stability and is compatible with common refrigerant systems and fluids. Supplied in a 35ml precision applicator bottle (Code: SPK11).' },
     ]},
     { id:'revelafugas', tab:'Revela Fugas', items:[
       { q:'What is K11 Revela Fugas and how does it work?', a:'An ultra-high fluorescence UV dye. It circulates through the system and marks every leak point, which then glows under a standard UV/violet lamp for fast, precise location.' },
       { q:'Is it compatible with my oil and refrigerant?', a:'Yes. It works with all refrigerant types (R22, R32, R410A, R134a, R404A, R407C, R290 and more) and with mineral, POE and PAG oils.' },
-      { q:'Does it affect system performance?', a:'Zero impact. The dye circulates without altering pressures or capacity and stays active in the circuit for long-term leak monitoring.' },
+      { q:'Does it affect system performance?', a:'It is designed not to. The dye circulates without altering pressures or capacity and stays active in the circuit for long-term leak monitoring.' },
       { q:'How do I actually see the leaks?', a:'Any standard UV or violet inspection light reveals the fluorescent dye at each leak point — no special equipment beyond a common HVAC UV lamp.' },
     ]},
     { id:'adapters', tab:'Adapters', items:[
@@ -569,14 +568,14 @@ const PRODUCT_FAQ = {
       { q:'¿Cómo sé si K11 TapaFugas es adecuado para mi sistema?', a:'Fijate cuánto tarda el sistema en perder la carga completa. ¿Más de 30 días? Micro-fuga — justo para lo que sirve K11. ¿15–30 días? Fuga media, K11 puede funcionar. ¿Menos de 15 días? Fuga grande que necesita reparación mecánica primero.' },
       { q:'¿Con qué refrigerantes es compatible?', a:'Todos los refrigerantes comunes: R22, R32, R410A, R134a, R404A, R290, R600a, R1234yf, R448A, R449A, R454B y todos los reemplazos A2L. La única excepción es el amoníaco (R717).' },
       { q:'¿Cuánto dosifico por sistema?', a:'10ml para sistemas de hasta 3TR (36,000 BTU), 20ml hasta 5TR, 30ml hasta 8TR. Más de 8TR, mezclar con aceite en relación 1:30 (3.25%). La dosis precisa evita sobrecargar el circuito.' },
-      { q:'¿Cuánto dura el sellado?', a:'El sellado es permanente — dura la vida útil restante del sistema. Hay casos documentados que se mantienen firmes tras más de 5 años de operación continua.' },
+      { q:'¿Cuánto dura el sellado?', a:'El sellado está pensado para ser duradero. Hay casos en Latinoamérica que se mantienen tras más de 5 años de operación continua. El resultado depende del tamaño de la fuga y del estado del equipo.' },
       { q:'¿Tengo que evacuar el sistema para aplicarlo?', a:'No. K11 se inyecta en el circuito activo, en marcha, sin evacuación ni tiempo muerto. Permanece inerte y solo se activa en el punto de fuga al contactar aire y humedad.' },
     ]},
     { id:'sellaplus', tab:'Sella Plus', items:[
       { q:'¿Qué hace K11 Sella Plus?', a:'Sella Y lubrica en un solo producto — diseñado para bridas, conexiones, juntas y O-rings. Sellado confiable más lubricación superior para servicio y montaje.' },
       { q:'¿Endurece o tapa el sistema?', a:'No. Sella Plus nunca endurece ni cristaliza — permanece flexible en el tiempo, así las juntas siguen siendo desmontables.' },
       { q:'¿Por qué es azul?', a:'El color azul permite controlar visualmente la aplicación durante la instalación e identificar fácilmente las juntas tratadas en mantenimientos futuros.' },
-      { q:'¿Es seguro y está certificado?', a:'Sí. Está certificado ASHRAE 97 con estabilidad química garantizada y es seguro para todos los sistemas y fluidos de refrigeración. Viene en botella aplicadora de precisión de 35ml (Cód: SPK11).' },
+      { q:'¿Es seguro y está ensayado?', a:'Sí. Está ensayado según ASHRAE 97 en estabilidad química y es compatible con los sistemas y fluidos de refrigeración comunes. Viene en botella aplicadora de precisión de 35ml (Cód: SPK11).' },
     ]},
     { id:'revelafugas', tab:'Revela Fugas', items:[
       { q:'¿Qué es K11 Revela Fugas y cómo funciona?', a:'Un tinte UV de ultra-alta fluorescencia. Circula por el sistema y marca cada punto de fuga, que luego brilla bajo una lámpara UV/violeta estándar para una localización rápida y precisa.' },

@@ -61,13 +61,13 @@ function ContactPage({ lang, setPage }) {
     { num:'02', title:'Competitive Wholesale Pricing', desc:'Volume-based pricing tiers for supply houses, contractor fleets, and regional wholesalers.' },
     { num:'03', title:'Technical Onboarding', desc:'Full product training, datasheets, SDS documents, and application guides for your team and customers.' },
     { num:'04', title:'Marketing Support', desc:'Product materials, demos, and Wylco support to help you sell K11 in your market effectively.' },
-    { num:'05', title:'Fast Restocking', desc:'Miami-based inventory with same-day shipping ensures your shelves are never empty.' },
+    { num:'05', title:'Fast Restocking', desc:'Miami-based inventory and fast shipping to keep your shelves stocked.' },
   ] : [
     { num:'01', title:'Territorio Exclusivo', desc:'Trabajamos con un número limitado de distribuidores por región para proteger tu inversión y posición en el mercado.' },
     { num:'02', title:'Precios al por Mayor Competitivos', desc:'Niveles de precios basados en volumen para casas de suministros, flotas de contratistas y mayoristas regionales.' },
     { num:'03', title:'Onboarding Técnico', desc:'Capacitación completa del producto, fichas técnicas, documentos SDS y guías de aplicación para tu equipo y clientes.' },
     { num:'04', title:'Soporte de Marketing', desc:'Materiales de producto, demostraciones y soporte de Wylco para ayudarte a vender K11 en tu mercado eficazmente.' },
-    { num:'05', title:'Reposición Rápida', desc:'Inventario con base en Miami con envío el mismo día garantiza que tus estantes nunca estén vacíos.' },
+    { num:'05', title:'Reposición Rápida', desc:'Inventario en Miami y envíos rápidos para mantener tu stock.' },
   ];
 
   return (

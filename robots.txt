@@ -1,24 +1,12 @@
 User-agent: *
+Allow: /
 Disallow: /k11
 Disallow: /materiales
 Disallow: /api/
-Allow: /
-
-# Sitemap
-Sitemap: https://wylcosolutions.com/sitemap.xml
-
-# Allow Google to index all assets (images, fonts, CSS)
-Allow: /assets/
-Allow: /css/
-
-# Block crawling of source/internal files
 Disallow: /screenshots/
 Disallow: /scraps/
 Disallow: /uploads/
-Disallow: /js/
-Disallow: /components/
-Disallow: /pages/
+Disallow: /data/
+Disallow: /para-github/
 
-# Google Image Bot
-User-agent: Googlebot-Image
-Allow: /assets/
+Sitemap: https://wylcosolutions.com/sitemap.xml

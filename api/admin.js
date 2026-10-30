@@ -2,6 +2,7 @@ const { redis, leerEstado, D } = require('./_lib/core');
 const T = require('./_lib/tienda');
 const { stripe, precios, fijarPrecio, TAX, MODE } = require('./_lib/stripe');
 const UI = require('./_lib/adminui');
+const S = require('./_lib/social');
 const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
 const CK = 'k11adm';
@@ -64,6 +65,11 @@ async function accion(b) {
     const o = await T.crearVenta({ datos, items, origen: 'admin', estado: 'nuevo' });
     return { msg: `Venta ${o.ref} creada`, go: '/admin?v=venta&ref=' + o.ref };
   }
+  if (a === 'aliados') { const l = await S.guardarAliados(b.txt); return 'Lista guardada · ' + l.filter(x => x.estado === 'ok').length + ' cuentas se mencionan'; }
+  if (a === 'socm_ok') { const m = await S.aprobarMes(b.ym); const e = m.posts.filter(p => p.estado === 'error'); return e.length ? 'Error en ' + e.length + ' post(s): ' + e[0].err : 'Mes aprobado: ' + m.posts.filter(p => p.estado === 'programado').length + ' posts programados'; }
+  if (a === 'socm_cancel') { await S.cancelarMes(b.ym); return 'Aprobación del mes cancelada'; }
+  if (a === 'socm_regen') { await S.regenerarMes(b.ym); return 'Mes regenerado'; }
+  if (a === 'socm_edit') { await S.editarPost(b.ym, +b.i, b.text, S.IMG_NETS.filter(n => b['net_' + n]), b.off === '1'); return 'Post guardado'; }
   const o = b.ref ? await T.pedido(b.ref) : null;
   if (!o) throw new Error('Acción desconocida');
   if (a === 'factura') { if (o.invoice) return 'Esta venta ya tiene factura'; const inv = await crearFactura(o); return `Factura ${inv.number} enviada a ${o.email}`; }
@@ -118,6 +124,7 @@ module.exports = async (req, res) => {
   else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) : '<h1>Cliente no encontrado</h1>'; }
   else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps }); }
   else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
+  else if (v === 'redes') { title = 'Redes'; const ms = S.meses(); const ym = ms.includes(q.m) ? q.m : (ms.includes('2026-11') ? '2026-11' : ms[0]); const [m, conn, al] = await Promise.all([S.mes(ym), S.conectadas(), S.aliados()]); body = UI.redes({ aliados: al, m, meses: ms, conn, hasKey: !!S.KEY, NETS: S.NETS, IMG_NETS: S.IMG_NETS, seller: S.SELLER.es }); }
   else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, f: q.f || 'activas', q: q.q || '' }); }
   else {
     let mail = null;

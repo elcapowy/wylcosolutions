@@ -1,108 +1,124 @@
-const { autorizado, redis, enviar } = require('./_lib/core');
-const { BY, PRODUCTS, leerTienda, pedidos, pedido, guardarPedido, devolverPedido } = require('./_lib/tienda');
+const { redis } = require('./_lib/core');
+const T = require('./_lib/tienda');
 const { stripe, precios, fijarPrecio, TAX, MODE } = require('./_lib/stripe');
-const ESTADOS = ['nuevo', 'confirmado', 'pago pendiente', 'pagado', 'enviado', 'cancelado'];
-const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const UI = require('./_lib/adminui');
+const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
+const CK = 'k11adm';
 
-async function cliente(o) {
+async function clienteStripe(o, c) {
   const addr = { line1: o.address || undefined, city: o.city || undefined, state: o.state || undefined, postal_code: o.zip || undefined, country: 'US' };
-  const data = { email: o.email, name: o.company, phone: o.phone || undefined, address: addr, shipping: { name: o.company, address: addr }, tax_exempt: o.exento ? 'exempt' : 'none', metadata: { contact: o.contact, ein: o.ein || '' } };
-  if (o.stripe_customer) return stripe('customers/' + o.stripe_customer, data);
-  return stripe('customers', data);
+  const data = { email: o.email, name: o.company, phone: o.phone || undefined, address: addr, shipping: { name: o.company, address: addr }, tax_exempt: c && c.exento ? 'exempt' : 'none', metadata: { contact: o.contact || '', ein: o.ein || '' } };
+  const id = (c && c.stripe_customer) || o.stripe_customer;
+  return id ? stripe('customers/' + id, data) : stripe('customers', data);
 }
 async function crearFactura(o) {
   const pr = await precios(o.items.map(i => i.slug));
   const falta = o.items.filter(i => !pr[i.slug]).map(i => i.sku);
-  if (falta.length) throw new Error('Falta precio en Stripe para: ' + falta.join(', '));
-  const c = await cliente(o); o.stripe_customer = c.id;
+  if (falta.length) throw new Error('Falta precio en Stripe para: ' + falta.join(', ') + ' (cargalo en Stock)');
+  const c = o.cliente ? await T.cliente(o.cliente) : null;
+  const sc = await clienteStripe(o, c);
+  o.stripe_customer = sc.id; if (c && c.stripe_customer !== sc.id) { c.stripe_customer = sc.id; await T.guardarCliente(c); }
   const inv = await stripe('invoices', {
-    customer: c.id, collection_method: 'send_invoice', days_until_due: 7, auto_advance: true, pending_invoice_items_behavior: 'exclude',
+    customer: sc.id, collection_method: 'send_invoice', days_until_due: 7, auto_advance: true, pending_invoice_items_behavior: 'exclude',
     automatic_tax: { enabled: TAX }, metadata: { ref: o.ref },
     description: `K11 order ${o.ref}` + (o.items.some(i => i.preorder) ? ' — includes pre-order items, ship when stock arrives' : ''),
     footer: 'Wylco LLC · Miami, FL · info@wylcosolutions.com · +1 (954) 881-8870',
     payment_settings: { payment_method_types: ['card', 'us_bank_account', 'customer_balance'], payment_method_options: { customer_balance: { funding_type: 'bank_transfer', bank_transfer: { type: 'us_bank_transfer' } } } }
   });
-  for (const i of o.items) await stripe('invoiceitems', { customer: c.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
+  for (const i of o.items) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
   await stripe('invoices/' + inv.id + '/finalize', {});
-  const sent = await stripe('invoices/' + inv.id + '/send', {});
-  Object.assign(o, { estado: 'confirmado', invoice: sent.id, invoice_url: sent.hosted_invoice_url, invoice_pdf: sent.invoice_pdf, total: sent.total / 100, tax: (sent.tax || 0) / 100 });
-  await guardarPedido(o);
-  return sent;
+  const s = await stripe('invoices/' + inv.id + '/send', {});
+  Object.assign(o, { estado: 'confirmado', invoice: s.id, invoice_url: s.hosted_invoice_url, invoice_pdf: s.invoice_pdf, total: s.total / 100, tax: (s.tax || 0) / 100 });
+  T.hist(o, `Factura ${s.number} enviada a ${o.email} · USD ${(s.total / 100).toFixed(2)}`);
+  await T.guardarPedido(o);
+  return s;
+}
+
+async function accion(b) {
+  const a = b.a, s = b.s, P = T.BY[s];
+  if (a === 'stock' && P) {
+    const v = parseInt(b.v, 10); if (isNaN(v)) throw new Error('Ingresá una cantidad');
+    if (b.modo === 'fijar') { await T.fijarStock(s, Math.max(0, v)); return `Inventario ${P.sku} = ${Math.max(0, v)} cajas`; }
+    await T.sumarStock(s, v); return `${v > 0 ? '+' : ''}${v} cajas a ${P.sku}`;
+  }
+  if (a === 'precio' && P) {
+    const v = parseFloat(String(b.v).replace(',', '.'));
+    if (v > 0) { await fijarPrecio(P, v); await redis([['HSET', 'k11:online', s, '1']]); return `Precio ${P.sku} = USD ${v.toFixed(2)} por caja`; }
+    await redis([['HDEL', 'k11:online', s]]); return `${P.sku}: venta online desactivada`;
+  }
+  if (a === 'online' && P) { await redis([b.v === '1' ? ['HSET', 'k11:online', s, '1'] : ['HDEL', 'k11:online', s]]); return `${P.sku}: ${b.v === '1' ? 'online' : 'solo factura'}`; }
+  if (a === 'cliente') {
+    const c = await T.cliente(b.id); if (!c) throw new Error('Cliente no encontrado');
+    for (const k of ['company', 'contact', 'phone', 'address', 'city', 'state', 'zip', 'ein', 'business_type', 'notas']) if (b[k] != null) c[k] = String(b[k]).trim();
+    const ex = b.exento === '1';
+    if (ex !== !!c.exento) { c.exento = ex; if (c.stripe_customer) await stripe('customers/' + c.stripe_customer, { tax_exempt: ex ? 'exempt' : 'none' }).catch(() => {}); }
+    await T.guardarCliente(c); return 'Cliente guardado' + (ex ? ' · exento de sales tax' : '');
+  }
+  if (a === 'nueva') {
+    const datos = {}; for (const k of ['company', 'contact', 'email', 'phone', 'address', 'city', 'state', 'zip', 'business_type', 'ein', 'payment', 'notes']) datos[k] = String(b[k] || '').trim();
+    datos.email = datos.email.toLowerCase();
+    const items = T.PRODUCTS.map(p => ({ slug: p.slug, q: Math.max(0, parseInt(b['qty_' + p.slug], 10) || 0) })).filter(x => x.q);
+    if (!datos.email || !datos.company) throw new Error('Falta empresa o email');
+    if (!items.length) throw new Error('Cargá al menos una caja');
+    const o = await T.crearVenta({ datos, items, origen: 'admin', estado: 'nuevo' });
+    return { msg: `Venta ${o.ref} creada`, go: '/admin?v=venta&ref=' + o.ref };
+  }
+  const o = b.ref ? await T.pedido(b.ref) : null;
+  if (!o) throw new Error('Acción desconocida');
+  if (a === 'factura') { if (o.invoice) return 'Esta venta ya tiene factura'; const inv = await crearFactura(o); return `Factura ${inv.number} enviada a ${o.email}`; }
+  if (a === 'estado' && UI.ESTADOS.includes(b.v)) {
+    if (b.v === 'cancelado' && o.estado !== 'cancelado') { await T.devolverPedido(o); if (o.invoice) await stripe('invoices/' + o.invoice + '/void', {}).catch(() => {}); }
+    o.estado = b.v; if (b.pago) o.payment = b.pago;
+    T.hist(o, 'Estado → ' + b.v + (b.pago ? ' (' + b.pago + ')' : '') + (b.v === 'cancelado' ? ' · stock devuelto' + (o.invoice ? ' · factura anulada' : '') : ''));
+    await T.guardarPedido(o); return `${o.ref} → ${b.v}`;
+  }
+  throw new Error('Acción desconocida');
 }
 
 module.exports = async (req, res) => {
-  if (!autorizado(req)) return res.status(401).send('no autorizado — usá /admin?k=TU_TOKEN');
-  const q = req.query, k = encodeURIComponent(q.k || '');
-  let aviso = '';
-  try {
-    if (q.a === 'stock' && BY[q.s]) { const v = Math.max(0, parseInt(q.v, 10) || 0); await redis([['HSET', 'k11:stock', q.s, String(v)]]); aviso = `Stock ${BY[q.s].sku} = ${v} cajas`; }
-    if (q.a === 'sumar' && BY[q.s]) { const v = parseInt(q.v, 10) || 0; await redis([['HINCRBY', 'k11:stock', q.s, v]]); aviso = `${v > 0 ? '+' : ''}${v} cajas a ${BY[q.s].sku}`; }
-    if (q.a === 'precio' && BY[q.s]) {
-      const v = parseFloat(String(q.v).replace(',', '.'));
-      if (v > 0) { await fijarPrecio(BY[q.s], v); await redis([['HSET', 'k11:online', q.s, '1']]); aviso = `Precio ${BY[q.s].sku} = USD ${v.toFixed(2)} por caja (Stripe ${MODE})`; }
-      else { await redis([['HDEL', 'k11:online', q.s]]); aviso = `${BY[q.s].sku}: venta online desactivada`; }
-    }
-    if (q.a === 'online' && BY[q.s]) { await redis([q.v === '1' ? ['HSET', 'k11:online', q.s, '1'] : ['HDEL', 'k11:online', q.s]]); aviso = `${BY[q.s].sku}: venta online ${q.v === '1' ? 'activada' : 'desactivada'}`; }
-    const o = q.ref ? await pedido(q.ref) : null;
-    if (o && q.a === 'estado' && ESTADOS.includes(q.v)) {
-      if (q.v === 'cancelado' && o.estado !== 'cancelado') { await devolverPedido(o); if (o.invoice) await stripe('invoices/' + o.invoice + '/void', {}).catch(() => {}); }
-      o.estado = q.v; if (q.pago) o.payment = q.pago; await guardarPedido(o);
-      aviso = `${o.ref} → ${q.v}` + (q.v === 'cancelado' ? ' (stock devuelto' + (o.invoice ? ', factura anulada' : '') + ')' : '');
-    }
-    if (o && q.a === 'exento') { o.exento = !o.exento; if (o.stripe_customer) await stripe('customers/' + o.stripe_customer, { tax_exempt: o.exento ? 'exempt' : 'none' }); await guardarPedido(o); aviso = `${o.ref}: ${o.exento ? 'exento de sales tax (guardá el certificado de reventa)' : 'con sales tax'}`; }
-    if (o && q.a === 'factura') { if (o.invoice) aviso = `${o.ref} ya tiene factura`; else { const inv = await crearFactura(o); aviso = `Factura ${inv.number} enviada a ${o.email} · USD ${(inv.total / 100).toFixed(2)}`; } }
-  } catch (e) { aviso = 'Error: ' + (e.message || e); }
-  if (q.a) { res.writeHead(303, { Location: '/admin?k=' + k + (q.f ? '&f=' + encodeURIComponent(q.f) : '') + '&ok=' + encodeURIComponent(aviso) }); return res.end(); }
-
-  const [t, ps, pr] = await Promise.all([leerTienda(), pedidos(), precios(PRODUCTS.map(p => p.slug)).catch(e => ({ _err: e.message }))]);
-  const filtro = q.f || 'activos';
-  const lista = ps.filter(o => filtro === 'todos' || (filtro === 'activos' ? !['enviado', 'cancelado'].includes(o.estado) : o.estado === filtro));
-  const res2 = {}; for (const o of ps) if (!['enviado', 'cancelado'].includes(o.estado)) for (const i of o.items || []) { res2[i.slug] = (res2[i.slug] || 0) + (i.reserved || 0); res2[i.slug + '_p'] = (res2[i.slug + '_p'] || 0) + (i.preorder || 0); }
-  const H = (a, s, extra = '') => `<input type="hidden" name="k" value="${esc(q.k)}"><input type="hidden" name="a" value="${a}"><input type="hidden" name="s" value="${s}">${extra}`;
-  const L = (params, txt, conf) => `<a href="/admin?k=${k}&f=${encodeURIComponent(filtro)}&${params}"${conf ? ` onclick="return confirm('${conf}')"` : ''}>${txt}</a>`;
-  const stockRows = t.map(p => { const price = pr[p.slug];
-    return `<tr><td class="m">${p.sku}</td><td>${esc(p.name)}<br><small>${p.units ? p.units + ' u/caja' : ''}</small></td>
-<td class="n ${p.cases_available ? 'ok' : 'no'}">${p.cases_available}</td><td class="n">${res2[p.slug] || 0}</td><td class="n">${res2[p.slug + '_p'] || 0}</td>
-<td><form>${H('stock', p.slug)}<input type="number" name="v" min="0" value="${p.cases_available}"><button>Fijar</button></form><form>${H('sumar', p.slug)}<input type="number" name="v" placeholder="+/-"><button>Sumar</button></form></td>
-<td><form>${H('precio', p.slug)}<input type="number" name="v" step="0.01" min="0" value="${price ? (price.unit_amount / 100).toFixed(2) : ''}" placeholder="USD/caja"><button>Guardar</button></form>
-<small>${price ? (p.online ? `<span class="ok">● Online</span> · ${L('a=online&s=' + p.slug + '&v=0', 'desactivar')}` : `Solo facturas · ${L('a=online&s=' + p.slug + '&v=1', 'activar online')}`) : 'Sin precio'}</small></td></tr>`; }).join('');
-  const ordRows = lista.map(o => {
-    const acts = [];
-    if (!o.invoice && o.origen !== 'stripe' && !['cancelado', 'enviado'].includes(o.estado)) acts.push(L('a=factura&ref=' + o.ref, '<b>Crear y enviar factura</b>', '¿Crear la factura en Stripe (' + MODE + ') y enviarla a ' + esc(o.email) + '?'));
-    if (o.invoice_url) acts.push(`<a href="${esc(o.invoice_url)}" target="_blank">ver factura</a>`);
-    if (o.invoice) acts.push(`<a href="${DASH}/invoices/${o.invoice}" target="_blank">Stripe</a>`);
-    if (o.stripe_session && o.stripe_customer) acts.push(`<a href="${DASH}/customers/${o.stripe_customer}" target="_blank">Stripe</a>`);
-    if (!o.invoice && o.origen !== 'stripe') acts.push(L('a=exento&ref=' + o.ref, o.exento ? 'quitar exención' : 'marcar exento'));
-    if (o.estado !== 'pagado' && !['cancelado', 'enviado'].includes(o.estado)) acts.push(L('a=estado&ref=' + o.ref + '&v=pagado&pago=Zelle', 'pagado por Zelle', '¿Confirmás que recibiste el Zelle?'));
-    for (const e of ['enviado', 'cancelado']) if (o.estado !== e) acts.push(L('a=estado&ref=' + o.ref + '&v=' + e, e, e === 'cancelado' ? '¿Cancelar, devolver stock' + (o.invoice ? ' y anular factura' : '') + '?' : ''));
-    return `<tr class="e-${o.estado.replace(' ', '-')}"><td class="m">${o.ref}<br><small>${o.at.slice(0, 16).replace('T', ' ')} · ${o.origen}</small></td>
-<td><strong>${esc(o.company)}</strong>${o.exento ? ' <span class="tag ex">exento</span>' : ''}<br><small>${esc(o.contact)} · <a href="mailto:${esc(o.email)}">${esc(o.email)}</a> ${esc(o.phone)}<br>${esc(o.address || '')}${o.city ? ', ' + esc(o.city) : ''} ${esc(o.state)} ${esc(o.zip || '')}<br>${esc(o.business_type || '')} ${o.ein ? '· EIN/reventa ' + esc(o.ein) : ''}</small></td>
-<td>${(o.items || []).map(i => `${i.cases}× ${i.sku}<br><small>stock ${i.reserved} · pre ${i.preorder}</small>`).join('<br>')}</td>
-<td><small>${esc(o.payment || '')}${o.total ? `<br><b>USD ${o.total.toFixed ? o.total.toFixed(2) : o.total}</b>${o.tax ? ' (tax ' + o.tax + ')' : ''}` : ''}${o.notes ? '<br>' + esc(o.notes) : ''}${o.nota ? '<br>' + esc(o.nota) : ''}</small></td>
-<td><span class="tag">${o.estado}</span><div class="acts">${acts.join('')}</div></td></tr>`; }).join('') || '<tr><td colspan="5">Sin pedidos.</td></tr>';
-  const tabs = ['activos', ...ESTADOS, 'todos'].map(f => `<a href="/admin?k=${k}&f=${encodeURIComponent(f)}" class="${f === filtro ? 'on' : ''}">${f}</a>`).join('');
-  const banner = MODE === 'off' ? '<div class="warn">Stripe no conectado: agregá STRIPE_SECRET_KEY en Vercel.</div>'
-    : `<div class="st ${MODE}">Stripe <b>${MODE === 'test' ? 'MODO PRUEBA' : 'EN VIVO'}</b> · Tax automático: <b>${TAX ? 'activado' : 'desactivado (STRIPE_TAX=1 para activar)'}</b> · Webhook: <b>${process.env.STRIPE_WEBHOOK_SECRET ? 'configurado' : 'falta STRIPE_WEBHOOK_SECRET'}</b>${pr._err ? ' · Error: ' + esc(pr._err) : ''} · <a href="${DASH}" target="_blank">Dashboard</a></div>`;
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
-  res.send(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Admin K11 · Stock, precios y pedidos</title>
-<style>body{margin:0;background:#f4f1ec;color:#1a1a1a;font:14px/1.45 system-ui,sans-serif}main{max-width:1240px;margin:0 auto;padding:24px}h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:28px 0 10px}a{color:#B8461A}a:hover{color:#1a1a1a}
-.top{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}.top nav{display:flex;gap:14px;flex-wrap:wrap}
-.ok-msg{background:#1a1a1a;color:#fff;padding:10px 14px;border-radius:8px;margin:14px 0}.warn{background:#b3261e;color:#fff;padding:10px 14px;border-radius:8px;margin:14px 0}
-.st{padding:10px 14px;border-radius:8px;margin:14px 0;background:#fff;border:1px solid #e2dcd2}.st.test{border-left:6px solid #E8A33C}.st.live{border-left:6px solid #1d7a3a}
-.tw{overflow-x:auto;background:#fff;border:1px solid #e2dcd2;border-radius:10px}table{width:100%;border-collapse:collapse;min-width:960px}th,td{padding:10px 12px;border-bottom:1px solid #eee7dc;text-align:left;vertical-align:top}th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#6b645a;background:#faf8f4}
-.m{font-family:ui-monospace,Menlo,monospace;font-size:12px}.n{font-size:18px;font-weight:700;text-align:right}.ok{color:#1d7a3a}.no{color:#b3261e}small{color:#6b645a}
-form{display:flex;gap:6px;margin:0 0 6px}input{font:inherit;padding:6px 8px;border:1px solid #d6cfc3;border-radius:6px;width:90px}button{font:inherit;padding:6px 10px;border:0;border-radius:6px;background:#D4541A;color:#fff;cursor:pointer}button:hover{background:#1a1a1a}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.tabs a{padding:6px 12px;border-radius:20px;background:#fff;border:1px solid #e2dcd2;text-decoration:none;color:#1a1a1a}.tabs a.on{background:#1a1a1a;color:#fff}
-.tag{display:inline-block;padding:2px 8px;border-radius:10px;background:#eee7dc;font-weight:600}.tag.ex{background:#dfeee4;color:#1d7a3a}.e-nuevo .tag:first-child{background:#D4541A;color:#fff}.e-pagado td:last-child .tag{background:#1d7a3a;color:#fff}.e-pago-pendiente td:last-child .tag{background:#E8A33C;color:#1a1a1a}.e-cancelado{opacity:.5}
-.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:12px}</style></head><body><main>
-<div class="top"><div><h1>K11 · Stock, precios y pedidos</h1><small>Stock en cajas. /order, /api/stock y /catalog.json lo muestran con hasta 1 min de demora.</small></div><nav><a href="/order" target="_blank">Ver /order</a><a href="/api/stock" target="_blank">/api/stock</a><a href="/api/panel?k=${k}">Panel mails</a></nav></div>
-${banner}${q.ok ? `<div class="${String(q.ok).startsWith('Error') ? 'warn' : 'ok-msg'}">${esc(q.ok)}</div>` : ''}
-<h2>Stock y precios</h2><div class="tw"><table><thead><tr><th>SKU</th><th>Producto</th><th>Disponible</th><th>Reservado</th><th>Pre-pedido</th><th>Ajustar (cajas)</th><th>Precio por caja (Stripe)</th></tr></thead><tbody>${stockRows}</tbody></table></div>
-<p><small>El precio se guarda en Stripe (no se publica en la web). "Online" muestra el botón de pago en /order cuando hay stock. Facturas: se pueden pagar con tarjeta, ACH o transferencia bancaria (Stripe da los datos bancarios).</small></p>
-<h2>Pedidos</h2><div class="tabs">${tabs}</div><div class="tw"><table><thead><tr><th>Ref</th><th>Cliente</th><th>Cajas</th><th>Pago / total</th><th>Estado y acciones</th></tr></thead><tbody>${ordRows}</tbody></table></div>
-<p><small>Marcá "exento" antes de facturar solo si recibiste el certificado de reventa del cliente. Cancelar devuelve el stock reservado y anula la factura abierta.</small></p>
-</main></body></html>`);
+  const html = s => { res.setHeader('Content-Type', 'text/html; charset=utf-8'); res.send(s); };
+  const go = loc => { res.writeHead(303, { Location: loc }); res.end(); };
+  const q = req.query || {};
+  if (!TOK) return html(UI.login(false).replace('<h1>K11 Admin</h1>', '<h1>K11 Admin</h1><div class="flash err">Falta ADMIN_TOKEN en Vercel</div>'));
+  if (q.salir) { res.setHeader('Set-Cookie', `${CK}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax`); return go('/admin'); }
+  if (q.k) {
+    if (q.k !== TOK) return html(UI.login(true));
+    res.setHeader('Set-Cookie', `${CK}=${encodeURIComponent(TOK)}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`);
+    const u = new URLSearchParams(q); u.delete('k'); return go('/admin' + (u.toString() ? '?' + u : ''));
+  }
+  const ck = (req.headers.cookie || '').match(new RegExp(CK + '=([^;]+)'));
+  if (!ck || decodeURIComponent(ck[1]) !== TOK) return html(UI.login(false));
+
+  if (req.method === 'POST') {
+    let b = req.body || {}; if (typeof b === 'string') b = Object.fromEntries(new URLSearchParams(b));
+    let back = '/admin';
+    try { const r = new URL(req.headers.referer || ''); r.searchParams.delete('ok'); back = r.pathname + r.search; } catch {}
+    let msg;
+    try { const r = await accion(b); if (r && r.go) { back = r.go; msg = r.msg; } else msg = r; } catch (e) { msg = 'Error: ' + (e.message || e); }
+    return go(back + (back.includes('?') ? '&' : '?') + 'ok=' + encodeURIComponent(msg));
+  }
+
+  const v = q.v || 'ventas';
+  const [t, ps, cs, pr] = await Promise.all([T.leerTienda(), T.pedidos(), T.clientes(), precios(T.PRODUCTS.map(p => p.slug)).catch(e => ({ _err: e.message }))]);
+  // alta automática de clientes de ventas viejas
+  const ids = new Set(cs.map(c => c.id));
+  for (const o of ps) if (o.email && !ids.has(T.cid(o.email))) { const c = await T.upsertCliente(o); cs.push(c); ids.add(c.id); }
+  for (const o of ps) if (!o.cliente && o.email) { o.cliente = T.cid(o.email); await T.guardarPedido(o); }
+
+  const sw = process.env.STRIPE_WEBHOOK_SECRET;
+  const banner = MODE === 'off' ? '<div class="flash err">Stripe no conectado: falta STRIPE_SECRET_KEY en Vercel.</div>'
+    : `<div class="mode"><span><span class="dot ${MODE === 'live' ? 'ok' : ''}"></span>Stripe <b>${MODE === 'test' ? 'modo prueba' : 'en vivo'}</b></span><span><span class="dot ${TAX ? 'ok' : 'no'}"></span>Tax <b>${TAX ? 'automático' : 'desactivado'}</b></span><span><span class="dot ${sw ? 'ok' : 'no'}"></span>Webhook <b>${sw ? 'configurado' : 'falta secreto'}</b></span>${pr._err ? `<span class="no">Stripe: ${UI.esc(pr._err)}</span>` : ''}<a href="${DASH}" target="_blank">Abrir Stripe ↗</a></div>`;
+  const counts = { ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: '/api/panel?k=' + encodeURIComponent(TOK) };
+  let body, title;
+  if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; body = o ? UI.venta({ o, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) : '<h1>Venta no encontrada</h1>'; }
+  else if (v === 'nueva') { title = 'Nueva venta'; body = UI.nueva({ t, cs: cs.slice().sort((a, b) => (a.company || '').localeCompare(b.company || '')), sel: q.id && cs.find(c => c.id === T.cid(q.id)) }); }
+  else if (v === 'clientes') { title = 'Clientes'; body = UI.clientes({ cs, ps, q: q.q || '' }); }
+  else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) : '<h1>Cliente no encontrado</h1>'; }
+  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps }); }
+  else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
+  else { title = 'Ventas'; body = UI.ventas({ ps, f: q.f || 'activas', q: q.q || '' }); }
+  html(UI.layout({ v, title, body, flash: q.ok, banner, counts }));
 };
 module.exports.config = { maxDuration: 30 };

@@ -1,0 +1,194 @@
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const usd = n => n ? 'USD ' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '—';
+const fecha = s => s ? new Date(s).toLocaleString('es-AR', { timeZone: 'America/New_York', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) : '';
+const dia = s => s ? new Date(s).toLocaleDateString('es-AR', { timeZone: 'America/New_York', day: '2-digit', month: 'short', year: 'numeric' }) : '';
+const ESTADOS = ['nuevo', 'confirmado', 'pago pendiente', 'pagado', 'enviado', 'cancelado'];
+const ACTIVOS = o => !['enviado', 'cancelado'].includes(o.estado);
+const tag = e => `<span class="tag t-${String(e).replace(/\s/g, '-')}">${esc(e)}</span>`;
+const cajas = o => (o.items || []).reduce((a, i) => a + i.cases, 0);
+const H = (a, extra = {}) => `<input type="hidden" name="a" value="${a}">` + Object.entries(extra).map(([k, v]) => `<input type="hidden" name="${k}" value="${esc(v)}">`).join('');
+const btn = (a, extra, txt, cls = '', conf) => `<form method="post" class="inl"${conf ? ` onsubmit="return confirm('${esc(conf)}')"` : ''}>${H(a, extra)}<button class="${cls}">${txt}</button></form>`;
+const empty = t => `<div class="empty">${t}</div>`;
+
+const CSS = `@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+:root{--o:#D4541A;--od:#B84417;--ink:#0F1117;--bg:#F5F0E8;--bg2:#EDE6DA;--line:#E2D8CB;--mut:#6B645A;--card:#fff;--g:#1D7A3A;--a:#B7791F;--r:#B3261E;--fd:"Barlow Condensed",sans-serif;--fb:"DM Sans",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 var(--fb)}a{color:var(--od)}a:hover{color:var(--ink)}
+.shell{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh}
+aside{background:var(--ink);color:#fff;padding:22px 14px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh}
+.logo{display:flex;align-items:center;gap:10px;font:800 18px var(--fd);letter-spacing:.12em;text-transform:uppercase;padding:0 10px 20px;color:#fff;text-decoration:none}.logo img{width:30px;height:30px}
+aside nav{display:flex;flex-direction:column;gap:2px}aside nav a{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:8px;color:rgba(255,255,255,.7);text-decoration:none;font-weight:600}
+aside nav a:hover{background:rgba(255,255,255,.06);color:#fff}aside nav a.on{background:var(--o);color:#fff}aside nav a .ct{font-size:12px;background:rgba(255,255,255,.14);padding:1px 8px;border-radius:10px}
+aside .new{margin:14px 0 0;display:flex;justify-content:center;padding:11px;border-radius:8px;border:1px solid rgba(255,255,255,.2);color:#fff;text-decoration:none;font-weight:600}aside .new:hover{border-color:#fff;color:#fff}
+aside .foot{margin-top:auto;display:flex;flex-direction:column;gap:6px;padding:0 12px;font-size:12px}aside .foot a{color:rgba(255,255,255,.5);text-decoration:none}aside .foot a:hover{color:#fff}
+main{padding:28px clamp(16px,3vw,40px) 60px;max-width:1280px;width:100%}
+.hd{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+h1{font:800 clamp(30px,3.4vw,40px)/1 var(--fd);text-transform:uppercase;letter-spacing:.02em;margin:0}.sub{color:var(--mut);margin-top:6px}
+h2{font:700 20px var(--fd);text-transform:uppercase;letter-spacing:.04em;margin:0 0 12px}
+.crumb{font-size:12px;color:var(--mut);margin-bottom:8px;display:flex;gap:6px}.crumb a{color:var(--mut)}
+.flash{background:var(--ink);color:#fff;padding:12px 16px;border-radius:10px;margin-bottom:16px}.flash.err{background:var(--r)}
+.mode{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--mut);margin-bottom:18px}.mode b{color:var(--ink)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--a)}.dot.ok{background:var(--g)}.dot.no{background:var(--r)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:22px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-decoration:none;color:inherit;display:block}a.kpi:hover{border-color:var(--o);color:inherit}
+.kpi .n{font:800 34px/1 var(--fd);margin-bottom:4px}.kpi .l{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;font-weight:600}.kpi .s{font-size:12px;color:var(--mut);margin-top:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}.card.pad{padding:20px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;margin-bottom:16px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:12px 16px;border-bottom:1px solid var(--bg2);text-align:left;vertical-align:middle}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);background:#FBF9F5;font-weight:700}tr:last-child td{border-bottom:0}
+tr.row{cursor:pointer}tr.row:hover td{background:#FBF7F1}td.num{text-align:right;font:700 20px var(--fd)}td.r{text-align:right}
+.m{font-family:ui-monospace,Menlo,monospace;font-size:12px}small,.mut{color:var(--mut)}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;background:var(--bg2);white-space:nowrap}
+.t-nuevo{background:var(--o);color:#fff}.t-confirmado{background:#E3E8F2;color:#2B4170}.t-pago-pendiente{background:#F8E7C4;color:#7A4B00}.t-pagado{background:#DCEFE2;color:var(--g)}.t-enviado{background:var(--ink);color:#fff}.t-cancelado{background:var(--bg2);color:var(--mut);text-decoration:line-through}
+.t-ok{background:#DCEFE2;color:var(--g)}.t-pre{background:var(--bg2);color:var(--mut)}.t-ex{background:#DCEFE2;color:var(--g)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.chips a{padding:6px 14px;border-radius:20px;background:var(--card);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:500}.chips a.on{background:var(--ink);border-color:var(--ink);color:#fff}.chips a .ct{opacity:.6;margin-left:4px}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}.tools .sp{flex:1}
+input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;min-height:40px;width:100%}input:focus,select:focus,textarea:focus{outline:2px solid var(--o);outline-offset:0;border-color:transparent}
+input.sm{width:90px}textarea{min-height:80px}
+label{display:grid;gap:5px;font-size:12px;font-weight:600;color:var(--mut)}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.chk{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink);font-weight:500}.chk input{width:18px;min-height:18px}
+button,.btn{font:600 14px var(--fb);display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;padding:0 16px;border-radius:8px;border:0;background:var(--o);color:#fff;cursor:pointer;text-decoration:none;white-space:nowrap}
+button:hover,.btn:hover{background:var(--od);color:#fff}button.sec,.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}button.sec:hover,.btn.sec:hover{border-color:var(--ink);color:var(--ink);background:#fff}
+button.dk{background:var(--ink)}button.dk:hover{background:#2a2f3c}button.lnk{background:none;color:var(--od);padding:0;min-height:0;text-decoration:underline}button.lnk:hover{color:var(--ink);background:none}button.danger{background:#fff;color:var(--r);border:1px solid #EBC9C6}button.danger:hover{background:var(--r);color:#fff}
+form.inl{display:inline-flex;gap:6px;margin:0;align-items:center}
+.acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.kv{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 14px;margin:0}.kv dt{color:var(--mut);font-size:12px;font-weight:600;padding-top:2px}.kv dd{margin:0}
+.big{font:800 48px/1 var(--fd)}.ok{color:var(--g)}.no{color:var(--r)}
+.tl{list-style:none;margin:0;padding:0;display:grid;gap:10px}.tl li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;font-size:13px}.tl li span{color:var(--mut);font-size:12px}
+.prod{display:flex;align-items:center;gap:12px}.prod img{width:44px;height:44px;object-fit:contain;background:var(--bg);border-radius:8px;padding:4px}
+.empty{padding:40px;text-align:center;color:var(--mut)}
+.qgrid{display:grid;gap:8px}.qrow{display:grid;grid-template-columns:minmax(0,1fr) 90px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bg2)}.qrow:last-child{border:0}
+.login{min-height:100vh;display:grid;place-items:center;padding:24px}.login .card{max-width:360px;width:100%}
+@media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}aside nav{flex-direction:row;flex-wrap:wrap}.logo{padding:0 10px 0 0}aside .new{margin:0}aside .foot{display:none}}`;
+
+function layout({ v, title, body, flash, banner, counts }) {
+  const nav = [['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock]];
+  const sec = v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
+  return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)} · K11 Admin</title><link rel="icon" href="/assets/logo-wylco.png"><style>${CSS}</style></head><body>
+<div class="shell"><aside><a class="logo" href="/admin"><img src="/assets/logo-wylco.png" alt="">K11 Admin</a>
+<nav>${nav.map(([k, l, c]) => `<a href="/admin?v=${k}" class="${sec === k ? 'on' : ''}">${l}${c != null ? `<span class="ct">${c}</span>` : ''}</a>`).join('')}</nav>
+<a class="new" href="/admin?v=nueva">+ Nueva venta</a>
+<div class="foot"><a href="/order" target="_blank">Ver tienda ↗</a><a href="${counts.mails}">Panel de mails</a><a href="/admin?salir=1">Salir</a></div></aside>
+<main>${banner}${flash ? `<div class="flash${/^Error/.test(flash) ? ' err' : ''}">${esc(flash)}</div>` : ''}${body}</main></div>
+<script>document.querySelectorAll('tr[data-href]').forEach(function(r){r.addEventListener('click',function(e){if(e.target.closest('a,button,input,form'))return;location.href=r.dataset.href;});});</script>
+</body></html>`;
+}
+const login = err => `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>K11 Admin</title><style>${CSS}</style></head><body><div class="login"><form class="card pad" method="get" action="/admin" style="display:grid;gap:14px"><h1>K11 Admin</h1>${err ? '<div class="flash err">Clave incorrecta</div>' : ''}<label>Clave de administrador<input type="password" name="k" autofocus required></label><button>Entrar</button></form></div></body></html>`;
+
+// ── VENTAS ──
+function ventas({ ps, f, q }) {
+  const act = ps.filter(ACTIVOS);
+  const porCobrar = act.filter(o => ['confirmado', 'pago pendiente'].includes(o.estado));
+  const k = [
+    ['nuevo', 'Por facturar', act.filter(o => o.estado === 'nuevo').length, 'pedidos nuevos'],
+    ['porcobrar', 'Por cobrar', porCobrar.length, usd(porCobrar.reduce((a, o) => a + (o.total || 0), 0))],
+    ['pagado', 'A despachar', act.filter(o => o.estado === 'pagado').length, 'pagadas'],
+    ['activas', 'Pre-pedido', act.reduce((a, o) => a + (o.items || []).reduce((b, i) => b + i.preorder, 0), 0), 'cajas sin stock']];
+  let list = ps;
+  if (f === 'activas') list = act; else if (f === 'porcobrar') list = porCobrar; else if (ESTADOS.includes(f)) list = ps.filter(o => o.estado === f);
+  if (q) { const s = q.toLowerCase(); list = list.filter(o => [o.ref, o.company, o.email, o.contact].join(' ').toLowerCase().includes(s)); }
+  const chips = [['activas', 'Activas', act.length], ...ESTADOS.map(e => [e, e, ps.filter(o => o.estado === e).length]), ['todas', 'Todas', ps.length]];
+  const rows = list.map(o => `<tr class="row" data-href="/admin?v=venta&ref=${o.ref}"><td><a href="/admin?v=venta&ref=${o.ref}" class="m">${o.ref}</a><br><small>${fecha(o.at)} · ${esc(o.origen)}</small></td>
+<td>${o.cliente ? `<a href="/admin?v=cliente&id=${encodeURIComponent(o.cliente)}"><strong>${esc(o.company || o.email)}</strong></a>` : `<strong>${esc(o.company)}</strong>`}<br><small>${esc(o.contact)} · ${esc([o.city, o.state].filter(Boolean).join(', '))}</small></td>
+<td>${(o.items || []).map(i => `${i.cases}× <span class="m">${esc(i.sku)}</span>`).join('<br>')}${(o.items || []).some(i => i.preorder) ? '<br><small>incluye pre-pedido</small>' : ''}</td>
+<td class="r">${usd(o.total)}<br><small>${esc(o.payment || '')}</small></td><td>${tag(o.estado)}</td></tr>`).join('');
+  return `<div class="hd"><div><h1>Ventas</h1><div class="sub">Pedidos de la web, del checkout de Stripe y cargados a mano.</div></div><a class="btn" href="/admin?v=nueva">+ Nueva venta</a></div>
+<div class="kpis">${k.map(([fk, l, n, s]) => `<a class="kpi" href="/admin?v=ventas&f=${encodeURIComponent(fk)}"><div class="l">${l}</div><div class="n">${n}</div><div class="s">${s}</div></a>`).join('')}</div>
+<div class="tools"><div class="chips" style="margin:0">${chips.map(([fk, l, n]) => `<a href="/admin?v=ventas&f=${encodeURIComponent(fk)}" class="${f === fk ? 'on' : ''}">${l}<span class="ct">${n}</span></a>`).join('')}</div><span class="sp"></span>
+<form method="get" class="inl"><input type="hidden" name="v" value="ventas"><input type="hidden" name="f" value="${esc(f)}"><input name="q" value="${esc(q)}" placeholder="Buscar ref, empresa, email" style="width:240px"></form></div>
+<div class="card tw">${rows ? `<table><thead><tr><th>Venta</th><th>Cliente</th><th>Cajas</th><th class="r">Total</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table>` : empty('No hay ventas en este filtro.')}</div>`;
+}
+
+function venta({ o, c, mode, dash }) {
+  const r = { ref: o.ref };
+  const acts = [];
+  const abierta = ACTIVOS(o);
+  if (abierta && !o.invoice && o.origen !== 'stripe') acts.push(btn('factura', r, 'Crear y enviar factura', '', `¿Crear la factura en Stripe (${mode}) y enviarla a ${o.email}?`));
+  if (abierta && o.estado !== 'pagado') acts.push(btn('estado', { ...r, v: 'pagado', pago: 'Zelle' }, 'Cobrado por Zelle', 'sec', '¿Confirmás que recibiste el Zelle?'));
+  if (abierta && o.estado === 'nuevo' && !o.invoice) acts.push(btn('estado', { ...r, v: 'confirmado' }, 'Marcar confirmado', 'sec'));
+  if (abierta) acts.push(btn('estado', { ...r, v: 'enviado' }, 'Marcar enviado', 'dk', o.estado !== 'pagado' ? 'Esta venta no figura como pagada. ¿Marcar enviada igual?' : ''));
+  if (o.estado !== 'cancelado' && cajas(o)) acts.push(`<a class="btn sec" href="/api/etiqueta?ref=${encodeURIComponent(o.ref)}" target="_blank">Etiquetas de envío (${cajas(o)})</a>`);
+  if (o.estado !== 'cancelado') acts.push(btn('estado', { ...r, v: 'cancelado' }, 'Cancelar', 'danger', '¿Cancelar la venta, devolver stock' + (o.invoice ? ' y anular la factura' : '') + '?'));
+  const items = (o.items || []).map(i => `<tr><td><a href="/admin?v=producto&s=${i.slug}" class="m">${esc(i.sku)}</a></td><td>${esc(i.name)}</td><td class="num">${i.cases}</td><td class="r">${i.reserved ? `<span class="tag t-ok">${i.reserved} de stock</span>` : ''} ${i.preorder ? `<span class="tag t-pre">${i.preorder} pre-pedido</span>` : ''}</td></tr>`).join('');
+  const cli = c || o;
+  return `<div class="crumb"><a href="/admin?v=ventas">Ventas</a>/<span>${o.ref}</span></div>
+<div class="hd"><div><h1>${o.ref}</h1><div class="sub">${fecha(o.at)} · origen ${esc(o.origen)} · ${cajas(o)} caja(s)</div></div><div>${tag(o.estado)}</div></div>
+<div class="acts" style="margin-bottom:18px">${acts.join('')}</div>
+<div class="grid2"><div class="card pad"><h2>Cliente</h2><dl class="kv">
+<dt>Empresa</dt><dd>${o.cliente ? `<a href="/admin?v=cliente&id=${encodeURIComponent(o.cliente)}"><strong>${esc(cli.company || o.company)}</strong></a>` : esc(o.company)} ${c && c.exento ? tag('exento') : ''}</dd>
+<dt>Contacto</dt><dd>${esc(o.contact)}</dd><dt>Email</dt><dd><a href="mailto:${esc(o.email)}">${esc(o.email)}</a></dd><dt>Teléfono</dt><dd>${esc(o.phone)}</dd>
+<dt>Envío</dt><dd>${esc([o.address, o.city, o.state, o.zip].filter(Boolean).join(', '))}</dd><dt>Tipo</dt><dd>${esc(o.business_type || '')}</dd><dt>EIN / reventa</dt><dd>${esc(o.ein || '—')}</dd></dl></div>
+<div class="card pad"><h2>Pago</h2><dl class="kv"><dt>Total</dt><dd><strong>${usd(o.total)}</strong>${o.tax ? ` <small>(tax ${usd(o.tax)})</small>` : ''}</dd><dt>Forma</dt><dd>${esc(o.payment || '—')}</dd>
+<dt>Factura</dt><dd>${o.invoice ? `<a href="${esc(o.invoice_url)}" target="_blank">Ver factura</a> · <a href="${esc(o.invoice_pdf)}" target="_blank">PDF</a> · <a href="${dash}/invoices/${o.invoice}" target="_blank">Stripe</a>` : o.origen === 'stripe' ? `Checkout online${o.stripe_customer ? ` · <a href="${dash}/customers/${o.stripe_customer}" target="_blank">Stripe</a>` : ''}` : 'Sin factura'}</dd>
+<dt>Notas</dt><dd>${esc(o.notes || '—')}</dd></dl></div></div>
+<div class="card tw" style="margin-bottom:16px"><table><thead><tr><th>SKU</th><th>Producto</th><th class="r">Cajas</th><th class="r">Origen</th></tr></thead><tbody>${items}</tbody></table></div>
+<div class="card pad"><h2>Historial</h2><ul class="tl">${(o.hist || [{ at: o.at, txt: 'Venta creada' }]).slice().reverse().map(h => `<li><span>${fecha(h.at)}</span><div>${esc(h.txt)}</div></li>`).join('')}</ul></div>`;
+}
+
+function nueva({ t, cs, sel }) {
+  const c = sel || {};
+  return `<div class="crumb"><a href="/admin?v=ventas">Ventas</a>/<span>Nueva</span></div><div class="hd"><div><h1>Nueva venta</h1><div class="sub">Para pedidos por teléfono, WhatsApp o en persona. Reserva stock al guardar.</div></div></div>
+<form method="post" class="grid2">${H('nueva')}
+<div class="card pad" style="display:grid;gap:14px;align-content:start"><h2>Cliente</h2>
+<label>Cliente existente<select name="cliente" onchange="if(this.value)location.href='/admin?v=nueva&id='+encodeURIComponent(this.value)"><option value="">— Cliente nuevo —</option>${cs.map(x => `<option value="${esc(x.id)}"${x.id === c.id ? ' selected' : ''}>${esc(x.company || x.id)} · ${esc(x.id)}</option>`).join('')}</select></label>
+<div class="fg">${[['company', 'Empresa *', 1], ['contact', 'Contacto'], ['email', 'Email *', 1, 'email'], ['phone', 'Teléfono'], ['address', 'Dirección'], ['city', 'Ciudad'], ['state', 'Estado'], ['zip', 'ZIP'], ['ein', 'EIN / reventa']].map(([n, l, req, ty]) => `<label>${l}<input name="${n}" type="${ty || 'text'}" value="${esc(c[n] || '')}"${req ? ' required' : ''}></label>`).join('')}
+<label>Tipo<select name="business_type">${['HVAC-R dealer / supply house', 'Wholesaler / distributor', 'Contractor', 'Other business'].map(x => `<option${x === c.business_type ? ' selected' : ''}>${x}</option>`).join('')}</select></label></div></div>
+<div class="card pad" style="display:grid;gap:14px;align-content:start"><h2>Productos</h2><div class="qgrid">${t.map(p => `<div class="qrow"><div class="prod"><img src="${p.img}" alt=""><div><strong>${esc(p.name)}</strong><br><small class="m">${p.sku}</small> · ${p.cases_available ? `<span class="ok">${p.cases_available} en stock</span>` : '<small>sin stock → pre-pedido</small>'}</div></div><input type="number" name="qty_${p.slug}" min="0" value="0" aria-label="Cajas ${p.sku}"></div>`).join('')}</div>
+<label>Forma de pago<select name="payment"><option>Wire</option><option>Zelle</option><option>ACH</option><option>Card</option></select></label>
+<label>Notas<textarea name="notes"></textarea></label><div><button>Guardar venta</button></div></div></form>`;
+}
+
+// ── CLIENTES ──
+function clientes({ cs, ps, q }) {
+  const by = {}; for (const o of ps) if (o.cliente) (by[o.cliente] = by[o.cliente] || []).push(o);
+  let list = cs.map(c => { const os = (by[c.id] || []).filter(o => o.estado !== 'cancelado'); return { ...c, n: os.length, cajas: os.reduce((a, o) => a + cajas(o), 0), total: os.reduce((a, o) => a + (o.total || 0), 0), ult: os[0] && os[0].at }; });
+  if (q) { const s = q.toLowerCase(); list = list.filter(c => [c.company, c.id, c.contact, c.city, c.state].join(' ').toLowerCase().includes(s)); }
+  list.sort((a, b) => (b.ult || b.alta || '').localeCompare(a.ult || a.alta || ''));
+  const rows = list.map(c => `<tr class="row" data-href="/admin?v=cliente&id=${encodeURIComponent(c.id)}"><td><a href="/admin?v=cliente&id=${encodeURIComponent(c.id)}"><strong>${esc(c.company || c.id)}</strong></a> ${c.exento ? tag('exento') : ''}<br><small>${esc(c.contact || '')} · ${esc(c.id)}</small></td>
+<td>${esc([c.city, c.state].filter(Boolean).join(', '))}<br><small>${esc(c.business_type || '')}</small></td><td class="num">${c.n}</td><td class="num">${c.cajas}</td><td class="r">${usd(c.total)}</td><td><small>${c.ult ? dia(c.ult) : '—'}</small></td></tr>`).join('');
+  return `<div class="hd"><div><h1>Clientes</h1><div class="sub">Se crean solos con cada pedido. El email es la clave.</div></div><form method="get" class="inl"><input type="hidden" name="v" value="clientes"><input name="q" value="${esc(q)}" placeholder="Buscar empresa, email, ciudad" style="width:260px"></form></div>
+<div class="card tw">${rows ? `<table><thead><tr><th>Empresa</th><th>Ubicación</th><th class="r">Ventas</th><th class="r">Cajas</th><th class="r">Facturado</th><th>Última</th></tr></thead><tbody>${rows}</tbody></table>` : empty('Todavía no hay clientes.')}</div>`;
+}
+
+function cliente({ c, ps }) {
+  const os = ps.filter(o => o.cliente === c.id), ok = os.filter(o => o.estado !== 'cancelado');
+  const rows = os.map(o => `<tr class="row" data-href="/admin?v=venta&ref=${o.ref}"><td><a href="/admin?v=venta&ref=${o.ref}" class="m">${o.ref}</a><br><small>${fecha(o.at)}</small></td><td>${(o.items || []).map(i => `${i.cases}× <span class="m">${esc(i.sku)}</span>`).join(', ')}</td><td class="r">${usd(o.total)}</td><td>${tag(o.estado)}</td></tr>`).join('');
+  const F = [['company', 'Empresa'], ['contact', 'Contacto'], ['phone', 'Teléfono'], ['address', 'Dirección'], ['city', 'Ciudad'], ['state', 'Estado'], ['zip', 'ZIP'], ['ein', 'EIN / reventa']];
+  return `<div class="crumb"><a href="/admin?v=clientes">Clientes</a>/<span>${esc(c.company || c.id)}</span></div>
+<div class="hd"><div><h1>${esc(c.company || c.id)}</h1><div class="sub">${esc(c.id)} · cliente desde ${dia(c.alta)}</div></div><a class="btn" href="/admin?v=nueva&id=${encodeURIComponent(c.id)}">+ Nueva venta</a></div>
+<div class="kpis"><div class="kpi"><div class="l">Ventas</div><div class="n">${ok.length}</div></div><div class="kpi"><div class="l">Cajas</div><div class="n">${ok.reduce((a, o) => a + cajas(o), 0)}</div></div><div class="kpi"><div class="l">Facturado</div><div class="n" style="font-size:26px">${usd(ok.reduce((a, o) => a + (o.total || 0), 0))}</div></div><div class="kpi"><div class="l">Sales tax</div><div class="n" style="font-size:26px">${c.exento ? 'Exento' : 'Con tax'}</div></div></div>
+<div class="grid2"><form method="post" class="card pad" style="display:grid;gap:14px">${H('cliente', { id: c.id })}<h2>Datos</h2><div class="fg">${F.map(([n, l]) => `<label>${l}<input name="${n}" value="${esc(c[n] || '')}"></label>`).join('')}
+<label>Tipo<select name="business_type">${['HVAC-R dealer / supply house', 'Wholesaler / distributor', 'Contractor', 'Other business'].map(x => `<option${x === c.business_type ? ' selected' : ''}>${x}</option>`).join('')}</select></label></div>
+<label class="chk"><input type="checkbox" name="exento" value="1"${c.exento ? ' checked' : ''}>Exento de sales tax (tengo su certificado de reventa)</label>
+<label>Notas internas<textarea name="notas">${esc(c.notas || '')}</textarea></label><div><button>Guardar cambios</button></div></form>
+<div class="card tw" style="align-self:start"><div style="padding:16px 16px 0"><h2>Ventas</h2></div>${rows ? `<table style="min-width:0"><tbody>${rows}</tbody></table>` : empty('Sin ventas.')}</div></div>`;
+}
+
+// ── STOCK ──
+function stock({ t, pr, ps }) {
+  const res = {}; for (const o of ps.filter(ACTIVOS)) for (const i of o.items || []) { const r = res[i.slug] = res[i.slug] || { r: 0, p: 0 }; r.r += i.reserved || 0; r.p += i.preorder || 0; }
+  const tot = t.reduce((a, p) => a + p.cases_available, 0);
+  const rows = t.map(p => { const price = pr[p.slug], x = res[p.slug] || { r: 0, p: 0 };
+    return `<tr class="row" data-href="/admin?v=producto&s=${p.slug}"><td><div class="prod"><img src="${p.img}" alt=""><div><a href="/admin?v=producto&s=${p.slug}"><strong>${esc(p.name)}</strong></a><br><small class="m">${p.sku}</small>${p.units ? ` <small>· ${p.units} u/caja</small>` : ''}</div></div></td>
+<td class="num ${p.cases_available ? 'ok' : 'no'}">${p.cases_available}</td><td class="num">${x.r}</td><td class="num">${x.p}</td>
+<td><form method="post" class="inl">${H('stock', { s: p.slug })}<input class="sm" type="number" name="v" placeholder="cajas"><button name="modo" value="sumar" class="sec">+ Sumar</button><button name="modo" value="fijar" class="sec">Fijar</button></form></td>
+<td><form method="post" class="inl">${H('precio', { s: p.slug })}<input class="sm" type="number" step="0.01" min="0" name="v" value="${price ? (price.unit_amount / 100).toFixed(2) : ''}" placeholder="USD"><button class="sec">Guardar</button></form></td>
+<td>${price ? btn('online', { s: p.slug, v: p.online ? '0' : '1' }, p.online ? '<span class="dot ok"></span>Online' : '<span class="dot"></span>Solo factura', 'lnk') : '<small>sin precio</small>'}</td></tr>`; }).join('');
+  return `<div class="hd"><div><h1>Stock</h1><div class="sub">En cajas. Lo que está acá es lo que ven los clientes y las IA en /order y /catalog.json.</div></div></div>
+<div class="kpis"><div class="kpi"><div class="l">Cajas disponibles</div><div class="n">${tot}</div></div><div class="kpi"><div class="l">Reservadas</div><div class="n">${Object.values(res).reduce((a, x) => a + x.r, 0)}</div><div class="s">en ventas activas</div></div><div class="kpi"><div class="l">Pre-pedido</div><div class="n">${Object.values(res).reduce((a, x) => a + x.p, 0)}</div><div class="s">cajas a cubrir</div></div><div class="kpi"><div class="l">SKUs online</div><div class="n">${t.filter(p => p.online).length}/${t.length}</div></div></div>
+<div class="card tw"><table><thead><tr><th>Producto</th><th class="r">Disponible</th><th class="r">Reservado</th><th class="r">Pre-pedido</th><th>Ajustar</th><th>Precio / caja</th><th>Venta online</th></tr></thead><tbody>${rows}</tbody></table></div>
+<p class="mut" style="font-size:12px">El precio se guarda en Stripe y no se publica en la web. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock.</p>`;
+}
+
+function producto({ p, price, ms, ps }) {
+  const os = ps.filter(o => (o.items || []).some(i => i.slug === p.slug));
+  const mrows = ms.map(m => `<tr><td><small>${fecha(m.at)}</small></td><td>${esc(m.motivo)}</td><td class="num ${m.delta > 0 ? 'ok' : 'no'}">${m.delta > 0 ? '+' : ''}${m.delta}</td><td>${m.ref ? `<a class="m" href="/admin?v=venta&ref=${m.ref}">${m.ref}</a>` : ''}</td></tr>`).join('');
+  const orows = os.map(o => { const i = o.items.find(x => x.slug === p.slug); return `<tr class="row" data-href="/admin?v=venta&ref=${o.ref}"><td><a class="m" href="/admin?v=venta&ref=${o.ref}">${o.ref}</a><br><small>${fecha(o.at)}</small></td><td>${o.cliente ? `<a href="/admin?v=cliente&id=${encodeURIComponent(o.cliente)}">${esc(o.company)}</a>` : esc(o.company)}</td><td class="num">${i.cases}</td><td>${tag(o.estado)}</td></tr>`; }).join('');
+  return `<div class="crumb"><a href="/admin?v=stock">Stock</a>/<span>${p.sku}</span></div>
+<div class="hd"><div class="prod"><img src="${p.img}" alt="" style="width:72px;height:72px"><div><h1>${esc(p.name)}</h1><div class="sub"><span class="m">${p.sku}</span> · ${esc(p.desc)}${p.units ? ' · ' + p.units + ' u/caja' : ''}</div></div></div>
+<form method="post" class="inl">${H('stock', { s: p.slug, r: 'producto' })}<input class="sm" type="number" name="v" placeholder="cajas"><button name="modo" value="sumar">+ Ingreso</button><button name="modo" value="fijar" class="sec">Fijar inventario</button></form></div>
+<div class="kpis"><div class="kpi"><div class="l">Disponible</div><div class="n ${p.cases_available ? 'ok' : 'no'}">${p.cases_available}</div><div class="s">cajas</div></div><div class="kpi"><div class="l">Precio / caja</div><div class="n" style="font-size:26px">${price ? usd(price.unit_amount / 100) : '—'}</div></div><div class="kpi"><div class="l">Online</div><div class="n" style="font-size:26px">${p.online ? 'Sí' : 'No'}</div></div><div class="kpi"><div class="l">Ventas</div><div class="n">${os.length}</div></div></div>
+<div class="grid2"><div class="card tw"><div style="padding:16px 16px 0"><h2>Movimientos</h2></div>${mrows ? `<table style="min-width:0"><tbody>${mrows}</tbody></table>` : empty('Sin movimientos todavía.')}</div>
+<div class="card tw" style="align-self:start"><div style="padding:16px 16px 0"><h2>Ventas con este producto</h2></div>${orows ? `<table style="min-width:0"><tbody>${orows}</tbody></table>` : empty('Sin ventas.')}</div></div>`;
+}
+
+module.exports = { layout, login, ventas, venta, nueva, clientes, cliente, stock, producto, ESTADOS, esc };

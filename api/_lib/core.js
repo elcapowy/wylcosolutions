@@ -75,4 +75,4 @@ function autorizado(req) {
   return (process.env.CRON_SECRET && tok === process.env.CRON_SECRET) || (process.env.ADMIN_TOKEN && tok === process.env.ADMIN_TOKEN);
 }
 
-module.exports = { D, CFG, armar, enviar, enviarHoy, leerEstado, marcarStop, autorizado, hoy, pausa };
+module.exports = { redis, toObj, D, CFG, armar, enviar, enviarHoy, leerEstado, marcarStop, autorizado, hoy, pausa };

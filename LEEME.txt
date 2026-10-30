@@ -1,0 +1,14 @@
+SUBIR A GITHUB (repo wylco-site, rama principal)
+
+Arrastrá TODO el contenido de esta carpeta a la raíz del repo, reemplazando lo que exista.
+Mantené la estructura de carpetas (api/, api/_lib/, assets/sds/, es/, pages/).
+
+Incluye:
+- api/ completa (mails + tienda + Stripe). data.json y enviar/panel/test van sin cambios, para que no falte nada.
+- assets/sds/ — las 4 hojas de seguridad en PDF.
+- Páginas con link "Order" y SDS: index, products, how-it-works, distributors, docs, about (+ es/).
+- pages/DocsPage.jsx, vercel.json, llms.txt, sitemap.xml, .vercelignore
+
+NO subir: order.html / es/order.html (son vista previa; la página real la genera api/order.js).
+
+Después: Vercel → Redeploy. Revisá /admin?k=TU_TOKEN.

@@ -158,6 +158,26 @@
       "destination": "/es/about.html"
     },
     {
+      "source": "/order",
+      "destination": "/api/order?lang=en"
+    },
+    {
+      "source": "/es/order",
+      "destination": "/api/order?lang=es"
+    },
+    {
+      "source": "/buy/:slug",
+      "destination": "/api/buy?s=:slug"
+    },
+    {
+      "source": "/catalog.json",
+      "destination": "/api/stock?full=1"
+    },
+    {
+      "source": "/admin",
+      "destination": "/api/admin"
+    },
+    {
       "source": "/es",
       "destination": "/es/index.html"
     },

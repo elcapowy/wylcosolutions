@@ -11,6 +11,21 @@
 - [How to inject K11](https://wylcosolutions.com/how-it-works): step-by-step injection and leak size guide.
 - [Technical documents](https://wylcosolutions.com/docs): SDS, TDS, ASHRAE 97 test documentation.
 
+## Safety Data Sheets (PDF, English)
+- [K11 TapaFugas 2-in-1 SDS](https://wylcosolutions.com/assets/sds/K11-TapaFugas-2in1-SDS-EN.pdf)
+- [K11 TapaFugas SDS](https://wylcosolutions.com/assets/sds/K11-TapaFugas-SDS-EN.pdf)
+- [K11 Sella Plus SDS](https://wylcosolutions.com/assets/sds/K11-Sella-Plus-SDS-EN.pdf)
+- [K11 Revela Fugas SDS](https://wylcosolutions.com/assets/sds/K11-Revela-Fugas-SDS-EN.pdf)
+
+## How to buy (business buyers only)
+- [Order page](https://wylcosolutions.com/order): SKUs, units per case, live stock, terms and order form (server-rendered HTML, no JavaScript needed). Spanish: https://wylcosolutions.com/es/order
+- [Live stock (JSON)](https://wylcosolutions.com/api/stock): cases available per SKU, availability InStock/PreOrder, buy_url.
+- [Catalog + order API (JSON)](https://wylcosolutions.com/catalog.json): seller, terms, products with live stock, order API fields.
+- Pay one case online: if buy_url is not null, open https://wylcosolutions.com/buy/{slug} (Stripe Checkout, choose number of cases, card or ACH). Slugs: tfk11-10, tfk11-co, k11-2in1-11, spk11-b35, 20002, rfk11.
+- Order API: POST https://wylcosolutions.com/api/pedido (form-encoded or JSON). Required: company, contact, email, address, city, state, zip, business_type, business=yes, qty_{slug}=cases. A Stripe invoice (card, ACH, wire) is emailed within 1 business day. Send Accept: application/json for a JSON reply with reference number. In-stock cases are reserved immediately; the rest becomes a pre-order.
+- Minimum order 1 full case per SKU. Payment: card, ACH, wire, Zelle. Prices in USD at checkout or by quote (not published). Ships from Miami, FL: in stock 2–5 business days after payment.
+- Sold to HVAC-R businesses only, not to individuals.
+
 ## Business
 - [Distributor program](https://wylcosolutions.com/distributors): wholesale pricing, limited distributors per region, ships from Miami.
 - [About Wylco](https://wylcosolutions.com/about)

@@ -4,33 +4,39 @@ function DocsPage({ lang, setPage }) {
     { featured:true, icon:'orange', iconSvg:<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>,
       badge:'SDS', product:'K11 TapaFugas 2-in-1',
       title: lang==='en'?'Safety Data Sheet — K11 TapaFugas 2-in-1':'Hoja de Seguridad — K11 TapaFugas 2-en-1',
-      desc: lang==='en'?'Complete OSHA-compliant Safety Data Sheet for K11 TapaFugas 2-in-1. Includes composition, hazard identification, handling procedures, PPE requirements, and disposal guidance. GHS formatted, US English.':'Hoja de Seguridad completa conforme OSHA para K11 TapaFugas 2-en-1. Incluye composición, identificación de peligros, procedimientos de manejo, PPE y orientación de eliminación. Formato GHS, inglés americano.',
-      meta: lang==='en'?['Updated 2026','PDF available','GHS compliant']:['Actualizado 2026','PDF disponible','Conforme GHS'],
-      download:true },
-    { icon:'gold', iconSvg:<><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></>,
+      desc: lang==='en'?'Safety Data Sheet for K11 TapaFugas 2-in-1 leak sealant + UV dye. Covers composition, hazard identification, handling, PPE, first aid and disposal. 16-section GHS format, US English.':'Hoja de Seguridad de K11 TapaFugas 2-en-1 sellador + tinte UV. Incluye composición, identificación de peligros, manejo, EPP, primeros auxilios y eliminación. Formato GHS de 16 secciones, en inglés.',
+      meta: lang==='en'?['Rev. 001','PDF · English','16 GHS sections']:['Rev. 001','PDF · inglés','16 secciones GHS'],
+      file:'/assets/sds/K11-TapaFugas-2in1-SDS-EN.pdf', download:true },
+    { icon:'orange', iconSvg:<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>,
+      badge:'SDS', product:'K11 TapaFugas',
+      title: lang==='en'?'Safety Data Sheet — K11 TapaFugas':'Hoja de Seguridad — K11 TapaFugas',
+      desc: lang==='en'?'Safety Data Sheet for K11 TapaFugas HVAC-R leak sealant. Hazard classification, handling, first aid and disposal.':'Hoja de Seguridad de K11 TapaFugas sellador de fugas HVAC-R. Clasificación de peligros, manejo, primeros auxilios y eliminación.',
+      meta: lang==='en'?['Rev. 001 · 2024','PDF · English']:['Rev. 001 · 2024','PDF · inglés'],
+      file:'/assets/sds/K11-TapaFugas-SDS-EN.pdf', download:true },
+    { icon:'gold', iconSvg:<><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></>,
       badge:'SDS', product:'K11 Sella Plus',
       title: lang==='en'?'Safety Data Sheet — K11 Sella Plus':'Hoja de Seguridad — K11 Sella Plus',
-      desc: lang==='en'?'OSHA-compliant SDS for K11 Sella Plus HVAC-R Sealant + Lubricant. Includes hazard classification, handling, first aid, and disposal guidance. Product tested per ASHRAE 97.':'SDS conforme OSHA para K11 Sella Plus Sellador + Lubricante HVAC-R. Incluye clasificación de peligros, manejo, primeros auxilios y orientación de eliminación. Producto ensayado según ASHRAE 97.',
-      meta: lang==='en'?['Updated 2026','Tested per ASHRAE 97']:['Actualizado 2026','Ensayado según ASHRAE 97'],
-      download:false },
+      desc: lang==='en'?'Safety Data Sheet for K11 Sella Plus HVAC-R sealant + lubricant. Hazard classification, handling, first aid and disposal.':'Hoja de Seguridad de K11 Sella Plus sellador + lubricante HVAC-R. Clasificación de peligros, manejo, primeros auxilios y eliminación.',
+      meta: lang==='en'?['PDF · English']:['PDF · inglés'],
+      file:'/assets/sds/K11-Sella-Plus-SDS-EN.pdf', download:true },
     { icon:'orange', iconSvg:<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>,
       badge:'SDS', product:'K11 Revela Fugas',
-      title: lang==='en'?'Safety Data Sheet — UV Fluorescent Dye':'Hoja de Seguridad — Tinte UV Fluorescente',
-      desc: lang==='en'?'OSHA-compliant SDS for K11 Revela Fugas UV detection dye. Includes full hazard classification, handling, and first aid information.':'SDS conforme OSHA para el tinte de detección UV K11 Revela Fugas. Incluye clasificación completa de peligros, manejo e información de primeros auxilios.',
-      meta: lang==='en'?['Updated 2026','GHS compliant']:['Actualizado 2026','Conforme GHS'],
-      download:false },
+      title: lang==='en'?'Safety Data Sheet — K11 Revela Fugas':'Hoja de Seguridad — K11 Revela Fugas',
+      desc: lang==='en'?'Safety Data Sheet for K11 Revela Fugas UV fluorescent leak detection dye. Hazard classification, handling and first aid.':'Hoja de Seguridad del tinte UV fluorescente K11 Revela Fugas. Clasificación de peligros, manejo y primeros auxilios.',
+      meta: lang==='en'?['Rev. 003 · 2026','PDF · English']:['Rev. 003 · 2026','PDF · inglés'],
+      file:'/assets/sds/K11-Revela-Fugas-SDS-EN.pdf', download:true },
     { icon:'green', iconSvg:<><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></>,
       badge:'CERT', product:'K11 TapaFugas',
       title: lang==='en'?'ASHRAE 97 Test Report':'Informe de Ensayo ASHRAE 97',
       desc: lang==='en'?'Test report for K11 TapaFugas per ASHRAE Standard 97 (sealed glass tube method) for chemical stability in refrigerant circuits.':'Informe de ensayo de K11 TapaFugas según la norma ASHRAE 97 (método de tubo de vidrio sellado) de estabilidad química en circuitos de refrigerante.',
-      meta: lang==='en'?['ASHRAE 97']:['ASHRAE 97'],
+      meta: ['ASHRAE 97'],
       download:false },
     { icon:'gray', iconSvg:<><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></>,
       badge:'GUIDE', product: lang==='en'?'All K11 Products':'Todos los Productos K11',
       title: lang==='en'?'Application & Dosing Guide':'Guía de Aplicación y Dosificación',
       desc: lang==='en'?'Step-by-step application guide for field technicians. Includes leak classification, dosing table, injection procedure, and UV verification process.':'Guía de aplicación paso a paso para técnicos de campo. Incluye clasificación de fugas, tabla de dosificación, procedimiento de inyección y proceso de verificación UV.',
-      meta: lang==='en'?['PDF download']:['Descarga PDF'],
-      download:true },
+      meta: lang==='en'?['On request']:['A pedido'],
+      download:false },
   ];
 
   const sdsSections = lang === 'en' ? [
@@ -106,7 +112,7 @@ function DocsPage({ lang, setPage }) {
                     ))}
                   </div>
                   <div className="doc-actions">
-                    <a href="#" className="btn-download">
+                    <a href={doc.file} target="_blank" rel="noopener" className="btn-download">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                       {lang==='en'?'Download SDS':'Descargar SDS'}
                     </a>
@@ -137,9 +143,9 @@ function DocsPage({ lang, setPage }) {
                 </div>
                 <div className="doc-actions">
                   {doc.download
-                    ? <a href="#" className="btn-download" style={{ fontSize:'12px', padding:'8px 14px' }}>
+                    ? <a href={doc.file} target="_blank" rel="noopener" className="btn-download" style={{ fontSize:'12px', padding:'8px 14px' }}>
                         <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        {lang==='en'?'Download':'Descargar'}
+                        {lang==='en'?'Download SDS':'Descargar SDS'}
                       </a>
                     : <a href="https://wa.me/19548818870?text=Hi%2C+I+need+K11+documentation" target="_blank" rel="noopener" className="btn-request">{lang==='en'?'Request Document':'Solicitar Documento'}</a>
                   }

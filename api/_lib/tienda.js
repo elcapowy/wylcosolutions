@@ -1,11 +1,11 @@
 const { redis, toObj } = require('./core');
 const PRODUCTS = [
-  { slug: 'tfk11-10', sku: 'TFK11-10', name: 'K11 TapaFugas', desc: 'Micro-leak sealant, 10 ml syringe, up to 3 TR', desc_es: 'Sellador de micro-fugas, jeringa 10 ml, hasta 3 TR', units: 192, img: '/assets/tile_tapafugas.png', sds: '/assets/sds/K11-TapaFugas-SDS-EN.pdf' },
+  { slug: 'tfk11-10', sku: 'TFK11-10', name: 'K11 TapaFugas', desc: 'Micro-leak sealant, 10 ml syringe, up to 3 TR', desc_es: 'Sellador de micro-fugas, jeringa 10 ml, hasta 3 TR', units: 192, img: '/assets/products/tfk11-box.png', sds: '/assets/sds/K11-TapaFugas-SDS-EN.pdf' },
   { slug: 'tfk11-co', sku: 'TFK11-CO', name: 'K11 TapaFugas + Adapter', desc: '10 ml syringe + injection adapter', desc_es: 'Jeringa 10 ml + adaptador de inyección', units: 192, img: '/assets/tile_adapter.png', sds: '/assets/sds/K11-TapaFugas-SDS-EN.pdf' },
-  { slug: 'k11-2in1-11', sku: 'K11-2:1-11', name: 'K11 TapaFugas 2-in-1', desc: 'Sealant + UV tracer, 11 ml syringe', desc_es: 'Sellador + trazador UV, jeringa 11 ml', units: 192, img: '/assets/tile_tapafugas.png', sds: '/assets/sds/K11-TapaFugas-2in1-SDS-EN.pdf' },
-  { slug: 'spk11-b35', sku: 'SPK11-B35', name: 'K11 Sella Plus', desc: 'Sealant + lubricant, 35 ml bottle', desc_es: 'Sellador + lubricante, frasco 35 ml', units: 48, img: '/assets/tile_sellaplus.png', sds: '/assets/sds/K11-Sella-Plus-SDS-EN.pdf' },
+  { slug: 'k11-2in1-11', sku: 'K11-2:1-11', name: 'K11 TapaFugas 2-in-1', desc: 'Sealant + UV tracer, 11 ml syringe', desc_es: 'Sellador + trazador UV, jeringa 11 ml', units: 192, img: '/assets/products/tfk11-2in1-box.png', sds: '/assets/sds/K11-TapaFugas-2in1-SDS-EN.pdf' },
+  { slug: 'spk11-b35', sku: 'SPK11-B35', name: 'K11 Sella Plus', desc: 'Sealant + lubricant, 35 ml bottle', desc_es: 'Sellador + lubricante, frasco 35 ml', units: 48, img: '/assets/products/sella-plus-en.png', sds: '/assets/sds/K11-Sella-Plus-SDS-EN.pdf' },
   { slug: '20002', sku: '20002', name: 'K11 Coupler 1/4"', desc: 'Standard 1/4" service port coupler', desc_es: 'Acople estándar 1/4"', units: 400, img: '/assets/tile_adapter.png', sds: null },
-  { slug: 'rfk11', sku: 'RFK11', name: 'K11 Revela Fugas', desc: 'UV fluorescent leak detection dye', desc_es: 'Tinte UV fluorescente detector de fugas', units: null, img: '/assets/tile_revelafugas.png', sds: '/assets/sds/K11-Revela-Fugas-SDS-EN.pdf' }
+  { slug: 'rfk11', sku: 'RFK11', name: 'K11 Revela Fugas', desc: 'UV fluorescent leak detection dye', desc_es: 'Tinte UV fluorescente detector de fugas', units: null, img: '/assets/products/rfk11-box.png', sds: '/assets/sds/K11-Revela-Fugas-SDS-EN.pdf' }
 ];
 const BY = Object.fromEntries(PRODUCTS.map(p => [p.slug, p]));
 const SITE = 'https://wylcosolutions.com';

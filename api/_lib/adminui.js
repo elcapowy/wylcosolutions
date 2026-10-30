@@ -57,12 +57,15 @@ form.inl{display:inline-flex;gap:6px;margin:0;align-items:center}
 .prod{display:flex;align-items:center;gap:12px}.prod img{width:44px;height:44px;object-fit:contain;background:var(--bg);border-radius:8px;padding:4px}
 .empty{padding:40px;text-align:center;color:var(--mut)}
 .qgrid{display:grid;gap:8px}.qrow{display:grid;grid-template-columns:minmax(0,1fr) 90px;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bg2)}.qrow:last-child{border:0}
+.links{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:22px}
+.lg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}.lg h2{font-size:16px;margin:0 0 10px;display:flex;align-items:center;gap:8px}.lg h2 i{width:8px;height:8px;border-radius:50%;background:var(--o)}
+.lg ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}.lg li a{display:flex;justify-content:space-between;gap:10px;padding:7px 8px;margin:0 -8px;border-radius:6px;text-decoration:none;color:var(--ink);font-weight:500}.lg li a:hover{background:var(--bg);color:var(--ink)}.lg li a small{color:var(--mut);font-weight:400;text-align:right}
 .login{min-height:100vh;display:grid;place-items:center;padding:24px}.login .card{max-width:360px;width:100%}
 @media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}aside nav{flex-direction:row;flex-wrap:wrap}.logo{padding:0 10px 0 0}aside .new{margin:0}aside .foot{display:none}}`;
 
 function layout({ v, title, body, flash, banner, counts }) {
-  const nav = [['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock]];
-  const sec = v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
+  const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock]];
+  const sec = v === 'inicio' ? 'inicio' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
   return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)} · K11 Admin</title><link rel="icon" href="/assets/logo-wylco.png"><style>${CSS}</style></head><body>
 <div class="shell"><aside><a class="logo" href="/admin"><img src="/assets/logo-wylco.png" alt="">K11 Admin</a>
 <nav>${nav.map(([k, l, c]) => `<a href="/admin?v=${k}" class="${sec === k ? 'on' : ''}">${l}${c != null ? `<span class="ct">${c}</span>` : ''}</a>`).join('')}</nav>
@@ -191,4 +194,29 @@ function producto({ p, price, ms, ps }) {
 <div class="card tw" style="align-self:start"><div style="padding:16px 16px 0"><h2>Ventas con este producto</h2></div>${orows ? `<table style="min-width:0"><tbody>${orows}</tbody></table>` : empty('Sin ventas.')}</div></div>`;
 }
 
-module.exports = { layout, login, ventas, venta, nueva, clientes, cliente, stock, producto, ESTADOS, esc };
+// ── INICIO / PORTAL ──
+function inicio({ ps, cs, t, mail, k, dash }) {
+  const act = ps.filter(ACTIVOS), porCobrar = act.filter(o => ['confirmado', 'pago pendiente'].includes(o.estado));
+  const K = encodeURIComponent(k || '');
+  const G = (title, items) => `<div class="lg"><h2><i></i>${title}</h2><ul>${items.map(([href, l, s, ext]) => `<li><a href="${href}"${ext ? ' target="_blank" rel="noopener"' : ''}>${l}${s ? `<small>${s}</small>` : ''}</a></li>`).join('')}</ul></div>`;
+  const rec = ps.slice(0, 6).map(o => `<tr class="row" data-href="/admin?v=venta&ref=${o.ref}"><td><a class="m" href="/admin?v=venta&ref=${o.ref}">${o.ref}</a><br><small>${fecha(o.at)}</small></td><td><strong>${esc(o.company)}</strong></td><td>${cajas(o)} caja(s)</td><td>${tag(o.estado)}</td></tr>`).join('');
+  return `<div class="hd"><div><h1>Portal K11</h1><div class="sub">Todo en un lugar: ventas, stock, campaña de mails, sitio y servicios.</div></div><a class="btn" href="/admin?v=nueva">+ Nueva venta</a></div>
+<div class="kpis">
+<a class="kpi" href="/admin?v=ventas&f=nuevo"><div class="l">Por facturar</div><div class="n">${act.filter(o => o.estado === 'nuevo').length}</div><div class="s">ventas nuevas</div></a>
+<a class="kpi" href="/admin?v=ventas&f=porcobrar"><div class="l">Por cobrar</div><div class="n">${porCobrar.length}</div><div class="s">${usd(porCobrar.reduce((a, o) => a + (o.total || 0), 0))}</div></a>
+<a class="kpi" href="/admin?v=ventas&f=pagado"><div class="l">A despachar</div><div class="n">${act.filter(o => o.estado === 'pagado').length}</div><div class="s">pagadas</div></a>
+<a class="kpi" href="/admin?v=stock"><div class="l">Stock</div><div class="n">${t.reduce((a, p) => a + p.cases_available, 0)}</div><div class="s">cajas disponibles</div></a>
+<a class="kpi" href="/api/panel?k=${K}"><div class="l">Mails campaña</div><div class="n">${mail ? mail.enviado : '—'}</div><div class="s">${mail ? `enviados · ${mail.pendiente} pendientes · ${mail.bajas} bajas` : 'sin datos'}</div></a>
+</div>
+<div class="links">
+${G('Gestión', [['/admin?v=ventas', 'Ventas', act.length + ' activas'], ['/admin?v=nueva', 'Nueva venta'], ['/admin?v=clientes', 'Clientes', cs.length], ['/admin?v=stock', 'Stock y precios']])}
+${G('Campaña de mails', [['/api/panel?k=' + K, 'Panel de envíos', 'ver, dar de baja'], ['/api/enviar?k=' + K + '&simular=1', 'Simular envío de hoy', 'no envía', 1], ['/api/test?k=' + K, 'Mandarme un mail de prueba', '', 1], ['https://resend.com/emails', 'Resend · historial', '↗', 1]])}
+${G('Tienda pública', [['/order', 'Página de compra', 'EN', 1], ['/es/order', 'Página de compra', 'ES', 1], ['/api/stock', 'Stock en vivo (JSON)', '', 1], ['/catalog.json', 'Catálogo para IA', '', 1], ['/llms.txt', 'llms.txt', '', 1]])}
+${G('Sitio web', [['/', 'Inicio', '', 1], ['/products', 'Productos', '', 1], ['/docs', 'Hojas de seguridad (SDS)', '', 1], ['/distributors', 'Distribuidores', '', 1], ['/es', 'Versión español', '', 1], ['/sitemap.xml', 'Sitemap', '', 1]])}
+${G('Materiales (con contraseña)', [['/k11', 'Todos los materiales', '', 1], ['/k11/precios', 'Lista de precios', '', 1], ['/k11/ficha', 'Ficha técnica', '', 1], ['/k11/flyer', 'Flyer distribuidores', '', 1], ['/k11/kit', 'Kit de impresión', '', 1], ['/k11/margenes', 'Márgenes', '', 1], ['/k11/carta', 'Carta de presentación', '', 1], ['/k11/formulario', 'Formulario', '', 1], ['/k11/tarjeta', 'Tarjeta personal', '', 1]])}
+${G('Servicios', [[dash, 'Stripe · panel', '↗', 1], [dash + '/payments', 'Stripe · pagos', '↗', 1], [dash + '/invoices', 'Stripe · facturas', '↗', 1], [dash + '/webhooks', 'Stripe · webhooks', '↗', 1], ['https://vercel.com/dashboard', 'Vercel · deploys y variables', '↗', 1], ['https://console.upstash.com', 'Upstash · base de datos', '↗', 1], ['https://analytics.google.com', 'Google Analytics', '↗', 1], ['https://github.com', 'GitHub · repo wylco-site', '↗', 1]])}
+</div>
+<div class="card tw"><div style="padding:16px 16px 0;display:flex;justify-content:space-between;align-items:center"><h2>Últimas ventas</h2><a href="/admin?v=ventas&f=todas">Ver todas →</a></div>${rec ? `<table><tbody>${rec}</tbody></table>` : empty('Todavía no hay ventas.')}</div>`;
+}
+
+module.exports = { inicio, layout, login, ventas, venta, nueva, clientes, cliente, stock, producto, ESTADOS, esc };

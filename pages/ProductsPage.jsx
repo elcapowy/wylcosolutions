@@ -11,9 +11,22 @@ function ProductsPage({ lang, setPage, openPreorder }) {
 
   const products = [
     {
+      id:'tapafugas-k11', cat:'sealant',
+      badge: lang==='en' ? 'Leak Stop' : 'Sellador de Fugas',
+      num:'01', title:'K11 TAPAFUGAS',
+      desc: lang==='en'
+        ? 'Professional HVAC-R micro-leak sealant in a 10 ml syringe. Injected with the system running — seals micro-leaks from the inside, with no evacuation or downtime. For systems up to 10.5 kW (36,000 BTU/h).'
+        : 'Sellador profesional de micro-fugas HVAC-R en jeringa de 10 ml. Se inyecta con el equipo funcionando y sella micro-fugas desde adentro, sin evacuar ni detener el sistema. Para equipos de hasta 10,5 kW (36.000 BTU/h).',
+      features: lang==='en'
+        ? ['Polymer-free formula — safe for all components','Activates ONLY at leak contact with air/moisture','No system evacuation or downtime required','10 ml syringe · up to 36,000 BTU/h','12+ years of field use in Latin America','Tested per ASHRAE 97']
+        : ['Fórmula sin polímeros — segura para todos los componentes','Se activa SOLO en el punto de fuga al contactar aire/humedad','Sin evacuación del sistema ni tiempo muerto','Jeringa 10 ml · hasta 36.000 BTU/h','Más de 12 años de uso en Latinoamérica','Ensayado según ASHRAE 97'],
+      compat:['R22','R32','R410A','R134a','R404A','R290','R600a','R1234yf','R448A','R449A','R454B'],
+      imgs:['assets/products/tfk11-box.png','assets/products/tfk11-box-b.png','assets/products/tfk11-syringe.png']
+    },
+    {
       id:'tapafugas', cat:'sealant',
-      badge: lang==='en' ? 'Flagship' : 'Producto Estrella',
-      num:'01', title:'K11 TAPAFUGAS 2-IN-1',
+      badge: lang==='en' ? 'Flagship · 2-in-1' : 'Producto Estrella · 2-en-1',
+      num:'02', title:'K11 TAPAFUGAS 2-IN-1',
       video: 'assets/tapafugas-video.mp4', videoEnd: 7.6,
       desc: lang==='en'
         ? 'The professional HVAC-R micro-leak sealant with integrated UV fluorescent tracer. It seals micro-leaks AND marks them with UV — in a single injection.'
@@ -23,30 +36,29 @@ function ProductsPage({ lang, setPage, openPreorder }) {
         : ['Fórmula sin polímeros — segura para todos los componentes','Se activa SOLO en el punto de fuga al contactar aire/humedad','El trazador UV marca la ubicación exacta sellada','Sin evacuación del sistema ni tiempo muerto','Más de 12 años de uso en Latinoamérica','Ensayado según ASHRAE 97'],
       compat:['R22','R32','R410A','R134a','R404A','R290','R600a','R1234yf','R448A','R449A','R454B'],
       imgs:[
-        'assets/tile_tapafugas.png',
+        'assets/products/tfk11-2in1-box.png',
+        'assets/products/tfk11-2in1-box-b.png',
         'assets/tapafugas-action.png',
-        'assets/tile_revelafugas.png',
-        'assets/tile_adapter.png',
       ]
     },
     {
       id:'sellaplus', cat:'sealant',
       badge: lang==='en' ? 'Sealant + Lubricant' : 'Sellador + Lubricante',
-      num:'02', title:'K11 SELLA PLUS',
-      video: 'assets/hero-video.mp4',
+      num:'03', title:'K11 SELLA PLUS',
+      video: 'assets/sella-plus-video.mp4',
       desc: lang==='en'
-        ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Designed to circulate and detect without affecting performance.'
-        : 'Tinte UV de ultra-alta fluorescencia para localización rápida de fugas en cualquier sistema HVAC-R. Compatible con todos los tipos de refrigerante y aceite. Sin impacto en el sistema.',
+        ? 'HVAC-R sealant and lubricant for flanges, threaded connections, gaskets and O-rings. Compatible with all refrigerants. Stays flexible — never hardens or crystallizes. 35 ml bottle.'
+        : 'Sellador y lubricante HVAC-R para bridas, conexiones roscadas, juntas y O-rings. Compatible con todos los refrigerantes. Se mantiene flexible: no se seca ni cristaliza. Frasco de 35 ml.',
       features: lang==='en'
-        ? ['Ultra-high UV fluorescence intensity','Compatible with all refrigerant types','Compatible with mineral, POE, PAG oils','Designed not to affect performance','Visible under standard UV/violet light','Stays active in circuit for long-term monitoring']
-        : ['Ultra-alta intensidad de fluorescencia UV','Compatible con todos los tipos de refrigerante','Compatible con aceites mineral, POE, PAG','Sin impacto en el rendimiento del sistema','Visible bajo luz UV/violeta estándar','Permanece activo en el circuito para monitoreo'],
+        ? ['Seals and lubricates in one step','Flanges · connections · gaskets · O-rings','Compatible with all refrigerants','Never hardens or crystallizes','Easy disassembly for future service','35 ml precision-tip bottle']
+        : ['Sella y lubrica en un solo paso','Bridas · conexiones · juntas · O-rings','Compatible con todos los refrigerantes','No se seca ni cristaliza','Fácil desarme en servicios futuros','Frasco de 35 ml con punta de precisión'],
       compat:['All refrigerants','All fluids','Flanges','Connections','Gaskets','O-rings'],
-      imgs:['assets/tile_sellaplus.png']
+      imgs:['assets/products/sella-plus-en.png', ...(lang==='es'?['assets/products/sella-plus-es.png']:[])]
     },
     {
       id:'revelafugas', cat:'detection',
       badge: lang==='en' ? 'UV Detection' : 'Detección UV',
-      num:'03', title:'K11 REVELA FUGAS',
+      num:'04', title:'K11 REVELA FUGAS',
       video: 'assets/hero-video.mp4',
       desc: lang==='en'
         ? 'Ultra-high fluorescence UV dye for rapid leak location in any HVAC-R system. Compatible with all refrigerant types and oil formulations. Designed to circulate and detect without affecting performance.'
@@ -56,14 +68,14 @@ function ProductsPage({ lang, setPage, openPreorder }) {
         : ['Ultra-alta intensidad de fluorescencia UV','Compatible con todos los tipos de refrigerante','Compatible con aceites mineral, POE, PAG','Sin impacto en el rendimiento del sistema','Visible bajo luz UV/violeta estándar','Permanece activo en el circuito para monitoreo'],
       compat:['R22','R32','R410A','R134a','R404A','R407C','R290','All refrigerants'],
       imgs:[
-        'assets/tile_revelafugas.png',
-        'assets/tile_tapafugas.png',
+        'assets/products/rfk11-box.png',
+        'assets/products/rfk11-box-b.png',
       ]
     },
     {
       id:'adapters', cat:'accessories',
       badge: lang==='en' ? 'Accessories' : 'Accesorios',
-      num:'04', title:'K11 ADAPTERS',
+      num:'05', title:'K11 ADAPTERS',
       video: 'assets/adapters-video.mp4',
       desc: lang==='en'
         ? 'Professional anti-backflow injection adapters for safe, precise K11 product injection into live refrigerant circuits. Available in 1/4" (standard) and 5/16" (mini-split) sizes. Reusable and durable.'
@@ -72,15 +84,17 @@ function ProductsPage({ lang, setPage, openPreorder }) {
         ? ['Anti-backflow safety valve design','1/4" standard (residential/commercial)','5/16" for mini-split systems','Reusable — built for multiple service calls','Required for correct K11 TapaFugas application','Compatible with all common service tools']
         : ['Diseño de válvula de seguridad anti-retorno','1/4" estándar (residencial/comercial)','5/16" para sistemas mini-split','Reutilizable — para múltiples llamadas de servicio','Requerido para aplicación correcta de K11 TapaFugas','Compatible con todas las herramientas de servicio comunes'],
       compat:['1/4" standard','5/16" mini-split','Reusable'],
-      imgs:['assets/tile_adapter.png','assets/tile_tapafugas.png']
+      imgs:['assets/tile_adapter.png','assets/products/tfk11-box.png']
     },
   ];
 
   const filtered = filter === 'all' ? products : products.filter(p => p.cat === filter);
 
   const dosingItems = [
-    { img:'assets/tile_tapafugas.png', dosage:'3 tons / 36,000 BTU', action: lang==='en'?'Seals micro-leaks':'Sella micro-fugas', usage: lang==='en'?'System maintains performance for +30 days':'Equipo mantiene rendimiento por +30 días', time: lang==='en'?'2h – 3h residential':'2h – 3h residencial' },
-    { img:'assets/tile_sellaplus.png', dosage: lang==='en'?'Apply as needed\nto surface':'Aplicar según\nnecesidad', action: lang==='en'?'Seals &\nLubricates':'Sella y\nLubrica', usage: lang==='en'?'Flanges · Connections\nGaskets · O-rings':'Bridas · Conexiones\nJuntas · O-rings', time: lang==='en'?'Instant\napplication':'Aplicación\ninmediata' },
+    { img:'assets/products/tfk11-box.png', name:'TapaFugas', dosage: lang==='en'?'10 ml up to\n36,000 BTU/h (3 TR)':'10 ml hasta\n36.000 BTU/h (3 TR)', action: lang==='en'?'Seals micro-leaks':'Sella micro-fugas', usage: lang==='en'?'System keeps its charge\nand performance':'El equipo mantiene\ncarga y rendimiento', time: lang==='en'?'2h – 3h residential':'2h – 3h residencial' },
+    { img:'assets/products/tfk11-2in1-box.png', name:'TapaFugas 2-in-1', dosage: lang==='en'?'10 ml up to\n36,000 BTU/h (3 TR)':'10 ml hasta\n36.000 BTU/h (3 TR)', action: lang==='en'?'Seals + marks\nwith UV':'Sella y marca\ncon UV', usage: lang==='en'?'Seals the leak and shows\nwhere it was':'Sella la fuga y muestra\ndónde estaba', time: lang==='en'?'2h – 3h residential':'2h – 3h residencial' },
+    { img:'assets/products/rfk11-box.png', name:'Revela Fugas', dosage: lang==='en'?'10 ml up to\n3 L of oil':'10 ml hasta\n3 L de aceite', action: lang==='en'?'Finds leaks\nwith UV light':'Detecta fugas\ncon luz UV', usage: lang==='en'?'Leak glows under\nUV / violet light':'La fuga brilla bajo\nluz UV / violeta', time: lang==='en'?'Visible after\ncirculation':'Visible tras\ncircular' },
+    { img:'assets/products/sella-plus-en.png', name:'Sella Plus', dosage: lang==='en'?'Apply as needed\nto surface':'Aplicar según\nnecesidad', action: lang==='en'?'Seals &\nLubricates':'Sella y\nLubrica', usage: lang==='en'?'Flanges · Connections\nGaskets · O-rings':'Bridas · Conexiones\nJuntas · O-rings', time: lang==='en'?'Instant\napplication':'Aplicación\ninmediata' },
   ];
 
   const refCodes = ['R22','R32','R410A','R134a','R404A','R407C','R290','R600a','R1234yf','R448A','R449A','R454B'];
@@ -111,12 +125,12 @@ function ProductsPage({ lang, setPage, openPreorder }) {
           </div>
           <div className="pf-grid">
             {filtered.map((prod) => {
-              const thumbIdx = activeThumb[prod.id] || 0;
+              const thumbIdx = activeThumb[prod.id] ?? (prod.video ? -1 : 0);
               return (
                 <div key={prod.id} id={prod.id} className="pf-card" data-cat={prod.cat}>
                   <div className="pf-img-wrap">
                     <div className="pf-img-main">
-                      {prod.video ? (
+                      {prod.video && thumbIdx === -1 ? (
                         <video
                           src={prod.video}
                           autoPlay muted loop={!prod.videoEnd} playsInline
@@ -127,7 +141,7 @@ function ProductsPage({ lang, setPage, openPreorder }) {
                         <img id={`img-${prod.id}`} src={prod.imgs[thumbIdx]} alt={prod.title}/>
                       )}
                     </div>
-                    {prod.video && (
+                    {prod.video && thumbIdx === -1 && (
                       <div style={{ position:'absolute', top:'14px', right:'14px', zIndex:3,
                         background:'rgba(212,84,26,.9)', color:'#fff', fontSize:'10px',
                         fontWeight:700, letterSpacing:'.08em', padding:'4px 10px',
@@ -136,8 +150,12 @@ function ProductsPage({ lang, setPage, openPreorder }) {
                       </div>
                     )}
                     <span className="pf-img-badge">{prod.badge}</span>
-                    {prod.imgs.length > 1 && (
+                    {(prod.imgs.length > 1 || prod.video) && (
                       <div className="pf-img-thumbs">
+                        {prod.video && (
+                          <div className={`pf-img-thumb ${thumbIdx===-1?'active':''}`} onClick={() => setActiveThumb(prev => ({...prev, [prod.id]: -1}))}
+                               style={{ display:'flex', alignItems:'center', justifyContent:'center', background:'#0F1117', color:'#fff', fontSize:'12px', fontWeight:700, letterSpacing:'.08em' }}>▶ VIDEO</div>
+                        )}
                         {prod.imgs.map((src, ti) => (
                           <div key={ti} className={`pf-img-thumb ${thumbIdx===ti?'active':''}`}
                                onClick={() => setActiveThumb(prev => ({...prev, [prod.id]: ti}))}>
@@ -188,7 +206,8 @@ function ProductsPage({ lang, setPage, openPreorder }) {
             {dosingItems.map((d, i) => (
               <div key={i} className="dtn-row">
                 <div className="dtn-col" style={{ border:'none' }}>
-                  <img src={d.img} alt="K11 product" className="dtn-img"/>
+                  <img src={d.img} alt={'K11 '+d.name} className="dtn-img"/>
+                  <div style={{ fontSize:'12px', fontWeight:700, color:'#fff', marginTop:'8px', letterSpacing:'.04em', textTransform:'uppercase' }}>{d.name}</div>
                 </div>
                 <div className="dtn-col">{d.dosage}</div>
                 <div className="dtn-col dt-orange">{d.action}</div>

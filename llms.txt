@@ -3,6 +3,7 @@
 > Wylco LLC (Miami, Florida) imports and distributes K11 HVAC-R products in the United States: refrigerant micro-leak sealants with integrated UV leak detection, UV dyes and thread/gasket sealants. Sells to HVAC supply houses, wholesalers and contractors.
 
 ## Products
+- [K11 TapaFugas](https://wylcosolutions.com/products): micro-leak sealant, 10 ml syringe, systems up to 36,000 BTU/h; injected with the system running, no evacuation; tested per ASHRAE Standard 97.
 - [K11 TapaFugas 2-in-1](https://wylcosolutions.com/products): polymer-free micro-leak sealant with integrated UV tracer; one injection, system running, no evacuation; tested per ASHRAE Standard 97; for micro-leaks (30+ days to lose charge).
 - [K11 Revela Fugas](https://wylcosolutions.com/products): high-fluorescence UV leak detection dye; mineral, POE and PAG oils.
 - [K11 Sella Plus](https://wylcosolutions.com/products): sealant and lubricant for flanges, threads, gaskets and O-rings; stays flexible.

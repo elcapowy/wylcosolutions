@@ -13,10 +13,10 @@ function HeroSection({ lang, setPage, openPreorder }) {
   const [transitioning, setTransitioning] = useState(false);
 
   const products = [
-    { img:'assets/tile_tapafugas.png',
+    { img:'assets/products/tfk11-2in1-box.png',
       tagCls:'tag-orange', tag: lang==='en'?'Flagship · 2-in-1 Technology':'Producto Estrella · Tecnología 2-en-1',
       name:'K11 TapaFugas 2-in-1', desc: lang==='en'?'Seals AND marks leaks with UV — in a single injection.':'Sella Y marca la fuga con UV — en una sola inyección.' },
-    { img:'assets/tile_sellaplus.png', video:'assets/sella-plus-video.mp4',
+    { img:'assets/products/sella-plus-en.png', video:'assets/sella-plus-video.mp4',
       tagCls:'tag-gray', tag: lang==='en'?'Gasket & Thread Sealant':'Sellador de Juntas',
       name:'K11 Sella Plus', desc: lang==='en'?'High adhesion for flanges, threads and gaskets. Tested per ASHRAE 97.':'Alta adhesión para bridas, roscas y juntas. Ensayado según ASHRAE 97.' },
   ];
@@ -251,13 +251,29 @@ function WhySection({ lang }) {
 function ProductsSection({ lang, setPage }) {
   const T = window.T[lang].products;
   const prods = [
-    { img:'assets/tile_tapafugas.png', video:'assets/tapafugas-video.mp4', videoEnd:7.6, tagCls:'tag-orange', tag:lang==='en'?'Flagship · 2-in-1':'Producto Estrella · 2-en-1', name:lang==='en'?'K11 TapaFugas 2-in-1\nSeal + UV Detect':'K11 TapaFugas 2-en-1\nSella + Detecta UV', desc:lang==='en'?'Seals micro-leaks AND marks them with UV fluorescence — in a single injection. 12+ years of field use in Latin America.':'Sella micro-fugas Y las marca con UV — en una sola inyección. Más de 12 años de uso en Latinoamérica.', compat:['R22','R410A','R32','R134a','All HVAC-R'], featured:true, page:'products', anchor:'tapafugas' },
-    { img:'assets/tile_sellaplus.png', video:'assets/sella-plus-video.mp4', tagCls:'tag-gray', tag:lang==='en'?'Sealant + Lubricant':'Sellador + Lubricante', name:lang==='en'?'K11 Sella Plus\nSeal + Lubricate':'K11 Sella Plus\nSella + Lubrica', desc:lang==='en'?'Premium HVAC-R sealant AND lubricant for flanges, connections, gaskets & O-rings. Blue color for easy ID. Never hardens. Tested per ASHRAE 97.':'Sellador Y lubricante HVAC-R premium para bridas, conexiones, juntas y O-rings. Color azul para identificación. Nunca endurece. Ensayado según ASHRAE 97.', compat:['All refrigerants','All fluids','Flanges','O-rings'], featured:true, page:'products', anchor:'sellaplus' },
-    { img:'assets/tile_revelafugas.png', video:'assets/hero-video.mp4', tagCls:'tag-green', tag:lang==='en'?'UV Detection':'Detección UV', name:'K11 Revela Fugas', desc:lang==='en'?'Ultra-high fluorescence UV dye. Find leaks under UV light — designed not to affect system performance.':'Tinte UV de ultra-alta fluorescencia. Encuentra fugas sin impactar el sistema.', featured:false, page:'products', anchor:'revelafugas' },
-    { img:'assets/tile_adapter.png', video:'assets/adapters-video.mp4', tagCls:'tag-gray', tag:lang==='en'?'Accessories':'Accesorios', name:lang==='en'?'K11 Adapters':'Adaptadores K11', desc:lang==='en'?'Anti-backflow injection adapters. 1/4" and 5/16" — fits every US service port.':'Adaptadores anti-retorno. 1/4" y 5/16" — compatibles con todos los puertos.', featured:false, page:'products', anchor:'adapters' },
+    { img:'assets/products/tfk11-box.png', tagCls:'tag-gray', tag:lang==='en'?'Leak Stop':'Sellador', name:'K11 TapaFugas', desc:lang==='en'?'Micro-leak sealant. Injected with the system running — no evacuation. 10 ml up to 36,000 BTU/h.':'Sellador de micro-fugas. Se inyecta con el equipo andando, sin evacuar. 10 ml hasta 36.000 BTU/h.', anchor:'tapafugas-k11' },
+    { img:'assets/products/tfk11-2in1-box.png', tagCls:'tag-orange', tag:lang==='en'?'Flagship · 2-in-1':'Estrella · 2-en-1', name:lang==='en'?'K11 TapaFugas 2-in-1':'K11 TapaFugas 2-en-1', desc:lang==='en'?'Seals micro-leaks and marks them with UV — in a single injection.':'Sella micro-fugas y las marca con UV, en una sola inyección.', anchor:'tapafugas' },
+    { img:'assets/products/rfk11-box.png', tagCls:'tag-green', tag:lang==='en'?'UV Detection':'Detección UV', name:'K11 Revela Fugas', desc:lang==='en'?'High-fluorescence UV dye. Find leaks fast under UV light.':'Tinte UV de alta fluorescencia. Encontrá fugas rápido con luz UV.', anchor:'revelafugas' },
+    { img:lang==='es'?'assets/products/sella-plus-es.png':'assets/products/sella-plus-en.png', tagCls:'tag-gray', tag:lang==='en'?'Seal + Lubricate':'Sella + Lubrica', name:'K11 Sella Plus', desc:lang==='en'?'Sealant and lubricant for flanges, connections, gaskets and O-rings. Never hardens.':'Sellador y lubricante para bridas, conexiones, juntas y O-rings. No se seca.', anchor:'sellaplus' },
+    { img:'assets/tile_adapter.png', tagCls:'tag-gray', tag:lang==='en'?'Accessories':'Accesorios', name:lang==='en'?'K11 Adapters':'Adaptadores K11', desc:lang==='en'?'Anti-backflow injection adapters, 1/4" and 5/16".':'Adaptadores anti-retorno, 1/4" y 5/16".', anchor:'adapters' },
   ];
+  const go = () => { setPage('products'); window.scrollTo({top:0}); };
   return (
     <section className="section section-warm" style={{ borderBottom:'.5px solid var(--bd-light)' }}>
+      <style>{`.pg5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.pg5-card{background:#fff;border:.5px solid var(--bd-light);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+.pg5-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.pg5-img{height:240px;position:relative;background:#fff;border-bottom:.5px solid var(--bd-light)}
+.pg5-img img{position:absolute;inset:18px;width:calc(100% - 36px);height:calc(100% - 36px);object-fit:contain;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.pg5-card:hover .pg5-img img{transform:scale(1.05)}
+.pg5-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;background:var(--warm)}
+.pg5-body .tag{align-self:flex-start}
+.pg5-name{font-family:var(--fd);font-size:1.4rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;line-height:1;color:var(--txt)}
+.pg5-desc{font-size:13px;color:var(--txt-muted);line-height:1.55;flex:1;margin:0}
+.pg5-link{font-size:13px;font-weight:700;color:var(--orange)}
+@media(max-width:1200px){.pg5{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.pg5{grid-template-columns:repeat(2,minmax(0,1fr))}.pg5-img{height:200px}}
+@media(max-width:460px){.pg5{grid-template-columns:1fr}}`}</style>
       <div className="wrap">
         <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'48px', alignItems:'end', marginBottom:'40px' }}>
           <div className="reveal">
@@ -266,51 +282,20 @@ function ProductsSection({ lang, setPage }) {
           </div>
           <div className="reveal d1">
             <p className="body-md muted">{T.sub}</p>
-            <button className="btn btn-ghost-dark" style={{ marginTop:'20px' }} onClick={() => { setPage('products'); window.scrollTo({top:0}); }}>
+            <button className="btn btn-ghost-dark" style={{ marginTop:'20px' }} onClick={go}>
               {T.cta} <Arr/>
             </button>
           </div>
         </div>
-        <div className="prod-grid reveal">
-          {prods.map((prod, i) => prod.featured ? (
-            <div key={i} className="prod-card featured">
-              <div className="prod-card-img" style={{ padding: prod.video ? '0' : undefined, overflow:'hidden' }}>
-                {prod.video ? (
-                  <video src={prod.video} autoPlay muted loop={!prod.videoEnd} playsInline
-                    onTimeUpdate={prod.videoEnd ? (e)=>{ if(e.target.currentTime >= prod.videoEnd) e.target.currentTime = 0; } : undefined}
-                    style={{ width:'100%', height:'100%', objectFit:'cover' }}/>
-                ) : (
-                  <img src={prod.img} alt={prod.name}/>
-                )}
-              </div>
-              <div className="prod-card-body">
-                <span className={`tag ${prod.tagCls}`} style={{ marginBottom:'12px' }}>{prod.tag}</span>
-                <div className="prod-card-name" style={{ whiteSpace:'pre-line' }}>{prod.name}</div>
-                <p className="prod-card-desc">{prod.desc}</p>
-                <div style={{ display:'flex', flexWrap:'wrap', gap:'5px', marginBottom:'16px' }}>
-                  {prod.compat.map(c => <span key={c} className="compat-pill" style={{ background:'rgba(0,0,0,.06)', border:'.5px solid rgba(0,0,0,.1)', color:'var(--txt-muted)' }}>{c}</span>)}
-                </div>
-                <div style={{ display:'flex', gap:'8px', flexWrap:'wrap' }}>
-                  <button className="btn btn-primary btn-sm" onClick={() => { setPage(prod.page); }}>{lang==='en'?'Pre-Order Now':'Pre-Ordenar'}</button>
-                  <button className="btn btn-ghost-dark btn-sm" onClick={() => { setPage(prod.page); window.scrollTo({top:0}); }}>{lang==='en'?'Learn More':'Ver Más'}</button>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div key={i} className="prod-card" onClick={() => { setPage(prod.page); window.scrollTo({top:0}); }}>
-              <div className="prod-card-img" style={{ padding: prod.video ? '0' : '28px', overflow:'hidden' }}>
-                {prod.video ? (
-                  <video src={prod.video} autoPlay muted loop playsInline
-                    style={{ width:'100%', height:'140px', objectFit:'cover' }}/>
-                ) : (
-                  <img src={prod.img} alt={prod.name}/>
-                )}
-              </div>
-              <div className="prod-card-body">
-                <span className={`tag ${prod.tagCls}`} style={{ marginBottom:'10px', display:'block' }}>{prod.tag}</span>
-                <div className="prod-card-name">{prod.name}</div>
-                <p className="prod-card-desc">{prod.desc}</p>
-                <button className="btn btn-outline-orange btn-sm">{lang==='en'?'View Product':'Ver Producto'}</button>
+        <div className="pg5 reveal">
+          {prods.map((prod, i) => (
+            <div key={i} className="pg5-card" onClick={go}>
+              <div className="pg5-img"><img src={prod.img} alt={prod.name}/></div>
+              <div className="pg5-body">
+                <span className={`tag ${prod.tagCls}`}>{prod.tag}</span>
+                <div className="pg5-name">{prod.name}</div>
+                <p className="pg5-desc">{prod.desc}</p>
+                <span className="pg5-link">{lang==='en'?'View product →':'Ver producto →'}</span>
               </div>
             </div>
           ))}

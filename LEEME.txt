@@ -1,14 +1,8 @@
-SUBIR A GITHUB (repo wylco-site, rama principal)
+SITIO COMPLETO — wylcosolutions.com (30 oct 2026)
 
-Arrastrá TODO el contenido de esta carpeta a la raíz del repo, reemplazando lo que exista.
-Mantené la estructura de carpetas (api/, api/_lib/, assets/sds/, es/, pages/).
+1. Arrastrá TODO el contenido de esta carpeta a la raíz del repo wylco-site, reemplazando lo que exista. Mantené las carpetas.
+2. En Mac, .vercelignore está oculto (Cmd+Shift+. en el Finder para verlo). Subilo también.
+3. Vercel → Redeploy.
 
-Incluye:
-- api/ completa (mails + tienda + Stripe). data.json y enviar/panel/test van sin cambios, para que no falte nada.
-- assets/sds/ — las 4 hojas de seguridad en PDF.
-- Páginas con link "Order" y SDS: index, products, how-it-works, distributors, docs, about (+ es/).
-- pages/DocsPage.jsx, vercel.json, llms.txt, sitemap.xml, .vercelignore
-
-NO subir: order.html / es/order.html (son vista previa; la página real la genera api/order.js).
-
-Después: Vercel → Redeploy. Revisá /admin?k=TU_TOKEN.
+Variables en Vercel: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_TAX=1, SHIP_FROM (dirección de despacho, opcional), más las que ya tenías.
+Panel: wylcosolutions.com/admin   Tienda: /order   Etiquetas: botón en cada venta.

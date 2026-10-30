@@ -1,4 +1,4 @@
-const { redis } = require('./_lib/core');
+const { redis, leerEstado, D } = require('./_lib/core');
 const T = require('./_lib/tienda');
 const { stripe, precios, fijarPrecio, TAX, MODE } = require('./_lib/stripe');
 const UI = require('./_lib/adminui');
@@ -100,7 +100,7 @@ module.exports = async (req, res) => {
     return go(back + (back.includes('?') ? '&' : '?') + 'ok=' + encodeURIComponent(msg));
   }
 
-  const v = q.v || 'ventas';
+  const v = q.v || 'inicio';
   const [t, ps, cs, pr] = await Promise.all([T.leerTienda(), T.pedidos(), T.clientes(), precios(T.PRODUCTS.map(p => p.slug)).catch(e => ({ _err: e.message }))]);
   // alta automática de clientes de ventas viejas
   const ids = new Set(cs.map(c => c.id));
@@ -118,7 +118,12 @@ module.exports = async (req, res) => {
   else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) : '<h1>Cliente no encontrado</h1>'; }
   else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps }); }
   else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
-  else { title = 'Ventas'; body = UI.ventas({ ps, f: q.f || 'activas', q: q.q || '' }); }
+  else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, f: q.f || 'activas', q: q.q || '' }); }
+  else {
+    let mail = null;
+    try { const { est, stop } = await leerEstado(); const vals = Object.values(est); mail = { enviado: vals.filter(x => x.e === 'enviado').length, pendiente: D.rows.length - vals.length, bajas: Object.values(stop).filter(x => x === 'baja').length }; } catch {}
+    title = 'Portal'; body = UI.inicio({ ps, cs, t, mail, k: TOK, dash: DASH });
+  }
   html(UI.layout({ v, title, body, flash: q.ok, banner, counts }));
 };
 module.exports.config = { maxDuration: 30 };

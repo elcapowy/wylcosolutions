@@ -1,8 +1,6 @@
-SITIO COMPLETO — wylcosolutions.com (30 oct 2026)
+IMÁGENES DE REDES (repo wylco-site)
 
-1. Arrastrá TODO el contenido de esta carpeta a la raíz del repo wylco-site, reemplazando lo que exista. Mantené las carpetas.
-2. En Mac, .vercelignore está oculto (Cmd+Shift+. en el Finder para verlo). Subilo también.
-3. Vercel → Redeploy.
+Arrastrá la carpeta assets/ a la raíz del repo (se agrega assets/social/ con 17 PNG: tip1-4, case1-4, promo1-4, tour1-5).
+No reemplaza nada existente.
 
-Variables en Vercel: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_TAX=1, SHIP_FROM (dirección de despacho, opcional), más las que ya tenías.
-Panel: wylcosolutions.com/admin   Tienda: /order   Etiquetas: botón en cada venta.
+Después: Vercel → Redeploy y recargá /admin?v=redes.

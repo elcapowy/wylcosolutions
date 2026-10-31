@@ -235,6 +235,8 @@ module.exports = async (req, res) => {
     try { const { est, stop } = await leerEstado(); const vals = Object.values(est); mail = { enviado: vals.filter(x => x.e === 'enviado').length, pendiente: D.rows.length - vals.length, bajas: Object.values(stop).filter(x => x === 'baja').length }; } catch {}
     title = 'Portal'; body = UI.inicio({ ps, cs, t, mail, k: TOK, dash: DASH });
   }
-  html(UI.layout({ v, title, body, flash: q.ok, banner, counts }));
+  let out = UI.layout({ v, title, body, flash: q.ok, banner: rol === 'deposito' ? '' : banner, counts });
+  if (rol === 'deposito') out = out.replace(/<a class="(?:new|btn)[^"]*" href="\/admin\?v=nueva[^"]*">[^<]*<\/a>/g, '').replace(/<a class="kpi" href="\/admin\?v=finanzas[^"]*">[\s\S]*?<\/a>/g, '').replace(/<a class="kpi"[^>]*>\s*<div class="l">Ganancia[\s\S]*?<\/a>/g, '').replace(/<div class="kpi">\s*<div class="l">Ganancia[\s\S]*?<\/div><\/div>/g, '');
+  html(out);
 };
 module.exports.config = { maxDuration: 30, api: { bodyParser: { sizeLimit: '6mb' } } };

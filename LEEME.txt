@@ -1,1 +1,11 @@
-Subí la carpeta "api" a GitHub (Add file → Upload files). Reemplaza solo api/_lib/mejoras.js.
+CÓMO SUBIR A GITHUB (repo elcapowy/wylcosolutions)
+1. Descomprimí este zip.
+2. GitHub → repo → Add file → Upload files.
+3. Arrastrá la carpeta "api" y "vercel.json" (reemplazan lo existente).
+4. Commit changes. Vercel despliega solo (1–2 min).
+
+Incluye todo: Sistema, backup, reposición, niveles, recompra, Shippo (con corrección de dirección y cajas por producto), usuario depósito, feed Google.
+
+DESPUÉS
+- Vercel → Environment Variables: CRON_SECRET, SHIPPO_API_KEY (opcional ADMIN_TOKEN_DEPOSITO) → Redeploy.
+- /admin → Sistema: cargar Origen de envíos y revisar Cajas de envío.

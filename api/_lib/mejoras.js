@@ -118,6 +118,18 @@ async function recompra(ps, simular) {
 
 // ── Shippo: cotizar y comprar etiqueta UPS/FedEx/USPS ──
 const SH = () => process.env.SHIPPO_API_KEY;
+// Caja master por producto (pulgadas / libras). ESTIMADOS hasta medir y pesar una caja real (Sistema → Cajas de envío).
+// Base: blíster/estuche individual ~17×6×3 cm y ~35–45 g por jeringa; Sella Plus frasco 35 ml en estuche ~80 g; acople de bronce ~20 g.
+const CAJA_DEF = {
+  'tfk11-10': { l: 20, w: 14, h: 14, lb: 17 },
+  'tfk11-co': { l: 20, w: 14, h: 16, lb: 22 },
+  'k11-2in1-11': { l: 20, w: 14, h: 14, lb: 18 },
+  'spk11-b35': { l: 13, w: 9, h: 8, lb: 10 },
+  '20002': { l: 14, w: 10, h: 8, lb: 19 },
+  'rfk11': { l: 12, w: 10, h: 8, lb: 10 }
+};
+async function cajasEnvio() { const c = await X.cfg('cajas', {}); const r = {}; for (const p of T.PRODUCTS) { const d = CAJA_DEF[p.slug] || { l: 16, w: 12, h: 10, lb: 15 }, m = c[p.slug]; r[p.slug] = m ? { ...d, ...m, medido: true } : { ...d, medido: false }; } return r; }
+const pesoFact = d => Math.max(d.lb, Math.ceil(d.l * d.w * d.h / 139));
 const EST = { alabama: 'AL', alaska: 'AK', arizona: 'AZ', arkansas: 'AR', california: 'CA', colorado: 'CO', connecticut: 'CT', delaware: 'DE', 'district of columbia': 'DC', florida: 'FL', georgia: 'GA', hawaii: 'HI', idaho: 'ID', illinois: 'IL', indiana: 'IN', iowa: 'IA', kansas: 'KS', kentucky: 'KY', louisiana: 'LA', maine: 'ME', maryland: 'MD', massachusetts: 'MA', michigan: 'MI', minnesota: 'MN', mississippi: 'MS', missouri: 'MO', montana: 'MT', nebraska: 'NE', nevada: 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ', 'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', ohio: 'OH', oklahoma: 'OK', oregon: 'OR', pennsylvania: 'PA', 'puerto rico': 'PR', 'rhode island': 'RI', 'south carolina': 'SC', 'south dakota': 'SD', tennessee: 'TN', texas: 'TX', utah: 'UT', vermont: 'VT', virginia: 'VA', washington: 'WA', 'west virginia': 'WV', wisconsin: 'WI', wyoming: 'WY' };
 const estado2 = s => { const x = String(s || '').trim(); return x.length === 2 ? x.toUpperCase() : EST[x.toLowerCase()] || x; };
 const dirTo = o => ({ name: o.contact || o.company, company: o.company, street1: o.address, street2: o.address2 || '', city: o.city, state: estado2(o.state), zip: String(o.zip || '').trim(), country: 'US', phone: o.phone || '', email: o.email, validate: true });
@@ -129,8 +141,8 @@ async function cotizar(o) {
   if (!SH()) throw new Error('Falta SHIPPO_API_KEY en Vercel');
   const org = await X.cfg('origen', null); if (!org || !org.street1) throw new Error('Cargá la dirección de origen en Sistema');
   if (!o.address || !o.zip) throw new Error('La venta no tiene dirección de envío completa');
-  const dim = await X.cfg('caja_dim', { l: 16, w: 12, h: 10 }), peso = await X.cfg('peso', {});
-  const parcels = []; for (const i of o.items || []) for (let k = 0; k < i.cases; k++) parcels.push({ length: String(dim.l), width: String(dim.w), height: String(dim.h), distance_unit: 'in', weight: String(+peso[i.slug] || 15), mass_unit: 'lb' });
+  const CJ = await cajasEnvio();
+  const parcels = []; for (const i of o.items || []) { const d = CJ[i.slug]; for (let k = 0; k < i.cases; k++) parcels.push({ length: String(d.l), width: String(d.w), height: String(d.h), distance_unit: 'in', weight: String(d.lb), mass_unit: 'lb' }); }
   if (!parcels.length) throw new Error('Sin cajas'); if (parcels.length > 25) throw new Error('Más de 25 cajas: cotizá como flete (LTL)');
   const to = await shippo('addresses/', dirTo(o)), vr = to.validation_results || {};
   const val = { ok: vr.is_valid !== false, msgs: (vr.messages || []).map(m => m.text).filter(Boolean) };
@@ -180,7 +192,7 @@ async function chequeo({ MODE, TAX, t, pr, ps }) {
   ];
   return C;
 }
-function vSistema({ C, L, niv, org, dim, peso }) {
+function vSistema({ C, L, niv, org, cj }) {
   const ico = ok => ok === true ? '<span class="dot ok"></span>' : ok === false ? '<span class="dot no"></span>' : '<span class="dot"></span>';
   const n = C.filter(c => c[1] === true).length;
   const F = [['name', 'Nombre'], ['company', 'Empresa'], ['street1', 'Dirección'], ['city', 'Ciudad'], ['state', 'Estado'], ['zip', 'ZIP'], ['phone', 'Teléfono'], ['email', 'Email']];
@@ -194,9 +206,7 @@ function vSistema({ C, L, niv, org, dim, peso }) {
 <form method="post" class="card pad" style="display:grid;gap:12px;align-content:start">${H('niveles_cfg')}<h2>Niveles de precio</h2><small class="mut">Descuento sobre el precio de lista por caja. Se asigna en cada cliente.</small>
 <div class="fg">${NIVELES.map(([k, l]) => `<label>${l} (%)<input type="number" step="0.5" min="0" max="50" name="${k}" value="${+niv[k] || 0}"${k === 'distribuidor' ? ' readonly' : ''}></label>`).join('')}</div><div><button class="sec">Guardar</button></div></form>
 <form method="post" class="card pad" style="display:grid;gap:12px;align-content:start">${H('origen_cfg')}<h2>Origen de envíos (Shippo)</h2><div class="fg">${F.map(([k, l]) => `<label>${l}<input name="${k}" value="${esc((org || {})[k] || '')}"></label>`).join('')}</div><div><button class="sec">Guardar</button></div></form>
-<form method="post" class="card pad" style="display:grid;gap:12px;align-content:start">${H('caja_cfg')}<h2>Caja de envío</h2><small class="mut">Medidas (pulgadas) y peso por caja (lb) para cotizar.</small>
-<div class="fg"><label>Largo<input type="number" step="0.1" name="l" value="${dim.l}"></label><label>Ancho<input type="number" step="0.1" name="w" value="${dim.w}"></label><label>Alto<input type="number" step="0.1" name="h" value="${dim.h}"></label></div>
-<div class="fg">${T.PRODUCTS.map(p => `<label>${esc(p.sku)} (lb)<input type="number" step="0.1" min="0" name="p_${p.slug}" value="${+peso[p.slug] || 15}"></label>`).join('')}</div><div><button class="sec">Guardar</button></div></form></div>
+<form method="post" class="card pad" style="display:grid;gap:12px;align-content:start;grid-column:1/-1">${H('caja_cfg')}<h2>Cajas de envío</h2><small class="mut">Caja master por producto (pulgadas y libras). <b>Estimado</b> = valor aproximado; pesá y medí una caja real y guardalo para que la cotización sea exacta. UPS/FedEx cobran el mayor entre peso real y volumétrico (L×A×H ÷ 139).</small><div style="overflow-x:auto"><table style="min-width:0"><thead><tr><th>Producto</th><th class="r">Largo</th><th class="r">Ancho</th><th class="r">Alto</th><th class="r">Peso (lb)</th><th class="r">Se cobra como</th><th></th></tr></thead><tbody>${T.PRODUCTS.map(p => { const d = cj[p.slug]; return `<tr><td><strong>${esc(p.sku)}</strong><br><small class="mut">${esc(p.name)}${p.units ? ' · ' + p.units + ' un.' : ''}</small></td>${['l', 'w', 'h', 'lb'].map(k => `<td class="r"><input class="sm" style="width:70px" type="number" step="0.1" min="0" name="${k}_${p.slug}" value="${d[k]}"></td>`).join('')}<td class="r num">${pesoFact(d)} lb</td><td>${d.medido ? '<span class="tag t-pagado">medido</span>' : '<span class="tag t-pago-pendiente">estimado</span>'}</td></tr>`; }).join('')}</tbody></table></div><div><button class="sec">Guardar como medido</button></div></form></div>
 <div class="card tw" style="margin-top:18px"><div style="padding:16px 16px 0"><h2>Registro de cambios</h2><small class="mut">Quién hizo qué en el admin (últimos ${L.length}).</small></div>${lrows ? `<table><thead><tr><th>Cuándo</th><th>Rol</th><th>Acción</th><th>Sobre</th><th>Resultado</th></tr></thead><tbody>${lrows}</tbody></table>` : '<div class="empty">Sin cambios registrados todavía.</div>'}</div>`;
 }
 
@@ -210,7 +220,7 @@ async function accion(b) {
   if (a === 'niveles_cfg') { const n = {}; for (const [k] of NIVELES) if (k !== 'distribuidor') { const v = Math.min(50, Math.max(0, num(b[k]) || 0)); if (v) n[k] = v; } await X.setCfg('niveles', n); return 'Niveles: ' + (NIVELES.filter(([k]) => n[k]).map(([k, l]) => l + ' −' + n[k] + '%').join(' · ') || 'sin descuentos'); }
   if (a === 'nivel_cli') { const c = await T.cliente(b.id); if (!c) throw new Error('Cliente no encontrado'); if (b.nivel && b.nivel !== 'distribuidor') c.nivel = String(b.nivel); else delete c.nivel; await T.guardarCliente(c); return 'Nivel: ' + (NIVELES.find(([k]) => k === (c.nivel || 'distribuidor')) || [])[1]; }
   if (a === 'origen_cfg') { const o = {}; for (const k of ['name', 'company', 'street1', 'city', 'state', 'zip', 'phone', 'email']) o[k] = String(b[k] || '').trim(); if (!o.street1 || !o.zip) throw new Error('Falta dirección o ZIP'); await X.setCfg('origen', o); return 'Origen de envíos guardado'; }
-  if (a === 'caja_cfg') { const d = { l: num(b.l) || 16, w: num(b.w) || 12, h: num(b.h) || 10 }, p = {}; for (const x of T.PRODUCTS) { const v = num(b['p_' + x.slug]); if (v > 0) p[x.slug] = v; } await X.setCfg('caja_dim', d); await X.setCfg('peso', p); return `Caja ${d.l}×${d.w}×${d.h} in guardada`; }
+  if (a === 'caja_cfg') { const c = {}; for (const x of T.PRODUCTS) { const d = {}; for (const k of ['l', 'w', 'h', 'lb']) { const v = num(b[k + '_' + x.slug]); if (v > 0) d[k] = v; } if (Object.keys(d).length === 4) c[x.slug] = d; } await X.setCfg('cajas', c); return `Cajas de envío guardadas (${Object.keys(c).length} producto(s))`; }
   if (a === 'dir_venta') {
     const o = await T.pedido(b.ref); if (!o) throw new Error('Venta no encontrada');
     for (const k of ['company', 'contact', 'address', 'address2', 'city', 'state', 'zip', 'phone']) if (b[k] != null) o[k] = String(b[k]).trim();
@@ -230,4 +240,4 @@ async function accion(b) {
   throw new Error('Acción desconocida');
 }
 
-module.exports = { rolDe, DEP_V, depPuede, log, logs, backup, restaurar, backupDiario, reorden, vReorden, alertaReorden, NIVELES, pctNivel, nivelForm, recompra, cotizar, vCotizar, envioCard, chequeo, vSistema, ACC, accion };
+module.exports = { cajasEnvio, CAJA_DEF, rolDe, DEP_V, depPuede, log, logs, backup, restaurar, backupDiario, reorden, vReorden, alertaReorden, NIVELES, pctNivel, nivelForm, recompra, cotizar, vCotizar, envioCard, chequeo, vSistema, ACC, accion };

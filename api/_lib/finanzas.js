@@ -19,7 +19,7 @@ function analizar({ ps, co, pr, p }) {
   const [a, b] = rango(p), enP = o => { const t = Date.parse(o.at); return t >= a && t < b; };
   const price = s => pr[s] && pr[s].unit_amount ? pr[s].unit_amount / 100 : 0;
   return ps.filter(o => COB(o) && enP(o)).map(o => {
-    const total = +o.total || 0, tax = +o.tax || 0, fl = +o.flete || 0, merch = Math.max(0, total - tax - fl);
+    const total = +o.total || 0, tax = +o.tax || 0, fl = o.flete != null ? +o.flete || 0 : o.flete_manual != null ? +o.flete_manual || 0 : 0, merch = Math.max(0, total - tax - fl);
     const w = i => i.cases * (price(i.slug) || 1), base = (o.items || []).reduce((s, i) => s + w(i), 0) || 1;
     const items = (o.items || []).map(i => ({ slug: i.slug, sku: i.sku, name: i.name, cases: i.cases, ing: merch * w(i) / base, cst: +co[i.slug] > 0 ? i.cases * co[i.slug] : null }));
     const cm = items.some(i => i.cst == null) ? null : items.reduce((s, i) => s + i.cst, 0);

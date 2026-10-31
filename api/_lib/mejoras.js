@@ -135,7 +135,7 @@ const estado2 = s => { const x = String(s || '').trim(); return x.length === 2 ?
 const dirTo = o => ({ name: o.contact || o.company, company: o.company, street1: o.address, street2: o.address2 || '', city: o.city, state: estado2(o.state), zip: String(o.zip || '').trim(), country: 'US', phone: o.phone || '', email: o.email, validate: true });
 async function shippo(path, body) {
   const r = await fetch('https://api.goshippo.com/' + path, { method: body ? 'POST' : 'GET', headers: { Authorization: 'ShippoToken ' + SH(), 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
-  const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error('Shippo ' + r.status + ': ' + JSON.stringify(j).slice(0, 180)); return j;
+  const j = await r.json().catch(() => ({})); if (!r.ok) { const m = j.detail || (j.__all__ || []).join(' ') || Object.entries(j).map(([k, v]) => k + ': ' + [].concat(v).join(' ')).join(' · '); throw new Error('Shippo: ' + String(m || r.status).slice(0, 200)); } return j;
 }
 async function cotizar(o) {
   if (!SH()) throw new Error('Falta SHIPPO_API_KEY en Vercel');
@@ -146,7 +146,9 @@ async function cotizar(o) {
   if (!parcels.length) throw new Error('Sin cajas'); if (parcels.length > 25) throw new Error('Más de 25 cajas: cotizá como flete (LTL)');
   const to = await shippo('addresses/', dirTo(o)), vr = to.validation_results || {};
   const val = { ok: vr.is_valid !== false, msgs: (vr.messages || []).map(m => m.text).filter(Boolean) };
-  const s = await shippo('shipments/', { address_from: { ...org, state: estado2(org.state), country: 'US' }, address_to: to.object_id, parcels, async: false });
+  if (!val.ok && !val.msgs.length) val.msgs.push('USPS no encuentra esa calle y número en ese ZIP');
+  const dt = dirTo(o); delete dt.validate;
+  const s = await shippo('shipments/', { address_from: { ...org, state: estado2(org.state), country: 'US' }, address_to: val.ok ? to.object_id : dt, parcels, async: false });
   const rates = (s.rates || []).map(r => ({ id: r.object_id, prov: r.provider, srv: (r.servicelevel || {}).name, amt: +r.amount, dias: r.estimated_days })).sort((a, b) => a.amt - b.amt);
   return { rates, val, provs: [...new Set(rates.map(r => r.prov))] };
 }
@@ -155,7 +157,7 @@ async function vCotizar(o) {
   const rates = q.rates, val = q.val || { ok: true, msgs: [] };
   const rows = (rates || []).map(r => `<tr><td><strong>${esc(r.prov)}</strong> ${esc(r.srv || '')}</td><td class="r num">${r.dias ? r.dias + ' d' : '—'}</td><td class="r num"><strong>${usd(r.amt)}</strong></td><td class="r"><form method="post" style="display:inline-flex;gap:12px;align-items:center;justify-content:flex-end" onsubmit="return confirm('¿Comprar etiqueta ${esc(r.prov)} por ${usd(r.amt)}? Se cobra en tu cuenta Shippo.')">${H('ship_buy', { ref: o.ref, rate: r.id, amt: r.amt, prov: r.prov })}<label style="display:inline-flex;gap:6px;align-items:center;font-size:13px;white-space:nowrap"><input type="checkbox" name="avisar" value="1" checked style="width:16px;height:16px;margin:0"> avisar cliente</label><button${val.ok ? '' : ' disabled title="Corregí la dirección primero"'}>Comprar</button></form></td></tr>`).join('');
   const D = [['company', 'Empresa'], ['contact', 'Contacto'], ['address', 'Dirección (calle y número)'], ['address2', 'Suite / unidad'], ['city', 'Ciudad'], ['state', 'Estado (FL, TX…)'], ['zip', 'ZIP'], ['phone', 'Teléfono']];
-  const dir = `<form method="post" class="card pad" style="display:grid;gap:12px;margin-bottom:18px">${H('dir_venta', { ref: o.ref })}<h2 style="margin:0">Dirección de entrega ${val.ok && !err ? '<span class="tag t-pagado">verificada</span>' : '<span class="tag t-cancelado">revisar</span>'}</h2>${val.msgs.length ? `<small style="color:var(--od,#b42318)">${esc(val.msgs.join(' · '))}</small>` : ''}<div class="fg">${D.map(([k, l]) => `<label>${l}<input name="${k}" value="${esc(k === 'state' ? estado2(o[k]) : o[k] || '')}"></label>`).join('')}</div><div><button class="sec">Guardar y recotizar</button></div></form>`;
+  const dir = `<form method="post" class="card pad" style="display:grid;gap:12px;margin-bottom:18px">${H('dir_venta', { ref: o.ref })}<h2 style="margin:0">Dirección de entrega ${val.ok && !err ? '<span class="tag t-pagado">verificada</span>' : '<span class="tag" style="background:#fde8e6;color:#b42318;text-decoration:none">no verificada</span>'}</h2>${val.msgs.length ? `<small style="color:#b42318">${esc(val.msgs.join(' · '))}. Revisá calle y número, y que el ZIP corresponda a la ciudad. Las tarifas de abajo son orientativas; para comprar la etiqueta la dirección tiene que verificar.</small>` : ''}<div class="fg">${D.map(([k, l]) => `<label>${l}<input name="${k}" value="${esc(k === 'state' ? estado2(o[k]) : o[k] || '')}"></label>`).join('')}</div><div><button class="sec">Guardar y recotizar</button></div></form>`;
   const falta = rates && !['UPS', 'FedEx'].every(c => (q.provs || []).some(p => p.toLowerCase().includes(c.toLowerCase())));
   const cobrado = o.flete != null ? o.flete : o.flete_manual;
   return `<div class="crumb"><a href="/admin?v=ventas">Ventas</a>/<a href="/admin?v=venta&ref=${o.ref}">${o.ref}</a>/<span>Envío</span></div><div class="hd"><div><h1>Cotizar envío</h1><div class="sub">${esc([o.company, o.address, o.city, o.state, o.zip].filter(Boolean).join(' · '))}${cobrado != null ? ' · flete cobrado al cliente ' + usd(cobrado) : ''}</div></div></div>
@@ -163,7 +165,7 @@ ${err ? `<div class="flash err">${esc(err)}</div>` : ''}${dir}${falta ? `<p clas
 }
 function envioCard(o) {
   if (o.estado === 'cancelado' || o.retiro) return '';
-  return `<div class="card pad" style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><h2 style="margin:0 auto 0 0">Etiqueta de transporte</h2>${o.label_url ? `<a class="btn" href="${esc(o.label_url)}" target="_blank">Etiqueta ${esc(o.carrier || '')} (PDF)</a>` : ''}<a class="btn sec" href="/admin?v=venta_envio&ref=${encodeURIComponent(o.ref)}">${o.label_url ? 'Otra etiqueta' : 'Cotizar UPS / FedEx / USPS'}</a></div>`;
+  return `<div class="card pad" style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><h2 style="margin:0 auto 0 0">Etiqueta de transporte</h2>${(o.etiquetas && o.etiquetas.length ? o.etiquetas : o.label_url ? [{ carrier: o.carrier, url: o.label_url, tracking: o.tracking, costo: o.envio_costo }] : []).map(e => `<a class="btn" href="${esc(e.url)}" target="_blank">${esc(e.carrier || '')} ${esc(e.tracking || '')} · ${usd(e.costo)}</a>`).join('')}<a class="btn sec" href="/admin?v=venta_envio&ref=${encodeURIComponent(o.ref)}">${o.label_url ? 'Otra etiqueta' : 'Cotizar UPS / FedEx / USPS'}</a></div>`;
 }
 
 // ── chequeo de lanzamiento ──
@@ -232,7 +234,8 @@ async function accion(b) {
     const tx = await shippo('transactions/', { rate: b.rate, label_file_type: 'PDF_4x6', async: false });
     if (tx.status !== 'SUCCESS') throw new Error('Shippo: ' + ((tx.messages || []).map(m => m.text).join(' ') || tx.status));
     const pv = String(b.prov || ''); o.carrier = /ups/i.test(pv) ? 'UPS' : /fedex/i.test(pv) ? 'FedEx' : /usps/i.test(pv) ? 'USPS' : 'Otro';
-    o.tracking = tx.tracking_number; o.label_url = tx.label_url; o.envio_costo = +b.amt || o.envio_costo; o.estado = 'enviado';
+    o.etiquetas = o.etiquetas || []; o.etiquetas.push({ at: now(), carrier: pv, tracking: tx.tracking_number, url: tx.label_url, costo: +b.amt || 0 });
+    o.tracking = tx.tracking_number; o.label_url = tx.label_url; o.envio_costo = +(o.etiquetas.reduce((x, e) => x + e.costo, 0)).toFixed(2); o.estado = 'enviado';
     T.hist(o, `Etiqueta ${o.carrier} comprada (Shippo) · ${o.tracking} · costo ${usd(o.envio_costo)}`);
     if (b.avisar === '1' && await X.mailCliente(o, 'tracking')) { o.tracking_mail = true; T.hist(o, 'Mail de seguimiento enviado a ' + o.email); }
     await T.guardarPedido(o); return { msg: `${o.ref}: etiqueta ${o.carrier} lista`, go: '/admin?v=venta&ref=' + o.ref };

@@ -70,8 +70,8 @@ form.inl{display:inline-flex;gap:6px;margin:0;align-items:center}
 @media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}aside nav{flex-direction:row;flex-wrap:wrap}.logo{padding:0 10px 0 0}aside .new{margin:0}aside .foot{display:none}}`;
 
 function layout({ v, title, body, flash = '', banner = '', counts }) {
-  const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock], ['redes', 'Redes', null]];
-  const sec = v === 'redes' ? 'redes' : v === 'inicio' ? 'inicio' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
+  const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock], ['finanzas', 'Finanzas', null], ['redes', 'Redes', null]];
+  const sec = v === 'redes' ? 'redes' : v === 'inicio' ? 'inicio' : v === 'finanzas' ? 'finanzas' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
   return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)} · K11 Admin</title><link rel="icon" href="/assets/logo-wylco.png"><style>${CSS}</style></head><body>
 <div class="shell"><aside><a class="logo" href="/admin"><img src="/assets/logo-wylco.png" alt="">K11 Admin</a>
 <nav>${nav.map(([k, l, c]) => `<a href="/admin?v=${k}" class="${sec === k ? 'on' : ''}">${l}${c != null ? `<span class="ct">${c}</span>` : ''}</a>`).join('')}</nav>
@@ -97,7 +97,7 @@ function ventas({ ps, f, q, co = {} }) {
     ['porcobrar', 'Por cobrar', porCobrar.length, usd(porCobrar.reduce((a, o) => a + (o.total || 0), 0))],
     ['pagado', 'A despachar', act.filter(o => o.estado === 'pagado').length, 'pagadas'],
     ['activas', 'Pre-pedido', act.reduce((a, o) => a + (o.items || []).reduce((b, i) => b + i.preorder, 0), 0), 'cajas sin stock'],
-    ['pagado', 'Ganancia', ing ? usd(gan) : '—', ing ? `${Math.round(gan / ing * 100)}% de ${usd(ing)} cobrado sin tax${falt ? ` · faltan costos (${falt} venta${falt > 1 ? 's' : ''} excluida${falt > 1 ? 's' : ''})` : ''}` : (falt ? `faltan costos (${falt} venta${falt > 1 ? 's' : ''})` : 'sin ventas cobradas')]];
+    ['/admin?v=finanzas', 'Ganancia', ing ? usd(gan) : '—', ing ? `${Math.round(gan / ing * 100)}% de ${usd(ing)} cobrado sin tax${falt ? ` · faltan costos (${falt} venta${falt > 1 ? 's' : ''} excluida${falt > 1 ? 's' : ''})` : ''}` : (falt ? `faltan costos (${falt} venta${falt > 1 ? 's' : ''}) · cargalos →` : 'sin ventas cobradas')]];
   let list = ps;
   if (f === 'activas') list = act; else if (f === 'porcobrar') list = porCobrar; else if (ESTADOS.includes(f)) list = ps.filter(o => o.estado === f);
   if (q) { const s = q.toLowerCase(); list = list.filter(o => [o.ref, o.company, o.email, o.contact].join(' ').toLowerCase().includes(s)); }
@@ -107,7 +107,7 @@ function ventas({ ps, f, q, co = {} }) {
 <td>${(o.items || []).map(i => `${i.cases}× <span class="m">${esc(i.sku)}</span>`).join('<br>')}${(o.items || []).some(i => i.preorder) ? '<br><small>incluye pre-pedido</small>' : ''}</td>
 <td class="r">${usd(o.total)}<br><small>${esc(o.payment || '')}</small></td><td class="r">${o.total && !sinCosto(o, co) ? usd(neto(o) - costoV(o, co)) : '—'}</td><td>${tag(o.estado)}</td></tr>`).join('');
   return `<div class="hd"><div><h1>Ventas</h1><div class="sub">Pedidos de la web, del checkout de Stripe y cargados a mano.</div></div><a class="btn" href="/admin?v=nueva">+ Nueva venta</a></div>
-<div class="kpis">${k.map(([fk, l, n, s]) => `<a class="kpi" href="/admin?v=ventas&f=${encodeURIComponent(fk)}"><div class="l">${l}</div><div class="n">${n}</div><div class="s">${s}</div></a>`).join('')}</div>
+<div class="kpis">${k.map(([fk, l, n, s]) => `<a class="kpi" href="${fk.startsWith('/') ? fk : '/admin?v=ventas&f=' + encodeURIComponent(fk)}"><div class="l">${l}</div><div class="n">${n}</div><div class="s">${s}</div></a>`).join('')}</div>
 <div class="tools"><div class="chips" style="margin:0">${chips.map(([fk, l, n]) => `<a href="/admin?v=ventas&f=${encodeURIComponent(fk)}" class="${f === fk ? 'on' : ''}">${l}<span class="ct">${n}</span></a>`).join('')}</div><span class="sp"></span>
 <form method="get" class="inl"><input type="hidden" name="v" value="ventas"><input type="hidden" name="f" value="${esc(f)}"><input name="q" value="${esc(q)}" placeholder="Buscar ref, empresa, email" style="width:240px"></form></div>
 <div class="card tw">${rows ? `<table><thead><tr><th>Venta</th><th>Cliente</th><th>Cajas</th><th class="r">Total</th><th class="r">Ganancia</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table>` : empty('No hay ventas en este filtro.')}</div>`;
@@ -200,7 +200,9 @@ function stock({ t, pr, ps, co = {}, env = { caja: 35, gratis: 2000 } }) {
 <div class="card tw"><table><thead><tr><th>Producto</th><th class="r">Disponible</th><th class="r">Reservado</th><th class="r">Pre-pedido</th><th>Ajustar</th><th>Precio / caja</th><th>Costo / caja</th><th>Venta online</th></tr></thead><tbody>${rows}</tbody></table></div>
 <p class="mut" style="font-size:12px">El precio se guarda en Stripe y se muestra en el resumen del checkout de /order. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock. El costo por caja (puesto en Miami: EXW + importación) es interno y se usa para calcular la ganancia en Ventas.</p>
 <div class="card pad"><h2>Envío</h2><form method="post" class="inl" style="flex-wrap:wrap;gap:10px;align-items:end">${H('envio_cfg')}<label>Tarifa por caja (USD)<input class="sm" type="number" step="0.01" min="0" name="caja" value="${env.caja}"></label><label>Envío gratis desde (USD, sin tax)<input class="sm" type="number" step="1" min="1" name="gratis" value="${env.gratis}"></label><button class="sec">Guardar</button></form>
-<p class="mut" style="font-size:12px;margin:8px 0 0">EE.UU. continental. Se aplica en el pago online (Stripe) y en las facturas. Retiro en Miami siempre sin cargo.</p></div>`;
+<p class="mut" style="font-size:12px;margin:8px 0 0">EE.UU. continental. Se aplica en el pago online (Stripe) y en las facturas. Retiro en Miami siempre sin cargo.</p></div>
+<div class="card pad" style="margin-top:16px;border-color:#e2b4a0"><h2>Borrar datos de prueba</h2><p class="mut" style="font-size:13px;margin:0 0 12px">Borra todas las ventas, clientes, movimientos de stock y el historial de pagos. Quedan los precios, costos, venta online y la configuración de envío. No se puede deshacer.</p>
+<form method="post" class="inl" style="flex-wrap:wrap;gap:10px;align-items:center" onsubmit="return confirm('¿Borrar todas las ventas y clientes? No se puede deshacer.')">${H('reset')}<label style="display:flex;gap:6px;align-items:center"><input type="checkbox" name="stock" value="1" checked>Poner también el stock en 0</label><input class="sm" style="width:130px" name="conf" placeholder="escribí BORRAR" autocomplete="off"><button class="danger">Borrar datos</button></form></div>`;
 }
 
 function producto({ p, price, ms, ps }) {

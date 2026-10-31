@@ -4,6 +4,7 @@ const { stripe, precios, fijarPrecio, TAX, MODE } = require('./_lib/stripe');
 const UI = require('./_lib/adminui');
 const S = require('./_lib/social');
 const E = require('./_lib/envio');
+const F = require('./_lib/finanzas');
 const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
 const CK = 'k11adm';
@@ -56,6 +57,15 @@ async function accion(b) {
     const txt = cub && cub.length ? ` · asignadas a pre-pedidos: ${cub.map(x => x.ref + ' (' + x.cajas + ')').join(', ')}` : '';
     if (cub && cub.length) await avisarCubiertos(cub);
     return (b.modo === 'fijar' ? `Inventario ${P.sku} = ${Math.max(0, v)} cajas` : `${v > 0 ? '+' : ''}${v} cajas a ${P.sku}`) + txt;
+  }
+  if (a === 'reset') {
+    if (String(b.conf || '').trim().toUpperCase() !== 'BORRAR') throw new Error('Escribí BORRAR para confirmar');
+    const [ek] = await redis([['KEYS', 'k11:evt:*']]);
+    const cmds = [['DEL', 'k11:pedidos'], ['DEL', 'k11:clientes'], ['DEL', 'k11:sess'], ['DEL', 'k11:mov']];
+    if (b.stock === '1') cmds.push(['DEL', 'k11:stock']);
+    for (const k of ek || []) cmds.push(['DEL', k]);
+    await redis(cmds);
+    return 'Datos borrados: ventas, clientes, sesiones y movimientos' + (b.stock === '1' ? ', stock en 0' : '') + '. Quedan precios, costos, venta online y envío.';
   }
   if (a === 'envio_cfg') {
     const c = parseFloat(String(b.caja).replace(',', '.')), g = parseFloat(String(b.gratis).replace(',', '.'));
@@ -157,6 +167,10 @@ module.exports = async (req, res) => {
   else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co, env: await E.config() }); }
   else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
   else if (v === 'redes') { title = 'Redes'; const ms = S.meses(); const ym = ms.includes(q.m) ? q.m : (ms.includes('2026-11') ? '2026-11' : ms[0]); const [m, conn, al] = await Promise.all([S.mes(ym), S.conectadas(), S.aliados()]); body = UI.redes({ aliados: al, m, meses: ms, conn, hasKey: !!S.KEY, NETS: S.NETS, IMG_NETS: S.IMG_NETS, seller: S.SELLER.es }); }
+  else if (v === 'finanzas') {
+    if (q.csv) { res.setHeader('Content-Type', 'text/csv; charset=utf-8'); res.setHeader('Content-Disposition', `attachment; filename="k11-finanzas-${q.p || 'todo'}.csv"`); return res.send(F.csv({ ps, co, pr, p: q.p })); }
+    title = 'Finanzas'; body = F.render({ ps, co, pr, t, p: q.p || 'todo' });
+  }
   else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '' }); }
   else {
     let mail = null;

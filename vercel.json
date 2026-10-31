@@ -114,6 +114,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/:fn(buy|checkout|enviar|etiqueta|order|panel|pedido|portal|stock|tareas|test)",
+      "destination": "/api/r?fn=:fn"
+    },
+    {
       "source": "/assets/social/:f",
       "destination": "/social/:f"
     },
@@ -163,19 +167,19 @@
     },
     {
       "source": "/order",
-      "destination": "/api/order?lang=en"
+      "destination": "/api/r?fn=order&lang=en"
     },
     {
       "source": "/es/order",
-      "destination": "/api/order?lang=es"
+      "destination": "/api/r?fn=order&lang=es"
     },
     {
       "source": "/buy/:slug",
-      "destination": "/api/buy?s=:slug"
+      "destination": "/api/r?fn=buy&s=:slug"
     },
     {
       "source": "/catalog.json",
-      "destination": "/api/stock?full=1"
+      "destination": "/api/r?fn=stock&full=1"
     },
     {
       "source": "/admin",

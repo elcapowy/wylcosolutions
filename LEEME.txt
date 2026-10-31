@@ -1,11 +1,14 @@
 CÓMO SUBIR A GITHUB
 1. Descomprimí este zip.
 2. En GitHub, abrí tu repo → Add file → Upload files.
-3. Arrastrá la carpeta "api", "vercel.json" y ".vercelignore" (reemplaza los archivos existentes, mantiene la estructura de carpetas).
-4. Commit changes. Vercel despliega solo (si no, Vercel → Deployments → Redeploy).
+3. Arrastrá el CONTENIDO de la carpeta: la carpeta "api", "vercel.json" y ".vercelignore" (archivo oculto: en Mac, Cmd+Shift+. para verlo). Reemplaza lo existente.
+4. Commit changes. Vercel despliega solo.
 
-PASOS EXTRA (una sola vez, si no los hiciste):
-- Stripe → Webhooks → tu endpoint /api/stripe → agregar evento "checkout.session.expired".
-- Vercel → Settings → Environment Variables: CRON_SECRET (cualquier texto largo).
+IMPORTANTE (límite de 12 funciones del plan gratis de Vercel):
+Ahora todo corre en 3 funciones: api/admin.js, api/stripe.js y api/r.js. Los demás (buy, checkout, order, portal, etc.) están en api/_lib/fn/.
+El .vercelignore hace que Vercel ignore los archivos viejos de api/ (buy.js, checkout.js…), así que no hace falta borrarlos. Si querés, borralos de GitHub igual.
+Las direcciones no cambian: /api/portal, /api/etiqueta, /order, etc. siguen funcionando.
 
-QUÉ INCLUYE: admin completo (Ventas, Clientes, Stock, Compras, Finanzas, Redes), checkout con resumen de precios, envío, portal del cliente, mails automáticos, etiquetas con QR, precios unificados (api/_lib/precios.js).
+PASOS EXTRA (una sola vez):
+- Stripe → Webhooks → /api/stripe → agregar evento "checkout.session.expired".
+- Vercel → Settings → Environment Variables: CRON_SECRET.

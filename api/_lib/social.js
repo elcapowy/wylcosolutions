@@ -62,7 +62,7 @@ function plan(ym) {
   let k = 0;
   return days.map((d, i) => {
     let p = fixed[d]; if (!p) { const id = FILL[k++ % FILL.length]; p = { id, ...BANK[id] }; }
-    return { day: d, at: utcAt(d), id: p.id, type: p.type, imgPath: `/assets/social/${p.id}.png`, img: `${SITE}/assets/social/${p.id}.png`, text: caption(p, ym, i), nets: IMG_NETS.slice() };
+    return { day: d, at: utcAt(d), id: p.id, type: p.type, imgPath: `/assets/social/${p.id}.png?v=3`, img: `${SITE}/assets/social/${p.id}.png?v=3`, text: caption(p, ym, i), nets: IMG_NETS.slice() };
   });
 }
 const ymOf = (d = new Date(), plus = 0) => { const ny = new Date(d.toLocaleString('en-US', { timeZone: 'America/New_York' })); ny.setDate(1); ny.setMonth(ny.getMonth() + plus); return ny.getFullYear() + '-' + String(ny.getMonth() + 1).padStart(2, '0'); };

@@ -12,7 +12,7 @@ const dfecha = s => s ? new Date(s).toLocaleString('es-AR', { timeZone: 'America
 // ── roles: ADMIN_TOKEN = todo · ADMIN_TOKEN_DEPOSITO = despacho (ventas, stock, tracking, etiquetas) ──
 function rolDe(tok) { if (!tok) return null; if (tok === process.env.ADMIN_TOKEN) return 'admin'; if (process.env.ADMIN_TOKEN_DEPOSITO && tok === process.env.ADMIN_TOKEN_DEPOSITO) return 'deposito'; return null; }
 const DEP_V = ['ventas', 'venta', 'venta_envio', 'stock', 'producto'];
-const depPuede = b => ['tracking', 'envio', 'listo', 'ship_buy'].includes(b.a) || (b.a === 'estado' && b.v === 'enviado');
+const depPuede = b => ['tracking', 'envio', 'listo', 'ship_buy', 'dir_venta'].includes(b.a) || (b.a === 'estado' && b.v === 'enviado');
 
 // ── log de auditoría (k11:log, últimas 1000) ──
 async function log(e) { try { await redis([['LPUSH', 'k11:log', JSON.stringify({ at: now(), ...e })], ['LTRIM', 'k11:log', 0, 999]]); } catch {} }
@@ -118,6 +118,9 @@ async function recompra(ps, simular) {
 
 // ── Shippo: cotizar y comprar etiqueta UPS/FedEx/USPS ──
 const SH = () => process.env.SHIPPO_API_KEY;
+const EST = { alabama: 'AL', alaska: 'AK', arizona: 'AZ', arkansas: 'AR', california: 'CA', colorado: 'CO', connecticut: 'CT', delaware: 'DE', 'district of columbia': 'DC', florida: 'FL', georgia: 'GA', hawaii: 'HI', idaho: 'ID', illinois: 'IL', indiana: 'IN', iowa: 'IA', kansas: 'KS', kentucky: 'KY', louisiana: 'LA', maine: 'ME', maryland: 'MD', massachusetts: 'MA', michigan: 'MI', minnesota: 'MN', mississippi: 'MS', missouri: 'MO', montana: 'MT', nebraska: 'NE', nevada: 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ', 'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', ohio: 'OH', oklahoma: 'OK', oregon: 'OR', pennsylvania: 'PA', 'puerto rico': 'PR', 'rhode island': 'RI', 'south carolina': 'SC', 'south dakota': 'SD', tennessee: 'TN', texas: 'TX', utah: 'UT', vermont: 'VT', virginia: 'VA', washington: 'WA', 'west virginia': 'WV', wisconsin: 'WI', wyoming: 'WY' };
+const estado2 = s => { const x = String(s || '').trim(); return x.length === 2 ? x.toUpperCase() : EST[x.toLowerCase()] || x; };
+const dirTo = o => ({ name: o.contact || o.company, company: o.company, street1: o.address, street2: o.address2 || '', city: o.city, state: estado2(o.state), zip: String(o.zip || '').trim(), country: 'US', phone: o.phone || '', email: o.email, validate: true });
 async function shippo(path, body) {
   const r = await fetch('https://api.goshippo.com/' + path, { method: body ? 'POST' : 'GET', headers: { Authorization: 'ShippoToken ' + SH(), 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
   const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error('Shippo ' + r.status + ': ' + JSON.stringify(j).slice(0, 180)); return j;
@@ -129,15 +132,22 @@ async function cotizar(o) {
   const dim = await X.cfg('caja_dim', { l: 16, w: 12, h: 10 }), peso = await X.cfg('peso', {});
   const parcels = []; for (const i of o.items || []) for (let k = 0; k < i.cases; k++) parcels.push({ length: String(dim.l), width: String(dim.w), height: String(dim.h), distance_unit: 'in', weight: String(+peso[i.slug] || 15), mass_unit: 'lb' });
   if (!parcels.length) throw new Error('Sin cajas'); if (parcels.length > 25) throw new Error('Más de 25 cajas: cotizá como flete (LTL)');
-  const s = await shippo('shipments/', { address_from: { ...org, country: 'US' }, address_to: { name: o.contact || o.company, company: o.company, street1: o.address, city: o.city, state: o.state, zip: o.zip, country: 'US', phone: o.phone || '', email: o.email }, parcels, async: false });
-  return (s.rates || []).map(r => ({ id: r.object_id, prov: r.provider, srv: (r.servicelevel || {}).name, amt: +r.amount, dias: r.estimated_days })).sort((a, b) => a.amt - b.amt);
+  const to = await shippo('addresses/', dirTo(o)), vr = to.validation_results || {};
+  const val = { ok: vr.is_valid !== false, msgs: (vr.messages || []).map(m => m.text).filter(Boolean) };
+  const s = await shippo('shipments/', { address_from: { ...org, state: estado2(org.state), country: 'US' }, address_to: to.object_id, parcels, async: false });
+  const rates = (s.rates || []).map(r => ({ id: r.object_id, prov: r.provider, srv: (r.servicelevel || {}).name, amt: +r.amount, dias: r.estimated_days })).sort((a, b) => a.amt - b.amt);
+  return { rates, val, provs: [...new Set(rates.map(r => r.prov))] };
 }
 async function vCotizar(o) {
-  let rates, err; try { rates = await cotizar(o); } catch (e) { err = e.message; }
-  const rows = (rates || []).map(r => `<tr><td><strong>${esc(r.prov)}</strong> ${esc(r.srv || '')}</td><td class="num">${r.dias ? r.dias + ' d' : '—'}</td><td class="r num"><strong>${usd(r.amt)}</strong></td><td class="r"><form method="post" class="inl" onsubmit="return confirm('¿Comprar etiqueta ${esc(r.prov)} por ${usd(r.amt)}? Se cobra en tu cuenta Shippo.')">${H('ship_buy', { ref: o.ref, rate: r.id, amt: r.amt, prov: r.prov })}<label><input type="checkbox" name="avisar" value="1" checked> avisar cliente</label> <button>Comprar</button></form></td></tr>`).join('');
+  let q = {}, err; try { q = await cotizar(o); } catch (e) { err = e.message; }
+  const rates = q.rates, val = q.val || { ok: true, msgs: [] };
+  const rows = (rates || []).map(r => `<tr><td><strong>${esc(r.prov)}</strong> ${esc(r.srv || '')}</td><td class="r num">${r.dias ? r.dias + ' d' : '—'}</td><td class="r num"><strong>${usd(r.amt)}</strong></td><td class="r"><form method="post" style="display:inline-flex;gap:12px;align-items:center;justify-content:flex-end" onsubmit="return confirm('¿Comprar etiqueta ${esc(r.prov)} por ${usd(r.amt)}? Se cobra en tu cuenta Shippo.')">${H('ship_buy', { ref: o.ref, rate: r.id, amt: r.amt, prov: r.prov })}<label style="display:inline-flex;gap:6px;align-items:center;font-size:13px;white-space:nowrap"><input type="checkbox" name="avisar" value="1" checked style="width:16px;height:16px;margin:0"> avisar cliente</label><button${val.ok ? '' : ' disabled title="Corregí la dirección primero"'}>Comprar</button></form></td></tr>`).join('');
+  const D = [['company', 'Empresa'], ['contact', 'Contacto'], ['address', 'Dirección (calle y número)'], ['address2', 'Suite / unidad'], ['city', 'Ciudad'], ['state', 'Estado (FL, TX…)'], ['zip', 'ZIP'], ['phone', 'Teléfono']];
+  const dir = `<form method="post" class="card pad" style="display:grid;gap:12px;margin-bottom:18px">${H('dir_venta', { ref: o.ref })}<h2 style="margin:0">Dirección de entrega ${val.ok && !err ? '<span class="tag t-pagado">verificada</span>' : '<span class="tag t-cancelado">revisar</span>'}</h2>${val.msgs.length ? `<small style="color:var(--od,#b42318)">${esc(val.msgs.join(' · '))}</small>` : ''}<div class="fg">${D.map(([k, l]) => `<label>${l}<input name="${k}" value="${esc(k === 'state' ? estado2(o[k]) : o[k] || '')}"></label>`).join('')}</div><div><button class="sec">Guardar y recotizar</button></div></form>`;
+  const falta = rates && !['UPS', 'FedEx'].every(c => (q.provs || []).some(p => p.toLowerCase().includes(c.toLowerCase())));
   const cobrado = o.flete != null ? o.flete : o.flete_manual;
   return `<div class="crumb"><a href="/admin?v=ventas">Ventas</a>/<a href="/admin?v=venta&ref=${o.ref}">${o.ref}</a>/<span>Envío</span></div><div class="hd"><div><h1>Cotizar envío</h1><div class="sub">${esc([o.company, o.address, o.city, o.state, o.zip].filter(Boolean).join(' · '))}${cobrado != null ? ' · flete cobrado al cliente ' + usd(cobrado) : ''}</div></div></div>
-${err ? `<div class="flash err">${esc(err)}</div>` : rows ? `<div class="card tw"><table><thead><tr><th>Servicio</th><th class="r">Tránsito</th><th class="r">Costo</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><p class="mut" style="font-size:13px">Al comprar: se guarda tracking, etiqueta PDF 4×6 y costo real (resta de la ganancia), y la venta pasa a enviado.</p>` : '<div class="empty">Sin tarifas para esta dirección.</div>'}`;
+${err ? `<div class="flash err">${esc(err)}</div>` : ''}${dir}${falta ? `<p class="mut" style="font-size:13px;margin:0 0 12px">Solo aparecen ${esc((q.provs || []).join(', ') || 'algunos transportistas')}. Para ver UPS y FedEx: Shippo → Settings → Carriers → activá UPS y FedEx (cuentas de Shippo o las tuyas).</p>` : ''}${err ? '' : rows ? `<div class="card tw"><table><thead><tr><th>Servicio</th><th class="r">Tránsito</th><th class="r">Costo</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><p class="mut" style="font-size:13px">Al comprar: se guarda tracking, etiqueta PDF 4×6 y costo real (resta de la ganancia), y la venta pasa a enviado.</p>` : '<div class="empty">Sin tarifas para esta dirección.</div>'}`;
 }
 function envioCard(o) {
   if (o.estado === 'cancelado' || o.retiro) return '';
@@ -191,7 +201,7 @@ function vSistema({ C, L, niv, org, dim, peso }) {
 }
 
 // ── acciones del admin ──
-const ACC = ['backup_mail', 'backup_restore', 'reorden_cfg', 'niveles_cfg', 'nivel_cli', 'origen_cfg', 'caja_cfg', 'ship_buy'];
+const ACC = ['dir_venta', 'backup_mail', 'backup_restore', 'reorden_cfg', 'niveles_cfg', 'nivel_cli', 'origen_cfg', 'caja_cfg', 'ship_buy'];
 async function accion(b) {
   const a = b.a, num = v => parseFloat(String(v || '').replace(',', '.'));
   if (a === 'backup_mail') { const n = await backupDiario(); return `Backup enviado a ${X.TO()} · ${n} claves`; }
@@ -201,6 +211,12 @@ async function accion(b) {
   if (a === 'nivel_cli') { const c = await T.cliente(b.id); if (!c) throw new Error('Cliente no encontrado'); if (b.nivel && b.nivel !== 'distribuidor') c.nivel = String(b.nivel); else delete c.nivel; await T.guardarCliente(c); return 'Nivel: ' + (NIVELES.find(([k]) => k === (c.nivel || 'distribuidor')) || [])[1]; }
   if (a === 'origen_cfg') { const o = {}; for (const k of ['name', 'company', 'street1', 'city', 'state', 'zip', 'phone', 'email']) o[k] = String(b[k] || '').trim(); if (!o.street1 || !o.zip) throw new Error('Falta dirección o ZIP'); await X.setCfg('origen', o); return 'Origen de envíos guardado'; }
   if (a === 'caja_cfg') { const d = { l: num(b.l) || 16, w: num(b.w) || 12, h: num(b.h) || 10 }, p = {}; for (const x of T.PRODUCTS) { const v = num(b['p_' + x.slug]); if (v > 0) p[x.slug] = v; } await X.setCfg('caja_dim', d); await X.setCfg('peso', p); return `Caja ${d.l}×${d.w}×${d.h} in guardada`; }
+  if (a === 'dir_venta') {
+    const o = await T.pedido(b.ref); if (!o) throw new Error('Venta no encontrada');
+    for (const k of ['company', 'contact', 'address', 'address2', 'city', 'state', 'zip', 'phone']) if (b[k] != null) o[k] = String(b[k]).trim();
+    o.state = estado2(o.state); T.hist(o, 'Dirección de entrega corregida: ' + [o.address, o.address2, o.city, o.state, o.zip].filter(Boolean).join(', '));
+    await T.guardarPedido(o); return { msg: 'Dirección guardada', go: '/admin?v=venta_envio&ref=' + encodeURIComponent(o.ref) };
+  }
   if (a === 'ship_buy') {
     const o = await T.pedido(b.ref); if (!o) throw new Error('Venta no encontrada');
     const tx = await shippo('transactions/', { rate: b.rate, label_file_type: 'PDF_4x6', async: false });

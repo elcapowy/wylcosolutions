@@ -1,18 +1,1 @@
-CÓMO SUBIR A GITHUB (repo elcapowy/wylcosolutions)
-1. Descomprimí este zip.
-2. En GitHub: repo → Add file → Upload files.
-3. Arrastrá la carpeta "api" y "vercel.json" (reemplazan lo existente; los demás archivos no se tocan).
-4. Commit changes. Vercel despliega solo (1–2 min).
-
-ARCHIVOS
-Nuevos: api/_lib/mejoras.js, api/_lib/fn/feed.js
-Modificados: api/admin.js, api/r.js, vercel.json, api/_lib/extras.js, api/_lib/adminui.js, api/_lib/fn/tareas.js, api/_lib/fn/etiqueta.js
-
-DESPUÉS DE SUBIR
-- Entrá a /admin → Sistema: ahí ves qué falta (verde/rojo).
-- Vercel → Settings → Environment Variables:
-  CRON_SECRET (obligatoria, cualquier texto largo)
-  SHIPPO_API_KEY (opcional, etiquetas UPS/FedEx)
-  ADMIN_TOKEN_DEPOSITO (opcional, usuario de depósito)
-  Después de agregar variables: Deployments → Redeploy.
-- En Sistema: tocá "Mandar por mail" para probar el backup.
+Subí la carpeta "api" a GitHub (Add file → Upload files). Reemplaza solo api/_lib/mejoras.js.

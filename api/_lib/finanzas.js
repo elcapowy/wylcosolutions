@@ -5,8 +5,8 @@ const pct = (a, b) => b ? (Math.round(a / b * 1000) / 10) + '%' : '—';
 const COB = o => ['pagado', 'enviado'].includes(o.estado);
 const PER = { todo: 'Todo', mes: 'Este mes', mesant: 'Mes anterior', trim: 'Últimos 3 meses', anio: 'Este año' };
 const MESN = ym => new Date(ym + '-15T12:00:00Z').toLocaleDateString('es-AR', { month: 'short', year: 'numeric', timeZone: 'UTC' });
-// Costo EXW por caja de la planilla de importación (referencia, sin importación)
-const EXW = { 'tfk11-10': 6.30 * 192, 'tfk11-co': 7.80 * 192, 'k11-2in1-11': 7.80 * 192, 'spk11-b35': 5.00 * 48 };
+// Costo fábrica (EXW) por caja — de la lista única api/_lib/precios.js
+const EXW = Object.fromEntries(require('./precios').SKU.map(s => [s.slug, s.c * s.u]));
 function rango(p) {
   const n = new Date(), y = n.getUTCFullYear(), m = n.getUTCMonth();
   if (p === 'mes') return [Date.UTC(y, m, 1), Infinity];

@@ -1,7 +1,11 @@
-Subí TODO el contenido de esta carpeta a la raíz del repo (reemplazar). Después: Vercel → Redeploy.
+CÓMO SUBIR A GITHUB
+1. Descomprimí este zip.
+2. En GitHub, abrí tu repo → Add file → Upload files.
+3. Arrastrá la carpeta "api", "vercel.json" y ".vercelignore" (reemplaza los archivos existentes, mantiene la estructura de carpetas).
+4. Commit changes. Vercel despliega solo (si no, Vercel → Deployments → Redeploy).
 
-Pasos extra (una vez):
-1. Stripe → Developers → Webhooks → tu endpoint /api/stripe → agregar el evento "checkout.session.expired" (carrito abandonado).
-2. Vercel → Settings → Environment Variables: CRON_SECRET (cualquier texto largo) para el cron diario /api/tareas (recordatorios de pago).
-3. Admin → Stock: cargar stock mínimo, embarques en camino y descuentos por volumen.
-4. Admin → Finanzas: cargar gastos fijos mensuales.
+PASOS EXTRA (una sola vez, si no los hiciste):
+- Stripe → Webhooks → tu endpoint /api/stripe → agregar evento "checkout.session.expired".
+- Vercel → Settings → Environment Variables: CRON_SECRET (cualquier texto largo).
+
+QUÉ INCLUYE: admin completo (Ventas, Clientes, Stock, Compras, Finanzas, Redes), checkout con resumen de precios, envío, portal del cliente, mails automáticos, etiquetas con QR, precios unificados (api/_lib/precios.js).

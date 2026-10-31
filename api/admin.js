@@ -7,6 +7,7 @@ const E = require('./_lib/envio');
 const F = require('./_lib/finanzas');
 const X = require('./_lib/extras');
 const U2 = require('./_lib/adminui2');
+const CO = require('./_lib/compras');
 const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
 const CK = 'k11adm';
@@ -55,6 +56,7 @@ async function avisarCubiertos(cub) {
 }
 async function accion(b) {
   const a = b.a, s = b.s, P = T.BY[s];
+  if (String(a).startsWith('compra_')) { const r = await CO.accion(b); if (r && r.cub && r.cub.length) await avisarCubiertos(r.cub); return r; }
   if (a === 'stock' && P) {
     const v = parseInt(b.v, 10); if (isNaN(v)) throw new Error('Ingresá una cantidad');
     const cub = b.modo === 'fijar' ? await T.fijarStock(s, Math.max(0, v)) : await T.sumarStock(s, v);
@@ -185,13 +187,14 @@ module.exports = async (req, res) => {
     let back = '/admin';
     try { const r = new URL(req.headers.referer || ''); r.searchParams.delete('ok'); back = r.pathname + r.search; } catch {}
     let msg;
-    try { const r = await accion(b); if (r && r.go) { back = r.go; msg = r.msg; } else msg = r; } catch (e) { msg = 'Error: ' + (e.message || e); }
+    try { const r = await accion(b); if (r && r.go) { back = r.go; msg = r.msg; } else msg = r && typeof r === 'object' ? r.msg : r; } catch (e) { msg = 'Error: ' + (e.message || e); }
     return go(back + (back.includes('?') ? '&' : '?') + 'ok=' + encodeURIComponent(msg));
   }
 
   const v = q.v || 'inicio';
   const [t, ps, cs, pr, coR] = await Promise.all([T.leerTienda(), T.pedidos(), T.clientes(), precios(T.PRODUCTS.map(p => p.slug)).catch(e => ({ _err: e.message })), redis([['HGETALL', 'k11:costo']]).catch(() => [null])]);
   const co = {}; { const x = coR && coR[0]; if (Array.isArray(x)) for (let j = 0; j < x.length; j += 2) co[x[j]] = +x[j + 1]; else if (x && typeof x === 'object') Object.assign(co, x); }
+  { const auto = require('./_lib/precios').costoCaja(); for (const k in auto) if (!(co[k] > 0)) co[k] = auto[k]; } // costo real calculado si no se cargó a mano
   // alta automática de clientes de ventas viejas
   const ids = new Set(cs.map(c => c.id));
   for (const o of ps) if (o.email && !ids.has(T.cid(o.email))) { const c = await T.upsertCliente(o); cs.push(c); ids.add(c.id); }
@@ -200,7 +203,8 @@ module.exports = async (req, res) => {
   const sw = process.env.STRIPE_WEBHOOK_SECRET;
   const banner = MODE === 'off' ? '<div class="flash err">Stripe no conectado: falta STRIPE_SECRET_KEY en Vercel.</div>'
     : `<div class="mode"><span><span class="dot ${MODE === 'live' ? 'ok' : ''}"></span>Stripe <b>${MODE === 'test' ? 'modo prueba' : 'en vivo'}</b></span><span><span class="dot ${TAX ? 'ok' : 'no'}"></span>Tax <b>${TAX ? 'automático' : 'desactivado'}</b></span><span><span class="dot ${sw ? 'ok' : 'no'}"></span>Webhook <b>${sw ? 'configurado' : 'falta secreto'}</b></span>${pr._err ? `<span class="no">Stripe: ${UI.esc(pr._err)}</span>` : ''}<a href="${DASH}" target="_blank">Abrir Stripe ↗</a></div>`;
-  const counts = { ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: '/api/panel?k=' + encodeURIComponent(TOK) };
+  const cps = await CO.lista().catch(() => []);
+  const counts = { compras: cps.filter(c => ['borrador', 'pedido', 'en camino'].includes(c.estado)).length, ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: '/api/panel?k=' + encodeURIComponent(TOK) };
   let body, title;
   if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; const env = await E.config(); body = o ? UI.venta({ o, env, co, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) + U2.despacho(o) : '<h1>Venta no encontrada</h1>'; }
   else if (v === 'nueva') { title = 'Nueva venta'; body = UI.nueva({ t, cs: cs.slice().sort((a, b) => (a.company || '').localeCompare(b.company || '')), sel: q.id && cs.find(c => c.id === T.cid(q.id)), rep: q.rep && ps.find(o => o.ref === q.rep) }); }
@@ -213,6 +217,8 @@ module.exports = async (req, res) => {
     if (q.csv) { res.setHeader('Content-Type', 'text/csv; charset=utf-8'); res.setHeader('Content-Disposition', `attachment; filename="k11-finanzas-${q.p || 'todo'}.csv"`); return res.send(F.csv({ ps, co, pr, p: q.p, gastos: await X.cfg('gastos', []) })); }
     title = 'Finanzas'; body = F.render({ ps, co, pr, t, p: q.p || 'todo', gastos: await X.cfg('gastos', []) });
   }
+  else if (v === 'compras') { title = 'Compras'; body = CO.vLista(cps); }
+  else if (v === 'compra') { const c = cps.find(x => x.id === q.id); title = c ? c.nombre : 'Compra'; body = c ? CO.vDetalle(c, Object.fromEntries(t.map(p => [p.slug, p.cases_available]))) : '<p>No encontrado. <a href="/admin?v=compras">Volver</a></p>'; }
   else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '' }); }
   else {
     let mail = null;

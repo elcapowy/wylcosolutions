@@ -43,12 +43,19 @@ async function crearFactura(o) {
   return s;
 }
 
+async function avisarCubiertos(cub) {
+  const to = process.env.ORDER_TO || 'info@wylcosolutions.com';
+  const body = cub.map(x => `${x.ref} · ${x.company} · ${x.cajas} caja(s) ${x.sku}${x.listo ? ' · COMPLETO, listo para despachar' : ' · todavía falta stock'}\nhttps://wylcosolutions.com/admin?v=venta&ref=${x.ref}`).join('\n\n');
+  try { const { enviar } = require('./_lib/core'); await enviar(to, `[K11] Stock asignado a ${cub.length} pre-pedido(s)`, body); } catch {}
+}
 async function accion(b) {
   const a = b.a, s = b.s, P = T.BY[s];
   if (a === 'stock' && P) {
     const v = parseInt(b.v, 10); if (isNaN(v)) throw new Error('Ingresá una cantidad');
-    if (b.modo === 'fijar') { await T.fijarStock(s, Math.max(0, v)); return `Inventario ${P.sku} = ${Math.max(0, v)} cajas`; }
-    await T.sumarStock(s, v); return `${v > 0 ? '+' : ''}${v} cajas a ${P.sku}`;
+    const cub = b.modo === 'fijar' ? await T.fijarStock(s, Math.max(0, v)) : await T.sumarStock(s, v);
+    const txt = cub && cub.length ? ` · asignadas a pre-pedidos: ${cub.map(x => x.ref + ' (' + x.cajas + ')').join(', ')}` : '';
+    if (cub && cub.length) await avisarCubiertos(cub);
+    return (b.modo === 'fijar' ? `Inventario ${P.sku} = ${Math.max(0, v)} cajas` : `${v > 0 ? '+' : ''}${v} cajas a ${P.sku}`) + txt;
   }
   if (a === 'envio_cfg') {
     const c = parseFloat(String(b.caja).replace(',', '.')), g = parseFloat(String(b.gratis).replace(',', '.'));

@@ -35,8 +35,24 @@ async function fijarStock(slug, v) {
   const [old] = await redis([['HGET', 'k11:stock', slug]]);
   await redis([['HSET', 'k11:stock', slug, String(v)]]);
   await mov(slug, v - (parseInt(old || '0', 10) || 0), 'inventario');
+  return cubrirPrepedidos(slug);
 }
-async function sumarStock(slug, v, motivo) { await redis([['HINCRBY', 'k11:stock', slug, v]]); await mov(slug, v, motivo || (v > 0 ? 'ingreso' : 'ajuste')); }
+async function sumarStock(slug, v, motivo) { await redis([['HINCRBY', 'k11:stock', slug, v]]); await mov(slug, v, motivo || (v > 0 ? 'ingreso' : 'ajuste')); return v > 0 ? cubrirPrepedidos(slug) : []; }
+// Al entrar stock: asigna cajas a los pre-pedidos abiertos, del más viejo al más nuevo
+async function cubrirPrepedidos(slug) {
+  const ps = (await pedidos()).filter(o => !['enviado', 'cancelado'].includes(o.estado) && (o.items || []).some(i => i.slug === slug && i.preorder > 0)).sort((a, b) => a.at.localeCompare(b.at));
+  const out = [];
+  for (const o of ps) {
+    const i = o.items.find(x => x.slug === slug && x.preorder > 0);
+    const r = await reservar(slug, i.preorder, o.ref); if (!r) break;
+    i.reserved = (i.reserved || 0) + r; i.preorder -= r;
+    const listo = o.items.every(x => !x.preorder);
+    hist(o, `Stock asignado: ${r} caja(s) ${i.sku} de pre-pedido${listo ? ' · pedido completo, listo para despachar' : ''}`);
+    await guardarPedido(o); out.push({ ref: o.ref, company: o.company, email: o.email, sku: i.sku, cajas: r, listo });
+    if (i.preorder) break;
+  }
+  return out;
+}
 // reserva hasta q cajas; devuelve cuántas tomó del stock
 async function reservar(slug, q, ref) {
   const [after] = await redis([['HINCRBY', 'k11:stock', slug, -q]]);
@@ -80,4 +96,4 @@ async function crearVenta({ datos, items, origen, estado, ref, extra }) {
 }
 const pick = (o, ks) => { const r = {}; for (const k of ks) if (o && o[k] != null && o[k] !== '') r[k] = o[k]; return r; };
 
-module.exports = { PRODUCTS, BY, SITE, cid, leerTienda, mov, movimientos, fijarStock, sumarStock, reservar, devolver, devolverPedido, clientes, cliente, guardarCliente, upsertCliente, pedidos, pedido, guardarPedido, hist, crearVenta };
+module.exports = { cubrirPrepedidos, PRODUCTS, BY, SITE, cid, leerTienda, mov, movimientos, fijarStock, sumarStock, reservar, devolver, devolverPedido, clientes, cliente, guardarCliente, upsertCliente, pedidos, pedido, guardarPedido, hist, crearVenta };

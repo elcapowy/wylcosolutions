@@ -3,6 +3,7 @@ const T = require('./_lib/tienda');
 const { stripe, precios, fijarPrecio, TAX, MODE } = require('./_lib/stripe');
 const UI = require('./_lib/adminui');
 const S = require('./_lib/social');
+const E = require('./_lib/envio');
 const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
 const CK = 'k11adm';
@@ -27,7 +28,13 @@ async function crearFactura(o) {
     footer: 'Wylco LLC · Miami, FL · info@wylcosolutions.com · +1 (954) 881-8870',
     payment_settings: { payment_method_types: ['card', 'us_bank_account', 'customer_balance'], payment_method_options: { customer_balance: { funding_type: 'bank_transfer', bank_transfer: { type: 'us_bank_transfer' } } } }
   });
+  const cfg = await E.config(), sub = o.items.reduce((a, i) => a + pr[i.slug].unit_amount * i.cases, 0) / 100, nc = o.items.reduce((a, i) => a + i.cases, 0);
+  const fl = o.flete_manual != null ? +o.flete_manual : E.flete(cfg, sub, nc, o.retiro);
   for (const i of o.items) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
+  if (fl > 0) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: Math.round(fl * 100), currency: 'usd', tax_code: 'txcd_92010001', tax_behavior: 'exclusive', description: `Ground shipping — ${nc} case(s) (free on orders $${cfg.gratis.toLocaleString('en-US')}+)` });
+  else if (!o.retiro) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: `Shipping — free (order over $${cfg.gratis.toLocaleString('en-US')})` });
+  else await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: 'Pickup in Miami — no shipping charge' });
+  o.flete = fl;
   await stripe('invoices/' + inv.id + '/finalize', {});
   const s = await stripe('invoices/' + inv.id + '/send', {});
   Object.assign(o, { estado: 'confirmado', invoice: s.id, invoice_url: s.hosted_invoice_url, invoice_pdf: s.invoice_pdf, total: s.total / 100, tax: (s.tax || 0) / 100 });
@@ -42,6 +49,11 @@ async function accion(b) {
     const v = parseInt(b.v, 10); if (isNaN(v)) throw new Error('Ingresá una cantidad');
     if (b.modo === 'fijar') { await T.fijarStock(s, Math.max(0, v)); return `Inventario ${P.sku} = ${Math.max(0, v)} cajas`; }
     await T.sumarStock(s, v); return `${v > 0 ? '+' : ''}${v} cajas a ${P.sku}`;
+  }
+  if (a === 'envio_cfg') {
+    const c = parseFloat(String(b.caja).replace(',', '.')), g = parseFloat(String(b.gratis).replace(',', '.'));
+    if (!(c >= 0) || !(g > 0)) throw new Error('Cargá tarifa por caja y monto para envío gratis');
+    await E.guardar(c, g); return `Envío: USD ${c.toFixed(2)} por caja · gratis desde USD ${g.toFixed(0)}`;
   }
   if (a === 'costo' && P) {
     const v = parseFloat(String(b.v).replace(',', '.'));
@@ -77,6 +89,13 @@ async function accion(b) {
   if (a === 'socm_edit') { await S.editarPost(b.ym, +b.i, b.text, S.IMG_NETS.filter(n => b['net_' + n]), b.off === '1'); return 'Post guardado'; }
   const o = b.ref ? await T.pedido(b.ref) : null;
   if (!o) throw new Error('Acción desconocida');
+  if (a === 'envio') {
+    const v = parseFloat(String(b.costo || '').replace(',', '.'));
+    o.envio_costo = v >= 0 ? v : null; if (o.envio_costo == null) delete o.envio_costo;
+    if (!o.invoice && o.origen !== 'stripe') { o.retiro = b.retiro === '1'; const m = String(b.flete_manual || '').trim(); if (m === '') delete o.flete_manual; else o.flete_manual = Math.max(0, parseFloat(m.replace(',', '.')) || 0); }
+    T.hist(o, 'Envío: ' + (o.retiro ? 'retiro en Miami' : 'despacho') + (o.envio_costo != null ? ` · costo USD ${o.envio_costo.toFixed(2)}` : '') + (o.flete_manual != null ? ` · flete cobrado USD ${o.flete_manual.toFixed(2)} (manual)` : ''));
+    await T.guardarPedido(o); return o.ref + ': envío guardado';
+  }
   if (a === 'factura') { if (o.invoice) return 'Esta venta ya tiene factura'; const inv = await crearFactura(o); return `Factura ${inv.number} enviada a ${o.email}`; }
   if (a === 'estado' && UI.ESTADOS.includes(b.v)) {
     if (b.v === 'cancelado' && o.estado !== 'cancelado') { await T.devolverPedido(o); if (o.invoice) await stripe('invoices/' + o.invoice + '/void', {}).catch(() => {}); }
@@ -124,11 +143,11 @@ module.exports = async (req, res) => {
     : `<div class="mode"><span><span class="dot ${MODE === 'live' ? 'ok' : ''}"></span>Stripe <b>${MODE === 'test' ? 'modo prueba' : 'en vivo'}</b></span><span><span class="dot ${TAX ? 'ok' : 'no'}"></span>Tax <b>${TAX ? 'automático' : 'desactivado'}</b></span><span><span class="dot ${sw ? 'ok' : 'no'}"></span>Webhook <b>${sw ? 'configurado' : 'falta secreto'}</b></span>${pr._err ? `<span class="no">Stripe: ${UI.esc(pr._err)}</span>` : ''}<a href="${DASH}" target="_blank">Abrir Stripe ↗</a></div>`;
   const counts = { ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: '/api/panel?k=' + encodeURIComponent(TOK) };
   let body, title;
-  if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; body = o ? UI.venta({ o, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) : '<h1>Venta no encontrada</h1>'; }
+  if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; const env = await E.config(); body = o ? UI.venta({ o, env, co, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) : '<h1>Venta no encontrada</h1>'; }
   else if (v === 'nueva') { title = 'Nueva venta'; body = UI.nueva({ t, cs: cs.slice().sort((a, b) => (a.company || '').localeCompare(b.company || '')), sel: q.id && cs.find(c => c.id === T.cid(q.id)) }); }
   else if (v === 'clientes') { title = 'Clientes'; body = UI.clientes({ cs, ps, q: q.q || '' }); }
   else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) : '<h1>Cliente no encontrado</h1>'; }
-  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co }); }
+  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co, env: await E.config() }); }
   else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
   else if (v === 'redes') { title = 'Redes'; const ms = S.meses(); const ym = ms.includes(q.m) ? q.m : (ms.includes('2026-11') ? '2026-11' : ms[0]); const [m, conn, al] = await Promise.all([S.mes(ym), S.conectadas(), S.aliados()]); body = UI.redes({ aliados: al, m, meses: ms, conn, hasKey: !!S.KEY, NETS: S.NETS, IMG_NETS: S.IMG_NETS, seller: S.SELLER.es }); }
   else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '' }); }

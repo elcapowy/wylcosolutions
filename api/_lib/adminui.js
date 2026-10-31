@@ -69,7 +69,7 @@ form.inl{display:inline-flex;gap:6px;margin:0;align-items:center}
 .login{min-height:100vh;display:grid;place-items:center;padding:24px}.login .card{max-width:360px;width:100%}
 @media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}aside nav{flex-direction:row;flex-wrap:wrap}.logo{padding:0 10px 0 0}aside .new{margin:0}aside .foot{display:none}}`;
 
-function layout({ v, title, body, flash, banner, counts }) {
+function layout({ v, title, body, flash = '', banner = '', counts }) {
   const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock], ['redes', 'Redes', null]];
   const sec = v === 'redes' ? 'redes' : v === 'inicio' ? 'inicio' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
   return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)} · K11 Admin</title><link rel="icon" href="/assets/logo-wylco.png"><style>${CSS}</style></head><body>
@@ -86,18 +86,18 @@ const login = err => `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"
 // ── VENTAS ──
 const COBRADO = o => ['pagado', 'enviado'].includes(o.estado);
 const neto = o => Math.max(0, (o.total || 0) - (o.tax || 0));
-const costoV = (o, co) => (o.items || []).reduce((a, i) => a + (i.cases || 0) * (+co[i.slug] || 0), 0);
+const costoV = (o, co) => (o.items || []).reduce((a, i) => a + (i.cases || 0) * (+co[i.slug] || 0), 0) + (+o.envio_costo || 0);
 const sinCosto = (o, co) => (o.items || []).some(i => !(+co[i.slug] > 0));
 function ventas({ ps, f, q, co = {} }) {
   const act = ps.filter(ACTIVOS);
-  const cob = ps.filter(COBRADO), ing = cob.reduce((a, o) => a + neto(o), 0), cst = cob.reduce((a, o) => a + costoV(o, co), 0), gan = ing - cst, falt = cob.some(o => sinCosto(o, co));
+  const cobT = ps.filter(COBRADO), cob = cobT.filter(o => !sinCosto(o, co)), falt = cobT.length - cob.length, ing = cob.reduce((a, o) => a + neto(o), 0), cst = cob.reduce((a, o) => a + costoV(o, co), 0), gan = ing - cst;
   const porCobrar = act.filter(o => ['confirmado', 'pago pendiente'].includes(o.estado));
   const k = [
     ['nuevo', 'Por facturar', act.filter(o => o.estado === 'nuevo').length, 'pedidos nuevos'],
     ['porcobrar', 'Por cobrar', porCobrar.length, usd(porCobrar.reduce((a, o) => a + (o.total || 0), 0))],
     ['pagado', 'A despachar', act.filter(o => o.estado === 'pagado').length, 'pagadas'],
     ['activas', 'Pre-pedido', act.reduce((a, o) => a + (o.items || []).reduce((b, i) => b + i.preorder, 0), 0), 'cajas sin stock'],
-    ['pagado', 'Ganancia', ing ? usd(gan) : '—', ing ? `${Math.round(gan / ing * 100)}% de ${usd(ing)} cobrado sin tax${falt ? ' · faltan costos' : ''}` : 'sin ventas cobradas']];
+    ['pagado', 'Ganancia', ing ? usd(gan) : '—', ing ? `${Math.round(gan / ing * 100)}% de ${usd(ing)} cobrado sin tax${falt ? ` · faltan costos (${falt} venta${falt > 1 ? 's' : ''} excluida${falt > 1 ? 's' : ''})` : ''}` : (falt ? `faltan costos (${falt} venta${falt > 1 ? 's' : ''})` : 'sin ventas cobradas')]];
   let list = ps;
   if (f === 'activas') list = act; else if (f === 'porcobrar') list = porCobrar; else if (ESTADOS.includes(f)) list = ps.filter(o => o.estado === f);
   if (q) { const s = q.toLowerCase(); list = list.filter(o => [o.ref, o.company, o.email, o.contact].join(' ').toLowerCase().includes(s)); }
@@ -113,7 +113,7 @@ function ventas({ ps, f, q, co = {} }) {
 <div class="card tw">${rows ? `<table><thead><tr><th>Venta</th><th>Cliente</th><th>Cajas</th><th class="r">Total</th><th class="r">Ganancia</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table>` : empty('No hay ventas en este filtro.')}</div>`;
 }
 
-function venta({ o, c, mode, dash }) {
+function venta({ o, c, mode, dash, env = { caja: 35, gratis: 2000 }, co = {} }) {
   const r = { ref: o.ref };
   const acts = [];
   const abierta = ACTIVOS(o);
@@ -134,7 +134,13 @@ function venta({ o, c, mode, dash }) {
 <dt>Envío</dt><dd>${esc([o.address, o.city, o.state, o.zip].filter(Boolean).join(', '))}</dd><dt>Tipo</dt><dd>${esc(o.business_type || '')}</dd><dt>EIN / reventa</dt><dd>${esc(o.ein || '—')}</dd></dl></div>
 <div class="card pad"><h2>Pago</h2><dl class="kv"><dt>Total</dt><dd><strong>${usd(o.total)}</strong>${o.tax ? ` <small>(tax ${usd(o.tax)})</small>` : ''}</dd><dt>Forma</dt><dd>${esc(o.payment || '—')}</dd>
 <dt>Factura</dt><dd>${o.invoice ? `<a href="${esc(o.invoice_url)}" target="_blank">Ver factura</a> · <a href="${esc(o.invoice_pdf)}" target="_blank">PDF</a> · <a href="${dash}/invoices/${o.invoice}" target="_blank">Stripe</a>` : o.origen === 'stripe' ? `Checkout online${o.stripe_customer ? ` · <a href="${dash}/customers/${o.stripe_customer}" target="_blank">Stripe</a>` : ''}` : 'Sin factura'}</dd>
+<dt>Flete cobrado</dt><dd>${o.retiro ? 'Retiro en Miami' : o.flete != null ? (o.flete ? usd(o.flete) : 'Gratis') : o.invoice || o.origen === 'stripe' ? '—' : `se calcula al facturar (USD ${env.caja}/caja · gratis desde USD ${env.gratis.toLocaleString('en-US')})`}${o.flete_manual != null ? ' <small>(manual)</small>' : ''}</dd>
+<dt>Ganancia</dt><dd>${o.total && !(o.items || []).some(i => !(+co[i.slug] > 0)) ? `<strong>${usd(neto(o) - costoV(o, co))}</strong>${o.envio_costo == null && !o.retiro ? ' <small>(sin costo de envío)</small>' : ''}` : '—'}</dd>
 <dt>Notas</dt><dd>${esc(o.notes || '—')}</dd></dl></div></div>
+<div class="card pad" style="margin-bottom:16px"><h2>Envío</h2><form method="post" class="inl" style="flex-wrap:wrap;gap:10px;align-items:end">${H('envio', r)}
+<label>Lo que pagaste (UPS/FedEx)<input class="sm" type="number" step="0.01" min="0" name="costo" value="${o.envio_costo != null ? (+o.envio_costo).toFixed(2) : ''}" placeholder="USD"></label>
+${!o.invoice && o.origen !== 'stripe' ? `<label>Flete a cobrar (opcional)<input class="sm" type="number" step="0.01" min="0" name="flete_manual" value="${o.flete_manual != null ? (+o.flete_manual).toFixed(2) : ''}" placeholder="auto"></label><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" name="retiro" value="1"${o.retiro ? ' checked' : ''}>Retiro en Miami</label>` : ''}
+<button class="sec">Guardar</button></form><p class="mut" style="font-size:12px;margin:8px 0 0">El costo de envío se descuenta de la ganancia. "Flete a cobrar" vacío = automático según la regla de Stock.</p></div>
 <div class="card tw" style="margin-bottom:16px"><table><thead><tr><th>SKU</th><th>Producto</th><th class="r">Cajas</th><th class="r">Origen</th></tr></thead><tbody>${items}</tbody></table></div>
 <div class="card pad"><h2>Historial</h2><ul class="tl">${(o.hist || [{ at: o.at, txt: 'Venta creada' }]).slice().reverse().map(h => `<li><span>${fecha(h.at)}</span><div>${esc(h.txt)}</div></li>`).join('')}</ul></div>`;
 }
@@ -179,7 +185,7 @@ function cliente({ c, ps }) {
 }
 
 // ── STOCK ──
-function stock({ t, pr, ps, co = {} }) {
+function stock({ t, pr, ps, co = {}, env = { caja: 35, gratis: 2000 } }) {
   const res = {}; for (const o of ps.filter(ACTIVOS)) for (const i of o.items || []) { const r = res[i.slug] = res[i.slug] || { r: 0, p: 0 }; r.r += i.reserved || 0; r.p += i.preorder || 0; }
   const tot = t.reduce((a, p) => a + p.cases_available, 0);
   const rows = t.map(p => { const price = pr[p.slug], x = res[p.slug] || { r: 0, p: 0 };
@@ -192,7 +198,9 @@ function stock({ t, pr, ps, co = {} }) {
   return `<div class="hd"><div><h1>Stock</h1><div class="sub">En cajas. Lo que está acá es lo que ven los clientes y las IA en /order y /catalog.json.</div></div></div>
 <div class="kpis"><div class="kpi"><div class="l">Cajas disponibles</div><div class="n">${tot}</div></div><div class="kpi"><div class="l">Reservadas</div><div class="n">${Object.values(res).reduce((a, x) => a + x.r, 0)}</div><div class="s">en ventas activas</div></div><div class="kpi"><div class="l">Pre-pedido</div><div class="n">${Object.values(res).reduce((a, x) => a + x.p, 0)}</div><div class="s">cajas a cubrir</div></div><div class="kpi"><div class="l">SKUs online</div><div class="n">${t.filter(p => p.online).length}/${t.length}</div></div></div>
 <div class="card tw"><table><thead><tr><th>Producto</th><th class="r">Disponible</th><th class="r">Reservado</th><th class="r">Pre-pedido</th><th>Ajustar</th><th>Precio / caja</th><th>Costo / caja</th><th>Venta online</th></tr></thead><tbody>${rows}</tbody></table></div>
-<p class="mut" style="font-size:12px">El precio se guarda en Stripe y se muestra en el resumen del checkout de /order. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock. El costo por caja (puesto en Miami: EXW + importación) es interno y se usa para calcular la ganancia en Ventas.</p>`;
+<p class="mut" style="font-size:12px">El precio se guarda en Stripe y se muestra en el resumen del checkout de /order. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock. El costo por caja (puesto en Miami: EXW + importación) es interno y se usa para calcular la ganancia en Ventas.</p>
+<div class="card pad"><h2>Envío</h2><form method="post" class="inl" style="flex-wrap:wrap;gap:10px;align-items:end">${H('envio_cfg')}<label>Tarifa por caja (USD)<input class="sm" type="number" step="0.01" min="0" name="caja" value="${env.caja}"></label><label>Envío gratis desde (USD, sin tax)<input class="sm" type="number" step="1" min="1" name="gratis" value="${env.gratis}"></label><button class="sec">Guardar</button></form>
+<p class="mut" style="font-size:12px;margin:8px 0 0">EE.UU. continental. Se aplica en el pago online (Stripe) y en las facturas. Retiro en Miami siempre sin cargo.</p></div>`;
 }
 
 function producto({ p, price, ms, ps }) {

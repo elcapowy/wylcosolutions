@@ -30,7 +30,7 @@ async function sesionCompleta(s) {
   const pagado = s.payment_status === 'paid';
   const datos = { email: (c.email || '').toLowerCase(), company, contact: c.name || '', phone: c.phone || '', address: [ship.line1, ship.line2].filter(Boolean).join(', '), city: ship.city || '', state: ship.state || '', zip: ship.postal_code || '', stripe_customer: s.customer || '', payment: pagado ? 'Card' : 'ACH (pendiente)' };
   const o = await crearVenta({ datos, items, origen: 'stripe', estado: pagado ? 'pagado' : 'pago pendiente', ref: 'K11-S' + Date.now().toString(36).toUpperCase(),
-    extra: { stripe_session: s.id, stripe_customer: s.customer || '', total: (s.amount_total || 0) / 100, tax: ((s.total_details || {}).amount_tax || 0) / 100, lang: s.locale === 'es' ? 'es' : 'en' } });
+    extra: { stripe_session: s.id, stripe_customer: s.customer || '', total: (s.amount_total || 0) / 100, tax: ((s.total_details || {}).amount_tax || 0) / 100, flete: ((s.total_details || {}).amount_shipping || 0) / 100, retiro: !!(s.shipping_cost && s.shipping_cost.amount_total === 0 && /pickup|retiro/i.test(JSON.stringify(s.shipping_cost))), lang: s.locale === 'es' ? 'es' : 'en' } });
   await redis([['HSET', 'k11:sess', s.id, o.ref]]);
   const q = o.items.reduce((a, i) => a + i.cases, 0), pre = o.items.reduce((a, i) => a + i.preorder, 0);
   await avisar(o.ref, `[${pagado ? 'Pago' : 'Pago pendiente'} Stripe K11] ${company} · ${q} caja(s) · ${o.ref}`,

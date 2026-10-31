@@ -114,6 +114,10 @@
   ],
   "rewrites": [
     {
+      "source": "/assets/social/:f",
+      "destination": "/social/:f"
+    },
+    {
       "source": "/es/:dir(assets|css|js|components|pages)/:path*",
       "destination": "/:dir/:path*"
     },

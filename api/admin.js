@@ -8,6 +8,7 @@ const F = require('./_lib/finanzas');
 const X = require('./_lib/extras');
 const U2 = require('./_lib/adminui2');
 const CO = require('./_lib/compras');
+const M = require('./_lib/mejoras');
 const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
 const CK = 'k11adm';
@@ -36,7 +37,7 @@ async function crearFactura(o) {
   const fl = o.flete_manual != null ? +o.flete_manual : E.flete(cfg, sub, nc, o.retiro);
   for (const i of o.items) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
   const pct = await X.descuento(c, nc);
-  if (pct > 0) { await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: -Math.round(sub * pct), currency: 'usd', tax_behavior: 'exclusive', description: `${c && +c.desc_pct >= pct ? 'Customer' : 'Volume'} discount ${pct}%` }); o.descuento = pct; }
+  if (pct > 0) { await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: -Math.round(sub * pct), currency: 'usd', tax_behavior: 'exclusive', description: `${c && (+c.desc_pct >= pct || await M.pctNivel(c) >= pct) ? 'Customer' : 'Volume'} discount ${pct}%` }); o.descuento = pct; }
   if (fl > 0) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: Math.round(fl * 100), currency: 'usd', tax_code: 'txcd_92010001', tax_behavior: 'exclusive', description: `Ground shipping — ${nc} case(s) (free on orders $${cfg.gratis.toLocaleString('en-US')}+)` });
   else if (!o.retiro) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: `Shipping — free (order over $${cfg.gratis.toLocaleString('en-US')})` });
   else await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: 'Pickup in Miami — no shipping charge' });
@@ -56,6 +57,7 @@ async function avisarCubiertos(cub) {
 }
 async function accion(b) {
   const a = b.a, s = b.s, P = T.BY[s];
+  if (M.ACC.includes(a)) return M.accion(b);
   if (String(a).startsWith('compra_')) { const r = await CO.accion(b); if (r && r.cub && r.cub.length) await avisarCubiertos(r.cub); return r; }
   if (a === 'stock' && P) {
     const v = parseInt(b.v, 10); if (isNaN(v)) throw new Error('Ingresá una cantidad');
@@ -166,12 +168,13 @@ module.exports = async (req, res) => {
   if (!TOK) return html(UI.login(false).replace('<h1>K11 Admin</h1>', '<h1>K11 Admin</h1><div class="flash err">Falta ADMIN_TOKEN en Vercel</div>'));
   if (q.salir) { res.setHeader('Set-Cookie', `${CK}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax`); return go('/admin'); }
   if (q.k) {
-    if (q.k !== TOK) return html(UI.login(true));
-    res.setHeader('Set-Cookie', `${CK}=${encodeURIComponent(TOK)}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`);
+    if (!M.rolDe(q.k)) return html(UI.login(true));
+    res.setHeader('Set-Cookie', `${CK}=${encodeURIComponent(q.k)}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`);
     const u = new URLSearchParams(q); u.delete('k'); return go('/admin' + (u.toString() ? '?' + u : ''));
   }
   const ck = (req.headers.cookie || '').match(new RegExp(CK + '=([^;]+)'));
-  if (!ck || decodeURIComponent(ck[1]) !== TOK) return html(UI.login(false));
+  const rol = ck && M.rolDe(decodeURIComponent(ck[1]));
+  if (!rol) return html(UI.login(false));
 
   // Limpieza única antes del lanzamiento: deja la base vacía (solo precios/costos/online/envío). Corre una sola vez.
   try {
@@ -187,14 +190,19 @@ module.exports = async (req, res) => {
     let back = '/admin';
     try { const r = new URL(req.headers.referer || ''); r.searchParams.delete('ok'); back = r.pathname + r.search; } catch {}
     let msg;
+    if (rol === 'deposito' && !M.depPuede(b)) { msg = 'Error: tu usuario (depósito) no puede hacer esto'; return go(back + (back.includes('?') ? '&' : '?') + 'ok=' + encodeURIComponent(msg)); }
     try { const r = await accion(b); if (r && r.go) { back = r.go; msg = r.msg; } else msg = r && typeof r === 'object' ? r.msg : r; } catch (e) { msg = 'Error: ' + (e.message || e); }
+    await M.log({ rol, a: b.a, ref: b.ref, s: b.s, id: b.id, msg: String(msg || '').slice(0, 200), ip: String(req.headers['x-forwarded-for'] || '').split(',')[0] });
     return go(back + (back.includes('?') ? '&' : '?') + 'ok=' + encodeURIComponent(msg));
   }
 
-  const v = q.v || 'inicio';
+  let v = q.v || 'inicio';
+  if (rol === 'deposito' && !M.DEP_V.includes(v)) { if (v !== 'inicio') return go('/admin?v=ventas&f=pagado'); v = 'ventas'; q.f = q.f || 'pagado'; }
+  if (v === 'backup') { const b = await M.backup(); res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.setHeader('Content-Disposition', `attachment; filename="k11-backup-${b.at.slice(0, 10)}.json"`); await M.log({ rol, a: 'backup_descarga', msg: b.keys + ' claves' }); return res.send(JSON.stringify(b)); }
   const [t, ps, cs, pr, coR] = await Promise.all([T.leerTienda(), T.pedidos(), T.clientes(), precios(T.PRODUCTS.map(p => p.slug)).catch(e => ({ _err: e.message })), redis([['HGETALL', 'k11:costo']]).catch(() => [null])]);
   const co = {}; { const x = coR && coR[0]; if (Array.isArray(x)) for (let j = 0; j < x.length; j += 2) co[x[j]] = +x[j + 1]; else if (x && typeof x === 'object') Object.assign(co, x); }
   { const auto = require('./_lib/precios').costoCaja(); for (const k in auto) if (!(co[k] > 0)) co[k] = auto[k]; } // costo real calculado si no se cargó a mano
+  if (rol === 'deposito') for (const k in co) delete co[k]; // depósito no ve costos ni ganancia
   // alta automática de clientes de ventas viejas
   const ids = new Set(cs.map(c => c.id));
   for (const o of ps) if (o.email && !ids.has(T.cid(o.email))) { const c = await T.upsertCliente(o); cs.push(c); ids.add(c.id); }
@@ -204,13 +212,15 @@ module.exports = async (req, res) => {
   const banner = MODE === 'off' ? '<div class="flash err">Stripe no conectado: falta STRIPE_SECRET_KEY en Vercel.</div>'
     : `<div class="mode"><span><span class="dot ${MODE === 'live' ? 'ok' : ''}"></span>Stripe <b>${MODE === 'test' ? 'modo prueba' : 'en vivo'}</b></span><span><span class="dot ${TAX ? 'ok' : 'no'}"></span>Tax <b>${TAX ? 'automático' : 'desactivado'}</b></span><span><span class="dot ${sw ? 'ok' : 'no'}"></span>Webhook <b>${sw ? 'configurado' : 'falta secreto'}</b></span>${pr._err ? `<span class="no">Stripe: ${UI.esc(pr._err)}</span>` : ''}<a href="${DASH}" target="_blank">Abrir Stripe ↗</a></div>`;
   const cps = await CO.lista().catch(() => []);
-  const counts = { compras: cps.filter(c => ['borrador', 'pedido', 'en camino'].includes(c.estado)).length, ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: '/api/panel?k=' + encodeURIComponent(TOK) };
+  const counts = { compras: cps.filter(c => ['borrador', 'pedido', 'en camino'].includes(c.estado)).length, ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: rol === 'admin' ? '/api/panel?k=' + encodeURIComponent(TOK) : '/admin', rol };
   let body, title;
-  if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; const env = await E.config(); body = o ? UI.venta({ o, env, co, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) + U2.despacho(o) : '<h1>Venta no encontrada</h1>'; }
+  if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; const env = await E.config(); body = o ? UI.venta({ o, env, co, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) + U2.despacho(o) + M.envioCard(o) : '<h1>Venta no encontrada</h1>'; }
+  else if (v === 'venta_envio') { const o = ps.find(x => x.ref === q.ref); title = 'Envío ' + (q.ref || ''); body = o ? await M.vCotizar(o) : '<h1>Venta no encontrada</h1>'; }
+  else if (v === 'sistema') { title = 'Sistema'; const [C, L, niv, org, dim, peso] = await Promise.all([M.chequeo({ MODE, TAX, t, pr, ps }), M.logs(), X.cfg('niveles', {}), X.cfg('origen', null), X.cfg('caja_dim', { l: 16, w: 12, h: 10 }), X.cfg('peso', {})]); body = M.vSistema({ C, L, niv, org, dim, peso }); }
   else if (v === 'nueva') { title = 'Nueva venta'; body = UI.nueva({ t, cs: cs.slice().sort((a, b) => (a.company || '').localeCompare(b.company || '')), sel: q.id && cs.find(c => c.id === T.cid(q.id)), rep: q.rep && ps.find(o => o.ref === q.rep) }); }
   else if (v === 'clientes') { title = 'Clientes'; body = UI.clientes({ cs, ps, q: q.q || '' }) + U2.mensual({ cs, borrador: U2.borradorMensual({ t, lleg: await X.cfg('llegada', {}), mes: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'America/New_York' }) }) }); }
-  else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) + U2.clienteExtra(c, ps) : '<h1>Cliente no encontrado</h1>'; }
-  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co, env: await E.config() }) + U2.stockCfg({ t, min: await X.cfg('minimo', {}), lleg: await X.cfg('llegada', {}), desc: await X.cfg('desc', []) }); }
+  else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) + U2.clienteExtra(c, ps) + M.nivelForm(c, await X.cfg('niveles', {})) : '<h1>Cliente no encontrado</h1>'; }
+  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co, env: await E.config() }) + U2.stockCfg({ t, min: await X.cfg('minimo', {}), lleg: await X.cfg('llegada', {}), desc: await X.cfg('desc', []) }) + M.vReorden(await M.reorden(t, ps)); }
   else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
   else if (v === 'redes') { title = 'Redes'; const ms = S.meses(); const ym = ms.includes(q.m) ? q.m : (ms.includes('2026-11') ? '2026-11' : ms[0]); const [m, conn, al] = await Promise.all([S.mes(ym), S.conectadas(), S.aliados()]); body = UI.redes({ aliados: al, m, meses: ms, conn, hasKey: !!S.KEY, NETS: S.NETS, IMG_NETS: S.IMG_NETS, seller: S.SELLER.es }); }
   else if (v === 'finanzas') {
@@ -227,4 +237,4 @@ module.exports = async (req, res) => {
   }
   html(UI.layout({ v, title, body, flash: q.ok, banner, counts }));
 };
-module.exports.config = { maxDuration: 30 };
+module.exports.config = { maxDuration: 30, api: { bodyParser: { sizeLimit: '6mb' } } };

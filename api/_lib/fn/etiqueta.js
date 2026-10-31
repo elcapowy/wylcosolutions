@@ -43,7 +43,8 @@ function render(o) {
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   const ck = (req.headers.cookie || '').match(/k11adm=([^;]+)/);
-  if (!TOK || ((!ck || decodeURIComponent(ck[1]) !== TOK) && req.query.k !== TOK)) { res.writeHead(303, { Location: '/admin' }); return res.end(); }
+  const okTok = x => !!x && (x === TOK || (!!process.env.ADMIN_TOKEN_DEPOSITO && x === process.env.ADMIN_TOKEN_DEPOSITO));
+  if (!TOK || (!okTok(ck && decodeURIComponent(ck[1])) && !okTok(req.query.k))) { res.writeHead(303, { Location: '/admin' }); return res.end(); }
   const o = await pedido(req.query.ref);
   if (!o) return res.status(404).send('Venta no encontrada');
   if (o.cliente) { const c = await cliente(o.cliente); if (c) for (const k of ['company', 'contact', 'address', 'city', 'state', 'zip', 'phone']) if (!o[k] && c[k]) o[k] = c[k]; }

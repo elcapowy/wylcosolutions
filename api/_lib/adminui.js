@@ -70,8 +70,8 @@ form.inl{display:inline-flex;gap:6px;margin:0;align-items:center}
 @media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}aside nav{flex-direction:row;flex-wrap:wrap}.logo{padding:0 10px 0 0}aside .new{margin:0}aside .foot{display:none}}`;
 
 function layout({ v, title, body, flash = '', banner = '', counts }) {
-  const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock], ['compras', 'Compras', counts.compras || null], ['finanzas', 'Finanzas', null], ['redes', 'Redes', null]];
-  const sec = v === 'redes' ? 'redes' : v === 'inicio' ? 'inicio' : v === 'finanzas' ? 'finanzas' : v.startsWith('compra') ? 'compras' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
+  const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock], ['compras', 'Compras', counts.compras || null], ['finanzas', 'Finanzas', null], ['redes', 'Redes', null], ['sistema', 'Sistema', counts.sistema || null]].filter(([k]) => counts.rol !== 'deposito' || ['ventas', 'stock'].includes(k));
+  const sec = v === 'sistema' ? 'sistema' : v === 'redes' ? 'redes' : v === 'inicio' ? 'inicio' : v === 'finanzas' ? 'finanzas' : v.startsWith('compra') ? 'compras' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
   return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)} · K11 Admin</title><link rel="icon" href="/assets/logo-wylco.png"><style>${CSS}</style></head><body>
 <div class="shell"><aside><a class="logo" href="/admin"><img src="/assets/logo-wylco.png" alt="">K11 Admin</a>
 <nav>${nav.map(([k, l, c]) => `<a href="/admin?v=${k}" class="${sec === k ? 'on' : ''}">${l}${c != null ? `<span class="ct">${c}</span>` : ''}</a>`).join('')}</nav>

@@ -51,11 +51,12 @@ function textoCliente(o, tipo, x = {}) {
 }
 async function mailCliente(o, tipo, x) { if (!o || !o.email) return false; try { const t = textoCliente(o, tipo, x); await mail(o.email, t.s, t.b); return true; } catch (e) { console.error('mailCliente', tipo, e.message); return false; } }
 
-// ── descuentos: por volumen (cfg desc = [{min, pct}]) y por cliente (c.desc_pct). Gana el mayor. ──
+// ── descuentos: por volumen (cfg desc = [{min, pct}]), por cliente (c.desc_pct) y por nivel (c.nivel → cfg niveles). Gana el mayor. ──
 async function descuento(c, cajas) {
   const tiers = await cfg('desc', []); let p = 0;
   for (const t of tiers) if (cajas >= +t.min && +t.pct > p) p = +t.pct;
   if (c && +c.desc_pct > p) p = +c.desc_pct;
+  if (c && c.nivel) { const nv = await cfg('niveles', {}); if (+nv[c.nivel] > p) p = +nv[c.nivel]; }
   return Math.min(50, p);
 }
 

@@ -114,7 +114,7 @@
   ],
   "rewrites": [
     {
-      "source": "/api/:fn(buy|checkout|enviar|etiqueta|order|panel|pedido|portal|stock|tareas|test)",
+      "source": "/api/:fn(buy|checkout|enviar|etiqueta|feed|order|panel|pedido|portal|stock|tareas|test)",
       "destination": "/api/r?fn=:fn"
     },
     {
@@ -180,6 +180,10 @@
     {
       "source": "/catalog.json",
       "destination": "/api/r?fn=stock&full=1"
+    },
+    {
+      "source": "/merchant.xml",
+      "destination": "/api/r?fn=feed"
     },
     {
       "source": "/admin",

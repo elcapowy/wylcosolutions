@@ -84,14 +84,20 @@ function layout({ v, title, body, flash, banner, counts }) {
 const login = err => `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>K11 Admin</title><style>${CSS}</style></head><body><div class="login"><form class="card pad" method="get" action="/admin" style="display:grid;gap:14px"><h1>K11 Admin</h1>${err ? '<div class="flash err">Clave incorrecta</div>' : ''}<label>Clave de administrador<input type="password" name="k" autofocus required></label><button>Entrar</button></form></div></body></html>`;
 
 // ── VENTAS ──
-function ventas({ ps, f, q }) {
+const COBRADO = o => ['pagado', 'enviado'].includes(o.estado);
+const neto = o => Math.max(0, (o.total || 0) - (o.tax || 0));
+const costoV = (o, co) => (o.items || []).reduce((a, i) => a + (i.cases || 0) * (+co[i.slug] || 0), 0);
+const sinCosto = (o, co) => (o.items || []).some(i => !(+co[i.slug] > 0));
+function ventas({ ps, f, q, co = {} }) {
   const act = ps.filter(ACTIVOS);
+  const cob = ps.filter(COBRADO), ing = cob.reduce((a, o) => a + neto(o), 0), cst = cob.reduce((a, o) => a + costoV(o, co), 0), gan = ing - cst, falt = cob.some(o => sinCosto(o, co));
   const porCobrar = act.filter(o => ['confirmado', 'pago pendiente'].includes(o.estado));
   const k = [
     ['nuevo', 'Por facturar', act.filter(o => o.estado === 'nuevo').length, 'pedidos nuevos'],
     ['porcobrar', 'Por cobrar', porCobrar.length, usd(porCobrar.reduce((a, o) => a + (o.total || 0), 0))],
     ['pagado', 'A despachar', act.filter(o => o.estado === 'pagado').length, 'pagadas'],
-    ['activas', 'Pre-pedido', act.reduce((a, o) => a + (o.items || []).reduce((b, i) => b + i.preorder, 0), 0), 'cajas sin stock']];
+    ['activas', 'Pre-pedido', act.reduce((a, o) => a + (o.items || []).reduce((b, i) => b + i.preorder, 0), 0), 'cajas sin stock'],
+    ['pagado', 'Ganancia', ing ? usd(gan) : '—', ing ? `${Math.round(gan / ing * 100)}% de ${usd(ing)} cobrado sin tax${falt ? ' · faltan costos' : ''}` : 'sin ventas cobradas']];
   let list = ps;
   if (f === 'activas') list = act; else if (f === 'porcobrar') list = porCobrar; else if (ESTADOS.includes(f)) list = ps.filter(o => o.estado === f);
   if (q) { const s = q.toLowerCase(); list = list.filter(o => [o.ref, o.company, o.email, o.contact].join(' ').toLowerCase().includes(s)); }
@@ -99,12 +105,12 @@ function ventas({ ps, f, q }) {
   const rows = list.map(o => `<tr class="row" data-href="/admin?v=venta&ref=${o.ref}"><td><a href="/admin?v=venta&ref=${o.ref}" class="m">${o.ref}</a><br><small>${fecha(o.at)} · ${esc(o.origen)}</small></td>
 <td>${o.cliente ? `<a href="/admin?v=cliente&id=${encodeURIComponent(o.cliente)}"><strong>${esc(o.company || o.email)}</strong></a>` : `<strong>${esc(o.company)}</strong>`}<br><small>${esc(o.contact)} · ${esc([o.city, o.state].filter(Boolean).join(', '))}</small></td>
 <td>${(o.items || []).map(i => `${i.cases}× <span class="m">${esc(i.sku)}</span>`).join('<br>')}${(o.items || []).some(i => i.preorder) ? '<br><small>incluye pre-pedido</small>' : ''}</td>
-<td class="r">${usd(o.total)}<br><small>${esc(o.payment || '')}</small></td><td>${tag(o.estado)}</td></tr>`).join('');
+<td class="r">${usd(o.total)}<br><small>${esc(o.payment || '')}</small></td><td class="r">${o.total && !sinCosto(o, co) ? usd(neto(o) - costoV(o, co)) : '—'}</td><td>${tag(o.estado)}</td></tr>`).join('');
   return `<div class="hd"><div><h1>Ventas</h1><div class="sub">Pedidos de la web, del checkout de Stripe y cargados a mano.</div></div><a class="btn" href="/admin?v=nueva">+ Nueva venta</a></div>
 <div class="kpis">${k.map(([fk, l, n, s]) => `<a class="kpi" href="/admin?v=ventas&f=${encodeURIComponent(fk)}"><div class="l">${l}</div><div class="n">${n}</div><div class="s">${s}</div></a>`).join('')}</div>
 <div class="tools"><div class="chips" style="margin:0">${chips.map(([fk, l, n]) => `<a href="/admin?v=ventas&f=${encodeURIComponent(fk)}" class="${f === fk ? 'on' : ''}">${l}<span class="ct">${n}</span></a>`).join('')}</div><span class="sp"></span>
 <form method="get" class="inl"><input type="hidden" name="v" value="ventas"><input type="hidden" name="f" value="${esc(f)}"><input name="q" value="${esc(q)}" placeholder="Buscar ref, empresa, email" style="width:240px"></form></div>
-<div class="card tw">${rows ? `<table><thead><tr><th>Venta</th><th>Cliente</th><th>Cajas</th><th class="r">Total</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table>` : empty('No hay ventas en este filtro.')}</div>`;
+<div class="card tw">${rows ? `<table><thead><tr><th>Venta</th><th>Cliente</th><th>Cajas</th><th class="r">Total</th><th class="r">Ganancia</th><th>Estado</th></tr></thead><tbody>${rows}</tbody></table>` : empty('No hay ventas en este filtro.')}</div>`;
 }
 
 function venta({ o, c, mode, dash }) {
@@ -173,7 +179,7 @@ function cliente({ c, ps }) {
 }
 
 // ── STOCK ──
-function stock({ t, pr, ps }) {
+function stock({ t, pr, ps, co = {} }) {
   const res = {}; for (const o of ps.filter(ACTIVOS)) for (const i of o.items || []) { const r = res[i.slug] = res[i.slug] || { r: 0, p: 0 }; r.r += i.reserved || 0; r.p += i.preorder || 0; }
   const tot = t.reduce((a, p) => a + p.cases_available, 0);
   const rows = t.map(p => { const price = pr[p.slug], x = res[p.slug] || { r: 0, p: 0 };
@@ -181,11 +187,12 @@ function stock({ t, pr, ps }) {
 <td class="num ${p.cases_available ? 'ok' : 'no'}">${p.cases_available}</td><td class="num">${x.r}</td><td class="num">${x.p}</td>
 <td><form method="post" class="inl">${H('stock', { s: p.slug })}<input class="sm" type="number" name="v" placeholder="cajas"><button name="modo" value="sumar" class="sec">+ Sumar</button><button name="modo" value="fijar" class="sec">Fijar</button></form></td>
 <td><form method="post" class="inl">${H('precio', { s: p.slug })}<input class="sm" type="number" step="0.01" min="0" name="v" value="${price ? (price.unit_amount / 100).toFixed(2) : ''}" placeholder="USD"><button class="sec">Guardar</button></form></td>
+<td><form method="post" class="inl">${H('costo', { s: p.slug })}<input class="sm" type="number" step="0.01" min="0" name="v" value="${+co[p.slug] > 0 ? (+co[p.slug]).toFixed(2) : ''}" placeholder="USD"><button class="sec">Guardar</button></form>${price && +co[p.slug] > 0 ? `<br><small>margen ${Math.round((price.unit_amount / 100 - co[p.slug]) / (price.unit_amount / 100) * 100)}%</small>` : ''}</td>
 <td>${price ? btn('online', { s: p.slug, v: p.online ? '0' : '1' }, p.online ? '<span class="dot ok"></span>Online' : '<span class="dot"></span>Solo factura', 'lnk') : '<small>sin precio</small>'}</td></tr>`; }).join('');
   return `<div class="hd"><div><h1>Stock</h1><div class="sub">En cajas. Lo que está acá es lo que ven los clientes y las IA en /order y /catalog.json.</div></div></div>
 <div class="kpis"><div class="kpi"><div class="l">Cajas disponibles</div><div class="n">${tot}</div></div><div class="kpi"><div class="l">Reservadas</div><div class="n">${Object.values(res).reduce((a, x) => a + x.r, 0)}</div><div class="s">en ventas activas</div></div><div class="kpi"><div class="l">Pre-pedido</div><div class="n">${Object.values(res).reduce((a, x) => a + x.p, 0)}</div><div class="s">cajas a cubrir</div></div><div class="kpi"><div class="l">SKUs online</div><div class="n">${t.filter(p => p.online).length}/${t.length}</div></div></div>
-<div class="card tw"><table><thead><tr><th>Producto</th><th class="r">Disponible</th><th class="r">Reservado</th><th class="r">Pre-pedido</th><th>Ajustar</th><th>Precio / caja</th><th>Venta online</th></tr></thead><tbody>${rows}</tbody></table></div>
-<p class="mut" style="font-size:12px">El precio se guarda en Stripe y se muestra en el resumen del checkout de /order. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock.</p>`;
+<div class="card tw"><table><thead><tr><th>Producto</th><th class="r">Disponible</th><th class="r">Reservado</th><th class="r">Pre-pedido</th><th>Ajustar</th><th>Precio / caja</th><th>Costo / caja</th><th>Venta online</th></tr></thead><tbody>${rows}</tbody></table></div>
+<p class="mut" style="font-size:12px">El precio se guarda en Stripe y se muestra en el resumen del checkout de /order. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock. El costo por caja (puesto en Miami: EXW + importación) es interno y se usa para calcular la ganancia en Ventas.</p>`;
 }
 
 function producto({ p, price, ms, ps }) {
@@ -220,7 +227,7 @@ ${G('Campaña de mails', [['/api/panel?k=' + K, 'Panel de envíos', 'ver, dar de
 ${G('Tienda pública', [['/order', 'Página de compra', 'EN', 1], ['/es/order', 'Página de compra', 'ES', 1], ['/api/stock', 'Stock en vivo (JSON)', '', 1], ['/catalog.json', 'Catálogo para IA', '', 1], ['/llms.txt', 'llms.txt', '', 1]])}
 ${G('Sitio web', [['/', 'Inicio', '', 1], ['/products', 'Productos', '', 1], ['/docs', 'Hojas de seguridad (SDS)', '', 1], ['/distributors', 'Distribuidores', '', 1], ['/es', 'Versión español', '', 1], ['/sitemap.xml', 'Sitemap', '', 1]])}
 ${G('Materiales (con contraseña)', [['/k11', 'Todos los materiales', '', 1], ['/k11/precios', 'Lista de precios', '', 1], ['/k11/ficha', 'Ficha técnica', '', 1], ['/k11/flyer', 'Flyer distribuidores', '', 1], ['/k11/kit', 'Kit de impresión', '', 1], ['/k11/margenes', 'Márgenes', '', 1], ['/k11/carta', 'Carta de presentación', '', 1], ['/k11/formulario', 'Formulario', '', 1], ['/k11/tarjeta', 'Tarjeta personal', '', 1]])}
-${G('Redes sociales', [['/admin?v=redes', 'Calendario mensual', 'aprobar mes'], ['https://app.ayrshare.com', 'Ayrshare · cuentas', '↗', 1], ['https://business.facebook.com', 'Meta Business Suite', '↗', 1], ['https://www.linkedin.com', 'LinkedIn', '↗', 1], ['https://business.google.com', 'Google Business', '↗', 1]])}
+${G('Redes sociales', [['/admin?v=redes', 'Calendario mensual', 'aprobar mes'], ['https://app.upload-post.com/manage-users', 'Upload-Post · cuentas', '↗', 1], ['https://business.facebook.com', 'Meta Business Suite', '↗', 1], ['https://www.linkedin.com', 'LinkedIn', '↗', 1], ['https://business.google.com', 'Google Business', '↗', 1]])}
 ${G('Servicios', [[dash, 'Stripe · panel', '↗', 1], [dash + '/payments', 'Stripe · pagos', '↗', 1], [dash + '/invoices', 'Stripe · facturas', '↗', 1], [dash + '/webhooks', 'Stripe · webhooks', '↗', 1], ['https://vercel.com/dashboard', 'Vercel · deploys y variables', '↗', 1], ['https://console.upstash.com', 'Upstash · base de datos', '↗', 1], ['https://analytics.google.com', 'Google Analytics', '↗', 1], ['https://github.com', 'GitHub · repo wylco-site', '↗', 1]])}
 </div>
 <div class="card tw"><div style="padding:16px 16px 0;display:flex;justify-content:space-between;align-items:center"><h2>Últimas ventas</h2><a href="/admin?v=ventas&f=todas">Ver todas →</a></div>${rec ? `<table><tbody>${rec}</tbody></table>` : empty('Todavía no hay ventas.')}</div>`;
@@ -233,11 +240,11 @@ const MES = ym => new Date(ym + '-15T12:00:00Z').toLocaleDateString('es-AR', { m
 function redes({ m, meses, conn, hasKey, NETS, IMG_NETS, seller, aliados = [] }) {
   const st = !hasKey ? `<div class="steps-c"><h2>Conectar las redes (una sola vez)</h2><ol>
 <li>Crear las cuentas de la marca: Instagram (profesional), página de Facebook, página de empresa en LinkedIn y Google Business Profile.</li>
-<li>Abrir una cuenta en <a href="https://www.ayrshare.com" target="_blank" rel="noopener">Ayrshare</a> y vincular ahí las redes.</li>
-<li>Cargar la API Key en Vercel como <b>AYRSHARE_API_KEY</b> y hacer Redeploy.</li>
+<li>En <a href="https://app.upload-post.com/manage-users" target="_blank" rel="noopener">Upload-Post → Manage Users</a> crear el perfil <b>wylco</b> y conectar ahí las 4 redes.</li>
+<li>En Vercel cargar <b>UPLOADPOST_API_KEY</b> (API Keys de Upload-Post) y, si el perfil no se llama wylco, <b>UPLOADPOST_USER</b>. Opcional: <b>UPLOADPOST_FB_PAGE</b> (ID página Facebook) y <b>UPLOADPOST_LI_PAGE</b> (ID página LinkedIn). Redeploy.</li>
 <li>Volver acá, revisar el mes y tocar <b>Aprobar mes</b>: todo queda programado.</li></ol>
 <p class="mut" style="margin:10px 0 0;font-size:13px">Mientras tanto podés publicar a mano: descargá la imagen y copiá el texto.</p></div>`
-    : `<div class="mode"><span><span class="dot ok"></span>Ayrshare <b>conectado</b></span>${conn ? IMG_NETS.map(n => `<span><span class="dot ${conn.includes(n) ? 'ok' : 'no'}"></span>${NETS[n]}</span>`).join('') : '<span class="no">No se pudo leer las cuentas</span>'}</div>`;
+    : `<div class="mode"><span><span class="dot ok"></span>Upload-Post <b>conectado</b></span>${conn ? IMG_NETS.map(n => `<span><span class="dot ${conn.includes(n) ? 'ok' : 'no'}"></span>${NETS[n]}</span>`).join('') : '<span class="no">No se pudo leer las cuentas</span>'}</div>`;
   const ok = m.estado === 'aprobado', act = m.posts.filter(p => !p.off).length;
   const tabs = `<div class="chips">${meses.map(y => `<a href="/admin?v=redes&m=${y}" class="${y === m.ym ? 'on' : ''}">${MES(y)}</a>`).join('')}</div>`;
   const head = `<div class="whd"><div><h2 style="margin:0;text-transform:capitalize">${MES(m.ym)} · ${esc(m.name)}</h2><small class="mut">${act} posts · lun/mié/vie 10:00 Miami · ${ok ? 'Aprobado ' + fecha(m.aprobado) : 'Borrador'}${m.draft ? ' · <b class="no">fechas a confirmar</b>' : ''}</small></div><div class="acts">

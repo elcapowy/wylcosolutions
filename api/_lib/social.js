@@ -1,7 +1,9 @@
-// Redes sociales por MES: campañas (gira Florida) + rotación. Publica vía Ayrshare.
+// Redes sociales por MES: campañas (gira Florida) + rotación. Publica vía Upload-Post (upload-post.com).
 const { redis } = require('./core');
 const SITE = 'https://wylcosolutions.com';
-const KEY = process.env.AYRSHARE_API_KEY || '';
+const KEY = process.env.UPLOADPOST_API_KEY || '';
+const UP_USER = process.env.UPLOADPOST_USER || 'wylco';
+const UP_NET = { instagram: 'instagram', facebook: 'facebook', linkedin: 'linkedin', gmb: 'google_business' };
 const IMG_NETS = ['instagram', 'facebook', 'linkedin', 'gmb'];
 const NETS = { instagram: 'Instagram', facebook: 'Facebook', linkedin: 'LinkedIn', gmb: 'Google Business', tiktok: 'TikTok', youtube: 'YouTube Shorts' };
 // Decir "exclusivo/único" SOLO con contrato de exclusividad firmado (ver CLAUDE.md)
@@ -70,14 +72,34 @@ function meses() { const s = new Set([ymOf(), ymOf(new Date(), 1), ymOf(new Date
 async function mes(ym) { const [x] = await redis([['HGET', 'k11:socialm', ym]]); if (x) return JSON.parse(x); const c = CAMPAIGNS[ym]; return { ym, name: c ? c.name : 'Rotación', draft: !!(c && c.draft), estado: 'borrador', posts: plan(ym) }; }
 const guardar = m => redis([['HSET', 'k11:socialm', m.ym, JSON.stringify(m)]]);
 
-async function ayr(path, method, body) {
-  if (!KEY) throw new Error('Falta AYRSHARE_API_KEY en Vercel');
-  const r = await fetch('https://api.ayrshare.com/api/' + path, { method, headers: { Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
+async function up(path, method, form) {
+  if (!KEY) throw new Error('Falta UPLOADPOST_API_KEY en Vercel');
+  const r = await fetch('https://api.upload-post.com/api/' + path, { method, headers: { Authorization: 'Apikey ' + KEY }, body: form });
   const j = await r.json().catch(() => ({}));
-  if (!r.ok || j.status === 'error') throw new Error((j.errors && j.errors[0] && j.errors[0].message) || j.message || ('Ayrshare ' + r.status));
+  if (!r.ok || j.success === false) throw new Error(j.error || j.message || ('Upload-Post ' + r.status));
   return j;
 }
-async function conectadas() { if (!KEY) return null; try { const j = await ayr('user', 'GET'); return j.activeSocialAccounts || []; } catch { return null; } }
+async function conectadas() {
+  if (!KEY) return null;
+  try {
+    const j = await up('uploadposts/users', 'GET'), ps = j.profiles || j.users || [];
+    const p = ps.find(x => x.username === UP_USER) || ps[0]; if (!p) return [];
+    const sa = p.social_accounts || {};
+    return Object.keys(UP_NET).filter(k => sa[UP_NET[k]] && (typeof sa[UP_NET[k]] !== 'object' || Object.keys(sa[UP_NET[k]]).length));
+  } catch { return null; }
+}
+async function programar(p, text) {
+  const f = new FormData();
+  f.append('user', UP_USER);
+  for (const n of p.nets) f.append('platform[]', UP_NET[n]);
+  f.append('photos[]', p.img.split('?')[0]);
+  f.append('title', text);
+  f.append('scheduled_date', p.at);
+  f.append('external_id', 'k11-' + p.day + '-' + p.id);
+  if (process.env.UPLOADPOST_FB_PAGE) f.append('facebook_page_id', process.env.UPLOADPOST_FB_PAGE);
+  if (process.env.UPLOADPOST_LI_PAGE) f.append('target_linkedin_page_id', process.env.UPLOADPOST_LI_PAGE);
+  return up('upload_photos', 'POST', f);
+}
 
 // Cuentas aliadas: solo las marcadas "ok" (aceptaron) se mencionan en cada post
 const ALIADOS_INI = [
@@ -101,14 +123,14 @@ async function aprobarMes(ym) {
   for (const p of m.posts) {
     if (p.off) { p.estado = 'omitido'; continue; }
     if (Date.parse(p.at) < now + 10 * 60e3) { p.estado = 'vencido'; continue; }
-    try { const j = await ayr('post', 'POST', { post: men && !p.text.includes(men) ? p.text + '\n\n' + men : p.text, platforms: p.nets, mediaUrls: [p.img], scheduleDate: p.at }); p.ayr = j.id; p.estado = 'programado'; delete p.err; }
+    try { const j = await programar(p, men && !p.text.includes(men) ? p.text + '\n\n' + men : p.text); p.job = j.job_id; p.estado = 'programado'; delete p.err; }
     catch (e) { p.estado = 'error'; p.err = String(e.message || e); }
   }
   m.estado = 'aprobado'; m.aprobado = new Date().toISOString(); await guardar(m); return m;
 }
 async function cancelarMes(ym) {
   const m = await mes(ym);
-  for (const p of m.posts) { if (p.ayr && p.estado === 'programado') { try { await ayr('post', 'DELETE', { id: p.ayr }); } catch {} } if (p.estado !== 'publicado') { delete p.estado; delete p.ayr; } }
+  for (const p of m.posts) { if (p.job && p.estado === 'programado') { try { await up('uploadposts/schedule/' + p.job, 'DELETE'); } catch {} } if (p.estado !== 'publicado') { delete p.estado; delete p.job; } }
   m.estado = 'borrador'; await guardar(m); return m;
 }
 async function editarPost(ym, i, text, nets, off) {

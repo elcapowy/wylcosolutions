@@ -43,6 +43,11 @@ async function accion(b) {
     if (b.modo === 'fijar') { await T.fijarStock(s, Math.max(0, v)); return `Inventario ${P.sku} = ${Math.max(0, v)} cajas`; }
     await T.sumarStock(s, v); return `${v > 0 ? '+' : ''}${v} cajas a ${P.sku}`;
   }
+  if (a === 'costo' && P) {
+    const v = parseFloat(String(b.v).replace(',', '.'));
+    if (v > 0) { await redis([['HSET', 'k11:costo', s, String(v)]]); return `Costo ${P.sku} = USD ${v.toFixed(2)} por caja`; }
+    await redis([['HDEL', 'k11:costo', s]]); return `${P.sku}: costo borrado`;
+  }
   if (a === 'precio' && P) {
     const v = parseFloat(String(b.v).replace(',', '.'));
     if (v > 0) { await fijarPrecio(P, v); await redis([['HSET', 'k11:online', s, '1']]); return `Precio ${P.sku} = USD ${v.toFixed(2)} por caja`; }
@@ -107,7 +112,8 @@ module.exports = async (req, res) => {
   }
 
   const v = q.v || 'inicio';
-  const [t, ps, cs, pr] = await Promise.all([T.leerTienda(), T.pedidos(), T.clientes(), precios(T.PRODUCTS.map(p => p.slug)).catch(e => ({ _err: e.message }))]);
+  const [t, ps, cs, pr, coR] = await Promise.all([T.leerTienda(), T.pedidos(), T.clientes(), precios(T.PRODUCTS.map(p => p.slug)).catch(e => ({ _err: e.message })), redis([['HGETALL', 'k11:costo']]).catch(() => [null])]);
+  const co = {}; { const x = coR && coR[0]; if (Array.isArray(x)) for (let j = 0; j < x.length; j += 2) co[x[j]] = +x[j + 1]; else if (x && typeof x === 'object') Object.assign(co, x); }
   // alta automática de clientes de ventas viejas
   const ids = new Set(cs.map(c => c.id));
   for (const o of ps) if (o.email && !ids.has(T.cid(o.email))) { const c = await T.upsertCliente(o); cs.push(c); ids.add(c.id); }
@@ -122,10 +128,10 @@ module.exports = async (req, res) => {
   else if (v === 'nueva') { title = 'Nueva venta'; body = UI.nueva({ t, cs: cs.slice().sort((a, b) => (a.company || '').localeCompare(b.company || '')), sel: q.id && cs.find(c => c.id === T.cid(q.id)) }); }
   else if (v === 'clientes') { title = 'Clientes'; body = UI.clientes({ cs, ps, q: q.q || '' }); }
   else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) : '<h1>Cliente no encontrado</h1>'; }
-  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps }); }
+  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co }); }
   else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
   else if (v === 'redes') { title = 'Redes'; const ms = S.meses(); const ym = ms.includes(q.m) ? q.m : (ms.includes('2026-11') ? '2026-11' : ms[0]); const [m, conn, al] = await Promise.all([S.mes(ym), S.conectadas(), S.aliados()]); body = UI.redes({ aliados: al, m, meses: ms, conn, hasKey: !!S.KEY, NETS: S.NETS, IMG_NETS: S.IMG_NETS, seller: S.SELLER.es }); }
-  else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, f: q.f || 'activas', q: q.q || '' }); }
+  else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '' }); }
   else {
     let mail = null;
     try { const { est, stop } = await leerEstado(); const vals = Object.values(est); mail = { enviado: vals.filter(x => x.e === 'enviado').length, pendiente: D.rows.length - vals.length, bajas: Object.values(stop).filter(x => x === 'baja').length }; } catch {}

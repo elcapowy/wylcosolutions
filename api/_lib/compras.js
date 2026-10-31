@@ -53,6 +53,14 @@ async function accion(b) {
     hist(c, base ? 'Creado copiando ' + base.nombre : 'Creado'); await guardar(c);
     return { go: '/admin?v=compra&id=' + c.id, msg: c.nombre + ' creado' };
   }
+  if (a === 'compra_reset') {
+    if (String(b.ok || '').trim().toUpperCase() !== 'BORRAR') throw new Error('Escribí BORRAR para confirmar');
+    const cs = await lista(); for (const c of cs) await limpiarLlegada(c);
+    const cmd = [['DEL', 'k11:compras'], ['DEL', 'k11:compras_n']];
+    if (b.stock === '1') cmd.push(['DEL', 'k11:stock'], ['DEL', 'k11:costo'], ['DEL', 'k11:mov']);
+    await redis(cmd);
+    return { go: '/admin?v=compras', msg: cs.length + ' compra(s) borrada(s)' + (b.stock === '1' ? ' · stock y costos en cero' : '') + ' · el próximo es Pedido 1' };
+  }
   const c = await una(b.id); if (!c) throw new Error('Pedido no encontrado');
   const lock = () => { if (c.estado === 'recibido') throw new Error('Ya se recibió: no se puede cambiar'); };
   if (a === 'compra_datos') {
@@ -97,7 +105,7 @@ async function accion(b) {
     await guardar(c); await limpiarLlegada(c);
     return { msg: c.nombre + ' recibido · +' + rec.reduce((x, r) => x + r.cases, 0) + ' cajas en stock' + (cub.length ? ' · ' + cub.length + ' pre-pedido(s) cubierto(s)' : ''), cub };
   }
-  if (a === 'compra_borrar') { if (c.estado !== 'borrador') throw new Error('Solo se borran borradores'); await redis([['HDEL', 'k11:compras', c.id]]); return { go: '/admin?v=compras', msg: c.nombre + ' borrado' }; }
+  if (a === 'compra_borrar') { if (c.estado === 'recibido' && String(b.ok || '').toUpperCase() !== 'BORRAR') throw new Error('Pedido recibido: escribí BORRAR para confirmar'); await limpiarLlegada(c); await redis([['HDEL', 'k11:compras', c.id]]); return { go: '/admin?v=compras', msg: c.nombre + ' borrado' }; }
   throw new Error('Acción desconocida');
 }
 async function marcarLlegada(c) { if (!c.eta) return; const m = await X.cfg('llegada', {}); for (const i of c.items) m[i.slug] = { cajas: i.cases, fecha: c.eta, compra: c.id }; await X.setCfg('llegada', m); }
@@ -114,6 +122,11 @@ function vLista(cs) {
   return `<div style="display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:16px"><div><h1>Compras</h1><p class="mut" style="margin:4px 0 0">Pedidos a fábrica con mix de productos, costos del embarque y recepción en stock.</p></div>
 <form method="post">${H('compra_nueva')}<button>+ Nuevo pedido</button></form></div>
 <div class="kpis"><div class="kpi"><div class="l">Pedidos abiertos</div><div class="n">${ab.length}</div></div><div class="kpi"><div class="l">En camino / pedido</div><div class="n">${usd(enCamino, 0)}</div></div><div class="kpi"><div class="l">Invertido (recibido)</div><div class="n">${usd(inv, 0)}</div></div></div>
+<details class="card pad" style="margin-bottom:16px"><summary style="cursor:pointer;font-weight:700">Borrar compras de prueba</summary>
+<form method="post" style="display:grid;gap:10px;margin-top:12px" onsubmit="return confirm('¿Borrar TODAS las compras? No se puede deshacer.')">${H('compra_reset')}
+<label style="display:flex;gap:8px;align-items:center;font-weight:500"><input type="checkbox" name="stock" value="1" checked>También poner stock, costos por caja y movimientos en cero (lo que sumaron las compras de prueba)</label>
+<label>Escribí BORRAR para confirmar<input name="ok" required autocomplete="off" style="max-width:200px"></label><div><button class="danger">Borrar todas las compras</button></div></form>
+<p class="mut" style="font-size:12px;margin:8px 0 0">No toca ventas, clientes, precios de Stripe ni envío. La numeración vuelve a Pedido 1.</p></details>
 <div class="card tw"><table><thead><tr><th>Pedido</th><th>Estado</th><th>Mix</th><th class="r">Cajas</th><th class="r">Fábrica</th><th class="r">Importación</th><th class="r">Total</th><th>Llegada</th></tr></thead><tbody>${rows || '<tr><td colspan="8" class="mut">Todavía no hay pedidos. Creá el Pedido 1 con el botón de arriba.</td></tr>'}</tbody></table></div>`;
 }
 function vDetalle(c, stock = {}) {
@@ -130,7 +143,7 @@ function vDetalle(c, stock = {}) {
 ${k.faltan ? `<p style="margin:0;font-size:13px;color:var(--od)">Faltan ${k.faltan} costo(s) real(es): se va a usar el estimado.</p>` : ''}<div><button>Recibir y sumar al stock</button></div></form></div>`;
   const flujo = ed && c.estado !== 'cancelado' ? `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end">${c.estado === 'borrador' ? `<form method="post">${H('compra_estado', { id: c.id, v: 'pedido' })}<button>Marcar pedido a fábrica</button></form>` : ''}
 ${['borrador', 'pedido'].includes(c.estado) ? `<form method="post" class="inl" style="gap:6px;align-items:end">${H('compra_estado', { id: c.id, v: 'en camino' })}<label>Llega<input type="date" name="eta" value="${esc(c.eta || '')}" required></label><button class="sec">Marcar en camino</button></form>` : ''}
-<form method="post" onsubmit="return confirm('¿Cancelar el pedido?')">${H('compra_estado', { id: c.id, v: 'cancelado' })}<button class="lnk">Cancelar</button></form>${c.estado === 'borrador' ? `<form method="post" onsubmit="return confirm('¿Borrar borrador?')">${H('compra_borrar', { id: c.id })}<button class="lnk">Borrar</button></form>` : ''}</div>` : '';
+<form method="post" onsubmit="return confirm('¿Cancelar el pedido?')">${H('compra_estado', { id: c.id, v: 'cancelado' })}<button class="lnk">Cancelar</button></form>${c.estado === 'borrador' ? `<form method="post" onsubmit="return confirm('¿Borrar borrador?')">${H('compra_borrar', { id: c.id })}<button class="lnk">Borrar</button></form>` : ''}</div>` : rx ? `<form method="post" class="inl" style="gap:8px;align-items:end" onsubmit="return confirm('¿Borrar este pedido? El stock que sumó NO se descuenta.')">${H('compra_borrar', { id: c.id })}<label>Borrar pedido (escribí BORRAR)<input name="ok" required style="width:120px"></label><button class="lnk">Borrar</button></form>` : '';
   return `<p style="margin:0 0 6px"><a href="/admin?v=compras">← Compras</a></p>
 <div style="display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap;margin-bottom:16px"><div><h1>${esc(c.nombre)} ${tagE(c.estado)}</h1><p class="mut" style="margin:4px 0 0">${esc(c.proveedor || '')} · creado ${dia(c.at)}${c.eta && !rx ? ' · llega ' + dia(c.eta) : ''}</p></div>
 <form method="post">${H('compra_nueva', { copiar: c.id })}<button class="sec">Nuevo pedido con este mix</button></form></div>

@@ -86,7 +86,7 @@ const login = err => `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"
 // ── VENTAS ──
 const COBRADO = o => ['pagado', 'enviado'].includes(o.estado);
 const neto = o => Math.max(0, (o.total || 0) - (o.tax || 0));
-const costoV = (o, co) => (o.items || []).reduce((a, i) => a + (i.cases || 0) * (+co[i.slug] || 0), 0) + (+o.envio_costo || 0);
+const costoV = (o, co) => (o.items || []).reduce((a, i) => a + (i.cases || 0) * (+co[i.slug] || 0), 0) + (+o.envio_costo || 0) + (+o.fee || 0);
 const sinCosto = (o, co) => (o.items || []).some(i => !(+co[i.slug] > 0));
 function ventas({ ps, f, q, co = {} }) {
   const act = ps.filter(ACTIVOS);
@@ -145,15 +145,15 @@ ${!o.invoice && o.origen !== 'stripe' ? `<label>Flete a cobrar (opcional)<input 
 <div class="card pad"><h2>Historial</h2><ul class="tl">${(o.hist || [{ at: o.at, txt: 'Venta creada' }]).slice().reverse().map(h => `<li><span>${fecha(h.at)}</span><div>${esc(h.txt)}</div></li>`).join('')}</ul></div>`;
 }
 
-function nueva({ t, cs, sel }) {
-  const c = sel || {};
+function nueva({ t, cs, sel, rep }) {
+  const c = sel || {}, rq = {}; if (rep) for (const i of rep.items || []) rq[i.slug] = i.cases;
   return `<div class="crumb"><a href="/admin?v=ventas">Ventas</a>/<span>Nueva</span></div><div class="hd"><div><h1>Nueva venta</h1><div class="sub">Para pedidos por teléfono, WhatsApp o en persona. Reserva stock al guardar.</div></div></div>
 <form method="post" class="grid2">${H('nueva')}
 <div class="card pad" style="display:grid;gap:14px;align-content:start"><h2>Cliente</h2>
 <label>Cliente existente<select name="cliente" onchange="if(this.value)location.href='/admin?v=nueva&id='+encodeURIComponent(this.value)"><option value="">— Cliente nuevo —</option>${cs.map(x => `<option value="${esc(x.id)}"${x.id === c.id ? ' selected' : ''}>${esc(x.company || x.id)} · ${esc(x.id)}</option>`).join('')}</select></label>
 <div class="fg">${[['company', 'Empresa *', 1], ['contact', 'Contacto'], ['email', 'Email *', 1, 'email'], ['phone', 'Teléfono'], ['address', 'Dirección'], ['city', 'Ciudad'], ['state', 'Estado'], ['zip', 'ZIP'], ['ein', 'EIN / reventa']].map(([n, l, req, ty]) => `<label>${l}<input name="${n}" type="${ty || 'text'}" value="${esc(c[n] || '')}"${req ? ' required' : ''}></label>`).join('')}
 <label>Tipo<select name="business_type">${['HVAC-R dealer / supply house', 'Wholesaler / distributor', 'Contractor', 'Other business'].map(x => `<option${x === c.business_type ? ' selected' : ''}>${x}</option>`).join('')}</select></label></div></div>
-<div class="card pad" style="display:grid;gap:14px;align-content:start"><h2>Productos</h2><div class="qgrid">${t.map(p => `<div class="qrow"><div class="prod"><img src="${p.img}" alt=""><div><strong>${esc(p.name)}</strong><br><small class="m">${p.sku}</small> · ${p.cases_available ? `<span class="ok">${p.cases_available} en stock</span>` : '<small>sin stock → pre-pedido</small>'}</div></div><input type="number" name="qty_${p.slug}" min="0" value="0" aria-label="Cajas ${p.sku}"></div>`).join('')}</div>
+<div class="card pad" style="display:grid;gap:14px;align-content:start"><h2>Productos</h2><div class="qgrid">${t.map(p => `<div class="qrow"><div class="prod"><img src="${p.img}" alt=""><div><strong>${esc(p.name)}</strong><br><small class="m">${p.sku}</small> · ${p.cases_available ? `<span class="ok">${p.cases_available} en stock</span>` : '<small>sin stock → pre-pedido</small>'}</div></div><input type="number" name="qty_${p.slug}" min="0" value="${rq[p.slug] || 0}" aria-label="Cajas ${p.sku}"></div>`).join('')}</div>
 <label>Forma de pago<select name="payment"><option>Wire</option><option>Zelle</option><option>ACH</option><option>Card</option></select></label>
 <label>Notas<textarea name="notes"></textarea></label><div><button>Guardar venta</button></div></div></form>`;
 }

@@ -92,6 +92,7 @@ async function crearVenta({ datos, items, origen, estado, ref, extra }) {
   if (c && c.stripe_customer && !o.stripe_customer) o.stripe_customer = c.stripe_customer;
   hist(o, 'Venta creada (' + origen + ')' + (out.some(i => i.preorder) ? ' · incluye pre-pedido' : ''));
   await guardarPedido(o);
+  try { await require('./extras').chequearMinimo(out.map(i => i.slug), BY); } catch {}
   return o;
 }
 const pick = (o, ks) => { const r = {}; for (const k of ks) if (o && o[k] != null && o[k] !== '') r[k] = o[k]; return r; };

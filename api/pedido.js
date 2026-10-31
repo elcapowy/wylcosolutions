@@ -32,9 +32,10 @@ module.exports = async (req, res) => {
   if (falta.length) { const m = [...new Set(falta)]; return reply(400, false, (es ? 'Completá: ' : 'Please complete: ') + m.join(', '), { missing: m }); }
 
   let o;
-  try { o = await crearVenta({ datos: f, items: want, origen: 'web', extra: { retiro: b.retiro === '1' } }); }
+  try { o = await crearVenta({ datos: f, items: want, origen: 'web', extra: { retiro: b.retiro === '1', lang, utm: String(b.utm || '').slice(0, 120) } }); }
   catch (e) { return reply(500, false, es ? 'No pudimos registrar el pedido. Escribí a info@wylcosolutions.com.' : 'We could not register your order. Please email info@wylcosolutions.com.'); }
   const items = o.items, ref = o.ref;
+  await require('./_lib/extras').mailCliente(o, 'confirmacion');
   const pre = items.some(i => i.preorder), allStock = !pre;
   const line = i => es
     ? `${i.cases} caja(s) ${i.sku} ${i.name}` + (i.reserved && i.preorder ? ` — ${i.reserved} en stock, ${i.preorder} en pre-pedido` : i.preorder ? ' — pre-pedido' : ' — en stock, reservada')

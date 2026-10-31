@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const { enviar, redis } = require('./_lib/core');
 const { BY, pedido, guardarPedido, devolverPedido, crearVenta, upsertCliente, hist } = require('./_lib/tienda');
 const { stripe } = require('./_lib/stripe');
+const X = require('./_lib/extras');
 const WH = process.env.STRIPE_WEBHOOK_SECRET;
 const TO = process.env.ORDER_TO || 'info@wylcosolutions.com';
 const ADM = 'https://wylcosolutions.com/admin?v=venta&ref=';
@@ -30,8 +31,9 @@ async function sesionCompleta(s) {
   const pagado = s.payment_status === 'paid';
   const datos = { email: (c.email || '').toLowerCase(), company, contact: c.name || '', phone: c.phone || '', address: [ship.line1, ship.line2].filter(Boolean).join(', '), city: ship.city || '', state: ship.state || '', zip: ship.postal_code || '', stripe_customer: s.customer || '', payment: pagado ? 'Card' : 'ACH (pendiente)' };
   const o = await crearVenta({ datos, items, origen: 'stripe', estado: pagado ? 'pagado' : 'pago pendiente', ref: 'K11-S' + Date.now().toString(36).toUpperCase(),
-    extra: { stripe_session: s.id, stripe_customer: s.customer || '', total: (s.amount_total || 0) / 100, tax: ((s.total_details || {}).amount_tax || 0) / 100, flete: ((s.total_details || {}).amount_shipping || 0) / 100, retiro: !!(s.shipping_cost && s.shipping_cost.amount_total === 0 && /pickup|retiro/i.test(JSON.stringify(s.shipping_cost))), lang: s.locale === 'es' ? 'es' : 'en' } });
+    extra: { stripe_session: s.id, stripe_customer: s.customer || '', total: (s.amount_total || 0) / 100, tax: ((s.total_details || {}).amount_tax || 0) / 100, flete: ((s.total_details || {}).amount_shipping || 0) / 100, retiro: !!(s.shipping_cost && s.shipping_cost.amount_total === 0 && /pickup|retiro/i.test(JSON.stringify(s.shipping_cost))), lang: s.locale === 'es' ? 'es' : 'en', utm: md.utm || '', descuento: +md.desc || 0, fee: pagado ? await X.feeStripe(stripe, { pi: s.payment_intent }) : null } });
   await redis([['HSET', 'k11:sess', s.id, o.ref]]);
+  await X.mailCliente(o, 'confirmacion');
   const q = o.items.reduce((a, i) => a + i.cases, 0), pre = o.items.reduce((a, i) => a + i.preorder, 0);
   await avisar(o.ref, `[${pagado ? 'Pago' : 'Pago pendiente'} Stripe K11] ${company} · ${q} caja(s) · ${o.ref}`,
     `Ref: ${o.ref}\nCliente: ${company} · ${c.name || ''} <${c.email || ''}>\nEnvío: ${[ship.line1, ship.city, ship.state, ship.postal_code].filter(Boolean).join(', ')}\n\n${o.items.map(i => `${i.cases} × ${i.sku} ${i.name}`).join('\n')}\n\nTotal: USD ${o.total} (tax USD ${o.tax})\nEstado: ${pagado ? 'pagado' : 'ACH en proceso — no despachar hasta que figure pagado'}` + (pre ? `\nATENCIÓN: ${pre} caja(s) sin stock → pre-pedido` : ''));
@@ -50,15 +52,23 @@ module.exports = async (req, res) => {
     else if (ev.type === 'checkout.session.async_payment_succeeded') {
       if (!(await refDeSesion(o.id))) await sesionCompleta(o);
       const ref = await refDeSesion(o.id);
-      const x = await setEstado(ref, 'pagado', { payment: 'ACH' }, 'Pago ACH acreditado');
+      const x = await setEstado(ref, 'pagado', { payment: 'ACH', fee: await X.feeStripe(stripe, { pi: o.payment_intent }) }, 'Pago ACH acreditado');
       if (x) await avisar(ref, `[ACH acreditado K11] ${x.company} · ${ref}`, `El pago ACH de ${ref} se acreditó. Ya se puede despachar.`);
     } else if (ev.type === 'checkout.session.async_payment_failed') {
       const ref = await refDeSesion(o.id), x = await pedido(ref);
       if (x && x.estado !== 'cancelado') { await devolverPedido(x); await setEstado(ref, 'cancelado', {}, 'ACH rechazado · stock devuelto'); await avisar(ref, `[ACH rechazado K11] ${x.company} · ${ref}`, `El pago ACH de ${ref} falló. Venta cancelada y stock devuelto.`); }
     } else if (ev.type === 'invoice.paid') {
       const ref = (o.metadata || {}).ref;
-      const x = ref && await setEstado(ref, 'pagado', { total: o.amount_paid / 100, tax: (o.tax || 0) / 100 }, `Factura ${o.number || ''} pagada · USD ${o.amount_paid / 100}`);
+      const x = ref && await setEstado(ref, 'pagado', { total: o.amount_paid / 100, tax: (o.tax || 0) / 100, fee: o.amount_paid ? await X.feeStripe(stripe, { charge: o.charge, pi: o.payment_intent }) : 0 }, `Factura ${o.number || ''} pagada · USD ${o.amount_paid / 100}`);
       if (x) await avisar(ref, `[Factura pagada K11] ${x.company} · ${ref}`, `Factura ${o.number || o.id} pagada: USD ${o.amount_paid / 100}. Ya se puede despachar.`);
+    } else if (ev.type === 'checkout.session.expired') {
+      const em = (o.customer_details && o.customer_details.email) || o.customer_email, md = o.metadata || {};
+      if (em && md.items && !(await refDeSesion(o.id))) {
+        const [ya] = await redis([['SET', 'k11:aband:' + em.toLowerCase(), '1', 'NX', 'EX', '604800']]);
+        if (ya === 'OK') { const items = md.items.split('|').map(x => { const [slug, q] = x.split(':'); return { slug, q: +q || 0, name: (BY[slug] || {}).name || slug }; }).filter(i => i.q);
+          await X.mailCliente({ email: em, contact: (o.customer_details || {}).name || '', lang: o.locale === 'es' ? 'es' : 'en' }, 'abandono', { items });
+          await enviar(TO, `[Carrito abandonado K11] ${em}`, items.map(i => i.q + ' × ' + i.name).join('\n') + '\n\nSe le mandó un recordatorio automático.').catch(() => {}); }
+      }
     } else if (ev.type === 'invoice.payment_failed') {
       const ref = (o.metadata || {}).ref, x = ref && await pedido(ref);
       if (x) { hist(x, 'Intento de pago de factura fallido'); await guardarPedido(x); await avisar(ref, `[Pago de factura fallido K11] ${ref}`, `Falló un intento de pago de la factura ${o.number || o.id}.`); }

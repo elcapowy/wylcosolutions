@@ -50,7 +50,7 @@ function display(p, L) {
 }
 
 function render(L, products, sel, paid, opts = {}) {
-  const t0 = T[L], url = SITE + t0.pre + '/order', pre = opts.qty || {}, PR = opts.prices || {}, EV = opts.envio || { caja: 35, gratis: 2000 };
+  const t0 = T[L], url = SITE + t0.pre + '/order', pre = opts.qty || {}, PR = opts.prices || {}, EV = opts.envio || { caja: 35, gratis: 2000 }, LL = opts.llegada || {}, DS = opts.desc || [];
   const fm = n => '$' + Number(n).toLocaleString('en-US'), sub = s => typeof s === 'string' ? s.replace(/\{G\}/g, fm(EV.gratis)).replace(/\{GN\}/g, Number(EV.gratis).toLocaleString('en-US')).replace(/\{C\}/g, fm(EV.caja)) : s;
   const t = { ...t0, tl: t0.tl.map(([a, b]) => [a, sub(b)]), facts: t0.facts.map(([a, b]) => [a, sub(b)]) }, f = t.f;
   const ld = { '@context': 'https://schema.org', '@graph': [
@@ -62,7 +62,7 @@ function render(L, products, sel, paid, opts = {}) {
   const cards = products.map(p => {
     const v = +pre[p.slug] || (sel === p.slug ? 1 : 0), st = p.cases_available > 0;
     return `<article class="pc" data-slug="${p.slug}" data-units="${p.units || 0}" data-stock="${p.cases_available}" data-online="${p.online ? 1 : 0}" data-price="${PR[p.slug] || 0}" data-name="${esc(p.name)}" data-sku="${esc(p.sku)}">
-<div class="pimg">${display(p, L)}<span class="av ${st ? 'in' : 'pre'}">${st ? t.inStock(p.cases_available) : t.preOrder}</span>${p.units ? `<span class="qty"><b>× ${p.units}</b>${L === 'es' ? 'por caja' : 'per case'}</span>` : ''}</div>
+<div class="pimg">${display(p, L)}<span class="av ${st ? 'in' : 'pre'}">${st ? t.inStock(p.cases_available) : LL[p.slug] && LL[p.slug].fecha ? (L === 'es' ? 'Llega ' : 'Arriving ') + new Date(LL[p.slug].fecha + 'T12:00:00Z').toLocaleDateString(L === 'es' ? 'es-US' : 'en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' }) : t.preOrder}</span>${p.units ? `<span class="qty"><b>× ${p.units}</b>${L === 'es' ? 'por caja' : 'per case'}</span>` : ''}</div>
 <div class="pb"><div class="sku">${esc(p.sku)}</div><h3>${esc(p.name)}</h3><p>${esc(L === 'es' ? p.desc_es : p.desc)}</p>
 <div class="meta">${p.units ? `<span><b>${p.units}</b> ${t.perCase}</span>` : '<span></span>'}${p.sds ? `<a href="${p.sds}" target="_blank" rel="noopener">${t.sds}</a>` : ''}</div>
 <div class="step"><button type="button" class="mn" aria-label="−">−</button><input class="q" type="number" name="qty_${p.slug}" min="0" max="999" step="1" value="${v}" aria-label="${esc(p.sku)} cases"><button type="button" class="pl" aria-label="+">+</button></div></div></article>`;
@@ -176,7 +176,7 @@ footer{background:var(--bg);color:var(--lm);font-size:14px;padding:28px 0}
 <div class="hero dk"><div class="w"><div class="eye">${t.eyebrow}</div><h1>${t.h1[0]}<br><em>${t.h1[1]}</em></h1><p class="lead">${t.lead}</p>
 <div class="facts">${t.facts.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join('')}</div>${notice}</div></div>
 <form id="cart" method="post" action="/api/pedido">
-<input type="hidden" name="lang" value="${L}">
+<input type="hidden" name="lang" value="${L}"><input type="hidden" name="utm" id="utm">
 <label class="hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
 <section><div class="w"><h2 id="products">${t.sec1}</h2><p class="ss">${t.sec1s}</p><div class="grid">${cards}</div></div></section>
 <div class="bar dk" aria-live="polite"><div class="w"><div><b id="sumMain">${t.cart.none}</b><small id="sumSub"></small></div><a class="btn" href="#checkout">${t.cart.go}</a></div></div>
@@ -200,7 +200,8 @@ footer{background:var(--bg);color:var(--lm);font-size:14px;padding:28px 0}
 <div class="w"><p class="api">${t.api}</p></div></section>
 <footer class="dk"><div class="w">Wylco LLC · Miami, FL, USA · <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a></div></footer>
 <script>
-(function(){var S=${JSON.stringify(t.cart)},NO=${JSON.stringify(t.payNo)},M=${JSON.stringify(t.sum)},LOC=${JSON.stringify(L === 'es' ? 'es-US' : 'en-US')},EV=${JSON.stringify(EV)};var cards=[].slice.call(document.querySelectorAll('.pc'));
+(function(){var S=${JSON.stringify(t.cart)},NO=${JSON.stringify(t.payNo)},M=${JSON.stringify(t.sum)},LOC=${JSON.stringify(L === 'es' ? 'es-US' : 'en-US')},EV=${JSON.stringify(EV)},DS=${JSON.stringify(DS)},DL=${JSON.stringify(L === 'es' ? 'Descuento por volumen' : 'Volume discount')};
+try{var U=new URLSearchParams(location.search),uu=[U.get('utm_source'),U.get('utm_campaign'),U.get('utm_content')].filter(Boolean).join(' · ');if(uu)sessionStorage.setItem('k11utm',uu);document.getElementById('utm').value=uu||sessionStorage.getItem('k11utm')||(document.referrer&&!/wylcosolutions/.test(document.referrer)?'ref · '+new URL(document.referrer).hostname:'');}catch(e){}var cards=[].slice.call(document.querySelectorAll('.pc'));
 var qs=new URLSearchParams(location.search),sk=(qs.get('sku')||'').toLowerCase();
 cards.forEach(function(c){var i=c.querySelector('input.q');var v=qs.get('qty_'+c.dataset.slug);if(v)i.value=Math.max(0,parseInt(v,10)||0);else if(sk&&c.dataset.slug===sk&&+i.value<1)i.value=1;
 c.querySelector('.mn').onclick=function(){i.value=Math.max(0,(parseInt(i.value,10)||0)-1);upd();};c.querySelector('.pl').onclick=function(){i.value=(parseInt(i.value,10)||0)+1;upd();};i.addEventListener('input',upd);});
@@ -215,7 +216,8 @@ h+='<div class="r"><b>'+q+' × '+esc(k.dataset.name)+'</b><span class="v">'+(p?m
 if(!n){document.getElementById('sum').innerHTML=h+'<p class="m">'+M.none+'</p>';return;}
 var nc=0;cards.forEach(function(k){nc+=Math.max(0,parseInt(k.querySelector('input.q').value,10)||0);});var pk=document.getElementById('pick'),pick=pk&&pk.checked,fr=pick||tot/100>=EV.gratis?0:Math.round(nc*EV.caja*100);
 h+='<div class="r"><span>'+M.ship+'</span><span class="v">'+(pick?M.pick:fr?money(fr):M.free)+'</span>'+(!pick&&fr&&tot?'<small>'+nc+' × '+money(EV.caja*100)+' / '+M.perC+' · '+money(EV.gratis*100-tot)+' '+M.away+'</small>':'')+'</div><div class="r x"><span>'+M.tax+'</span><span class="v">'+M.taxV+'</span></div>';
-h+='<div class="r tot"><span>Total</span><span class="v">'+(tot?money(tot+fr):M.na)+'</span></div>';
+var dp=0;DS.forEach(function(d){if(nc>=d.min&&d.pct>dp)dp=d.pct;});var dsc=Math.round(tot*dp/100);if(dsc)h+='<div class="r"><span>'+DL+' '+dp+'%</span><span class="v">−'+money(dsc)+'</span></div>';
+h+='<div class="r tot"><span>Total</span><span class="v">'+(tot?money(tot-dsc+fr):M.na)+'</span></div>';
 if(miss&&tot)h+='<p class="m" style="font-size:13px">'+M.part+'</p>';if(!ok)h+='<p class="warn">'+NO+'</p>';document.getElementById('sum').innerHTML=h;}
 var pk=document.getElementById('pick');if(pk)pk.addEventListener('change',upd);upd();})();
 </script>

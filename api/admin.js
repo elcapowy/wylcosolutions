@@ -5,6 +5,8 @@ const UI = require('./_lib/adminui');
 const S = require('./_lib/social');
 const E = require('./_lib/envio');
 const F = require('./_lib/finanzas');
+const X = require('./_lib/extras');
+const U2 = require('./_lib/adminui2');
 const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
 const CK = 'k11adm';
@@ -32,6 +34,8 @@ async function crearFactura(o) {
   const cfg = await E.config(), sub = o.items.reduce((a, i) => a + pr[i.slug].unit_amount * i.cases, 0) / 100, nc = o.items.reduce((a, i) => a + i.cases, 0);
   const fl = o.flete_manual != null ? +o.flete_manual : E.flete(cfg, sub, nc, o.retiro);
   for (const i of o.items) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
+  const pct = await X.descuento(c, nc);
+  if (pct > 0) { await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: -Math.round(sub * pct), currency: 'usd', tax_behavior: 'exclusive', description: `${c && +c.desc_pct >= pct ? 'Customer' : 'Volume'} discount ${pct}%` }); o.descuento = pct; }
   if (fl > 0) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: Math.round(fl * 100), currency: 'usd', tax_code: 'txcd_92010001', tax_behavior: 'exclusive', description: `Ground shipping — ${nc} case(s) (free on orders $${cfg.gratis.toLocaleString('en-US')}+)` });
   else if (!o.retiro) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: `Shipping — free (order over $${cfg.gratis.toLocaleString('en-US')})` });
   else await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: 'Pickup in Miami — no shipping charge' });
@@ -83,6 +87,27 @@ async function accion(b) {
     await redis([['HDEL', 'k11:online', s]]); return `${P.sku}: venta online desactivada`;
   }
   if (a === 'online' && P) { await redis([b.v === '1' ? ['HSET', 'k11:online', s, '1'] : ['HDEL', 'k11:online', s]]); return `${P.sku}: ${b.v === '1' ? 'online' : 'solo factura'}`; }
+  if (a === 'minimo' && P) { const m = await X.cfg('minimo', {}); const v = parseInt(b.v, 10); if (v > 0) m[s] = v; else delete m[s]; await X.setCfg('minimo', m); return `${P.sku}: ${v > 0 ? 'aviso con menos de ' + v + ' cajas' : 'sin aviso'}`; }
+  if (a === 'llegada' && P) { const m = await X.cfg('llegada', {}); if (b.borrar || !b.fecha) delete m[s]; else m[s] = { cajas: parseInt(b.cajas, 10) || 0, fecha: String(b.fecha).slice(0, 10) }; await X.setCfg('llegada', m); return `${P.sku}: ${m[s] ? 'embarque llega ' + m[s].fecha : 'sin embarque'}`; }
+  if (a === 'desc_cfg') { const d = [0, 1, 2].map(i => ({ min: parseInt(b['min' + i], 10), pct: parseFloat(b['pct' + i]) })).filter(x => x.min > 0 && x.pct > 0).sort((x, y) => x.min - y.min); await X.setCfg('desc', d); return d.length ? 'Descuentos: ' + d.map(x => x.min + '+ cajas ' + x.pct + '%').join(' · ') : 'Sin descuento por volumen'; }
+  if (a === 'gasto_add') { const g = await X.cfg('gastos', []); const m = parseFloat(String(b.monto).replace(',', '.')); if (!b.concepto || !(m >= 0)) throw new Error('Concepto y monto'); g.push({ concepto: String(b.concepto).slice(0, 60), monto: m }); await X.setCfg('gastos', g); return 'Gasto agregado'; }
+  if (a === 'gasto_del') { const g = await X.cfg('gastos', []); g.splice(+b.i, 1); await X.setCfg('gastos', g); return 'Gasto quitado'; }
+  if (a === 'desc_cli' || a === 'cert_ok') {
+    const c = await T.cliente(b.id); if (!c) throw new Error('Cliente no encontrado');
+    if (a === 'desc_cli') { const p = Math.min(50, Math.max(0, parseFloat(b.pct) || 0)); if (p) c.desc_pct = p; else delete c.desc_pct; await T.guardarCliente(c); return p ? `Descuento fijo ${p}%` : 'Sin descuento fijo'; }
+    c.exento = true; if (c.cert) c.cert.estado = 'aprobado'; if (c.cert && c.cert.num && !c.ein) c.ein = c.cert.num;
+    if (c.stripe_customer) await stripe('customers/' + c.stripe_customer, { tax_exempt: 'exempt' }).catch(() => {});
+    await T.guardarCliente(c); try { await X.mail(c.id, c.lang === 'es' ? 'Certificado de reventa aprobado · K11' : 'Resale certificate approved · K11', (c.lang === 'es' ? 'Tu cuenta quedó exenta de sales tax para próximas compras.' : 'Your account is now sales-tax exempt for future orders.') + '\n\n' + X.portalUrl(c.id) + '\n\n— Wylco · K11 America'); } catch {}
+    return 'Certificado aprobado · cliente exento';
+  }
+  if (a === 'newsletter') {
+    const s0 = String(b.s || '').trim(), b0 = String(b.b || '').trim(); if (!s0 || !b0) throw new Error('Falta asunto o texto');
+    const pie = e => `\n\n—\nMy orders & invoices: ${X.portalUrl(e)}\nUnsubscribe: ${X.portalUrl(e)}&baja=1`;
+    if (b.prueba) { await X.mail(X.TO(), '[PRUEBA] ' + s0, b0.replace(/\{nombre\}/g, 'there') + pie(X.TO())); return 'Prueba enviada a ' + X.TO(); }
+    const cs = (await T.clientes()).filter(c => c.id && !c.nomail); let n = 0;
+    for (const c of cs) { try { await X.mail(c.id, s0, b0.replace(/\{nombre\}/g, (c.contact || '').split(' ')[0] || 'there') + pie(c.id)); n++; await new Promise(r => setTimeout(r, 550)); } catch {} }
+    await X.setCfg('ultimo_mensual', { at: new Date().toISOString(), n, s: s0 }); return `Mail mensual enviado a ${n} cliente(s)`;
+  }
   if (a === 'cliente') {
     const c = await T.cliente(b.id); if (!c) throw new Error('Cliente no encontrado');
     for (const k of ['company', 'contact', 'phone', 'address', 'city', 'state', 'zip', 'ein', 'business_type', 'notas']) if (b[k] != null) c[k] = String(b[k]).trim();
@@ -113,6 +138,14 @@ async function accion(b) {
     T.hist(o, 'Envío: ' + (o.retiro ? 'retiro en Miami' : 'despacho') + (o.envio_costo != null ? ` · costo USD ${o.envio_costo.toFixed(2)}` : '') + (o.flete_manual != null ? ` · flete cobrado USD ${o.flete_manual.toFixed(2)} (manual)` : ''));
     await T.guardarPedido(o); return o.ref + ': envío guardado';
   }
+  if (a === 'tracking') {
+    o.carrier = String(b.carrier || 'UPS'); o.tracking = String(b.tracking || '').trim(); if (!o.tracking) throw new Error('Falta el número');
+    if (o.estado !== 'enviado') { o.estado = 'enviado'; }
+    T.hist(o, `Despachado por ${o.carrier} · ${o.tracking}`);
+    if (b.avisar === '1' && await X.mailCliente(o, 'tracking')) { o.tracking_mail = true; T.hist(o, 'Mail de seguimiento enviado a ' + o.email); }
+    await T.guardarPedido(o); return o.ref + ': enviado' + (o.tracking_mail ? ' · cliente avisado' : '');
+  }
+  if (a === 'listo') { if (await X.mailCliente(o, 'listo')) { T.hist(o, 'Aviso "listo para retirar" enviado'); await T.guardarPedido(o); return 'Cliente avisado'; } throw new Error('No se pudo mandar el mail'); }
   if (a === 'factura') { if (o.invoice) return 'Esta venta ya tiene factura'; const inv = await crearFactura(o); return `Factura ${inv.number} enviada a ${o.email}`; }
   if (a === 'estado' && UI.ESTADOS.includes(b.v)) {
     if (b.v === 'cancelado' && o.estado !== 'cancelado') { await T.devolverPedido(o); if (o.invoice) await stripe('invoices/' + o.invoice + '/void', {}).catch(() => {}); }
@@ -169,16 +202,16 @@ module.exports = async (req, res) => {
     : `<div class="mode"><span><span class="dot ${MODE === 'live' ? 'ok' : ''}"></span>Stripe <b>${MODE === 'test' ? 'modo prueba' : 'en vivo'}</b></span><span><span class="dot ${TAX ? 'ok' : 'no'}"></span>Tax <b>${TAX ? 'automático' : 'desactivado'}</b></span><span><span class="dot ${sw ? 'ok' : 'no'}"></span>Webhook <b>${sw ? 'configurado' : 'falta secreto'}</b></span>${pr._err ? `<span class="no">Stripe: ${UI.esc(pr._err)}</span>` : ''}<a href="${DASH}" target="_blank">Abrir Stripe ↗</a></div>`;
   const counts = { ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: '/api/panel?k=' + encodeURIComponent(TOK) };
   let body, title;
-  if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; const env = await E.config(); body = o ? UI.venta({ o, env, co, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) : '<h1>Venta no encontrada</h1>'; }
-  else if (v === 'nueva') { title = 'Nueva venta'; body = UI.nueva({ t, cs: cs.slice().sort((a, b) => (a.company || '').localeCompare(b.company || '')), sel: q.id && cs.find(c => c.id === T.cid(q.id)) }); }
-  else if (v === 'clientes') { title = 'Clientes'; body = UI.clientes({ cs, ps, q: q.q || '' }); }
-  else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) : '<h1>Cliente no encontrado</h1>'; }
-  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co, env: await E.config() }); }
+  if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; const env = await E.config(); body = o ? UI.venta({ o, env, co, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) + U2.despacho(o) : '<h1>Venta no encontrada</h1>'; }
+  else if (v === 'nueva') { title = 'Nueva venta'; body = UI.nueva({ t, cs: cs.slice().sort((a, b) => (a.company || '').localeCompare(b.company || '')), sel: q.id && cs.find(c => c.id === T.cid(q.id)), rep: q.rep && ps.find(o => o.ref === q.rep) }); }
+  else if (v === 'clientes') { title = 'Clientes'; body = UI.clientes({ cs, ps, q: q.q || '' }) + U2.mensual({ cs, borrador: U2.borradorMensual({ t, lleg: await X.cfg('llegada', {}), mes: new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'America/New_York' }) }) }); }
+  else if (v === 'cliente') { const c = cs.find(x => x.id === T.cid(q.id)); title = c ? c.company : 'Cliente'; body = c ? UI.cliente({ c, ps }) + U2.clienteExtra(c, ps) : '<h1>Cliente no encontrado</h1>'; }
+  else if (v === 'stock') { title = 'Stock'; body = UI.stock({ t, pr, ps, co, env: await E.config() }) + U2.stockCfg({ t, min: await X.cfg('minimo', {}), lleg: await X.cfg('llegada', {}), desc: await X.cfg('desc', []) }); }
   else if (v === 'producto') { const p = t.find(x => x.slug === q.s); title = p ? p.sku : 'Producto'; body = p ? UI.producto({ p, price: pr[p.slug], ms: await T.movimientos(p.slug), ps }) : '<h1>Producto no encontrado</h1>'; }
   else if (v === 'redes') { title = 'Redes'; const ms = S.meses(); const ym = ms.includes(q.m) ? q.m : (ms.includes('2026-11') ? '2026-11' : ms[0]); const [m, conn, al] = await Promise.all([S.mes(ym), S.conectadas(), S.aliados()]); body = UI.redes({ aliados: al, m, meses: ms, conn, hasKey: !!S.KEY, NETS: S.NETS, IMG_NETS: S.IMG_NETS, seller: S.SELLER.es }); }
   else if (v === 'finanzas') {
-    if (q.csv) { res.setHeader('Content-Type', 'text/csv; charset=utf-8'); res.setHeader('Content-Disposition', `attachment; filename="k11-finanzas-${q.p || 'todo'}.csv"`); return res.send(F.csv({ ps, co, pr, p: q.p })); }
-    title = 'Finanzas'; body = F.render({ ps, co, pr, t, p: q.p || 'todo' });
+    if (q.csv) { res.setHeader('Content-Type', 'text/csv; charset=utf-8'); res.setHeader('Content-Disposition', `attachment; filename="k11-finanzas-${q.p || 'todo'}.csv"`); return res.send(F.csv({ ps, co, pr, p: q.p, gastos: await X.cfg('gastos', []) })); }
+    title = 'Finanzas'; body = F.render({ ps, co, pr, t, p: q.p || 'todo', gastos: await X.cfg('gastos', []) });
   }
   else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '' }); }
   else {

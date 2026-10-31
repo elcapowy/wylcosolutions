@@ -23,14 +23,15 @@ function analizar({ ps, co, pr, p }) {
     const w = i => i.cases * (price(i.slug) || 1), base = (o.items || []).reduce((s, i) => s + w(i), 0) || 1;
     const items = (o.items || []).map(i => ({ slug: i.slug, sku: i.sku, name: i.name, cases: i.cases, ing: merch * w(i) / base, cst: +co[i.slug] > 0 ? i.cases * co[i.slug] : null }));
     const cm = items.some(i => i.cst == null) ? null : items.reduce((s, i) => s + i.cst, 0);
-    const env = o.envio_costo != null ? +o.envio_costo : null;
-    return { o, total, tax, fl, merch, ing: merch + fl, items, cm, env, gan: cm == null ? null : merch + fl - cm - (env || 0), cajas: items.reduce((s, i) => s + i.cases, 0) };
+    const env = o.envio_costo != null ? +o.envio_costo : null, fee = +o.fee || 0;
+    return { o, total, tax, fl, merch, ing: merch + fl, items, cm, env, fee, gan: cm == null ? null : merch + fl - cm - (env || 0) - fee, cajas: items.reduce((s, i) => s + i.cases, 0) };
   });
 }
 const sum = (l, f) => l.reduce((s, x) => s + (f(x) || 0), 0);
 
-function render({ ps, co, pr, t, p = 'todo' }) {
+function render({ ps, co, pr, t, p = 'todo', gastos = [] }) {
   if (!PER[p]) p = 'todo';
+  const U2 = require('./adminui2'), GM = gastos.reduce((a, x) => a + +x.monto, 0), nM = mesesPeriodo(p, ps), GF = GM * nM;
   const R = analizar({ ps, co, pr, p }), ok = R.filter(r => r.gan != null), nok = R.filter(r => r.gan == null);
   const ING = sum(R, r => r.ing), GAN = sum(ok, r => r.gan), INGok = sum(ok, r => r.ing);
   const faltan = t.filter(x => !(+co[x.slug] > 0));
@@ -43,7 +44,7 @@ function render({ ps, co, pr, t, p = 'todo' }) {
 <div style="display:grid;gap:8px">${faltanUsados.map(x => `<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span style="min-width:220px"><b>${esc(x.name)}</b> <small class="m">${esc(x.sku)}</small></span>${costoForm(x)}</div>`).join('')}</div></div>` : '';
 
   const chips = `<div class="chips">${Object.entries(PER).map(([k, l]) => `<a href="/admin?v=finanzas&p=${k}" class="${p === k ? 'on' : ''}">${l}</a>`).join('')}</div>`;
-  const kp = [['Ingresos', usd(ING), `${R.length} venta(s) cobradas · sin tax`], ['Ganancia', ok.length ? usd(GAN) : '—', ok.length ? `margen ${pct(GAN, INGok)}${nok.length ? ` · ${nok.length} venta(s) sin costo excluidas` : ''}` : 'cargá los costos'],
+  const kp = [['Ingresos', usd(ING), `${R.length} venta(s) cobradas · sin tax`], ['Ganancia neta', ok.length ? usd(GAN - GF) : '—', ok.length ? `operativa ${usd(GAN)} · margen ${pct(GAN, INGok)}${nok.length ? ` · ${nok.length} venta(s) sin costo excluidas` : ''}` : 'cargá los costos'],
     ['Cajas vendidas', sum(R, r => r.cajas), R.length ? `ticket promedio ${usd(ING / R.length)}` : ''], ['Sales tax cobrado', usd(sum(R, r => r.tax)), 'a pagar al estado, no es ingreso']];
   const kpis = `<div class="kpis">${kp.map(([l, n, s]) => `<div class="kpi"><div class="l">${l}</div><div class="n" style="font-size:28px">${n}</div><div class="s">${s}</div></div>`).join('')}</div>`;
 
@@ -58,7 +59,10 @@ function render({ ps, co, pr, t, p = 'todo' }) {
 <tr><td>− Costo de mercadería</td><td class="r num">${usd(-cm)}</td><td class="r"><small class="mut">${pct(cm, m + f)}</small></td></tr>
 <tr style="font-weight:700"><td>Margen bruto</td><td class="r num">${usd(m + f - cm)}</td><td class="r"><small class="mut">${pct(m + f - cm, m + f)}</small></td></tr>
 <tr><td>− Costo de envío (UPS/FedEx)${sinEnv ? `<br><small class="mut">${sinEnv} venta(s) sin costo de envío cargado</small>` : ''}</td><td class="r num">${usd(-ce)}</td><td class="r"><small class="mut">${pct(ce, m + f)}</small></td></tr>
-<tr style="font-weight:800;font-size:17px;border-top:2px solid var(--ink)"><td>Ganancia</td><td class="r num">${usd(GAN)}</td><td class="r"><small>${pct(GAN, m + f)}</small></td></tr>
+<tr><td>− Comisiones Stripe</td><td class="r num">${usd(-sum(ok, r => r.fee))}</td><td class="r"><small class="mut">${pct(sum(ok, r => r.fee), m + f)}</small></td></tr>
+<tr style="font-weight:700;border-top:2px solid var(--ink)"><td>Ganancia operativa</td><td class="r num">${usd(GAN)}</td><td class="r"><small>${pct(GAN, m + f)}</small></td></tr>
+<tr><td>− Gastos fijos<br><small class="mut">${usd(GM)}/mes × ${nM} mes(es)</small></td><td class="r num">${usd(-GF)}</td><td class="r"><small class="mut">${pct(GF, m + f)}</small></td></tr>
+<tr style="font-weight:800;font-size:17px;border-top:2px solid var(--ink)"><td>Ganancia neta</td><td class="r num">${usd(GAN - GF)}</td><td class="r"><small>${pct(GAN - GF, m + f)}</small></td></tr>
 ${nok.length ? `<tr><td><small class="mut">Ventas sin costo cargado (no incluidas arriba)</small></td><td class="r num"><small class="mut">${usd(sum(nok, r => r.ing))}</small></td><td></td></tr>` : ''}
 <tr><td><small class="mut">Sales tax cobrado (pasivo, se paga al estado)</small></td><td class="r num"><small class="mut">${usd(sum(R, r => r.tax))}</small></td><td></td></tr>
 </tbody></table></div>`;
@@ -98,14 +102,29 @@ ${R.map(r => `<tr class="row" data-href="/admin?v=venta&ref=${r.o.ref}"><td><a c
   return `<div class="crumb"><a href="/admin?v=ventas">Ventas</a>/<span>Finanzas</span></div><div class="hd"><div><h1>Reporte financiero</h1><div class="sub">Ventas pagadas o enviadas. Ganancia = ingresos sin tax − costo de mercadería − costo de envío.</div></div><a class="btn sec" href="/admin?v=finanzas&p=${p}&csv=1">Descargar CSV</a></div>
 ${chips}${aviso}${kpis}
 <div class="grid2" style="margin-bottom:16px">${pl}${pend}</div>
-<div style="display:grid;gap:16px">${pt}${mt}${ct}${det}</div>`;
+<div style="display:grid;gap:16px">${pt}${mt}${ct}<div class="grid2">${U2.gastos(gastos)}${taxEstado(R)}</div>${utmT(R)}${det}</div>`;
 }
 
+function mesesPeriodo(p, ps) {
+  const n = new Date();
+  if (p === 'mes' || p === 'mesant') return 1; if (p === 'trim') return 3; if (p === 'anio') return n.getUTCMonth() + 1;
+  const f = ps.map(o => o.at).sort()[0]; if (!f) return 1; const d = new Date(f); return Math.max(1, (n.getUTCFullYear() - d.getUTCFullYear()) * 12 + n.getUTCMonth() - d.getUTCMonth() + 1);
+}
+function taxEstado(R) {
+  const g = {}; for (const r of R) { const k = (r.o.state || '—').toUpperCase().slice(0, 2); const x = g[k] = g[k] || { n: 0, base: 0, tax: 0 }; x.n++; x.base += r.merch + r.fl; x.tax += r.tax; }
+  const l = Object.entries(g).sort((a, b) => b[1].tax - a[1].tax);
+  return `<div class="card pad"><h2>Sales tax por estado</h2><small class="mut">Lo cobrado en el período, para presentar en cada estado.</small><table style="min-width:0;margin-top:8px"><thead><tr><th>Estado</th><th class="r">Ventas</th><th class="r">Base</th><th class="r">Tax cobrado</th></tr></thead><tbody>${l.map(([k, x]) => `<tr><td>${esc(k)}</td><td class="num">${x.n}</td><td class="r num">${usd(x.base)}</td><td class="r num"><strong>${usd(x.tax)}</strong></td></tr>`).join('') || '<tr><td colspan="4" class="mut">Sin ventas</td></tr>'}</tbody></table></div>`;
+}
+function utmT(R) {
+  const g = {}; for (const r of R) { const u = String(r.o.utm || ''); const k = u ? u : 'directo / sin campaña'; const x = g[k] = g[k] || { n: 0, ing: 0 }; x.n++; x.ing += r.ing; }
+  const l = Object.entries(g).sort((a, b) => b[1].ing - a[1].ing); if (!l.length) return '';
+  return `<div class="card tw"><div style="padding:16px 16px 0"><h2>De dónde vienen las ventas</h2><small class="mut">Según el link con el que entró el cliente (redes, mails). Formato: fuente · campaña · post.</small></div><table><thead><tr><th>Origen</th><th class="r">Ventas</th><th class="r">Ingresos</th></tr></thead><tbody>${l.map(([k, x]) => `<tr><td>${esc(k)}</td><td class="num">${x.n}</td><td class="r num">${usd(x.ing)}</td></tr>`).join('')}</tbody></table></div>`;
+}
 function csv({ ps, co, pr, p = 'todo' }) {
   const q = v => { const s = String(v == null ? '' : v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
   const n = v => v == null ? '' : (Math.round(v * 100) / 100).toFixed(2);
-  const rows = [['ref', 'fecha', 'estado', 'cliente', 'email', 'cajas', 'total', 'sales_tax', 'flete_cobrado', 'ingresos_sin_tax', 'costo_mercaderia', 'costo_envio', 'ganancia', 'margen_%']];
-  for (const r of analizar({ ps, co, pr, p: PER[p] ? p : 'todo' })) rows.push([r.o.ref, r.o.at.slice(0, 10), r.o.estado, r.o.company, r.o.email, r.cajas, n(r.total), n(r.tax), n(r.fl), n(r.ing), n(r.cm), n(r.env), n(r.gan), r.gan != null && r.ing ? (r.gan / r.ing * 100).toFixed(1) : '']);
+  const rows = [['ref', 'fecha', 'estado', 'cliente', 'email', 'cajas', 'total', 'sales_tax', 'flete_cobrado', 'ingresos_sin_tax', 'costo_mercaderia', 'costo_envio', 'comision_stripe', 'ganancia', 'margen_%']];
+  for (const r of analizar({ ps, co, pr, p: PER[p] ? p : 'todo' })) rows.push([r.o.ref, r.o.at.slice(0, 10), r.o.estado, r.o.company, r.o.email, r.cajas, n(r.total), n(r.tax), n(r.fl), n(r.ing), n(r.cm), n(r.env), n(r.fee), n(r.gan), r.gan != null && r.ing ? (r.gan / r.ing * 100).toFixed(1) : '']);
   return '\ufeff' + rows.map(l => l.map(q).join(',')).join('\n');
 }
 module.exports = { render, csv, analizar };

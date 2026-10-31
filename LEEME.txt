@@ -1,2 +1,7 @@
-Subí estos archivos a la raíz del repo respetando las carpetas (reemplazar). Después: Vercel → Redeploy.
-Incluye el arreglo de imágenes de redes (adminui.js, social.js, vercel.json).
+Subí TODO el contenido de esta carpeta a la raíz del repo (reemplazar). Después: Vercel → Redeploy.
+
+Pasos extra (una vez):
+1. Stripe → Developers → Webhooks → tu endpoint /api/stripe → agregar el evento "checkout.session.expired" (carrito abandonado).
+2. Vercel → Settings → Environment Variables: CRON_SECRET (cualquier texto largo) para el cron diario /api/tareas (recordatorios de pago).
+3. Admin → Stock: cargar stock mínimo, embarques en camino y descuentos por volumen.
+4. Admin → Finanzas: cargar gastos fijos mensuales.

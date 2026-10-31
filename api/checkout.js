@@ -1,6 +1,8 @@
 const { leerTienda, SITE, BY } = require('./_lib/tienda');
 const { stripe, precios, TAX } = require('./_lib/stripe');
 const E = require('./_lib/envio');
+const X = require('./_lib/extras');
+const { cliente } = require('./_lib/tienda');
 // Carrito de la landing → una Checkout Session con todos los SKUs (solo si todo está en stock y online)
 module.exports = async (req, res) => {
   let b = req.body || {};
@@ -22,6 +24,7 @@ module.exports = async (req, res) => {
       rate(fl ? (es ? `Envío terrestre · ${nc} caja(s) × USD ${cfg.caja}` : `Ground shipping · ${nc} case(s) × $${cfg.caja}`) : (es ? `Envío gratis (pedidos desde USD ${cfg.gratis.toLocaleString('en-US')})` : `Free shipping (orders $${cfg.gratis.toLocaleString('en-US')}+)`), fl, 2, 5),
       rate(es ? 'Retiro en Miami (sin cargo)' : 'Pickup in Miami (free)', 0)];
     const email = String(b.email_pay || '').trim();
+    const pct = await X.descuento(email ? await cliente(email).catch(() => null) : null, items.reduce((a, x) => a + x.q, 0));
     const ses = await stripe('checkout/sessions', {
       mode: 'payment', locale: lang,
       line_items: items.map(x => ({ price: pr[x.p.slug].id, quantity: x.q })),
@@ -29,7 +32,8 @@ module.exports = async (req, res) => {
       billing_address_collection: 'required', shipping_address_collection: { allowed_countries: ['US'] },
       phone_number_collection: { enabled: true }, tax_id_collection: { enabled: true }, automatic_tax: { enabled: TAX },
       custom_fields: [{ key: 'company', label: { type: 'custom', custom: lang === 'es' ? 'Empresa' : 'Company name' }, type: 'text' }],
-      shipping_options, metadata: { items: meta }, payment_intent_data: { metadata: { items: meta } },
+      ...(pct ? { discounts: [{ coupon: (await stripe('coupons', { percent_off: pct, duration: 'once', name: `Volume discount ${pct}%`, max_redemptions: 1 })).id }] } : {}),
+      shipping_options, metadata: { items: meta, utm: String(b.utm || '').slice(0, 120), desc: String(pct || '') }, payment_intent_data: { metadata: { items: meta } },
       success_url: `${SITE}${pre}/order?paid=1`, cancel_url: `${SITE}${pre}/order?` + items.map(x => 'qty_' + x.p.slug + '=' + x.q).join('&') + '#cart'
     });
     res.setHeader('Cache-Control', 'no-store');

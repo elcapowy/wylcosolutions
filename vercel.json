@@ -198,6 +198,10 @@
     {
       "path": "/api/enviar",
       "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/tareas",
+      "schedule": "0 14 * * *"
     }
   ],
   "headers": [

@@ -1,6 +1,2 @@
-IMÁGENES DE REDES (repo wylco-site)
-
-Arrastrá la carpeta assets/ a la raíz del repo (se agrega assets/social/ con 17 PNG: tip1-4, case1-4, promo1-4, tour1-5).
-No reemplaza nada existente.
-
-Después: Vercel → Redeploy y recargá /admin?v=redes.
+Subí estos archivos a la raíz del repo respetando las carpetas (reemplazar). Después: Vercel → Redeploy.
+Incluye el arreglo de imágenes de redes (adminui.js, social.js, vercel.json).

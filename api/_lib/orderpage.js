@@ -8,7 +8,7 @@ const T = {
     sec1: 'Choose your cases', sec1s: 'Stock updates live. If you order more than we have, the rest is held as a pre-order.',
     perCase: 'units / case', inStock: n => `${n} case${n === 1 ? '' : 's'} in stock`, preOrder: 'Pre-order', sds: 'Safety Data Sheet',
     cart: { none: 'No cases selected', cases: 'cases', units: 'units', stock: 'from stock', pre: 'pre-order', go: 'Checkout' },
-    sec2: 'Checkout', payH: 'Pay now online', payP: 'Card or ACH via Stripe. Stripe asks for your company, address and tax ID. Available when every case in your cart is in stock.', payB: 'Pay now', payNo: 'Not available for this cart — use invoice.',
+    sec2: 'Checkout', payH: 'Pay now online', payP: 'Card or ACH via Stripe. Stripe asks for your company, address and tax ID. Available when every case in your cart is in stock.', payB: 'Pay now', payNo: 'Pay now needs every case in stock. Your cart has pre-order cases — use "Get an invoice" instead.', sum: { h: 'Order summary', cs: 'case', css: 'cases', per: '/ case', pre: 'pre-order', sub: 'Subtotal', tax: 'Sales tax', taxV: 'Calculated at checkout · exempt with resale certificate', ship: 'Freight', shipV: 'Quoted separately', na: 'On invoice', none: 'Add cases above to see your total.', part: 'Some prices are confirmed on the invoice.' },
     invH: 'Get an invoice', invP: 'We email a Stripe invoice within 1 business day. Pay by card, ACH, wire or Zelle. Best for pre-orders, larger orders and tax-exempt resellers.', invB: 'Send order & get invoice',
     f: { company: 'Company', contact: 'Contact name', email: 'Business email', phone: 'Phone', address: 'Shipping address', city: 'City', state: 'State', zip: 'ZIP', type: 'Business type', types: ['HVAC-R dealer / supply house', 'Wholesaler / distributor', 'Contractor', 'Other business'], ein: 'EIN / resale certificate #', pay: 'Preferred payment', notes: 'Notes', biz: 'I am buying on behalf of a business.' },
     terms: 'Terms', tl: [['Buyers', 'Businesses only: HVAC-R distributors, supply houses, wholesalers and contractors in the US.'], ['Minimum', '1 full case per SKU.'], ['Pricing', 'Wholesale price per case, shown at checkout or on your invoice. USD; sales tax added where applicable.'], ['Tax-exempt', 'Resellers: include your resale certificate number and email a copy to be invoiced without sales tax.'], ['Delivery', 'From Miami, FL. In stock: 2–5 business days after payment. Pre-order: when stock arrives. Freight quoted separately.'], ['Documents', '<a href="/docs">Safety Data Sheets (PDF)</a> for every product.']],
@@ -22,7 +22,7 @@ const T = {
     sec1: 'Elegí tus cajas', sec1s: 'El stock se actualiza en vivo. Si pedís más de lo que hay, el resto queda en pre-pedido.',
     perCase: 'unidades / caja', inStock: n => `${n} caja${n === 1 ? '' : 's'} en stock`, preOrder: 'Pre-pedido', sds: 'Hoja de seguridad',
     cart: { none: 'Sin cajas elegidas', cases: 'cajas', units: 'unidades', stock: 'de stock', pre: 'pre-pedido', go: 'Finalizar' },
-    sec2: 'Finalizar pedido', payH: 'Pagar ahora online', payP: 'Tarjeta o ACH con Stripe. Stripe te pide empresa, dirección y tax ID. Disponible cuando todas las cajas del carrito están en stock.', payB: 'Pagar ahora', payNo: 'No disponible para este carrito: usá factura.',
+    sec2: 'Finalizar pedido', payH: 'Pagar ahora online', payP: 'Tarjeta o ACH con Stripe. Stripe te pide empresa, dirección y tax ID. Disponible cuando todas las cajas del carrito están en stock.', payB: 'Pagar ahora', payNo: 'Pagar ahora requiere todas las cajas en stock. Tu carrito tiene cajas en pre-pedido: usá "Recibir factura".', sum: { h: 'Resumen del pedido', cs: 'caja', css: 'cajas', per: '/ caja', pre: 'pre-pedido', sub: 'Subtotal', tax: 'Sales tax', taxV: 'Se calcula en el pago · exento con certificado de reventa', ship: 'Flete', shipV: 'Se cotiza aparte', na: 'En factura', none: 'Agregá cajas arriba para ver el total.', part: 'Algunos precios se confirman en la factura.' },
     invH: 'Recibir factura', invP: 'Te mandamos una factura de Stripe en 1 día hábil. Pagás con tarjeta, ACH, transferencia o Zelle. Ideal para pre-pedidos, pedidos grandes y revendedores exentos.', invB: 'Enviar pedido y recibir factura',
     f: { company: 'Empresa', contact: 'Nombre de contacto', email: 'Email de la empresa', phone: 'Teléfono', address: 'Dirección de entrega', city: 'Ciudad', state: 'Estado', zip: 'ZIP', type: 'Tipo de empresa', types: ['Dealer HVAC-R / casa de repuestos', 'Mayorista / distribuidor', 'Contratista', 'Otra empresa'], ein: 'EIN / nº certificado de reventa', pay: 'Forma de pago preferida', notes: 'Notas', biz: 'Compro en nombre de una empresa.' },
     terms: 'Condiciones', tl: [['Compradores', 'Solo empresas: distribuidores HVAC-R, casas de repuestos, mayoristas y contratistas en EE.UU.'], ['Mínimo', '1 caja cerrada por SKU.'], ['Precio', 'Precio mayorista por caja, visible en el checkout o en tu factura. USD; se suma sales tax donde corresponda.'], ['Exento', 'Revendedores: incluí tu nº de certificado de reventa y mandanos copia para facturar sin sales tax.'], ['Entrega', 'Desde Miami, FL. En stock: 2–5 días hábiles después del pago. Pre-pedido: al llegar el stock. Flete aparte.'], ['Documentos', '<a href="/es/docs">Hojas de seguridad (PDF)</a> de cada producto.']],
@@ -50,7 +50,7 @@ function display(p, L) {
 }
 
 function render(L, products, sel, paid, opts = {}) {
-  const t = T[L], url = SITE + t.pre + '/order', f = t.f, pre = opts.qty || {};
+  const t = T[L], url = SITE + t.pre + '/order', f = t.f, pre = opts.qty || {}, PR = opts.prices || {};
   const ld = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'Organization', '@id': SITE + '/#organization', name: 'Wylco LLC', alternateName: 'K11 America by Wylco', url: SITE + '/', email: 'info@wylcosolutions.com', telephone: '+1-954-881-8870', address: { '@type': 'PostalAddress', addressLocality: 'Miami', addressRegion: 'FL', addressCountry: 'US' } },
     { '@type': 'WebPage', '@id': url, url, name: t.title, inLanguage: L === 'en' ? 'en-US' : 'es', potentialAction: { '@type': 'OrderAction', target: { '@type': 'EntryPoint', urlTemplate: SITE + '/api/pedido', httpMethod: 'POST', encodingType: 'application/x-www-form-urlencoded', contentType: 'application/x-www-form-urlencoded' } } },
@@ -59,7 +59,7 @@ function render(L, products, sel, paid, opts = {}) {
     { '@type': 'FAQPage', mainEntity: t.faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }] };
   const cards = products.map(p => {
     const v = +pre[p.slug] || (sel === p.slug ? 1 : 0), st = p.cases_available > 0;
-    return `<article class="pc" data-slug="${p.slug}" data-units="${p.units || 0}" data-stock="${p.cases_available}" data-online="${p.online ? 1 : 0}">
+    return `<article class="pc" data-slug="${p.slug}" data-units="${p.units || 0}" data-stock="${p.cases_available}" data-online="${p.online ? 1 : 0}" data-price="${PR[p.slug] || 0}" data-name="${esc(p.name)}" data-sku="${esc(p.sku)}">
 <div class="pimg">${display(p, L)}<span class="av ${st ? 'in' : 'pre'}">${st ? t.inStock(p.cases_available) : t.preOrder}</span>${p.units ? `<span class="qty"><b>× ${p.units}</b>${L === 'es' ? 'por caja' : 'per case'}</span>` : ''}</div>
 <div class="pb"><div class="sku">${esc(p.sku)}</div><h3>${esc(p.name)}</h3><p>${esc(L === 'es' ? p.desc_es : p.desc)}</p>
 <div class="meta">${p.units ? `<span><b>${p.units}</b> ${t.perCase}</span>` : '<span></span>'}${p.sds ? `<a href="${p.sds}" target="_blank" rel="noopener">${t.sds}</a>` : ''}</div>
@@ -139,7 +139,7 @@ h2{font:800 clamp(2rem,4vw,3rem)/1 var(--fd);text-transform:uppercase;margin:0 0
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:10px;background:var(--o);color:#fff;text-decoration:none;font:700 15px var(--fb);border:0;cursor:pointer}.btn:hover{background:var(--od);color:#fff}
 .btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}.btn.ghost:hover{background:var(--ink);color:#fff}
 .btn[disabled]{opacity:.4;cursor:not-allowed}
-.co{background:var(--w2)}
+.co{background:var(--w2)}.sum{background:#fff;border:1px solid var(--w3);border-radius:16px;padding:22px 26px;margin:20px 0 16px}.sum h3{font-size:1.5rem;margin:0 0 12px}.sum .r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:10px 0;border-top:1px solid var(--w2);font-size:15px}.sum .r:first-of-type{border-top:0}.sum .r small{grid-column:1;color:var(--mut);font-size:13px}.sum .r b{font-weight:600}.sum .r .v{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.sum .tot{border-top:2px solid var(--ink);margin-top:4px;font:800 1.5rem var(--fd);text-transform:uppercase}.sum .x{color:var(--mut);font-size:14px}.sum .warn{margin:12px 0 0;padding:10px 14px;border-radius:8px;background:rgba(212,84,26,.1);color:var(--od);font-size:14px;font-weight:500}.sum .m{color:var(--mut);margin:0}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;align-items:start}
 .opt{background:#fff;border:1px solid var(--w3);border-radius:16px;padding:26px;display:grid;gap:16px}
 .opt h3{font-size:1.8rem}.opt>p{margin:0;color:var(--mut);font-size:15px}
@@ -178,7 +178,7 @@ footer{background:var(--bg);color:var(--lm);font-size:14px;padding:28px 0}
 <label class="hp" aria-hidden="true">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
 <section><div class="w"><h2 id="products">${t.sec1}</h2><p class="ss">${t.sec1s}</p><div class="grid">${cards}</div></div></section>
 <div class="bar dk" aria-live="polite"><div class="w"><div><b id="sumMain">${t.cart.none}</b><small id="sumSub"></small></div><a class="btn" href="#checkout">${t.cart.go}</a></div></div>
-<section class="co" id="checkout"><div class="w"><h2>${t.sec2}</h2><p class="ss"></p>
+<section class="co" id="checkout"><div class="w"><h2>${t.sec2}</h2><div class="sum" id="sum" aria-live="polite"></div>
 <div class="opts">
 <div class="opt pay dk"><h3>${t.payH}</h3><p>${t.payP}</p><label style="color:var(--lm)">${f.email}<input type="email" name="email_pay" autocomplete="email"></label>
 <div><button class="btn" id="payBtn" type="submit" formaction="/api/checkout" formnovalidate>${t.payB} →</button></div><p class="why" id="payWhy"></p></div>
@@ -197,14 +197,22 @@ footer{background:var(--bg);color:var(--lm);font-size:14px;padding:28px 0}
 <div class="w"><p class="api">${t.api}</p></div></section>
 <footer class="dk"><div class="w">Wylco LLC · Miami, FL, USA · <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a></div></footer>
 <script>
-(function(){var S=${JSON.stringify(t.cart)},NO=${JSON.stringify(t.payNo)};var cards=[].slice.call(document.querySelectorAll('.pc'));
+(function(){var S=${JSON.stringify(t.cart)},NO=${JSON.stringify(t.payNo)},M=${JSON.stringify(t.sum)},LOC=${JSON.stringify(L === 'es' ? 'es-US' : 'en-US')};var cards=[].slice.call(document.querySelectorAll('.pc'));
 var qs=new URLSearchParams(location.search),sk=(qs.get('sku')||'').toLowerCase();
 cards.forEach(function(c){var i=c.querySelector('input.q');var v=qs.get('qty_'+c.dataset.slug);if(v)i.value=Math.max(0,parseInt(v,10)||0);else if(sk&&c.dataset.slug===sk&&+i.value<1)i.value=1;
 c.querySelector('.mn').onclick=function(){i.value=Math.max(0,(parseInt(i.value,10)||0)-1);upd();};c.querySelector('.pl').onclick=function(){i.value=(parseInt(i.value,10)||0)+1;upd();};i.addEventListener('input',upd);});
 function upd(){var c=0,u=0,st=0,pr=0,ok=true;cards.forEach(function(k){var q=Math.max(0,parseInt(k.querySelector('input.q').value,10)||0);k.classList.toggle('sel',q>0);if(!q)return;c+=q;u+=q*(+k.dataset.units);var s=Math.min(q,+k.dataset.stock);st+=s;pr+=q-s;if(q>+k.dataset.stock||k.dataset.online!=='1')ok=false;});
 document.getElementById('sumMain').textContent=c?c+' '+S.cases+(u?' · '+u.toLocaleString()+' '+S.units:''):S.none;
 document.getElementById('sumSub').textContent=c?[st?st+' '+S.stock:'',pr?pr+' '+S.pre:''].filter(Boolean).join(' · '):'';
-var b=document.getElementById('payBtn');b.disabled=!c||!ok;document.getElementById('payWhy').textContent=c&&!ok?NO:'';}
+var b=document.getElementById('payBtn');b.disabled=!c||!ok;document.getElementById('payWhy').textContent=c&&!ok?NO:'';sum(ok);}
+function money(c){return (c/100).toLocaleString(LOC,{style:'currency',currency:'USD'});}
+function esc(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function sum(ok){var h='<h3>'+M.h+'</h3>',tot=0,miss=false,n=0;cards.forEach(function(k){var q=Math.max(0,parseInt(k.querySelector('input.q').value,10)||0);if(!q)return;n++;var p=+k.dataset.price,pr=Math.max(0,q-(+k.dataset.stock));if(!p)miss=true;tot+=p*q;
+h+='<div class="r"><b>'+q+' × '+esc(k.dataset.name)+'</b><span class="v">'+(p?money(p*q):M.na)+'</span><small>'+esc(k.dataset.sku)+(p?' · '+money(p)+' '+M.per:'')+(pr?' · '+pr+' '+M.pre:'')+'</small></div>';});
+if(!n){document.getElementById('sum').innerHTML=h+'<p class="m">'+M.none+'</p>';return;}
+h+='<div class="r x"><span>'+M.tax+'</span><span class="v">'+M.taxV+'</span></div><div class="r x"><span>'+M.ship+'</span><span class="v">'+M.shipV+'</span></div>';
+h+='<div class="r tot"><span>'+M.sub+'</span><span class="v">'+(tot?money(tot):M.na)+'</span></div>';
+if(miss&&tot)h+='<p class="m" style="font-size:13px">'+M.part+'</p>';if(!ok)h+='<p class="warn">'+NO+'</p>';document.getElementById('sum').innerHTML=h;}
 upd();})();
 </script>
 </body>

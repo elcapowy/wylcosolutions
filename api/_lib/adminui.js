@@ -185,7 +185,7 @@ function stock({ t, pr, ps }) {
   return `<div class="hd"><div><h1>Stock</h1><div class="sub">En cajas. Lo que está acá es lo que ven los clientes y las IA en /order y /catalog.json.</div></div></div>
 <div class="kpis"><div class="kpi"><div class="l">Cajas disponibles</div><div class="n">${tot}</div></div><div class="kpi"><div class="l">Reservadas</div><div class="n">${Object.values(res).reduce((a, x) => a + x.r, 0)}</div><div class="s">en ventas activas</div></div><div class="kpi"><div class="l">Pre-pedido</div><div class="n">${Object.values(res).reduce((a, x) => a + x.p, 0)}</div><div class="s">cajas a cubrir</div></div><div class="kpi"><div class="l">SKUs online</div><div class="n">${t.filter(p => p.online).length}/${t.length}</div></div></div>
 <div class="card tw"><table><thead><tr><th>Producto</th><th class="r">Disponible</th><th class="r">Reservado</th><th class="r">Pre-pedido</th><th>Ajustar</th><th>Precio / caja</th><th>Venta online</th></tr></thead><tbody>${rows}</tbody></table></div>
-<p class="mut" style="font-size:12px">El precio se guarda en Stripe y no se publica en la web. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock.</p>`;
+<p class="mut" style="font-size:12px">El precio se guarda en Stripe y se muestra en el resumen del checkout de /order. "Online" muestra el pago con tarjeta/ACH en /order cuando hay stock.</p>`;
 }
 
 function producto({ p, price, ms, ps }) {

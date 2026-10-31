@@ -138,6 +138,15 @@ module.exports = async (req, res) => {
   const ck = (req.headers.cookie || '').match(new RegExp(CK + '=([^;]+)'));
   if (!ck || decodeURIComponent(ck[1]) !== TOK) return html(UI.login(false));
 
+  // Limpieza única antes del lanzamiento: deja la base vacía (solo precios/costos/online/envío). Corre una sola vez.
+  try {
+    const [hecho] = await redis([['GET', 'k11:reset_lanzamiento']]);
+    if (!hecho) {
+      const [ek] = await redis([['KEYS', 'k11:evt:*']]);
+      await redis([['DEL', 'k11:pedidos'], ['DEL', 'k11:clientes'], ['DEL', 'k11:sess'], ['DEL', 'k11:mov'], ['DEL', 'k11:stock'], ...(ek || []).map(k => ['DEL', k]), ['SET', 'k11:reset_lanzamiento', new Date().toISOString()]]);
+    }
+  } catch (e) { console.error('reset', e.message); }
+
   if (req.method === 'POST') {
     let b = req.body || {}; if (typeof b === 'string') b = Object.fromEntries(new URLSearchParams(b));
     let back = '/admin';

@@ -5,7 +5,7 @@
     { slug: 'tfk11-10', id: 'TFK11-10', n: 'TapaFugas K11', d: 'Jeringa 10 ml · 3 TR', u: 192, c: 6.30, p: 15.75, pt: 16.85, s: 29.95 },
     { slug: 'tfk11-co', id: 'TFK11-CO', n: 'TapaFugas + Conector', d: 'Jeringa 10 ml + adaptador', u: 192, c: 7.80, p: 19.40, pt: 20.80, s: 34.95 },
     { slug: 'k11-2in1-11', id: 'K11-2:1-11', n: 'TapaFugas 2-en-1', d: 'Jeringa 11 ml', u: 192, c: 7.80, p: 19.60, pt: 21.00, s: 34.95 },
-    { slug: 'spk11-b35', id: 'SPK11-B35', n: 'Sella Plus K11', d: 'Botella 35 ml', u: 48, c: 5.00, p: 8.75, pt: 9.35, s: 12.00 },
+    { slug: 'spk11-b35', id: 'SPK11-B35', n: 'Sella Plus K11', d: 'Botella 35 ml', u: 48, c: 5.00, p: 7.20, pt: 7.70, s: 12.00 },
     { slug: '20002', id: '20002', n: 'Coupler 1/4"', d: 'Acople', u: 400, c: 1.50, p: 1.50, pt: 1.50, s: 3.95 }
   ];
   // Supuestos de importación (por embarque) y venta. q = cajas por SKU en el embarque tipo.

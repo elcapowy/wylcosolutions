@@ -118,6 +118,7 @@ async function recompra(ps, simular) {
 
 // ── Shippo: cotizar y comprar etiqueta UPS/FedEx/USPS ──
 const SH = () => process.env.SHIPPO_API_KEY;
+const tel10 = p => { const d = String(p || '').replace(/\D/g, '').replace(/^1(?=\d{10}$)/, ''); return d.length === 10 ? d : ''; };
 // Caja master por producto (pulgadas / libras). ESTIMADOS hasta medir y pesar una caja real (Sistema → Cajas de envío).
 // Base: blíster/estuche individual ~17×6×3 cm y ~35–45 g por jeringa; Sella Plus frasco 35 ml en estuche ~80 g; acople de bronce ~20 g.
 const CAJA_DEF = {
@@ -132,7 +133,7 @@ async function cajasEnvio() { const c = await X.cfg('cajas', {}); const r = {}; 
 const pesoFact = d => Math.max(d.lb, Math.ceil(d.l * d.w * d.h / 139));
 const EST = { alabama: 'AL', alaska: 'AK', arizona: 'AZ', arkansas: 'AR', california: 'CA', colorado: 'CO', connecticut: 'CT', delaware: 'DE', 'district of columbia': 'DC', florida: 'FL', georgia: 'GA', hawaii: 'HI', idaho: 'ID', illinois: 'IL', indiana: 'IN', iowa: 'IA', kansas: 'KS', kentucky: 'KY', louisiana: 'LA', maine: 'ME', maryland: 'MD', massachusetts: 'MA', michigan: 'MI', minnesota: 'MN', mississippi: 'MS', missouri: 'MO', montana: 'MT', nebraska: 'NE', nevada: 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ', 'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', ohio: 'OH', oklahoma: 'OK', oregon: 'OR', pennsylvania: 'PA', 'puerto rico': 'PR', 'rhode island': 'RI', 'south carolina': 'SC', 'south dakota': 'SD', tennessee: 'TN', texas: 'TX', utah: 'UT', vermont: 'VT', virginia: 'VA', washington: 'WA', 'west virginia': 'WV', wisconsin: 'WI', wyoming: 'WY' };
 const estado2 = s => { const x = String(s || '').trim(); return x.length === 2 ? x.toUpperCase() : EST[x.toLowerCase()] || x; };
-const dirTo = o => ({ name: o.contact || o.company, company: o.company, street1: o.address, street2: o.address2 || '', city: o.city, state: estado2(o.state), zip: String(o.zip || '').trim(), country: 'US', phone: o.phone || '', email: o.email, validate: true });
+const dirTo = o => ({ name: o.contact || o.company, company: o.company, street1: o.address, street2: o.address2 || '', city: o.city, state: estado2(o.state), zip: String(o.zip || '').trim(), country: 'US', phone: tel10(o.phone) || '9548818870', email: o.email, validate: true });
 async function shippo(path, body) {
   const r = await fetch('https://api.goshippo.com/' + path, { method: body ? 'POST' : 'GET', headers: { Authorization: 'ShippoToken ' + SH(), 'Content-Type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
   const j = await r.json().catch(() => ({})); if (!r.ok) { const m = j.detail || (j.__all__ || []).join(' ') || Object.entries(j).map(([k, v]) => k + ': ' + [].concat(v).join(' ')).join(' · '); throw new Error('Shippo: ' + String(m || r.status).slice(0, 200)); } return j;
@@ -148,9 +149,9 @@ async function cotizar(o) {
   const val = { ok: vr.is_valid !== false, msgs: (vr.messages || []).map(m => m.text).filter(Boolean) };
   if (!val.ok && !val.msgs.length) val.msgs.push('USPS no encuentra esa calle y número en ese ZIP');
   const dt = dirTo(o); delete dt.validate;
-  const s = await shippo('shipments/', { address_from: { ...org, state: estado2(org.state), country: 'US', phone: org.phone || '9548818870', email: org.email || 'info@wylcosolutions.com' }, address_to: val.ok ? to.object_id : dt, parcels, async: false });
+  const s = await shippo('shipments/', { address_from: { ...org, state: estado2(org.state), country: 'US', phone: tel10(org.phone) || '9548818870', email: org.email || 'info@wylcosolutions.com' }, address_to: val.ok ? to.object_id : dt, parcels, async: false });
   const rates = (s.rates || []).map(r => ({ id: r.object_id, prov: r.provider, srv: (r.servicelevel || {}).name, amt: +r.amount, dias: r.estimated_days })).sort((a, b) => a.amt - b.amt);
-  const avisos = [...new Set((s.messages || []).map(m => (m.source ? m.source + ': ' : '') + (m.text || m.code || '')).filter(Boolean))];
+  const avisos = [...new Set((s.messages || []).map(m => (m.source ? m.source + ': ' : '') + (m.text || m.code || '')).filter(Boolean))].filter(m => /^(UPS|FedEx|USPS)\b/i.test(m) || /restricted|FedEx|UPS/i.test(m));
   return { rates, val, avisos, provs: [...new Set(rates.map(r => r.prov))] };
 }
 async function vCotizar(o) {
@@ -222,7 +223,7 @@ async function accion(b) {
   if (a === 'reorden_cfg') { const tr = parseInt(b.transito, 10), co = parseInt(b.cobertura, 10); if (!(tr > 0) || !(co > 0)) throw new Error('Cargá días de tránsito y cobertura'); await X.setCfg('reorden', { transito: tr, cobertura: co }); return `Reposición: tránsito ${tr} d · cobertura ${co} d`; }
   if (a === 'niveles_cfg') { const n = {}; for (const [k] of NIVELES) if (k !== 'distribuidor') { const v = Math.min(50, Math.max(0, num(b[k]) || 0)); if (v) n[k] = v; } await X.setCfg('niveles', n); return 'Niveles: ' + (NIVELES.filter(([k]) => n[k]).map(([k, l]) => l + ' −' + n[k] + '%').join(' · ') || 'sin descuentos'); }
   if (a === 'nivel_cli') { const c = await T.cliente(b.id); if (!c) throw new Error('Cliente no encontrado'); if (b.nivel && b.nivel !== 'distribuidor') c.nivel = String(b.nivel); else delete c.nivel; await T.guardarCliente(c); return 'Nivel: ' + (NIVELES.find(([k]) => k === (c.nivel || 'distribuidor')) || [])[1]; }
-  if (a === 'origen_cfg') { const o = {}; for (const k of ['name', 'company', 'street1', 'city', 'state', 'zip', 'phone', 'email']) o[k] = String(b[k] || '').trim(); if (!o.street1 || !o.zip) throw new Error('Falta dirección o ZIP'); await X.setCfg('origen', o); return 'Origen de envíos guardado'; }
+  if (a === 'origen_cfg') { const o = {}; for (const k of ['name', 'company', 'street1', 'city', 'state', 'zip', 'phone', 'email']) o[k] = String(b[k] || '').trim(); if (!o.street1 || !o.zip) throw new Error('Falta dirección o ZIP'); if (!tel10(o.phone)) throw new Error('Teléfono de origen: 10 dígitos de EE.UU. (ej. 9548818870)'); o.phone = tel10(o.phone); o.state = estado2(o.state); await X.setCfg('origen', o); return 'Origen de envíos guardado'; }
   if (a === 'caja_cfg') { const c = {}; for (const x of T.PRODUCTS) { const d = {}; for (const k of ['l', 'w', 'h', 'lb']) { const v = num(b[k + '_' + x.slug]); if (v > 0) d[k] = v; } if (Object.keys(d).length === 4) c[x.slug] = d; } await X.setCfg('cajas', c); return `Cajas de envío guardadas (${Object.keys(c).length} producto(s))`; }
   if (a === 'dir_venta') {
     const o = await T.pedido(b.ref); if (!o) throw new Error('Venta no encontrada');

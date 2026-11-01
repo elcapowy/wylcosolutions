@@ -148,9 +148,10 @@ async function cotizar(o) {
   const val = { ok: vr.is_valid !== false, msgs: (vr.messages || []).map(m => m.text).filter(Boolean) };
   if (!val.ok && !val.msgs.length) val.msgs.push('USPS no encuentra esa calle y número en ese ZIP');
   const dt = dirTo(o); delete dt.validate;
-  const s = await shippo('shipments/', { address_from: { ...org, state: estado2(org.state), country: 'US' }, address_to: val.ok ? to.object_id : dt, parcels, async: false });
+  const s = await shippo('shipments/', { address_from: { ...org, state: estado2(org.state), country: 'US', phone: org.phone || '9548818870', email: org.email || 'info@wylcosolutions.com' }, address_to: val.ok ? to.object_id : dt, parcels, async: false });
   const rates = (s.rates || []).map(r => ({ id: r.object_id, prov: r.provider, srv: (r.servicelevel || {}).name, amt: +r.amount, dias: r.estimated_days })).sort((a, b) => a.amt - b.amt);
-  return { rates, val, provs: [...new Set(rates.map(r => r.prov))] };
+  const avisos = [...new Set((s.messages || []).map(m => (m.source ? m.source + ': ' : '') + (m.text || m.code || '')).filter(Boolean))];
+  return { rates, val, avisos, provs: [...new Set(rates.map(r => r.prov))] };
 }
 async function vCotizar(o) {
   let q = {}, err; try { q = await cotizar(o); } catch (e) { err = e.message; }
@@ -161,7 +162,7 @@ async function vCotizar(o) {
   const falta = rates && !['UPS', 'FedEx'].every(c => (q.provs || []).some(p => p.toLowerCase().includes(c.toLowerCase())));
   const cobrado = o.flete != null ? o.flete : o.flete_manual;
   return `<div class="crumb"><a href="/admin?v=ventas">Ventas</a>/<a href="/admin?v=venta&ref=${o.ref}">${o.ref}</a>/<span>Envío</span></div><div class="hd"><div><h1>Cotizar envío</h1><div class="sub">${esc([o.company, o.address, o.city, o.state, o.zip].filter(Boolean).join(' · '))}${cobrado != null ? ' · flete cobrado al cliente ' + usd(cobrado) : ''}</div></div></div>
-${err ? `<div class="flash err">${esc(err)}</div>` : ''}${dir}${falta ? `<p class="mut" style="font-size:13px;margin:0 0 12px">Solo aparecen ${esc((q.provs || []).join(', ') || 'algunos transportistas')}. Para ver UPS y FedEx: Shippo → Settings → Carriers → activá UPS y FedEx (cuentas de Shippo o las tuyas).</p>` : ''}${err ? '' : rows ? `<div class="card tw"><table><thead><tr><th>Servicio</th><th class="r">Tránsito</th><th class="r">Costo</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><p class="mut" style="font-size:13px">Al comprar: se guarda tracking, etiqueta PDF 4×6 y costo real (resta de la ganancia), y la venta pasa a enviado.</p>` : '<div class="empty">Sin tarifas para esta dirección.</div>'}`;
+${err ? `<div class="flash err">${esc(err)}</div>` : ''}${dir}${falta ? `<div class="card pad" style="margin-bottom:12px;font-size:13px"><strong>Solo aparecen ${esc((q.provs || []).join(', ') || 'algunos transportistas')}.</strong>${(q.avisos || []).length ? `<div style="margin-top:6px">Lo que responden los demás transportistas:</div><ul style="margin:6px 0 0 18px">${q.avisos.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : '<div class="mut" style="margin-top:6px">Shippo no dio motivo. Revisá en Shippo → Carrier accounts que UPS y FedEx estén activos en modo Test y Live, y que el Origen (Sistema) tenga teléfono y email.</div>'}</div>` : ''}${err ? '' : rows ? `<div class="card tw"><table><thead><tr><th>Servicio</th><th class="r">Tránsito</th><th class="r">Costo</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><p class="mut" style="font-size:13px">Al comprar: se guarda tracking, etiqueta PDF 4×6 y costo real (resta de la ganancia), y la venta pasa a enviado.</p>` : '<div class="empty">Sin tarifas para esta dirección.</div>'}`;
 }
 function envioCard(o) {
   if (o.estado === 'cancelado' || o.retiro) return '';

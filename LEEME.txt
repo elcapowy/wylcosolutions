@@ -1,1 +1,2 @@
-Subí la carpeta "api" a GitHub (Add file → Upload files). Reemplaza api/admin.js, api/_lib/mejoras.js y api/_lib/finanzas.js.
+Subí la carpeta "api" a GitHub (Add file → Upload files). Reemplaza api/_lib/data.json.
+Subir HOY: la invitación sale mañana 3 nov a las 8:00 (Miami) y el recordatorio el viernes 6 nov.

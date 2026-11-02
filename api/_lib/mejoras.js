@@ -211,13 +211,29 @@ function vSistema({ C, L, niv, org, cj }) {
 <div class="fg">${NIVELES.map(([k, l]) => `<label>${l} (%)<input type="number" step="0.5" min="0" max="50" name="${k}" value="${+niv[k] || 0}"${k === 'distribuidor' ? ' readonly' : ''}></label>`).join('')}</div><div><button class="sec">Guardar</button></div></form>
 <form method="post" class="card pad" style="display:grid;gap:12px;align-content:start">${H('origen_cfg')}<h2>Origen de envíos (Shippo)</h2><div class="fg">${F.map(([k, l]) => `<label>${l}<input name="${k}" value="${esc((org || {})[k] || '')}"></label>`).join('')}</div><div><button class="sec">Guardar</button></div></form>
 <form method="post" class="card pad" style="display:grid;gap:12px;align-content:start;grid-column:1/-1">${H('caja_cfg')}<h2>Cajas de envío</h2><small class="mut">Caja master por producto (pulgadas y libras). <b>Estimado</b> = valor aproximado; pesá y medí una caja real y guardalo para que la cotización sea exacta. UPS/FedEx cobran el mayor entre peso real y volumétrico (L×A×H ÷ 139).</small><div style="overflow-x:auto"><table style="min-width:0"><thead><tr><th>Producto</th><th class="r">Largo</th><th class="r">Ancho</th><th class="r">Alto</th><th class="r">Peso (lb)</th><th class="r">Se cobra como</th><th></th></tr></thead><tbody>${T.PRODUCTS.map(p => { const d = cj[p.slug]; return `<tr><td><strong>${esc(p.sku)}</strong><br><small class="mut">${esc(p.name)}${p.units ? ' · ' + p.units + ' un.' : ''}</small></td>${['l', 'w', 'h', 'lb'].map(k => `<td class="r"><input class="sm" style="width:70px" type="number" step="0.1" min="0" name="${k}_${p.slug}" value="${d[k]}"></td>`).join('')}<td class="r num">${pesoFact(d)} lb</td><td>${d.medido ? '<span class="tag t-pagado">medido</span>' : '<span class="tag t-pago-pendiente">estimado</span>'}</td></tr>`; }).join('')}</tbody></table></div><div><button class="sec">Guardar como medido</button></div></form></div>
+<form method="post" class="card pad" style="margin-top:18px;display:grid;gap:12px;border-color:#f3c7c2" onsubmit="return confirm('Se borran TODAS las ventas, clientes, stock, costos, movimientos, compras y el registro. ¿Seguro?')">${H('reset_todo')}<h2>Dejar la base en cero</h2>
+<small class="mut">Borra ventas, clientes, stock, costos, movimientos, compras, carritos y registro de cambios. Antes manda un backup por mail. <b>No toca</b> la campaña de mails a distribuidores (no se reenvían ni se pierden las bajas). Las facturas y pagos de Stripe se borran aparte: Stripe → Developers → Delete all test data.</small>
+<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="cfg" value="1"> Borrar también la configuración (niveles, origen, cajas, envío, mínimo, gastos, productos online)</label>
+<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="sinbackup" value="1"> Borrar igual si falla el backup por mail</label>
+<label>Escribí BORRAR TODO<input name="conf" required autocomplete="off" style="max-width:220px"></label><div><button class="danger">Borrar todo</button></div></form>
 <div class="card tw" style="margin-top:18px"><div style="padding:16px 16px 0"><h2>Registro de cambios</h2><small class="mut">Quién hizo qué en el admin (últimos ${L.length}).</small></div>${lrows ? `<table><thead><tr><th>Cuándo</th><th>Rol</th><th>Acción</th><th>Sobre</th><th>Resultado</th></tr></thead><tbody>${lrows}</tbody></table>` : '<div class="empty">Sin cambios registrados todavía.</div>'}</div>`;
 }
 
 // ── acciones del admin ──
-const ACC = ['dir_venta', 'backup_mail', 'backup_restore', 'reorden_cfg', 'niveles_cfg', 'nivel_cli', 'origen_cfg', 'caja_cfg', 'ship_buy'];
+const ACC = ['reset_todo', 'dir_venta', 'backup_mail', 'backup_restore', 'reorden_cfg', 'niveles_cfg', 'nivel_cli', 'origen_cfg', 'caja_cfg', 'ship_buy'];
 async function accion(b) {
   const a = b.a, num = v => parseFloat(String(v || '').replace(',', '.'));
+  if (a === 'reset_todo') {
+    if (String(b.conf || '').trim().toUpperCase() !== 'BORRAR TODO') throw new Error('Escribí BORRAR TODO para confirmar');
+    let bk = ''; try { const n = await backupDiario(); bk = ' · backup previo enviado por mail (' + n + ' claves)'; } catch (e) { if (b.sinbackup !== '1') throw new Error('No se pudo mandar el backup previo (' + e.message + '). Descargalo a mano y marcá "borrar igual".'); }
+    const [keys] = await redis([['KEYS', 'k11:*']]);
+    const keep = new Set(['k11:estado', 'k11:stop']); if (b.cfg !== '1') ['k11:cfg', 'k11:envio', 'k11:online'].forEach(k => keep.add(k));
+    const del = (keys || []).filter(k => !keep.has(k));
+    for (let i = 0; i < del.length; i += 50) await redis([['DEL', ...del.slice(i, i + 50)]]);
+    if (b.cfg !== '1') { await X.setCfg('llegada', {}); await X.setCfg('backup_at', null); }
+    await log({ rol: 'admin', a: 'reset_todo', msg: del.length + ' claves borradas' });
+    return { msg: 'Base en cero: ' + del.length + ' registros borrados' + bk + (b.cfg === '1' ? ' · configuración también' : ' · se mantuvo configuración y campaña de mails'), go: '/admin?v=sistema' };
+  }
   if (a === 'backup_mail') { const n = await backupDiario(); return `Backup enviado a ${X.TO()} · ${n} claves`; }
   if (a === 'backup_restore') { if (String(b.conf || '').trim().toUpperCase() !== 'RESTAURAR') throw new Error('Escribí RESTAURAR para confirmar'); const r = await restaurar(String(b.json || '')); return `Restaurado: ${r.n} claves del backup del ${dfecha(r.at)}`; }
   if (a === 'reorden_cfg') { const tr = parseInt(b.transito, 10), co = parseInt(b.cobertura, 10); if (!(tr > 0) || !(co > 0)) throw new Error('Cargá días de tránsito y cobertura'); await X.setCfg('reorden', { transito: tr, cobertura: co }); return `Reposición: tránsito ${tr} d · cobertura ${co} d`; }

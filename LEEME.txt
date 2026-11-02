@@ -1,2 +1,2 @@
-Subí la carpeta "api" a GitHub (Add file → Upload files). Reemplaza api/_lib/data.json.
-Subir HOY: la invitación sale mañana 3 nov a las 8:00 (Miami) y el recordatorio el viernes 6 nov.
+Subí la carpeta "api" a GitHub (Add file → Upload files). Reemplaza api/_lib/mejoras.js.
+Después: /admin → Sistema → "Dejar la base en cero" → escribí BORRAR TODO.

@@ -103,7 +103,7 @@ function App() {
           <div className="breadcrumb"><a onClick={() => setPage('home')}>Home</a><span>/</span><span>Privacy Policy</span></div>
           <h1>Privacy Policy</h1>
           <p style={{ color:'rgba(255,255,255,.3)', fontSize:'.85rem', marginBottom:'2rem' }}>Last updated: January 2026</p>
-          <p>Wylco LLC ("Wylco", "we", "our") operates the K11 America website. This Privacy Policy describes how we collect, use, and protect your information.</p>
+          <p>Wylco Solutions LLC ("Wylco", "we", "our") operates the K11 America website. This Privacy Policy describes how we collect, use, and protect your information.</p>
           <h2>Information We Collect</h2>
           <p>We collect information you provide directly: name, email, phone number, company, and message content submitted through our contact forms. We may also collect analytics data about how you use our website.</p>
           <h2>How We Use Your Information</h2>
@@ -125,9 +125,9 @@ function App() {
           <h2>Use of Website</h2>
           <p>This website is provided for informational and commercial inquiry purposes. All product information is provided in good faith.</p>
           <h2>Products & Ordering</h2>
-          <p>Product availability, pricing, and shipping terms are subject to change. All orders are subject to confirmation by Wylco LLC. B2B pricing requires a formal quote.</p>
+          <p>Product availability, pricing, and shipping terms are subject to change. All orders are subject to confirmation by Wylco Solutions LLC. B2B pricing requires a formal quote.</p>
           <h2>Intellectual Property</h2>
-          <p>All content on this website is the property of Wylco LLC or its licensors and may not be reproduced without written permission.</p>
+          <p>All content on this website is the property of Wylco Solutions LLC or its licensors and may not be reproduced without written permission.</p>
           <h2>Contact</h2>
           <p>For questions: <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a></p>
         </div>

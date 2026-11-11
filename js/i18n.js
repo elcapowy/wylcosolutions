@@ -124,7 +124,7 @@ window.T = {
         {title:'Company', links:['About Wylco','How It Works','SDS Documentation','Contact Us']},
         {title:'Distributors', links:['Apply to Distribute','Wholesale Pricing','Territory Info','Technical Support']}
       ],
-      legal:'© 2026 Wylco LLC · Miami, FL',
+      legal:'© 2026 Wylco Solutions LLC · Miami, FL',
       privacy:'Privacy Policy', terms:'Terms of Use',
       badge:'Official K11 Distributor'
     }
@@ -251,7 +251,7 @@ window.T = {
         {title:'Empresa', links:['Sobre Wylco','Cómo Funciona','Documentación SDS','Contacto']},
         {title:'Distribuidores', links:['Aplicar para Distribuir','Precios al por Mayor','Info de Territorio','Soporte Técnico']}
       ],
-      legal:'© 2026 Wylco LLC · Miami, FL',
+      legal:'© 2026 Wylco Solutions LLC · Miami, FL',
       privacy:'Política de Privacidad', terms:'Términos de Uso',
       badge:'Distribuidor Oficial K11'
     }

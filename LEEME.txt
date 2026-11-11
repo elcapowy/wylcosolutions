@@ -3,7 +3,7 @@ Este zip reemplaza a todos los anteriores (Subir mejoras, fix envío, reset, pre
 
 1. Descomprimí el zip.
 2. GitHub → repo → Add file → Upload files.
-3. Arrastrá TODO el contenido: la carpeta "api", "vercel.json" y los 6 .html.
+3. Arrastrá TODO el contenido (carpetas api, es, pages, js y todos los .html/.jsx/.txt). Reemplazan lo existente.
 4. Commit changes. Vercel publica solo (1–2 min).
 
 5. .vercelignore (archivo oculto): abrí .vercelignore en GitHub → lápiz (Edit) → pegá el contenido de "vercelignore.txt" → Commit.
@@ -18,3 +18,6 @@ QUÉ INCLUYE
 DESPUÉS DE SUBIR
 - /admin → Stock: cargar precio por caja nuevo de Sella Plus (460.80) y Acople (2380).
 - Vercel: CRON_SECRET, SHIPPO_API_KEY, UPLOADPOST_API_KEY → Redeploy.
+
+NOMBRE LEGAL: todo dice "Wylco Solutions LLC" (web, términos, privacidad, facturas, etiquetas, catálogo, papelería).
+En Vercel: si SHIP_FROM dice "Wylco LLC", cambiala a "Wylco Solutions LLC" + dirección → Redeploy.

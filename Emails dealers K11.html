@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Emails dealers K11 · Wylco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/papeleria.css">
+<style>
+body{background:var(--wm);font-size:15px;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding:28px 20px 80px;display:grid;gap:28px}
+.cover{background:var(--dk);color:#fff;border-radius:12px;padding:26px 28px;display:grid;gap:12px}
+.cover .brand b{color:#fff}.cover .brand small{color:rgba(255,255,255,.6)}
+.cover h1{font-family:var(--fd);font-weight:900;font-size:clamp(34px,6vw,54px);line-height:.9;text-transform:uppercase}
+.cover h1 em{color:var(--or);font-style:normal}
+.cover p{color:rgba(255,255,255,.85);max-width:44em;text-wrap:pretty}
+h2{font-family:var(--fd);font-weight:900;font-size:28px;text-transform:uppercase;line-height:1}
+h2 span{color:var(--or)}
+.cal{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.cal div{background:#fff;border-radius:10px;padding:14px 16px;display:grid;gap:4px}
+.cal b{font-family:var(--fd);font-weight:800;font-size:20px;text-transform:uppercase;color:var(--or);line-height:1}
+.cal span{font-weight:700}.cal small{color:var(--mu);font-size:13px}
+.note{background:#fff;border-radius:10px;padding:14px 18px;display:grid;gap:6px}
+.note li{margin-left:18px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:flex;background:#fff;border-radius:99px;padding:3px;gap:2px}
+.seg button{border:0;background:none;font:700 13px var(--fb);padding:7px 14px;border-radius:99px;cursor:pointer;color:var(--mid)}
+.seg button.on{background:var(--dk);color:#fff}
+.tpls{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:14px}
+.mail{background:#fff;border-radius:12px;padding:18px 20px;display:grid;gap:10px;align-content:start}
+.mail header{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.mail h3{font-family:var(--fd);font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+.tag{font-family:var(--fd);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:4px;background:var(--wm2);white-space:nowrap}
+.tag.o{background:var(--or);color:#fff}
+.sj{font-weight:700;border-bottom:1px solid var(--wm3);padding-bottom:8px}
+.sj small{font-family:var(--fd);letter-spacing:.12em;color:var(--or);text-transform:uppercase;margin-right:6px}
+.bd{white-space:pre-line;font-size:14px;color:var(--mid)}
+.btn{border:0;background:var(--or);color:#fff;font:700 13px var(--fb);padding:8px 14px;border-radius:8px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:var(--or-d);color:#fff}.btn.g{background:var(--wm2);color:var(--tx)}.btn.g:hover{background:var(--wm3);color:var(--tx)}
+.tblw{background:#fff;border-radius:12px;overflow:auto}
+.tbl td{font-size:14px;vertical-align:middle}
+.tbl tr.sent td{color:var(--mu)}.tbl tr.sent td:first-child{text-decoration:line-through}
+.tbl td.act{display:flex;gap:6px;flex-wrap:wrap}
+.tbl input{accent-color:var(--or);width:18px;height:18px}
+.cnt{color:var(--mu);font-size:14px}
+input[type=search]{font:14px var(--fb);padding:8px 12px;border:1px solid var(--wm3);border-radius:8px;min-width:220px;background:#fff}
+</style></head><body>
+<div class="wrap">
+<section class="cover" data-screen-label="Portada">
+<div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div>
+<h1>Emails a dealers · <em>Lanzamiento K11</em></h1>
+<p>Wylco es el importador y mayorista de K11: le vende a distribuidores, no a técnicos. A los distribuidores se les ofrece la línea a precio mayorista. A los contratistas se les pregunta en qué casa de repuestos compran, para saber qué distribuidor abrir. Los contratistas reciben el email primero, así que el 2 de noviembre ya podés decirle a cada distribuidor qué técnicos de su zona pidieron K11.</p>
+</section>
+<section style="display:grid;gap:12px" data-screen-label="Calendario">
+<h2>Calendario de <span>envío</span></h2>
+<div class="cal" id="cal"></div>
+<div class="note"><b>Antes de enviar</b><ul>
+<li>El pie dice “Wylco Solutions LLC · Miami, FL 33016”. La ley CAN-SPAM pide calle y número o una casilla postal registrada; cuando la tengas, agregala en el pie.</li>
+<li>Mandá 30 o 40 por día desde info@wylcosolutions.com. Si mandás todos juntos desde un dominio nuevo, terminan en spam.</li>
+<li>Para enviar en lote, la planilla <b>Dealers K11 depurado.xlsx</b> tiene la hoja “Envío email 1 (mail merge)” con el asunto y el cuerpo de cada contacto, lista para Gmail, YAMM u Outlook.</li>
+<li>Confirmá cuántas muestras podés dejar a los contratistas que respondan “DEMO”.</li>
+</ul></div>
+</section>
+<section style="display:grid;gap:12px" data-screen-label="Plantillas">
+<div class="bar" style="justify-content:space-between"><h2>Plantillas</h2><div class="seg" id="lang"><button data-l="en" class="on">English</button><button data-l="es">Español</button></div></div>
+<div class="tpls" id="tpls"></div>
+</section>
+<section style="display:grid;gap:12px" data-screen-label="Contactos">
+<h2>Contactos · <span>enviar</span></h2>
+<div class="bar"><div class="seg" id="segf"></div><input type="search" id="q" placeholder="Buscar empresa o ciudad"><span class="cnt" id="cnt"></span></div>
+<div class="tblw"><table class="tbl"><thead><tr><th>Empresa</th><th>Ciudad</th><th>Email</th><th>Abrir email</th><th>Enviado</th></tr></thead><tbody id="rows"></tbody></table></div>
+</section>
+</div>
+<script src="data/k11-email-templates.js"></script>
+<script src="data/k11-dealers.js"></script>
+<script>
+const LS='k11-email-sent';let sent=JSON.parse(localStorage.getItem(LS)||'{}');let lang='en',seg='A';
+const SEGN={A:'A · Distribuidores',B:'B · Miami-Dade/Broward',C:'C · Palm Beach/Keys',D:'D · Resto FL',E:'E · Otros estados'};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const n=p=>K11_DEALERS.filter(d=>p.includes(d.pri)).length;
+const CAL=[['20–23 oct','Contratistas B + C',n('BC')+' emails · plantilla 1','cont1'],['26 oct – 6 nov','Resto FL + otros estados',n('DE')+' emails · ~40 por día','nac1'],['Lun 2 nov','Distribuidores A',n('A')+' de la base + prospectos del plan de gira','dist1'],['Mié 4 nov','Recordatorio contratistas','Solo a los que no respondieron','cont2'],['Vie 6 nov','Recordatorio distribuidores','Confirmar citas por WhatsApp','dist2']];
+document.getElementById('cal').innerHTML=CAL.map(c=>`<div><b>${c[0]}</b><span>${c[1]}</span><small>${c[2]}</small></div>`).join('');
+const sample={name:'{empresa}',city:'{ciudad}'};
+function renderT(){document.getElementById('tpls').innerHTML=Object.entries(K11_TPL).map(([k,t])=>{const f=k11Fill(k,lang,sample);return`<article class="mail"><header><h3>${esc(t.label)}</h3><span class="tag o">${esc(t.when)}</span></header><div class="sj"><small>${lang==='en'?'Subject':'Asunto'}</small>${esc(f.s)}</div><div class="bd">${esc(f.b)}</div><div class="bar"><button class="btn g" data-copy="${k}">Copiar texto</button></div></article>`}).join('');}
+function renderR(){const q=document.getElementById('q').value.toLowerCase();const L=K11_DEALERS.filter(d=>d.pri===seg&&(!q||(d.name+' '+d.city).toLowerCase().includes(q)));
+document.getElementById('cnt').textContent=`${L.filter(d=>sent[d.id]).length} de ${L.length} enviados`;
+document.getElementById('rows').innerHTML=L.map(d=>{const keys=K11_SEG[d.pri];return`<tr class="${sent[d.id]?'sent':''}"><td><b>${esc(d.name)}</b></td><td>${esc([d.city,d.county||d.st].filter(Boolean).join(' · '))}</td><td>${esc(d.email)}</td><td class="act">${keys.map((k,i)=>{const f=k11Fill(k,lang,d);return`<a class="btn${i?' g':''}" href="mailto:${encodeURIComponent(d.email)}?subject=${encodeURIComponent(f.s)}&body=${encodeURIComponent(f.b)}">${i?'Recordatorio':'Email 1'}</a>`}).join('')}</td><td><input type="checkbox" data-id="${d.id}" ${sent[d.id]?'checked':''} aria-label="Enviado"></td></tr>`}).join('');}
+document.getElementById('segf').innerHTML=Object.keys(SEGN).map(k=>`<button data-s="${k}" class="${k===seg?'on':''}">${SEGN[k]} (${n(k)})</button>`).join('');
+document.getElementById('segf').onclick=e=>{const b=e.target.closest('button');if(!b)return;seg=b.dataset.s;document.querySelectorAll('#segf button').forEach(x=>x.classList.toggle('on',x===b));renderR();};
+document.getElementById('lang').onclick=e=>{const b=e.target.closest('button');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('on',x===b));renderT();renderR();};
+document.getElementById('q').oninput=renderR;
+document.getElementById('rows').onchange=e=>{const id=e.target.dataset.id;if(!id)return;if(e.target.checked)sent[id]=new Date().toISOString().slice(0,10);else delete sent[id];localStorage.setItem(LS,JSON.stringify(sent));renderR();};
+document.getElementById('tpls').onclick=e=>{const b=e.target.closest('[data-copy]');if(!b)return;const f=k11Fill(b.dataset.copy,lang,sample);navigator.clipboard.writeText(f.s+'\n\n'+f.b);b.textContent='Copiado';setTimeout(()=>b.textContent='Copiar texto',1200);};
+renderT();renderR();
+</script>
+</body></html>

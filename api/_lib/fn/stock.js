@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     if (req.query.full !== '1') return res.json({ updated: new Date().toISOString(), products: t.map(pub) });
     res.json({
-      seller: { name: 'Wylco LLC', brand: 'K11', location: 'Miami, FL, USA', email: 'info@wylcosolutions.com', phone: '+1-954-881-8870' },
+      seller: { name: 'Wylco Solutions LLC', brand: 'K11', location: 'Miami, FL, USA', email: 'info@wylcosolutions.com', phone: '+1-954-881-8870' },
       buyers: 'Businesses only (HVAC-R dealers, supply houses, wholesalers, contractors) in the US',
       currency: 'USD',
       pricing: 'Wholesale price per case shown at Stripe checkout (buy_url) or on a Stripe invoice sent after an order request. Not published. Sales tax added where applicable; resellers with a resale certificate invoiced tax-exempt.',

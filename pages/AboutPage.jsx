@@ -4,14 +4,14 @@ function AboutPage({ lang, setPage }) {
     { year:'2012', title:'K11 Developed in Brazil', desc:'The K11 formula is developed in Brazil and begins validation testing with refrigeration equipment manufacturers.' },
     { year:'2015', title:'First OEM Partnerships', desc:'Three major HVAC OEM manufacturers in Latin America adopt K11 as a preventive factory treatment on new units.' },
     { year:'2019', title:'ASHRAE 97 Testing', desc:'K11 TapaFugas is tested per ASHRAE Standard 97, the sealed-tube method for chemical stability of refrigerant system materials.' },
-    { year:'2023', title:'K11 America Launches', desc:'The US rollout begins. Wylco LLC is established in Miami, FL as the K11 distributor for the United States market.' },
+    { year:'2023', title:'K11 America Launches', desc:'The US rollout begins. Wylco Solutions LLC is established in Miami, FL as the K11 distributor for the United States market.' },
     { year:'2025', title:'Miami Operations', desc:'Distribution base set up in Miami, FL. First conversations with US distributors and contractors.' },
     { year:'2026', title:'US Launch & Growth', desc:'K11 officially launches across the US market. Pre-orders open with launch pricing. The K11 distributor network continues to expand nationwide.' },
   ] : [
     { year:'2012', title:'K11 Desarrollado en Brasil', desc:'La fórmula K11 se desarrolla en Brasil y comienza las pruebas de validación con fabricantes de equipos de refrigeración.' },
     { year:'2015', title:'Primeras Asociaciones OEM', desc:'Tres grandes fabricantes OEM de HVAC en Latinoamérica adoptan K11 como tratamiento preventivo de fábrica en nuevas unidades.' },
     { year:'2019', title:'Ensayo ASHRAE 97', desc:'K11 TapaFugas está ensayado según la norma ASHRAE 97, el método de tubo sellado para estabilidad química de materiales en sistemas de refrigeración.' },
-    { year:'2023', title:'Lanzamiento K11 America', desc:'Comienza el despliegue en EE.UU. Wylco LLC se establece en Miami, FL como el distribuidor K11 para el mercado estadounidense.' },
+    { year:'2023', title:'Lanzamiento K11 America', desc:'Comienza el despliegue en EE.UU. Wylco Solutions LLC se establece en Miami, FL como el distribuidor K11 para el mercado estadounidense.' },
     { year:'2025', title:'Operación en Miami', desc:'Base de distribución en Miami, FL. Primeras conversaciones con distribuidores y contratistas de EE.UU.' },
     { year:'2026', title:'Lanzamiento y Crecimiento USA', desc:'K11 se lanza oficialmente en el mercado de EE.UU. Pre-órdenes abiertas con precios de lanzamiento. La red de distribuidores K11 sigue expandiéndose a nivel nacional.' },
   ];
@@ -55,7 +55,7 @@ function AboutPage({ lang, setPage }) {
             <div className="about-text">
               <div className="eyebrow white">{lang==='en'?'About Wylco':'Sobre Wylco'}</div>
               <div className="display" style={{ color:'#fff', fontSize:'clamp(2rem,3.5vw,3rem)', marginBottom:'24px' }}>{lang==='en'?<span>The US home<br/>of K11.</span>:<span>El hogar de K11<br/>en EE.UU.</span>}</div>
-              <p>{lang==='en'?<span><strong>Wylco LLC</strong> is the official distributor of K11 products in the United States, operating from Miami, Florida — the epicenter of the American HVAC-R market.</span>:<span><strong>Wylco LLC</strong> es el distribuidor oficial de productos K11 en los Estados Unidos, operando desde Miami, Florida — el epicentro del mercado HVAC-R americano.</span>}</p>
+              <p>{lang==='en'?<span><strong>Wylco Solutions LLC</strong> is the official distributor of K11 products in the United States, operating from Miami, Florida — the epicenter of the American HVAC-R market.</span>:<span><strong>Wylco Solutions LLC</strong> es el distribuidor oficial de productos K11 en los Estados Unidos, operando desde Miami, Florida — el epicentro del mercado HVAC-R americano.</span>}</p>
               <p>{lang==='en'?'We exist because American HVAC contractors deserve access to proven refrigerant leak solutions. K11 has been used by HVAC manufacturers and contractors across Latin America for over 12 years. We\'re bringing that proven technology to the United States.':'Existimos porque los contratistas HVAC americanos merecen acceso a soluciones de fugas probadas. K11 se usa con fabricantes y técnicos en toda Latinoamérica desde hace más de 12 años.'}</p>
               <p>{lang==='en'?'Based in Miami, we understand the demands of year-round AC operation, high-density commercial systems, and the fast-paced nature of field service. Our team provides technical support, fast shipping, and direct partnership opportunities.':'Con base en Miami, entendemos las exigencias de la operación de AC todo el año, los sistemas comerciales de alta densidad y el ritmo acelerado del servicio en campo.'}</p>
               <div style={{ display:'flex', gap:'10px', flexWrap:'wrap', marginTop:'24px' }}>

@@ -1,6 +1,6 @@
 const { pedido, cliente, BY, SITE } = require('../tienda');
 const TOK = process.env.ADMIN_TOKEN;
-const FROM = (process.env.SHIP_FROM || 'Wylco LLC\nMiami, FL\nUSA\n+1 (954) 881-8870').split(/\\n|\n/);
+const FROM = (process.env.SHIP_FROM || 'Wylco Solutions LLC\nMiami, FL\nUSA\n+1 (954) 881-8870').split(/\\n|\n/);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 // Etiquetas de envío 4×6" (una por caja) para impresora térmica o papel

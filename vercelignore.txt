@@ -1,0 +1,53 @@
+# Interno: no publicar en el sitio
+Papeleria K11
+uploads
+scraps
+screenshots
+Envio automatico
+Envio automatico K11.html
+Emails dealers K11.html
+Dealers K11 depurado.xlsx
+data/k11-dealers.js
+Costo de importacion K11.html
+Cuadro de margenes K11.html
+Comparativo competencia K11.html
+Plan de gira Miami.html
+Chomba Wylco K11.html
+Etiqueta 30x40 imprimir.html
+Etiquetas 30x40.html
+order.html
+es/order.html
+Etiqueta envio vista previa.html
+Admin vista previa.html
+Redes vista previa.html
+Ventas vista previa.html
+Stock vista previa.html
+Finanzas vista previa.html
+Mejoras vista previa.html
+Precios K11.html
+Compras vista previa.html
+Analisis precios competencia.html
+Costo landed SO-26-1111-001.html
+Lista de precios distribuidor.html
+Plan de trabajo Miami.html
+Ruta 11 nov Doral.html
+Subir a GitHub 11-nov
+Subir mejoras
+Subir fix envio
+Subir precios landed
+Subir reset
+Subir mails distribuidores
+Subir checkout
+Subir imagenes redes
+# Solo 3 funciones (límite Hobby = 12): el resto vive en api/_lib/fn/
+api/buy.js
+api/checkout.js
+api/enviar.js
+api/etiqueta.js
+api/order.js
+api/panel.js
+api/pedido.js
+api/portal.js
+api/stock.js
+api/tareas.js
+api/test.js

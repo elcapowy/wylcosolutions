@@ -1,34 +1,67 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>Lista de precios mayorista — Wylco K11</title>
+<html lang="en"><head><meta charset="utf-8"><title>Price list — K11 · Wylco</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/papeleria.css">
 <style>
-.page{padding:.5in .55in;display:flex;flex-direction:column;gap:.24in}
-.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1.5pt solid var(--dk);padding-bottom:10px}
-h1{font-family:var(--fd);font-weight:900;font-size:30pt;line-height:.9;text-transform:uppercase;text-align:right}
-h1 small{display:block;font-size:11pt;letter-spacing:.12em;color:var(--mu);font-weight:700;margin-top:4px}
-.meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.2in;font-size:8.5pt}
-.meta label{font-family:var(--fd);font-weight:700;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);display:block;margin-bottom:3px}
-.tbl td.p{font-weight:700;text-align:right;width:.9in}
-.tbl th.p{text-align:right}
-.tbl td b{font-family:var(--fd);font-size:11.5pt;text-transform:uppercase;letter-spacing:.02em}
-.tbl td i{display:block;color:var(--mu);font-size:8pt}
-.blank{display:inline-block;min-width:.6in;border-bottom:.75pt solid #9aa0ab;height:13px}
-h2{font-family:var(--fd);font-weight:800;font-size:13pt;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px}
-.terms{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;font-size:9pt}
-.terms div{display:grid;grid-template-columns:1.5in 1fr;gap:8px;align-items:end}
-.terms span{color:var(--mid)}
-.note{font-size:8pt;color:var(--mu);line-height:1.5}
-.foot{margin-top:auto;display:flex;justify-content:space-between;font-size:8pt;color:var(--mu);border-top:.5pt solid var(--wm3);padding-top:8px}
+.pl.page{padding:.4in .5in .35in;display:flex;flex-direction:column;gap:.15in}
+.pl .top{display:flex;justify-content:space-between;align-items:flex-end;gap:.3in;border-bottom:1.5pt solid var(--dk);padding-bottom:10px}
+.pl .top h1{font-family:var(--fd);font-weight:900;font-size:30pt;line-height:.86;text-transform:uppercase;text-align:right}
+.pl .top h1 em{color:var(--or);font-style:normal}
+.pl .top h1 small{display:block;font-size:10.5pt;letter-spacing:.14em;color:var(--mu);font-weight:700;margin-top:5px}
+.pl .band{display:flex;justify-content:space-between;align-items:center;gap:.2in;background:var(--dk);color:#fff;border-radius:10px;padding:12px 16px}
+.pl .band p{font-size:9.5pt;line-height:1.35;max-width:5.4in}.pl .band .soon{white-space:nowrap;flex-shrink:0}.pl .band p i{display:block;color:rgba(255,255,255,.72);font-size:9pt}
+.pl .tb{width:100%;border-collapse:collapse;font-size:9pt}
+.pl .tb th{font-family:var(--fd);font-weight:700;font-size:8pt;letter-spacing:.08em;text-transform:uppercase;text-align:left;color:var(--mu);padding:0 6px 6px;border-bottom:1.5pt solid var(--dk);line-height:1.15;vertical-align:bottom}
+.pl .tb th i{display:block;font-style:normal;font-family:var(--fb);font-weight:500;letter-spacing:0;text-transform:none;font-size:7pt;opacity:.8}
+.pl .tb td{padding:4px 6px;border-bottom:.5pt solid var(--wm3);vertical-align:middle}
+.pl .tb .n{text-align:right;white-space:nowrap}
+.pl .tb .im{width:.5in;padding-left:0}.pl .tb .im div{width:.42in;height:.42in;background:var(--wm);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}.pl .tb .im img{max-width:90%;max-height:90%;object-fit:contain}
+.pl .tb b{font-family:var(--fd);font-weight:800;font-size:12.5pt;text-transform:uppercase;line-height:1;display:block}
+.pl .tb .d{display:block;font-size:8pt;color:var(--mid);margin-top:2px}.pl .tb .d i{color:var(--mu)}
+.pl .tb .sku{font:600 7.5pt ui-monospace,Menlo,monospace;color:var(--mu)}
+.pl .tb .u{font-weight:700;font-size:10.5pt}
+.pl .tb .c{font-family:var(--fd);font-weight:900;font-size:15pt;color:var(--or)}
+.pl .tb .s{color:var(--mid)}
+.pl h2{font-family:var(--fd);font-weight:800;font-size:12pt;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.pl .terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.1in .14in}
+.pl .terms div{border-top:2pt solid var(--or);padding-top:5px;font-size:8pt;line-height:1.3;color:var(--mid)}
+.pl .terms b{display:block;font-family:var(--fd);font-weight:800;font-size:11pt;text-transform:uppercase;color:var(--tx);line-height:1.05;margin-bottom:2px}
+.pl .terms i{display:block;color:var(--mu)}
+.pl .order{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.24in;align-items:center;background:var(--wm);border-radius:12px;padding:10px 14px}
+.pl .ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.14in}
+.pl .ways small{display:block;font-family:var(--fd);font-weight:700;font-size:8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--or)}
+.pl .ways b{display:block;font-weight:700;font-size:10pt;margin:2px 0}
+.pl .ways span{font-size:8pt;color:var(--mid);line-height:1.35;display:block}
+.pl .qr{text-align:center}.pl .qr img{width:.85in;height:.85in;display:block;background:#fff;padding:5px;border-radius:6px}.pl .qr small{display:block;font-family:var(--fd);font-weight:700;font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;margin-top:4px}
+.pl .note{font-size:7.5pt;color:var(--mu);line-height:1.45}
+.pl .foot{margin-top:auto;display:flex;justify-content:space-between;gap:.2in;font-size:8pt;color:var(--mu);border-top:.5pt solid var(--wm3);padding-top:8px}
 </style></head><body>
 <doc-page>
-<section class="page" data-screen-label="Lista de precios">
-<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><h1>Wholesale Price List<small>Lista de precios mayorista · 2026</small></h1></div>
-<div class="meta"><div><label>Prepared for · Para</label><div class="line"></div></div><div><label>Date · Fecha</label><div class="line"></div></div><div><label>Valid until · Válida hasta</label><div class="line"></div></div></div>
-<table class="tbl"><thead><tr><th>SKU</th><th>Product · Producto</th><th>Pack · Presentación</th><th>Units/case</th><th class="p">Unit price</th><th class="p">Case price</th></tr></thead><tbody><tr><td>TFK11-10</td><td><b>TapaFugas K11</b><i>Sellador de micro-fugas</i></td><td>10 ml syringe · 3 TR</td><td>192</td><td class="p">$15.75</td><td class="p">$3,024.00</td></tr><tr><td>TFK11-CO</td><td><b>TapaFugas K11 + Adapter</b><i>Jeringa + conector</i></td><td>10 ml syringe + adapter</td><td>192</td><td class="p">$19.40</td><td class="p">$3,724.80</td></tr><tr><td>K11-2:1-11</td><td><b>TapaFugas 2-in-1</b><i>Sella + trazador UV</i></td><td>11 ml syringe</td><td>192</td><td class="p">$19.60</td><td class="p">$3,763.20</td></tr><tr><td>SPK11-B35</td><td><b>Sella Plus K11</b><i>Sellador + lubricante</i></td><td>35 ml bottle</td><td>48</td><td class="p">$8.75</td><td class="p">$420.00</td></tr><tr><td>20002</td><td><b>Coupler 1/4"</b><i>Acople estándar</i></td><td>1 unit</td><td>400</td><td class="p">$1.50</td><td class="p">$600.00</td></tr></tbody></table>
-<div><h2>Terms · Condiciones</h2><div class="terms"><div><span>Minimum order · Pedido mínimo</span><div class="line"></div></div><div><span>Payment · Forma de pago</span><div class="line"></div></div><div><span>Volume discount · Descuento</span><div class="line"></div></div><div><span>Delivery · Entrega</span><div class="line">EXW México</div></div><div><span>Territory · Zona</span><div class="line"></div></div><div><span>Launch date · Lanzamiento</span><div class="line"></div></div></div></div>
-<p class="note">Prices in USD, EXW México, before sales tax. Sold by full case. Products are not yet stocked in Miami; first shipments are expected soon and pre-orders are being accepted. Precios en USD, EXW México, sin impuestos. Venta por caja cerrada. Los productos aún no están en Miami; se aceptan pre-pedidos.</p>
+<section class="page pl" data-screen-label="Lista de precios distribuidor">
+<div class="top"><div class="brand"><img src="assets/logo-knockout.png" alt=""><div><b>WYLCO</b><small>HVAC-R Solutions</small></div></div><h1>K11 <em>Price List</em><small>Lista de precios · Distributors · Nov 2026</small></h1></div>
+<div class="band"><p>Wholesale by the full case, shipped from Miami.<i>Venta mayorista por caja cerrada, despacho desde Miami.</i></p><span class="soon">Pre-orders open · Pedidos abiertos</span></div>
+<table class="tb"><thead><tr><th></th><th>Product<i>Producto</i></th><th class="n">Units/case<i>Un./caja</i></th><th class="n">Your cost<i>Su costo / un.</i></th><th class="n">Case price<i>Precio caja</i></th><th class="n">Suggested resale<i>Venta sugerida</i></th></tr></thead><tbody>
+<tr><td class="im"><div><img src="assets/products/tfk11-syringe.png" alt=""></div></td><td><b>TapaFugas K11</b><span class="d">10 ml syringe · systems up to 3 TR <i>· Sellador de micro-fugas</i></span><span class="sku">TFK11-10</span></td><td class="n">192</td><td class="n u">$15.75</td><td class="n c">$3,024.00</td><td class="n s">$29.95</td></tr>
+<tr><td class="im"><div><img src="assets/products/tfk11-box.png" alt=""></div></td><td><b>TapaFugas K11 + Adapter</b><span class="d">10 ml syringe + 1/4" adapter <i>· Jeringa + conector</i></span><span class="sku">TFK11-CO</span></td><td class="n">192</td><td class="n u">$19.40</td><td class="n c">$3,724.80</td><td class="n s">$34.95</td></tr>
+<tr><td class="im"><div><img src="assets/products/tfk11-2in1-box.png" alt=""></div></td><td><b>TapaFugas 2-in-1</b><span class="d">10 ml syringe · seal + UV dye <i>· Sella y detecta con UV</i></span><span class="sku">K11-2:1-11</span></td><td class="n">192</td><td class="n u">$19.60</td><td class="n c">$3,763.20</td><td class="n s">$34.95</td></tr>
+<tr><td class="im"><div><img src="assets/products/sella-plus-en.png" alt=""></div></td><td><b>Sella Plus K11</b><span class="d">35 ml bottle · thread &amp; flare sealant <i>· Sellador + lubricante</i></span><span class="sku">SPK11-B35</span></td><td class="n">48</td><td class="n u">$9.60</td><td class="n c">$460.80</td><td class="n s">$15.95</td></tr>
+<tr><td class="im"><div><img src="assets/tile_adapter.png" alt=""></div></td><td><b>Coupler 1/4"</b><span class="d">Syringe injection coupler, 1/4" SAE <i>· Acople de inyección</i></span><span class="sku">20002</span></td><td class="n">400</td><td class="n u">$5.95</td><td class="n c">$2,380.00</td><td class="n s">$9.95</td></tr>
+</tbody></table>
+<div><h2>Terms · Condiciones</h2><div class="terms">
+<div><b>Shipping</b>$35 per case, continental US. Free on orders over $2,000. Free pickup in Miami.<i>Envío $35 por caja; gratis desde $2,000; retiro sin cargo en Miami.</i></div>
+<div><b>Delivery</b>Ships from Miami, 2–5 business days once in stock.<i>Despacho desde Miami, 2 a 5 días hábiles con stock.</i></div>
+<div><b>Payment</b>Card or ACH online. Zelle or wire with invoice.<i>Tarjeta o ACH online; Zelle o transferencia con factura.</i></div>
+<div><b>Sales tax</b>Exempt with a valid Florida Annual Resale Certificate.<i>Exento presentando el certificado de reventa.</i></div>
+<div><b>Volume pricing</b>Multi-branch and repeat accounts: ask for tier pricing.<i>Cuentas con sucursales o recompra: consulte precio por volumen.</i></div>
+<div><b>Support</b>Counter training, SDS and point-of-sale material in English and Spanish.<i>Capacitación, hojas SDS y material de mostrador.</i></div>
+</div></div>
+<div class="order"><div><h2>How to order · Cómo pedir</h2><div class="ways">
+<div><small>Online</small><b>wylcosolutions.com/order</b><span>Card, ACH or invoice. <i>Online o con factura.</i></span></div>
+<div><small>Phone · WhatsApp</small><b>+1 (954) 881-8870</b><span>Fernando Lette, K11 rep. <i>Su representante.</i></span></div>
+<div><small>Email</small><b>info@wylcosolutions.com</b><span>PO + resale certificate. <i>Orden y certificado.</i></span></div>
+</div></div><div class="qr"><img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&amp;margin=0&amp;data=https%3A%2F%2Fwylcosolutions.com%2Forder%3Futm_source%3Dprint%26utm_medium%3Dpricelist" alt="QR order"><small>Scan to order</small></div></div>
+<p class="note">Prices in USD per unit, sold by full case, before sales tax. Suggested resale is a reference; each distributor sets its own price. Prices may change without notice; the price at checkout or on your invoice applies. · Precios en USD por unidad, venta por caja cerrada, sin impuestos. La venta sugerida es de referencia.</p>
 <div class="foot"><span>Wylco LLC · Miami, FL · wylcosolutions.com</span><span>Fernando Lette · +1 (954) 881-8870 · info@wylcosolutions.com</span></div>
 </section>
 </doc-page>

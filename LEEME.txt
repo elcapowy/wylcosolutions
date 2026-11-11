@@ -1,2 +1,20 @@
-Subí la carpeta "api" a GitHub (Add file → Upload files). Reemplaza api/_lib/mejoras.js.
-Después: /admin → Sistema → "Dejar la base en cero" → escribí BORRAR TODO.
+SUBIR A GITHUB — 11 nov 2026 (repo elcapowy/wylcosolutions)
+Este zip reemplaza a todos los anteriores (Subir mejoras, fix envío, reset, precios landed, mails distribuidores).
+
+1. Descomprimí el zip.
+2. GitHub → repo → Add file → Upload files.
+3. Arrastrá TODO el contenido: la carpeta "api", "vercel.json" y los 6 .html.
+4. Commit changes. Vercel publica solo (1–2 min).
+
+5. .vercelignore (archivo oculto): abrí .vercelignore en GitHub → lápiz (Edit) → pegá el contenido de "vercelignore.txt" → Commit.
+   Así no se publican los papeles internos (costos, análisis, plan de gira, ruta).
+
+QUÉ INCLUYE
+- Admin: Sistema (chequeo, backup, base en cero, niveles, cajas, registro), reposición, recompra, usuario depósito, Shippo (dirección, teléfono, avisos), fletes en Finanzas, feed /merchant.xml.
+- Precios: costos EXW Proxima + landed del primer embarque; Sella Plus $9.60 y Acople $5.95.
+- Mails: 8 distribuidores nuevos (A&R, AP AC, United Refrigeration, Saez).
+- Papelería pública: lista de precios nueva (/k11/precios), kit, flyer, márgenes, carta, formulario.
+
+DESPUÉS DE SUBIR
+- /admin → Stock: cargar precio por caja nuevo de Sella Plus (460.80) y Acople (2380).
+- Vercel: CRON_SECRET, SHIPPO_API_KEY, UPLOADPOST_API_KEY → Redeploy.

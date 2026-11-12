@@ -146,6 +146,10 @@
       "destination": "/about.html"
     },
     {
+      "source": "/preorder",
+      "destination": "/preorder.html"
+    },
+    {
       "source": "/es/products",
       "destination": "/es/products.html"
     },

@@ -92,3 +92,4 @@ Archivos: js/i18n.js, pages/*.jsx, páginas estáticas (index.html, products.htm
 - Ruta jue 12 nov Hialeah: página Ruta 12 nov Hialeah.html + 6 locales agregados a visitas planeadas (VIS-9..14) y a Muestras.html; flag de autocarga pasó a k11:muestras_seed2.
 - Preventa 15% (12 nov): "Propuesta preventa K11.html" (oferta al cliente, EN/ES, cierre 30 nov, pago total ACH/wire/Zelle, reembolsable hasta despacho) y "Preventa 15 K11 analisis.html" (interno, recalcula con el landed). Precios preventa = lista x 0.85.
 - Visitas planeadas se cargan en "Por visitar" con 0 muestras (no descuentan stock); "Entregué muestras" las pasa a Entregada con 1/1/1 si estaban en 0. Migración única k11:muestras_fix1 deja en 0 las VIS-* que seguían Por visitar.
+- Sin comisión de representante en el negocio Wylco: precios.js DEF.rep = 0 (antes 5) y las páginas Costo landed / Preventa fuerzan rep=0.

@@ -37,7 +37,13 @@ const fd = d => d ? d.slice(8, 10) + '/' + d.slice(5, 7) : '';
 const H = (a, extra = {}) => `<input type="hidden" name="a" value="${a}">` + Object.entries(extra).map(([k, v]) => `<input type="hidden" name="${k}" value="${esc(v)}">`).join('');
 const btn = (a, extra, txt, cls = '', conf) => `<form method="post" class="inl"${conf ? ` onsubmit="return confirm('${esc(conf)}')"` : ''}>${H(a, extra)}<button class="${cls}">${txt}</button></form>`;
 
+let sembrando = false;
+// Primera vez que se abre: carga sola las visitas planeadas y los podcasts a contactar (una sola vez), así se ve todo junto.
 async function lista() {
+  if (!sembrando) { sembrando = true; try { const [ok] = await redis([['SET', 'k11:muestras_seed', new Date().toISOString(), 'NX']]); if (ok === 'OK') { await accion({ a: 'muestra_visitas' }); await accion({ a: 'muestra_seed' }); } } catch (e) { console.error('seed muestras', e.message); } finally { sembrando = false; } }
+  return lista0();
+}
+async function lista0() {
   const [x] = await redis([['HGETALL', 'k11:muestras']]); const out = [];
   if (Array.isArray(x)) for (let i = 1; i < x.length; i += 2) { try { out.push(JSON.parse(x[i])); } catch {} }
   else if (x && typeof x === 'object') for (const k in x) { try { out.push(JSON.parse(x[k])); } catch {} }
@@ -129,10 +135,10 @@ ${top.length ? `<div class="tw"><table><thead><tr><th>Destino</th><th>Muestras</
 }
 
 // ── página completa /admin?v=muestras ──
-function vista({ list, f = 'activas', q = '', e }) {
+function vista({ list, f = 'todas', q = '', e }) {
   const r = resumen(list), ed = e && list.find(m => m.id === e), d = ed || { origen: 'Dealer', fecha: hoy(), seg: mas(hoy(), 5), tf: 1, tf2: 1, sp: 1, carrier: 'UPS', est: 'Preparando' };
-  const flt = [['activas', 'Activas', list.filter(m => !CERRADOS.includes(m.est)).length], ['llamar', 'Seguir hoy', r.llamar], ['podcast', 'Podcast', r.podcast], ['ruta', 'En camino', r.ruta], ['Entregada', 'Entregadas', r.entregadas], ['Probando', 'Probando', list.filter(m => m.est === 'Probando').length], ['Le gustó', 'Le gustó', list.filter(m => m.est === 'Le gustó').length], ['Compró', 'Compró', r.compro], ['No interesa', 'No interesa', list.filter(m => m.est === 'No interesa').length], ['todas', 'Todas', list.length]];
-  const ql = q.toLowerCase(), L = list.filter(m => (f === 'todas' || (f === 'activas' ? !CERRADOS.includes(m.est) : f === 'llamar' ? vence(m) : f === 'podcast' ? pod(m) : f === 'ruta' ? EN_RUTA.includes(m.est) : m.est === f)) && (!ql || [m.emp, m.nom, m.mail, m.tel, m.tracking].join(' ').toLowerCase().includes(ql)))
+  const flt = [['todas', 'Todo junto', list.length], ['activas', 'Activas', list.filter(m => !CERRADOS.includes(m.est)).length], ['llamar', 'Seguir hoy', r.llamar], ['visitas', 'Por visitar', list.filter(m => m.est === 'Por visitar').length], ['podcast', 'Podcast', r.podcast], ['ruta', 'En camino', r.ruta], ['Entregada', 'Entregadas', r.entregadas], ['Probando', 'Probando', list.filter(m => m.est === 'Probando').length], ['Le gustó', 'Le gustó', list.filter(m => m.est === 'Le gustó').length], ['Compró', 'Compró', r.compro], ['No interesa', 'No interesa', list.filter(m => m.est === 'No interesa').length]];
+  const ql = q.toLowerCase(), L = list.filter(m => (f === 'todas' || (f === 'activas' ? !CERRADOS.includes(m.est) : f === 'llamar' ? vence(m) : f === 'podcast' ? pod(m) : f === 'visitas' ? m.est === 'Por visitar' : f === 'ruta' ? EN_RUTA.includes(m.est) : m.est === f)) && (!ql || [m.emp, m.nom, m.mail, m.tel, m.tracking].join(' ').toLowerCase().includes(ql)))
     .sort((a, b) => vence(b) - vence(a) || (a.seg || '9').localeCompare(b.seg || '9'));
   const inp = (n, l, ty = 'text', req) => `<label>${l}<input name="${n}" type="${ty}" value="${esc(d[n] == null ? '' : d[n])}"${req ? ' required' : ''}></label>`;
   const row = m => `<tr${vence(m) ? ' style="background:#FFF6EF"' : ''}><td>${tagO(m)}<strong>${esc(m.emp || m.nom)}</strong>${m.emp && m.nom ? `<br>${esc(m.nom)}` : ''}<br><small>${[m.tel ? `<a href="tel:${esc(m.tel)}">${esc(m.tel)}</a>` : '', m.mail ? `<a href="mailto:${esc(m.mail)}">${esc(m.mail)}</a>` : ''].filter(Boolean).join(' · ')}</small>${[m.addr, [m.city, m.state, m.zip].filter(Boolean).join(' ')].filter(Boolean).length ? `<br><small>${esc([m.addr, [m.city, m.state, m.zip].filter(Boolean).join(' ')].filter(Boolean).join(', '))}</small>` : ''}</td>

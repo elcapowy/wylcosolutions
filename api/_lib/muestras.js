@@ -26,7 +26,9 @@ const PODCASTS = [
 const VISITAS = [
   ['Doral', 'Refricenter West', '', '+13054779675', 'jurena@refricenter.net'], ['Doral', 'A&R Supply Doral', '', '+13054714788', 'salesdoral@ar-supply.com'], ['Doral', 'Saez Distributors', '', '', 'miami@saezdistributors.com'],
   ['Doral', 'General Air Cond. & Refrig. Supply', '', '+17866633350', ''], ['Doral', 'Vnadf AC & Supplies', '', '+13054771040', ''], ['Doral', 'J&S AC & Ref Supply', '', '+13058873336', ''],
-  ['Dolphin Mall', 'Deplus A/C Supply', '', '', ''], ['Dolphin Mall', 'Winsupply of Miami', 'Y. Quintana', '+13056020731', 'yquintana@winsupply.com'], ['Dolphin Mall', 'Lennox Parts Plus', '', '+13055071730', '']
+  ['Dolphin Mall', 'Deplus A/C Supply', '', '', ''], ['Dolphin Mall', 'Winsupply of Miami', 'Y. Quintana', '+13056020731', 'yquintana@winsupply.com'], ['Dolphin Mall', 'Lennox Parts Plus', '', '+13055071730', ''],
+  ['Hialeah', 'Refricenter Hialeah', '', '+13056331535', 'jurena@refricenter.net'], ['Hialeah', 'HG Refrigeration Supply', '', '+13055943704', ''], ['Hialeah', 'Discount Refrigeration Supply', '', '+13056359616', ''],
+  ['Hialeah', 'United Refrigeration', '', '+13057170955', 'branch62@uri.com'], ['Hialeah', 'AP AC Distributors', '', '', 'AP.Purchasing.Dept@gmail.com'], ['Hialeah', 'Og AC Supply', '', '+13056335144', '']
 ];
 const mailPod = m => { const P = PODCASTS.find(x => 'POD-' + x[0] === m.id) || [], hi = P[4] || (m.nom || '').split(' ')[0] || 'there', aud = P[5] || 'HVAC-R techs';
   return { s: `Free samples of K11 leak sealant for ${m.emp}`, b: `Hi ${hi},\n\nI'm Miguel Wyler, and I work with Wylco, the U.S. distributor of K11 HVAC-R products. I've been following ${m.emp}, and I think your audience of ${aud} would be a good fit for what we make.\n\nK11 is a leak sealant for HVAC-R systems. I'd like to send you free samples so you can test it on your own jobs and give us your honest opinion, good or bad. If it holds up, we'd also be glad to join an episode and answer technical questions about compatibility, oils and refrigerants.\n\nWhere should I ship the samples?\n\nBest regards,\nMiguel Wyler\nWylco / K11` }; };
@@ -40,7 +42,8 @@ const btn = (a, extra, txt, cls = '', conf) => `<form method="post" class="inl"$
 let sembrando = false;
 // Primera vez que se abre: carga sola las visitas planeadas y los podcasts a contactar (una sola vez), así se ve todo junto.
 async function lista() {
-  if (!sembrando) { sembrando = true; try { const [ok] = await redis([['SET', 'k11:muestras_seed', new Date().toISOString(), 'NX']]); if (ok === 'OK') { await accion({ a: 'muestra_visitas' }); await accion({ a: 'muestra_seed' }); } } catch (e) { console.error('seed muestras', e.message); } finally { sembrando = false; } }
+  if (!sembrando) { sembrando = true; try { const [ok] = await redis([['SET', 'k11:muestras_seed2', new Date().toISOString(), 'NX']]); if (ok === 'OK') { await accion({ a: 'muestra_visitas' }); await accion({ a: 'muestra_seed' }); } } catch (e) { console.error('seed muestras', e.message); } finally { sembrando = false; } }
+  try { const [ok] = await redis([['SET', 'k11:muestras_fix1', '1', 'NX']]); if (ok === 'OK') for (const m of await lista0()) if (String(m.id).startsWith('VIS-') && m.est === 'Por visitar' && (m.tf || m.tf2 || m.sp)) { m.tf = 0; m.tf2 = 0; m.sp = 0; await guardar(m); } } catch (e) { console.error('fix muestras', e.message); }
   return lista0();
 }
 async function lista0() {
@@ -101,8 +104,8 @@ async function accion(b) {
     const ex = new Set((await lista()).map(m => m.id)); let n = 0;
     const base = { at: new Date().toISOString(), origen: 'Dealer', addr: '', city: 'Miami', state: 'FL', zip: '', carrier: 'Entrega en mano', tracking: '', ultimo: '', notas: '' };
     if (!ex.has('VIS-FERNANDO')) { await guardar({ ...base, id: 'VIS-FERNANDO', nom: 'Fernando', emp: '', tel: '', mail: '', tf: 1, tf2: 1, sp: 1, est: 'Entregada', fecha: '2026-11-11', entregada: '2026-11-11', seg: '2026-11-14' }); n++; }
-    for (let i = 0; i < VISITAS.length; i++) { const v = VISITAS[i], id = 'VIS-' + i; if (ex.has(id)) continue; await guardar({ ...base, id, ep: 'Ruta ' + v[0], emp: v[1], nom: v[2], tel: v[3], mail: v[4], tf: 1, tf2: 1, sp: 1, est: 'Por visitar', fecha: hoy(), seg: hoy() }); n++; }
-    return { msg: n ? n + ' visitas cargadas con 1 TapaFugas, 1 2 en 1 y 1 Sella Plus cada una' : 'Las visitas ya estaban cargadas', go: '/admin?v=muestras&f=activas' };
+    for (let i = 0; i < VISITAS.length; i++) { const v = VISITAS[i], id = 'VIS-' + i; if (ex.has(id)) continue; await guardar({ ...base, id, ep: 'Ruta ' + v[0], emp: v[1], nom: v[2], tel: v[3], mail: v[4], tf: 0, tf2: 0, sp: 0, est: 'Por visitar', fecha: hoy(), seg: hoy() }); n++; }
+    return { msg: n ? n + ' visitas cargadas sin muestras: al entregar, tocá "Entregué muestras"' : 'Las visitas ya estaban cargadas', go: '/admin?v=muestras&f=todas' };
   }
   if (a === 'muestra_seed') {
     const ex = new Set((await lista()).map(m => m.id)); let n = 0;
@@ -112,7 +115,7 @@ async function accion(b) {
   const [x] = await redis([['HGET', 'k11:muestras', b.id || '']]); if (!x) throw new Error('Muestra no encontrada');
   const m = JSON.parse(x);
   if (a === 'muestra_del') { await redis([['HDEL', 'k11:muestras', m.id]]); return { msg: 'Muestra eliminada', go: '/admin?v=muestras' }; }
-  if (a === 'muestra_est') { if (!ESTADOS.includes(b.v)) throw new Error('Estado inválido'); m.est = b.v; if (b.v === 'Entregada') { m.entregada = hoy(); m.seg = mas(m.entregada, 3); } else if (b.v === 'Por visitar') m.seg = hoy(); else if (b.v === 'Mail enviado') { m.mailEnv = hoy(); m.seg = mas(hoy(), 5); } else if (b.v === 'Respondió') m.seg = mas(hoy(), 2); else if (b.v === 'Preparando' && pod(m)) m.seg = mas(hoy(), 5); await guardar(m); return { msg: (m.emp || m.nom) + ' → ' + b.v, go: '/admin?v=muestras' }; }
+  if (a === 'muestra_est') { if (!ESTADOS.includes(b.v)) throw new Error('Estado inválido'); m.est = b.v; if (b.v === 'Entregada') { m.entregada = hoy(); m.seg = mas(m.entregada, 3); if (!(m.tf || m.tf2 || m.sp)) { m.tf = 1; m.tf2 = 1; m.sp = 1; } } else if (b.v === 'Por visitar') m.seg = hoy(); else if (b.v === 'Mail enviado') { m.mailEnv = hoy(); m.seg = mas(hoy(), 5); } else if (b.v === 'Respondió') m.seg = mas(hoy(), 2); else if (b.v === 'Preparando' && pod(m)) m.seg = mas(hoy(), 5); await guardar(m); return { msg: (m.emp || m.nom) + ' → ' + b.v, go: '/admin?v=muestras' }; }
   if (a === 'muestra_hablo') { m.ultimo = hoy(); m.seg = mas(hoy(), 7); if (b.nota) m.notas = (m.notas ? m.notas + ' | ' : '') + fd(hoy()) + ': ' + String(b.nota).slice(0, 200); if (m.est === 'Entregada') m.est = 'Probando'; else if (m.est === 'Mail enviado') m.est = 'Respondió'; await guardar(m); return { msg: 'Anotado · próximo llamado ' + fd(m.seg), go: '/admin?v=muestras' }; }
   if (a === 'muestra_track') { const t = await consultar(m); aplicarTrack(m, t); await guardar(m); return { msg: `${m.tracking}: ${t.status}${t.txt ? ' · ' + t.txt : ''}`, go: '/admin?v=muestras' }; }
   if (a === 'muestra_mail') {
@@ -151,7 +154,7 @@ function vista({ list, f = 'todas', q = '', e }) {
 <a class="btn sec" href="/admin?v=muestras&e=${esc(m.id)}#nueva">Editar</a>${btn('muestra_del', { id: m.id }, 'Eliminar', 'danger', 'Eliminar esta muestra?')}</div></td></tr>`;
   return `<div class="hd"><div><h1>Muestras</h1><div class="sub">Cada envío lleva tracking y a los 3 días de entregada te marca a quién llamar. Quedan: TapaFugas ${r.quedan.tf} · 2 en 1 ${r.quedan.tf2} · Sella Plus ${r.quedan.sp}.</div></div><a class="btn" href="#nueva">+ Enviar muestra</a></div>
 <div class="chips">${flt.map(([k, l, c]) => `<a href="/admin?v=muestras&f=${encodeURIComponent(k)}" class="${f === k ? 'on' : ''}">${l}<span class="ct">${c}</span></a>`).join('')}</div>
-${list.some(m => String(m.id).startsWith('VIS-')) ? '' : btn('muestra_visitas', {}, 'Cargar visitas planeadas (9 locales + Fernando)', '', 'Cargar las 9 visitas planeadas de Doral y Dolphin Mall?')}${r.podcast ? '' : btn('muestra_seed', {}, 'Cargar podcasts del AHR Expo (9)', '', 'Cargar la lista de 9 podcasts?')}
+${list.some(m => String(m.id).startsWith('VIS-')) ? '' : btn('muestra_visitas', {}, 'Cargar visitas planeadas (15 locales + Fernando)', '', 'Cargar las 15 visitas planeadas (Doral, Dolphin Mall y Hialeah)?')}${r.podcast ? '' : btn('muestra_seed', {}, 'Cargar podcasts del AHR Expo (9)', '', 'Cargar la lista de 9 podcasts?')}
 <form class="tools" method="get" action="/admin"><input type="hidden" name="v" value="muestras"><input type="hidden" name="f" value="${esc(f)}"><input name="q" value="${esc(q)}" placeholder="Buscar empresa, contacto o tracking" style="max-width:340px" aria-label="Buscar"><button class="sec">Buscar</button></form>
 <div class="card tw" style="margin-bottom:20px">${L.length ? `<table><thead><tr><th>Destino</th><th>Muestras</th><th>Tracking</th><th>Estado y seguimiento</th><th>Acciones</th></tr></thead><tbody>${L.map(row).join('')}</tbody></table>` : '<div class="empty">Nada en este filtro.</div>'}</div>
 <form method="post" id="nueva" class="card pad" style="display:grid;gap:14px">${H('muestra', ed ? { id: ed.id } : {})}<h2>${ed ? 'Editar muestra' : 'Enviar muestra'}</h2>

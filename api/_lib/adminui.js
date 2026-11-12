@@ -66,12 +66,13 @@ form.inl{display:inline-flex;gap:6px;margin:0;align-items:center}
 .nets{display:flex;flex-wrap:wrap;gap:6px}.nets label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink);font-weight:500;border:1px solid var(--line);border-radius:20px;padding:3px 10px}.nets input{width:auto;min-height:0}
 .whd{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:26px 0 12px}
 .steps-c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:20px}.steps-c ol{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
+.mu{background:#FFF6EF;border:2px solid var(--o);border-radius:14px;padding:18px 20px;margin-bottom:22px;box-shadow:0 0 0 4px rgba(212,84,26,.12)}.mu-h{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:flex-start;margin-bottom:14px}.mu h2{margin:0;color:var(--od)}.mu-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}.mu-k a{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-decoration:none;color:var(--ink);display:grid;gap:2px}.mu-k a:hover{border-color:var(--o)}.mu-k b{font:800 28px/1 var(--fd)}.mu-k span{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;font-weight:600}.mu .tw{background:#fff;border:1px solid var(--line);border-radius:10px}
 .login{min-height:100vh;display:grid;place-items:center;padding:24px}.login .card{max-width:360px;width:100%}
 @media(max-width:860px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px}aside nav{flex-direction:row;flex-wrap:wrap}.logo{padding:0 10px 0 0}aside .new{margin:0}aside .foot{display:none}}`;
 
 function layout({ v, title, body, flash = '', banner = '', counts }) {
-  const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['stock', 'Stock', counts.stock], ['compras', 'Compras', counts.compras || null], ['finanzas', 'Finanzas', null], ['redes', 'Redes', null], ['sistema', 'Sistema', counts.sistema || null]].filter(([k]) => counts.rol !== 'deposito' || ['ventas', 'stock'].includes(k));
-  const sec = v === 'sistema' ? 'sistema' : v === 'redes' ? 'redes' : v === 'inicio' ? 'inicio' : v === 'finanzas' ? 'finanzas' : v.startsWith('compra') ? 'compras' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : 'stock';
+  const nav = [['inicio', 'Inicio', null], ['ventas', 'Ventas', counts.ventas], ['clientes', 'Clientes', counts.clientes], ['muestras', 'Muestras', counts.muestras || null], ['stock', 'Stock', counts.stock], ['compras', 'Compras', counts.compras || null], ['finanzas', 'Finanzas', null], ['redes', 'Redes', null], ['sistema', 'Sistema', counts.sistema || null]].filter(([k]) => counts.rol !== 'deposito' || ['ventas', 'stock'].includes(k));
+  const sec = v === 'sistema' ? 'sistema' : v === 'redes' ? 'redes' : v === 'inicio' ? 'inicio' : v === 'finanzas' ? 'finanzas' : v.startsWith('compra') ? 'compras' : v.startsWith('venta') || v === 'nueva' ? 'ventas' : v.startsWith('cliente') ? 'clientes' : v.startsWith('muestra') ? 'muestras' : 'stock';
   return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)} · K11 Admin</title><link rel="icon" href="/assets/logo-wylco.png"><style>${CSS}</style></head><body>
 <div class="shell"><aside><a class="logo" href="/admin"><img src="/assets/logo-wylco.png" alt="">K11 Admin</a>
 <nav>${nav.map(([k, l, c]) => `<a href="/admin?v=${k}" class="${sec === k ? 'on' : ''}">${l}${c != null ? `<span class="ct">${c}</span>` : ''}</a>`).join('')}</nav>
@@ -107,6 +108,7 @@ function ventas({ ps, f, q, co = {} }) {
 <td>${(o.items || []).map(i => `${i.cases}× <span class="m">${esc(i.sku)}</span>`).join('<br>')}${(o.items || []).some(i => i.preorder) ? '<br><small>incluye pre-pedido</small>' : ''}</td>
 <td class="r">${usd(o.total)}<br><small>${esc(o.payment || '')}</small></td><td class="r">${o.total && !sinCosto(o, co) ? usd(neto(o) - costoV(o, co)) : '—'}</td><td>${tag(o.estado)}</td></tr>`).join('');
   return `<div class="hd"><div><h1>Ventas</h1><div class="sub">Pedidos de la web, del checkout de Stripe y cargados a mano.</div></div><a class="btn" href="/admin?v=nueva">+ Nueva venta</a></div>
+${mu}
 <div class="kpis">${k.map(([fk, l, n, s]) => `<a class="kpi" href="${fk.startsWith('/') ? fk : '/admin?v=ventas&f=' + encodeURIComponent(fk)}"><div class="l">${l}</div><div class="n">${n}</div><div class="s">${s}</div></a>`).join('')}</div>
 <div class="tools"><div class="chips" style="margin:0">${chips.map(([fk, l, n]) => `<a href="/admin?v=ventas&f=${encodeURIComponent(fk)}" class="${f === fk ? 'on' : ''}">${l}<span class="ct">${n}</span></a>`).join('')}</div><span class="sp"></span>
 <form method="get" class="inl"><input type="hidden" name="v" value="ventas"><input type="hidden" name="f" value="${esc(f)}"><input name="q" value="${esc(q)}" placeholder="Buscar ref, empresa, email" style="width:240px"></form></div>
@@ -218,7 +220,7 @@ function producto({ p, price, ms, ps }) {
 }
 
 // ── INICIO / PORTAL ──
-function inicio({ ps, cs, t, mail, k, dash }) {
+function inicio({ ps, cs, t, mail, k, dash, mu = '' }) {
   const act = ps.filter(ACTIVOS), porCobrar = act.filter(o => ['confirmado', 'pago pendiente'].includes(o.estado));
   const K = encodeURIComponent(k || '');
   const G = (title, items) => `<div class="lg"><h2><i></i>${title}</h2><ul>${items.map(([href, l, s, ext]) => `<li><a href="${href}"${ext ? ' target="_blank" rel="noopener"' : ''}>${l}${s ? `<small>${s}</small>` : ''}</a></li>`).join('')}</ul></div>`;
@@ -232,7 +234,7 @@ function inicio({ ps, cs, t, mail, k, dash }) {
 <a class="kpi" href="/api/panel?k=${K}"><div class="l">Mails campaña</div><div class="n">${mail ? mail.enviado : '—'}</div><div class="s">${mail ? `enviados · ${mail.pendiente} pendientes · ${mail.bajas} bajas` : 'sin datos'}</div></a>
 </div>
 <div class="links">
-${G('Gestión', [['/admin?v=ventas', 'Ventas', act.length + ' activas'], ['/admin?v=nueva', 'Nueva venta'], ['/admin?v=clientes', 'Clientes', cs.length], ['/admin?v=stock', 'Stock y precios']])}
+${G('Gestión', [['/admin?v=ventas', 'Ventas', act.length + ' activas'], ['/admin?v=nueva', 'Nueva venta'], ['/admin?v=muestras', 'Muestras', 'envíos y seguimiento'], ['/admin?v=clientes', 'Clientes', cs.length], ['/admin?v=stock', 'Stock y precios']])}
 ${G('Campaña de mails', [['/api/panel?k=' + K, 'Panel de envíos', 'ver, dar de baja'], ['/api/enviar?k=' + K + '&simular=1', 'Simular envío de hoy', 'no envía', 1], ['/api/test?k=' + K, 'Mandarme un mail de prueba', '', 1], ['https://resend.com/emails', 'Resend · historial', '↗', 1]])}
 ${G('Tienda pública', [['/order', 'Página de compra', 'EN', 1], ['/es/order', 'Página de compra', 'ES', 1], ['/api/stock', 'Stock en vivo (JSON)', '', 1], ['/catalog.json', 'Catálogo para IA', '', 1], ['/llms.txt', 'llms.txt', '', 1]])}
 ${G('Sitio web', [['/', 'Inicio', '', 1], ['/products', 'Productos', '', 1], ['/docs', 'Hojas de seguridad (SDS)', '', 1], ['/distributors', 'Distribuidores', '', 1], ['/es', 'Versión español', '', 1], ['/sitemap.xml', 'Sitemap', '', 1]])}

@@ -9,6 +9,7 @@ const X = require('./_lib/extras');
 const U2 = require('./_lib/adminui2');
 const CO = require('./_lib/compras');
 const M = require('./_lib/mejoras');
+const MU = require('./_lib/muestras');
 const TOK = process.env.ADMIN_TOKEN;
 const DASH = MODE === 'test' ? 'https://dashboard.stripe.com/test' : 'https://dashboard.stripe.com';
 const CK = 'k11adm';
@@ -133,6 +134,7 @@ async function accion(b) {
   if (a === 'socm_cancel') { await S.cancelarMes(b.ym); return 'Aprobación del mes cancelada'; }
   if (a === 'socm_regen') { await S.regenerarMes(b.ym); return 'Mes regenerado'; }
   if (a === 'socm_edit') { await S.editarPost(b.ym, +b.i, b.text, S.IMG_NETS.filter(n => b['net_' + n]), b.off === '1'); return 'Post guardado'; }
+  if (String(a || '').startsWith('muestra')) return MU.accion(b);
   const o = b.ref ? await T.pedido(b.ref) : null;
   if (!o) throw new Error('Acción desconocida');
   if (a === 'envio') {
@@ -212,7 +214,8 @@ module.exports = async (req, res) => {
   const banner = MODE === 'off' ? '<div class="flash err">Stripe no conectado: falta STRIPE_SECRET_KEY en Vercel.</div>'
     : `<div class="mode"><span><span class="dot ${MODE === 'live' ? 'ok' : ''}"></span>Stripe <b>${MODE === 'test' ? 'modo prueba' : 'en vivo'}</b></span><span><span class="dot ${TAX ? 'ok' : 'no'}"></span>Tax <b>${TAX ? 'automático' : 'desactivado'}</b></span><span><span class="dot ${sw ? 'ok' : 'no'}"></span>Webhook <b>${sw ? 'configurado' : 'falta secreto'}</b></span>${pr._err ? `<span class="no">Stripe: ${UI.esc(pr._err)}</span>` : ''}<a href="${DASH}" target="_blank">Abrir Stripe ↗</a></div>`;
   const cps = await CO.lista().catch(() => []);
-  const counts = { compras: cps.filter(c => ['borrador', 'pedido', 'en camino'].includes(c.estado)).length, ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: rol === 'admin' ? '/api/panel?k=' + encodeURIComponent(TOK) : '/admin', rol };
+  const mus = await MU.lista().catch(() => []);
+  const counts = { compras: cps.filter(c => ['borrador', 'pedido', 'en camino'].includes(c.estado)).length, ventas: ps.filter(o => !['enviado', 'cancelado'].includes(o.estado)).length, clientes: cs.length, muestras: MU.resumen(mus).llamar, stock: t.reduce((a, p) => a + p.cases_available, 0), mails: rol === 'admin' ? '/api/panel?k=' + encodeURIComponent(TOK) : '/admin', rol };
   let body, title;
   if (v === 'venta') { const o = ps.find(x => x.ref === q.ref); title = q.ref; const env = await E.config(); body = o ? UI.venta({ o, env, co, c: o.cliente && cs.find(c => c.id === o.cliente), mode: MODE, dash: DASH }) + U2.despacho(o) + M.envioCard(o) : '<h1>Venta no encontrada</h1>'; }
   else if (v === 'venta_envio') { const o = ps.find(x => x.ref === q.ref); title = 'Envío ' + (q.ref || ''); body = o ? await M.vCotizar(o) : '<h1>Venta no encontrada</h1>'; }
@@ -229,11 +232,12 @@ module.exports = async (req, res) => {
   }
   else if (v === 'compras') { title = 'Compras'; body = CO.vLista(cps); }
   else if (v === 'compra') { const c = cps.find(x => x.id === q.id); title = c ? c.nombre : 'Compra'; body = c ? CO.vDetalle(c, Object.fromEntries(t.map(p => [p.slug, p.cases_available]))) : '<p>No encontrado. <a href="/admin?v=compras">Volver</a></p>'; }
+  else if (v === 'muestras') { title = 'Muestras'; body = MU.vista({ list: mus, f: q.f || 'activas', q: q.q || '', e: q.e }); }
   else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '' }); }
   else {
     let mail = null;
     try { const { est, stop } = await leerEstado(); const vals = Object.values(est); mail = { enviado: vals.filter(x => x.e === 'enviado').length, pendiente: D.rows.length - vals.length, bajas: Object.values(stop).filter(x => x === 'baja').length }; } catch {}
-    title = 'Portal'; body = UI.inicio({ ps, cs, t, mail, k: TOK, dash: DASH });
+    title = 'Portal'; body = UI.inicio({ ps, cs, t, mail, k: TOK, dash: DASH, mu: MU.card(mus) });
   }
   let out = UI.layout({ v, title, body, flash: q.ok, banner: rol === 'deposito' ? '' : banner, counts });
   if (rol === 'deposito') out = out.replace(/<a class="(?:new|btn)[^"]*" href="\/admin\?v=nueva[^"]*">[^<]*<\/a>/g, '').replace(/<a class="kpi" href="\/admin\?v=finanzas[^"]*">[\s\S]*?<\/a>/g, '').replace(/<a class="kpi"[^>]*>\s*<div class="l">Ganancia[\s\S]*?<\/a>/g, '').replace(/<div class="kpi">\s*<div class="l">Ganancia[\s\S]*?<\/div><\/div>/g, '');

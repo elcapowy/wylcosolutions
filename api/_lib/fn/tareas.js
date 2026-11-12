@@ -20,5 +20,6 @@ module.exports = async (req, res) => {
   if (!simular) { try { extra.backup = await M.backupDiario(); } catch (e) { extra.backup = 'error: ' + e.message; } }
   try { extra.reposicion = simular ? (await M.reorden(await T.leerTienda(), ps)).rows.filter(r => r.alerta).map(r => r.p.sku) : await M.alertaReorden(await T.leerTienda(), ps); } catch (e) { extra.reposicion = 'error: ' + e.message; }
   try { extra.recompra = await M.recompra(ps, simular); } catch (e) { extra.recompra = 'error: ' + e.message; }
+  try { extra.muestras = await require('../muestras').diario(simular); } catch (e) { extra.muestras = 'error: ' + e.message; }
   res.json({ ok: true, simular, recordatorios: out, ...extra });
 };

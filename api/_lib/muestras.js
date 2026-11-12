@@ -5,7 +5,7 @@ const X = require('./extras');
 
 const PROD = { tf: 'TapaFugas', tf2: 'TapaFugas 2 en 1', sp: 'Sella Plus' };
 const INI = { tf: 30, tf2: 30, sp: 30 };
-const PRE = ['Por contactar', 'Mail enviado', 'Respondió'];
+const PRE = ['Por visitar', 'Por contactar', 'Mail enviado', 'Respondió'];
 const ESTADOS = [...PRE, 'Preparando', 'Enviada', 'En camino', 'Entregada', 'Probando', 'Le gustó', 'Compró', 'No interesa'];
 const CERRADOS = ['Compró', 'No interesa'];
 const EN_RUTA = ['Preparando', 'Enviada', 'En camino'];
@@ -22,6 +22,11 @@ const PODCASTS = [
   ['HVACRND', 'HVAC R&D', 'Rhydon Atzenhoffer', '', 'Rhydon', 'HVAC-R techs', 'Sin mail público: formulario "Contact Us" en hvacrnd.com (y cuestionario de invitados en hvacrnd.podbean.com). Pegar el texto en el formulario.'],
   ['HPHVAC', 'High-Performance HVAC', 'National Comfort Institute', '', 'team', 'HVAC-R techs', 'Sin mail público: formulario en el sitio de NCI o teléfono (800) 633-7058.'],
   ['REFRIGERANT365', 'Refrigerant365', 'Elizabeth Ortlieb', '', 'Elizabeth', 'refrigerant and leak-detection techs', 'Sin mail propio: Instagram @refrigerant365. info@alpynestrategy.com es de su consultora (aclarar que es para Elizabeth). Audiencia justo de refrigerantes y fugas.']
+];
+const VISITAS = [
+  ['Doral', 'Refricenter West', '', '+13054779675', 'jurena@refricenter.net'], ['Doral', 'A&R Supply Doral', '', '+13054714788', 'salesdoral@ar-supply.com'], ['Doral', 'Saez Distributors', '', '', 'miami@saezdistributors.com'],
+  ['Doral', 'General Air Cond. & Refrig. Supply', '', '+17866633350', ''], ['Doral', 'Vnadf AC & Supplies', '', '+13054771040', ''], ['Doral', 'J&S AC & Ref Supply', '', '+13058873336', ''],
+  ['Dolphin Mall', 'Deplus A/C Supply', '', '', ''], ['Dolphin Mall', 'Winsupply of Miami', 'Y. Quintana', '+13056020731', 'yquintana@winsupply.com'], ['Dolphin Mall', 'Lennox Parts Plus', '', '+13055071730', '']
 ];
 const mailPod = m => { const P = PODCASTS.find(x => 'POD-' + x[0] === m.id) || [], hi = P[4] || (m.nom || '').split(' ')[0] || 'there', aud = P[5] || 'HVAC-R techs';
   return { s: `Free samples of K11 leak sealant for ${m.emp}`, b: `Hi ${hi},\n\nI'm Miguel Wyler, and I work with Wylco, the U.S. distributor of K11 HVAC-R products. I've been following ${m.emp}, and I think your audience of ${aud} would be a good fit for what we make.\n\nK11 is a leak sealant for HVAC-R systems. I'd like to send you free samples so you can test it on your own jobs and give us your honest opinion, good or bad. If it holds up, we'd also be glad to join an episode and answer technical questions about compatibility, oils and refrigerants.\n\nWhere should I ship the samples?\n\nBest regards,\nMiguel Wyler\nWylco / K11` }; };
@@ -49,7 +54,7 @@ function resumen(L) {
 }
 const prods = m => Object.keys(PROD).filter(k => +m[k] > 0).map(k => PROD[k] + (m[k] > 1 ? ' ×' + m[k] : '')).join(' · ') || '—';
 const tagE = m => { const c = vence(m) ? 'background:var(--o);color:#fff' : m.est === 'Compró' ? 'background:#DCEFE2;color:var(--g)' : m.est === 'No interesa' ? 'background:var(--bg2);color:var(--mut)' : EN_RUTA.includes(m.est) ? 'background:#E3E8F2;color:#2B4170' : 'background:#F8E7C4;color:#7A4B00'; return `<span class="tag" style="${c}">${vence(m) ? verbo(m) : esc(m.est)}</span>`; };
-const tagO = m => pod(m) ? `<span class="tag" style="background:var(--ink);color:#fff">Podcast</span>${m.ep ? ` <small>${esc(m.ep)}</small>` : ''}<br>` : '';
+const tagO = m => !pod(m) ? (m.ep ? `<small>${esc(m.ep)}</small><br>` : '') : `<span class="tag" style="background:var(--ink);color:#fff">Podcast</span>${m.ep ? ` <small>${esc(m.ep)}</small>` : ''}<br>`;
 
 // ── tracking real (Shippo, opcional) ──
 async function consultar(m) {
@@ -86,6 +91,13 @@ async function accion(b) {
     if (!o.seg) o.seg = mas(o.fecha, 5); // envío + tránsito; al entregarse pasa a +3 días
     await guardar(o); return { msg: 'Muestra cargada' + (o.mail && o.tracking ? ' · podés mandarle el tracking por mail' : ''), go: '/admin?v=muestras' };
   }
+  if (a === 'muestra_visitas') {
+    const ex = new Set((await lista()).map(m => m.id)); let n = 0;
+    const base = { at: new Date().toISOString(), origen: 'Dealer', addr: '', city: 'Miami', state: 'FL', zip: '', carrier: 'Entrega en mano', tracking: '', ultimo: '', notas: '' };
+    if (!ex.has('VIS-FERNANDO')) { await guardar({ ...base, id: 'VIS-FERNANDO', nom: 'Fernando', emp: '', tel: '', mail: '', tf: 1, tf2: 1, sp: 1, est: 'Entregada', fecha: '2026-11-11', entregada: '2026-11-11', seg: '2026-11-14' }); n++; }
+    for (let i = 0; i < VISITAS.length; i++) { const v = VISITAS[i], id = 'VIS-' + i; if (ex.has(id)) continue; await guardar({ ...base, id, ep: 'Ruta ' + v[0], emp: v[1], nom: v[2], tel: v[3], mail: v[4], tf: 1, tf2: 1, sp: 1, est: 'Por visitar', fecha: hoy(), seg: hoy() }); n++; }
+    return { msg: n ? n + ' visitas cargadas con 1 TapaFugas, 1 2 en 1 y 1 Sella Plus cada una' : 'Las visitas ya estaban cargadas', go: '/admin?v=muestras&f=activas' };
+  }
   if (a === 'muestra_seed') {
     const ex = new Set((await lista()).map(m => m.id)); let n = 0;
     for (const P of PODCASTS) { const id = 'POD-' + P[0]; if (ex.has(id)) continue; await guardar({ id, at: new Date().toISOString(), origen: 'Podcast', ep: AHR, emp: P[1], nom: P[2], mail: P[3], tel: P[0] === 'HPHVAC' ? '(800) 633-7058' : '', addr: '', city: '', state: '', zip: '', tf: 0, tf2: 0, sp: 0, carrier: 'UPS', tracking: '', est: 'Por contactar', fecha: hoy(), seg: hoy(), ultimo: '', notas: P[6] }); n++; }
@@ -94,7 +106,7 @@ async function accion(b) {
   const [x] = await redis([['HGET', 'k11:muestras', b.id || '']]); if (!x) throw new Error('Muestra no encontrada');
   const m = JSON.parse(x);
   if (a === 'muestra_del') { await redis([['HDEL', 'k11:muestras', m.id]]); return { msg: 'Muestra eliminada', go: '/admin?v=muestras' }; }
-  if (a === 'muestra_est') { if (!ESTADOS.includes(b.v)) throw new Error('Estado inválido'); m.est = b.v; if (b.v === 'Entregada') { m.entregada = hoy(); m.seg = mas(m.entregada, 3); } else if (b.v === 'Mail enviado') { m.mailEnv = hoy(); m.seg = mas(hoy(), 5); } else if (b.v === 'Respondió') m.seg = mas(hoy(), 2); else if (b.v === 'Preparando' && pod(m)) m.seg = mas(hoy(), 5); await guardar(m); return { msg: (m.emp || m.nom) + ' → ' + b.v, go: '/admin?v=muestras' }; }
+  if (a === 'muestra_est') { if (!ESTADOS.includes(b.v)) throw new Error('Estado inválido'); m.est = b.v; if (b.v === 'Entregada') { m.entregada = hoy(); m.seg = mas(m.entregada, 3); } else if (b.v === 'Por visitar') m.seg = hoy(); else if (b.v === 'Mail enviado') { m.mailEnv = hoy(); m.seg = mas(hoy(), 5); } else if (b.v === 'Respondió') m.seg = mas(hoy(), 2); else if (b.v === 'Preparando' && pod(m)) m.seg = mas(hoy(), 5); await guardar(m); return { msg: (m.emp || m.nom) + ' → ' + b.v, go: '/admin?v=muestras' }; }
   if (a === 'muestra_hablo') { m.ultimo = hoy(); m.seg = mas(hoy(), 7); if (b.nota) m.notas = (m.notas ? m.notas + ' | ' : '') + fd(hoy()) + ': ' + String(b.nota).slice(0, 200); if (m.est === 'Entregada') m.est = 'Probando'; else if (m.est === 'Mail enviado') m.est = 'Respondió'; await guardar(m); return { msg: 'Anotado · próximo llamado ' + fd(m.seg), go: '/admin?v=muestras' }; }
   if (a === 'muestra_track') { const t = await consultar(m); aplicarTrack(m, t); await guardar(m); return { msg: `${m.tracking}: ${t.status}${t.txt ? ' · ' + t.txt : ''}`, go: '/admin?v=muestras' }; }
   if (a === 'muestra_mail') {
@@ -127,13 +139,13 @@ function vista({ list, f = 'activas', q = '', e }) {
 <td>${esc(prods(m))}<br><small>enviada ${fd(m.fecha)}</small></td>
 <td>${trackUrl(m) ? `<a href="${esc(trackUrl(m))}" target="_blank" rel="noopener">${esc(m.carrier)} ${esc(m.tracking)}</a>` : m.tracking ? esc(m.carrier + ' ' + m.tracking) : `<small>${esc(m.carrier || 'sin tracking')}</small>`}${m.ship ? `<br><small>${esc(m.ship.status)}${m.ship.txt ? ' · ' + esc(m.ship.txt) : ''}</small>` : ''}</td>
 <td>${tagE(m)}<br><small>${m.entregada ? 'entregada ' + fd(m.entregada) + ' · ' : ''}${m.mailEnv ? 'mail ' + fd(m.mailEnv) + ' · ' : ''}${m.seg && !CERRADOS.includes(m.est) ? verbo(m).toLowerCase() + ' ' + fd(m.seg) : ''}${m.ultimo ? ' · hablamos ' + fd(m.ultimo) : ''}</small>${m.notas ? `<br><small><i>${esc(m.notas)}</i></small>` : ''}</td>
-<td>${pod(m) && PRE.includes(m.est) ? (() => { const t = mailPod(m); return `<details style="margin-bottom:8px"><summary><strong>Texto del mail</strong>${m.mail ? ' · ' + esc(m.mail) : ' · (formulario / redes)'}</summary><textarea readonly rows="12" onfocus="this.select()" aria-label="Texto del mail">Asunto: ${esc(t.s)}\n\n${esc(t.b)}</textarea></details>`; })() : ''}<div class="acts">${pod(m) && m.est === 'Por contactar' ? btn('muestra_est', { id: m.id, v: 'Mail enviado' }, 'Marcar mail enviado') : ''}${m.tracking ? btn('muestra_track', { id: m.id }, 'Actualizar tracking', 'sec') : ''}${m.mail && m.tracking ? btn('muestra_mail', { id: m.id }, m.mailed ? 'Reenviar tracking' : 'Mandar tracking', 'sec', 'Enviar tracking por mail a ' + m.mail + '?') : ''}
+<td>${pod(m) && PRE.includes(m.est) ? (() => { const t = mailPod(m); return `<details style="margin-bottom:8px"><summary><strong>Texto del mail</strong>${m.mail ? ' · ' + esc(m.mail) : ' · (formulario / redes)'}</summary><textarea readonly rows="12" onfocus="this.select()" aria-label="Texto del mail">Asunto: ${esc(t.s)}\n\n${esc(t.b)}</textarea></details>`; })() : ''}<div class="acts">${pod(m) && m.est === 'Por contactar' ? btn('muestra_est', { id: m.id, v: 'Mail enviado' }, 'Marcar mail enviado') : ''}${!pod(m) && m.est === 'Por visitar' ? btn('muestra_est', { id: m.id, v: 'Entregada' }, 'Entregué muestras') : ''}${m.tracking ? btn('muestra_track', { id: m.id }, 'Actualizar tracking', 'sec') : ''}${m.mail && m.tracking ? btn('muestra_mail', { id: m.id }, m.mailed ? 'Reenviar tracking' : 'Mandar tracking', 'sec', 'Enviar tracking por mail a ' + m.mail + '?') : ''}
 <form method="post" class="inl">${H('muestra_est', { id: m.id })}<select name="v" aria-label="Estado" onchange="this.form.submit()">${ESTADOS.map(s => `<option${s === m.est ? ' selected' : ''}>${s}</option>`).join('')}</select></form>
 <form method="post" class="inl" onsubmit="this.nota.value=prompt('¿Qué te dijo? (opcional)')||'';return true">${H('muestra_hablo', { id: m.id })}<input type="hidden" name="nota"><button class="sec">Ya hablé</button></form>
 <a class="btn sec" href="/admin?v=muestras&e=${esc(m.id)}#nueva">Editar</a>${btn('muestra_del', { id: m.id }, 'Eliminar', 'danger', 'Eliminar esta muestra?')}</div></td></tr>`;
   return `<div class="hd"><div><h1>Muestras</h1><div class="sub">Cada envío lleva tracking y a los 3 días de entregada te marca a quién llamar. Quedan: TapaFugas ${r.quedan.tf} · 2 en 1 ${r.quedan.tf2} · Sella Plus ${r.quedan.sp}.</div></div><a class="btn" href="#nueva">+ Enviar muestra</a></div>
 <div class="chips">${flt.map(([k, l, c]) => `<a href="/admin?v=muestras&f=${encodeURIComponent(k)}" class="${f === k ? 'on' : ''}">${l}<span class="ct">${c}</span></a>`).join('')}</div>
-${r.podcast ? '' : btn('muestra_seed', {}, 'Cargar podcasts del AHR Expo (9)', '', 'Cargar la lista de 9 podcasts?')}
+${list.some(m => String(m.id).startsWith('VIS-')) ? '' : btn('muestra_visitas', {}, 'Cargar visitas planeadas (9 locales + Fernando)', '', 'Cargar las 9 visitas planeadas de Doral y Dolphin Mall?')}${r.podcast ? '' : btn('muestra_seed', {}, 'Cargar podcasts del AHR Expo (9)', '', 'Cargar la lista de 9 podcasts?')}
 <form class="tools" method="get" action="/admin"><input type="hidden" name="v" value="muestras"><input type="hidden" name="f" value="${esc(f)}"><input name="q" value="${esc(q)}" placeholder="Buscar empresa, contacto o tracking" style="max-width:340px" aria-label="Buscar"><button class="sec">Buscar</button></form>
 <div class="card tw" style="margin-bottom:20px">${L.length ? `<table><thead><tr><th>Destino</th><th>Muestras</th><th>Tracking</th><th>Estado y seguimiento</th><th>Acciones</th></tr></thead><tbody>${L.map(row).join('')}</tbody></table>` : '<div class="empty">Nada en este filtro.</div>'}</div>
 <form method="post" id="nueva" class="card pad" style="display:grid;gap:14px">${H('muestra', ed ? { id: ed.id } : {})}<h2>${ed ? 'Editar muestra' : 'Enviar muestra'}</h2>

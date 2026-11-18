@@ -31,7 +31,7 @@ async function crearFactura(o) {
     customer: sc.id, collection_method: 'send_invoice', days_until_due: 7, auto_advance: true, pending_invoice_items_behavior: 'exclude',
     automatic_tax: { enabled: TAX }, metadata: { ref: o.ref },
     description: `K11 order ${o.ref}` + (o.items.some(i => i.preorder) ? ' — includes pre-order items, ship when stock arrives' : ''),
-    footer: 'Wylco Solutions LLC · Miami, FL · info@wylcosolutions.com · +1 (954) 881-8870',
+    footer: 'Wylco Solutions LLC · 4350 Hillcrest Dr, Apt 220, Hollywood, FL 33021 · info@wylcosolutions.com · +1 (954) 881-8870',
     payment_settings: { payment_method_types: ['card', 'us_bank_account', 'customer_balance'], payment_method_options: { customer_balance: { funding_type: 'bank_transfer', bank_transfer: { type: 'us_bank_transfer' } } } }
   });
   const cfg = await E.config(), sub = o.items.reduce((a, i) => a + pr[i.slug].unit_amount * i.cases, 0) / 100, nc = o.items.reduce((a, i) => a + i.cases, 0);

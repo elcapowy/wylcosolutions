@@ -88,10 +88,10 @@ async function conectadas() {
     return Object.keys(UP_NET).filter(k => sa[UP_NET[k]] && (typeof sa[UP_NET[k]] !== 'object' || Object.keys(sa[UP_NET[k]]).length));
   } catch { return null; }
 }
-async function programar(p, text) {
+async function programar(p, text, nets) {
   const f = new FormData();
   f.append('user', UP_USER);
-  for (const n of p.nets) f.append('platform[]', UP_NET[n]);
+  for (const n of nets || p.nets) f.append('platform[]', UP_NET[n]);
   f.append('photos[]', p.img.split('?')[0]);
   f.append('title', text);
   f.append('scheduled_date', p.at);
@@ -119,11 +119,17 @@ const menciones = list => list.filter(a => a.estado === 'ok' && /^@[\w.]+$/.test
 
 async function aprobarMes(ym) {
   const m = await mes(ym); if (m.estado === 'aprobado') return m;
-  const now = Date.now(), men = menciones(await aliados());
+  const now = Date.now(), men = menciones(await aliados()), con = await conectadas(); // redes realmente conectadas en Upload-Post
   for (const p of m.posts) {
     if (p.off) { p.estado = 'omitido'; continue; }
     if (Date.parse(p.at) < now + 10 * 60e3) { p.estado = 'vencido'; continue; }
-    try { const j = await programar(p, men && !p.text.includes(men) ? p.text + '\n\n' + men : p.text); p.job = j.job_id; p.estado = 'programado'; delete p.err; }
+    try {
+      // Solo publica en redes conectadas; si falta alguna (ej. Facebook) sigue con las demás y lo avisa.
+      const ok = con ? p.nets.filter(n => con.includes(n)) : p.nets, falta = p.nets.filter(n => !ok.includes(n));
+      if (!ok.length) throw new Error('Ninguna red conectada en Upload-Post (' + p.nets.map(n => NETS[n]).join(', ') + ')');
+      const j = await programar(p, men && !p.text.includes(men) ? p.text + '\n\n' + men : p.text, ok);
+      p.job = j.job_id; p.estado = 'programado'; p.err = falta.length ? 'Sin conectar en Upload-Post: ' + falta.map(n => NETS[n]).join(', ') : undefined; if (!p.err) delete p.err;
+    }
     catch (e) { p.estado = 'error'; p.err = String(e.message || e); }
   }
   m.estado = 'aprobado'; m.aprobado = new Date().toISOString(); await guardar(m); return m;

@@ -93,7 +93,7 @@ footer{margin-top:40px;padding:22px 0 30px;border-top:.5pt solid var(--wm3);font
 <div><b>Pay by Nov 30</b>ACH, wire or Zelle, paid in full. Cases reserved in order of payment.<i>ACH, transferencia o Zelle, pago total.</i></div>
 <div><b>We ship</b>From Miami as soon as the first inventory clears customs. Date confirmed in writing.<i>Despacho desde Miami al ingresar el primer stock.</i></div>
 <div><b>Refundable</b>Full refund until your order ships.<i>Reembolso total hasta que salga su pedido.</i></div>
-<div><b>Shipping</b>$35 per case, continental US. Free over $2,000 or pickup in Miami.<i>Envío $35 por caja; gratis desde $2,000 o retiro.</i></div>
+<div><b>Shipping</b>Quoted for each order, continental US. Free pickup in Miami.<i>Envío cotizado por cada operación; retiro sin cargo en Miami.</i></div>
 <div><b>Sales tax</b>Exempt with a valid Florida Annual Resale Certificate.<i>Exento con certificado de reventa de Florida.</i></div>
 </div>
 <p style="font-size:.8rem;color:var(--mu);margin-top:14px">Prices in USD, sold by full case, before sales tax. The 15% pre-order discount applies to orders paid in full by Nov 30, 2026 and replaces other volume discounts. Launch offer; the regular price list applies afterwards.</p>
@@ -110,8 +110,8 @@ var P=[
 var $=function(s){return document.querySelector(s)},m=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})};
 $('#prods').innerHTML=P.map(function(x){return '<div class="pr"><div class="im"><img src="'+x.i+'" alt=""></div><div><h3>'+x.n+'</h3><p>'+x.d+' <i>· '+x.e+'</i></p><div class="pc"><s>'+m(x.l)+'</s><b>'+m(x.p)+'</b> per case of '+x.u+' · '+m(x.p/x.u)+' per unit</div></div><label class="q">Cases<input type="number" min="0" max="99" step="1" value="0" name="qty_'+x.s+'" data-s="'+x.s+'" inputmode="numeric"></label></div>'}).join('');
 function calc(){var n=0,sub=0,list=0;P.forEach(function(x){var q=Math.max(0,Math.floor(+document.querySelector('[data-s="'+x.s+'"]').value||0));n+=q;sub+=q*x.p;list+=q*x.l});
-var pick=$('#retiro').checked,sh=pick||sub>=2000?0:35*n;
-$('#tot').innerHTML=n?'<div><span>'+n+' case'+(n>1?'s':'')+' at list price</span><span><s>'+m(list)+'</s></span></div><div><span>Pre-order subtotal (15% off)</span><span>'+m(sub)+'</span></div><div><span>You save</span><span>'+m(list-sub)+'</span></div><div><span>Shipping '+(pick?'(pickup in Miami)':sub>=2000?'(free over $2,000)':'($35 per case)')+'</span><span>'+m(sh)+'</span></div><div class="g"><span>Total</span><span>'+m(sub+sh)+'</span></div><small>Before sales tax. Pay by Nov 30 via ACH, wire or Zelle · Antes de impuestos.</small>':'<div><span>Pick at least one case to see your total · Elija al menos una caja</span></div>';
+var pick=$('#retiro').checked,sh=0;
+$('#tot').innerHTML=n?'<div><span>'+n+' case'+(n>1?'s':'')+' at list price</span><span><s>'+m(list)+'</s></span></div><div><span>Pre-order subtotal (15% off)</span><span>'+m(sub)+'</span></div><div><span>You save</span><span>'+m(list-sub)+'</span></div><div><span>Shipping</span><span>'+(pick?'Pickup in Miami: free':'Quoted for your order')+'</span></div><div class="g"><span>Total</span><span>'+m(sub+sh)+'</span></div><small>Before shipping and sales tax. We quote shipping for your order and add it to the invoice. Pay by Nov 30 via ACH, wire or Zelle · Antes de impuestos.</small>':'<div><span>Pick at least one case to see your total · Elija al menos una caja</span></div>';
 $('#go').disabled=!n}
 document.addEventListener('input',calc);document.addEventListener('change',calc);calc();
 try{var u=new URLSearchParams(location.search);$('#utm').value=[u.get('utm_source'),u.get('utm_medium')].filter(Boolean).join('/')||'direct'}catch(e){}

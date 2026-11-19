@@ -6,3 +6,7 @@ Subir a GitHub (repo elcapowy/wylcosolutions, branch main), respetando las carpe
 - CLAUDE.md (notas)
 Luego esperar el deploy de Vercel y abrir /admin.
 Opcional: SHIPPO_API_KEY para tracking automatico.
+
+
+POSTS POST-GIRA
+Subí también la carpeta social/ (6 imágenes pg1..pg6.png) y api/_lib/social.js. Después de publicar, entrá a /admin?v=redes: el borrador de noviembre se regenera solo con los posts nuevos. Revisá y tocá Aprobar mes.

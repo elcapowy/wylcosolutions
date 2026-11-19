@@ -23,8 +23,17 @@ const BANK = {
   promo1: { type: 'promo', en: 'HVAC-R supply houses and distributors: stock K11 at your counter. Wholesale by the case, shipped from Miami.', es: 'Casas de repuestos y distribuidores HVAC-R: tengan K11 en el mostrador. Mayorista por caja, despacho desde Miami.' },
   promo2: { type: 'promo', en: 'Distributors: order K11 online by the case with live stock. Card, ACH, wire or Zelle.', es: 'Distribuidores: pidan K11 online por caja con stock en vivo. Tarjeta, ACH, transferencia o Zelle.' },
   promo3: { type: 'promo', en: 'Safety Data Sheets for every K11 product, ready for your purchasing and compliance team.', es: 'Hojas de seguridad de todos los productos K11, listas para compras y seguridad de tu empresa.', link: '/docs' },
-  promo4: { type: 'promo', en: 'Resellers: send your resale certificate and we invoice K11 without sales tax.', es: 'Revendedores: manden su certificado de reventa y facturamos K11 sin sales tax.' }
+  promo4: { type: 'promo', en: 'Resellers: send your resale certificate and we invoice K11 without sales tax.', es: 'Revendedores: manden su certificado de reventa y facturamos K11 sin sales tax.' },
+  pg1: { type: 'promo', en: 'We just toured Miami-Dade supply houses: counters, demos and handshakes. Four K11 products, ready for your shelf. Pre-orders are open, 15% off until Nov 30.', es: 'Recorrimos casas de repuestos de Miami-Dade: mostradores, demos y apretones de mano. Cuatro productos K11 listos para tu estante. Preventa abierta, 15% off hasta el 30 de noviembre.', link: '/preorder' },
+  pg2: { type: 'promo', en: 'Seal micro-leaks without pulling the charge. K11 TapaFugas: no recovery, no downtime. Wholesale by the case, shipped from Miami.', es: 'Sellá micro-fugas sin sacar la carga. K11 TapaFugas: sin recuperar gas, sin parar el equipo. Mayorista por caja, despacho desde Miami.', link: '/preorder' },
+  pg3: { type: 'promo', en: 'One injection seals the leak and a UV tracer shows where it was. K11 TapaFugas 2-in-1 for your counter.', es: 'Una inyección sella la fuga y el trazador UV muestra dónde estaba. K11 TapaFugas 2-en-1 para tu mostrador.', link: '/preorder' },
+  pg4: { type: 'promo', en: 'An easy add-on sale at the counter: K11 Sella Plus seals flares, flanges and gaskets and stays flexible. Compatible with all refrigerants. Pre-order 15% off until Nov 30.', es: 'Una venta adicional fácil en el mostrador: K11 Sella Plus sella flares, bridas y juntas y se mantiene flexible. Compatible con todos los refrigerantes. Preventa 15% off hasta el 30 de noviembre.', link: '/preorder' },
+  pg5: { type: 'promo', en: 'A 1/4" SAE injection coupler for your K11 syringes. Another easy add-on at the counter.', es: 'Un acople de inyección 1/4" SAE para tus jeringas K11. Otra venta adicional fácil en el mostrador.', link: '/preorder' },
+  pg6: { type: 'promo', en: '15% off K11 pre-orders until Nov 30. Reserve your cases at launch price. Full refund until your order ships. Ships from Miami.', es: '15% off en preventa K11 hasta el 30 de noviembre. Reservá tus cajas al precio de lanzamiento. Reembolso total hasta que salga tu pedido. Despacho desde Miami.', link: '/preorder' }
 };
+// Posts fijos por fecha (post-gira). Tienen prioridad sobre la gira y la rotación.
+const FIXED = { '2026-11-20': 'pg1', '2026-11-23': 'pg2', '2026-11-25': 'pg4', '2026-11-27': 'pg6', '2026-11-30': 'pg3', '2026-12-02': 'pg5' };
+const PLAN_VER = '2026-11-19';
 const FILL = ['promo1', 'tip1', 'case4', 'promo2', 'tip3', 'case1', 'promo3', 'tip2', 'case2', 'promo4', 'tip4', 'case3'];
 
 const fmt = (d, L) => new Date(d + 'T12:00:00Z').toLocaleDateString(L === 'es' ? 'es-AR' : 'en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
@@ -63,13 +72,13 @@ function plan(ym) {
   }
   let k = 0;
   return days.map((d, i) => {
-    let p = fixed[d]; if (!p) { const id = FILL[k++ % FILL.length]; p = { id, ...BANK[id] }; }
+    let p = fixed[d]; if (FIXED[d]) p = { id: FIXED[d], ...BANK[FIXED[d]] }; if (!p) { const id = FILL[k++ % FILL.length]; p = { id, ...BANK[id] }; }
     return { day: d, at: utcAt(d), id: p.id, type: p.type, imgPath: `/assets/social/${p.id}.png?v=3`, img: `${SITE}/assets/social/${p.id}.png?v=3`, text: caption(p, ym, i), nets: IMG_NETS.slice() };
   });
 }
 const ymOf = (d = new Date(), plus = 0) => { const ny = new Date(d.toLocaleString('en-US', { timeZone: 'America/New_York' })); ny.setDate(1); ny.setMonth(ny.getMonth() + plus); return ny.getFullYear() + '-' + String(ny.getMonth() + 1).padStart(2, '0'); };
 function meses() { const s = new Set([ymOf(), ymOf(new Date(), 1), ymOf(new Date(), 2), ...Object.keys(CAMPAIGNS)]); return [...s].filter(m => m >= ymOf()).sort(); }
-async function mes(ym) { const [x] = await redis([['HGET', 'k11:socialm', ym]]); if (x) return JSON.parse(x); const c = CAMPAIGNS[ym]; return { ym, name: c ? c.name : 'Rotación', draft: !!(c && c.draft), estado: 'borrador', posts: plan(ym) }; }
+async function mes(ym) { const [x] = await redis([['HGET', 'k11:socialm', ym]]); if (x) { const m = JSON.parse(x); if (m.estado !== 'borrador' || m.ver === PLAN_VER) return m; const c0 = CAMPAIGNS[ym], n = { ym, name: c0 ? c0.name : 'Rotación', draft: !!(c0 && c0.draft), estado: 'borrador', posts: plan(ym), ver: PLAN_VER }; await guardar(n); return n; }  const c = CAMPAIGNS[ym]; return { ym, name: c ? c.name : 'Rotación', draft: !!(c && c.draft), estado: 'borrador', posts: plan(ym), ver: PLAN_VER }; }
 const guardar = m => redis([['HSET', 'k11:socialm', m.ym, JSON.stringify(m)]]);
 
 async function up(path, method, form) {
@@ -146,6 +155,6 @@ async function editarPost(ym, i, text, nets, off) {
   if (Array.isArray(nets)) p.nets = nets.filter(n => IMG_NETS.includes(n));
   p.off = !!off; await guardar(m); return m;
 }
-async function regenerarMes(ym) { const c = CAMPAIGNS[ym]; const m = { ym, name: c ? c.name : 'Rotación', draft: !!(c && c.draft), estado: 'borrador', posts: plan(ym) }; await guardar(m); return m; }
+async function regenerarMes(ym) { const c = CAMPAIGNS[ym]; const m = { ym, name: c ? c.name : 'Rotación', draft: !!(c && c.draft), estado: 'borrador', posts: plan(ym), ver: PLAN_VER }; await guardar(m); return m; }
 
 module.exports = { aliados, guardarAliados, menciones, KEY, NETS, IMG_NETS, SELLER, CAMPAIGNS, meses, mes, plan, aprobarMes, cancelarMes, editarPost, regenerarMes, conectadas };

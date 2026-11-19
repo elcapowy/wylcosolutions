@@ -100,6 +100,7 @@ async function accion(b) {
     if (!o.seg) o.seg = mas(o.fecha, 5); // envío + tránsito; al entregarse pasa a +3 días
     await guardar(o); return { msg: 'Muestra cargada' + (o.mail && o.tracking ? ' · podés mandarle el tracking por mail' : ''), go: '/admin?v=muestras' };
   }
+  if (a === 'muestra_aviso') { const u = (await lista()).filter(vence); if (!u.length) return { msg: 'Hoy no hay nadie para seguir', go: '/admin?v=muestras' }; await X.mail(X.TO(), `[K11] Hoy: ${u.length} ${u.length === 1 ? 'contacto para seguir' : 'contactos para seguir'}`, avisoHoy(u)); return { msg: 'Te mandé el aviso por mail', go: '/admin?v=muestras' }; }
   if (a === 'muestra_visitas') {
     const ex = new Set((await lista()).map(m => m.id)); let n = 0;
     const base = { at: new Date().toISOString(), origen: 'Dealer', addr: '', city: 'Miami', state: 'FL', zip: '', carrier: 'Entrega en mano', tracking: '', ultimo: '', notas: '' };
@@ -154,7 +155,7 @@ function vista({ list, f = 'todas', q = '', e }) {
 <a class="btn sec" href="/admin?v=muestras&e=${esc(m.id)}#nueva">Editar</a>${btn('muestra_del', { id: m.id }, 'Eliminar', 'danger', 'Eliminar esta muestra?')}</div></td></tr>`;
   return `<div class="hd"><div><h1>Muestras</h1><div class="sub">Cada envío lleva tracking y a los 3 días de entregada te marca a quién llamar. Quedan: TapaFugas ${r.quedan.tf} · 2 en 1 ${r.quedan.tf2} · Sella Plus ${r.quedan.sp}.</div></div><a class="btn" href="#nueva">+ Enviar muestra</a></div>
 <div class="chips">${flt.map(([k, l, c]) => `<a href="/admin?v=muestras&f=${encodeURIComponent(k)}" class="${f === k ? 'on' : ''}">${l}<span class="ct">${c}</span></a>`).join('')}</div>
-${list.some(m => String(m.id).startsWith('VIS-')) ? '' : btn('muestra_visitas', {}, 'Cargar visitas planeadas (15 locales + Fernando)', '', 'Cargar las 15 visitas planeadas (Doral, Dolphin Mall y Hialeah)?')}${r.podcast ? '' : btn('muestra_seed', {}, 'Cargar podcasts del AHR Expo (9)', '', 'Cargar la lista de 9 podcasts?')}
+${btn('muestra_aviso', {}, 'Mandarme el aviso de hoy por mail', 'sec')}${list.some(m => String(m.id).startsWith('VIS-')) ? '' : btn('muestra_visitas', {}, 'Cargar visitas planeadas (15 locales + Fernando)', '', 'Cargar las 15 visitas planeadas (Doral, Dolphin Mall y Hialeah)?')}${r.podcast ? '' : btn('muestra_seed', {}, 'Cargar podcasts del AHR Expo (9)', '', 'Cargar la lista de 9 podcasts?')}
 <form class="tools" method="get" action="/admin"><input type="hidden" name="v" value="muestras"><input type="hidden" name="f" value="${esc(f)}"><input name="q" value="${esc(q)}" placeholder="Buscar empresa, contacto o tracking" style="max-width:340px" aria-label="Buscar"><button class="sec">Buscar</button></form>
 <div class="card tw" style="margin-bottom:20px">${L.length ? `<table><thead><tr><th>Destino</th><th>Muestras</th><th>Tracking</th><th>Estado y seguimiento</th><th>Acciones</th></tr></thead><tbody>${L.map(row).join('')}</tbody></table>` : '<div class="empty">Nada en este filtro.</div>'}</div>
 <form method="post" id="nueva" class="card pad" style="display:grid;gap:14px">${H('muestra', ed ? { id: ed.id } : {})}<h2>${ed ? 'Editar muestra' : 'Enviar muestra'}</h2>

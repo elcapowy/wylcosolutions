@@ -166,12 +166,19 @@ ${list.some(m => String(m.id).startsWith('VIS-')) ? '' : btn('muestra_visitas', 
 <div class="acts"><button>${ed ? 'Guardar cambios' : 'Guardar envío'}</button>${ed ? '<a class="btn sec" href="/admin?v=muestras">Cancelar</a>' : ''}</div></form>`;
 }
 
+// Texto del aviso diario: agrupado por qué hacer, un bloque por contacto.
+function avisoHoy(urg) {
+  const bloque = (m, n) => [`${n}. ${m.emp || m.nom}${pod(m) ? ' (podcast)' : ''}`, m.nom && m.emp ? `   Contacto: ${m.nom}` : '', `   Teléfono: ${m.tel || 'sin cargar'}`, prods(m) !== '—' ? `   Muestras: ${prods(m)}` : '', m.notas ? `   Nota: ${m.notas}` : ''].filter(Boolean).join('\n');
+  const a = urg.filter(m => !PRE.includes(m.est)), b = urg.filter(m => PRE.includes(m.est));
+  const sec = (t, sub, L) => L.length ? `${t} (${L.length})\n${sub}\n\n${L.map((m, i) => bloque(m, i + 1)).join('\n\n')}` : '';
+  return ['Hoy te toca contactar a ' + urg.length + '.', '', sec('LLAMAR: ya recibieron muestras', 'Preguntales qué tal les fue con el producto.', a), sec('VISITAR / SEGUIR: todavía no recibieron muestras', 'Pasá por el local o escribiles para presentar K11.', b), `Marcá cada uno como hecho acá:\n${X.SITE}/admin?v=muestras&f=llamar`].filter(Boolean).join('\n\n');
+}
 // ── cron diario: actualiza tracking de lo que está en camino y avisa a quién llamar ──
 async function diario(simular) {
   const L = await lista(), out = { tracking: 0, llamar: [] };
   if (process.env.SHIPPO_API_KEY && !simular) for (const m of L.filter(x => EN_RUTA.includes(x.est) && x.tracking && ['UPS', 'FedEx', 'USPS'].includes(x.carrier))) { try { aplicarTrack(m, await consultar(m)); await guardar(m); out.tracking++; } catch {} }
   const urg = L.filter(vence); out.llamar = urg.map(m => m.emp || m.nom);
-  if (urg.length && !simular) { const [ok] = await redis([['SET', 'k11:alerta:muestras:' + hoy(), '1', 'NX', 'EX', '172800']]); if (ok === 'OK') try { await X.mail(X.TO(), `[K11] Muestras: ${urg.length} para seguir hoy`, urg.map(m => `${pod(m) ? '[Podcast] ' : ''}${m.emp || m.nom}${m.nom && m.emp ? ' · ' + m.nom : ''} · ${prods(m)}${m.tel ? ' · ' + m.tel : ''}`).join('\n') + `\n\n${X.SITE}/admin?v=muestras&f=llamar`); } catch {} }
+  if (urg.length && !simular) { const [ok] = await redis([['SET', 'k11:alerta:muestras:' + hoy(), '1', 'NX', 'EX', '172800']]); if (ok === 'OK') try { await X.mail(X.TO(), `[K11] Hoy: ${urg.length} ${urg.length === 1 ? 'contacto para seguir' : 'contactos para seguir'}`, avisoHoy(urg)); } catch {} }
   return out;
 }
 

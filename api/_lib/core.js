@@ -1,7 +1,7 @@
 const D = require('./data.json');
 
 const CFG = {
-  FROM: process.env.MAIL_FROM || 'Fernando Lette · Wylco <fernando@wylcosolutions.com>',
+  FROM: (process.env.MAIL_FROM || 'Fernando Lete · Wylco <fernando@wylcosolutions.com>').replace(/Lette/gi, 'Lete'),
   REPLY_TO: process.env.MAIL_REPLY_TO || 'info@wylcosolutions.com',
   MAX_POR_DIA: +(process.env.MAX_POR_DIA || 60),
   FICHA_URL: process.env.FICHA_URL || '',

@@ -150,6 +150,14 @@
       "destination": "/preorder.html"
     },
     {
+      "source": "/calculator",
+      "destination": "/calculator.html"
+    },
+    {
+      "source": "/calculadora",
+      "destination": "/calculator.html?lang=es"
+    },
+    {
       "source": "/thank-you",
       "destination": "/thank-you.html"
     },

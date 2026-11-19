@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TapaFugas K11 Dosage Calculator | Wylco · K11 America</title>
+<meta name="description" content="How much TapaFugas K11 does your HVAC-R system need? Enter the system size in tons or BTU/h and get the dose and number of syringes.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F1117;--card:#181B24;--line:rgba(255,255,255,.14);--o:#D4541A;--o2:#F08A5D;--mu:rgba(255,255,255,.72)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:#fff;font:16px/1.6 "DM Sans",system-ui,sans-serif;min-height:100vh}
+a{color:var(--o2)}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:880px;margin:0 auto;padding:20px 20px 0}
+header a.b{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font:800 24px "Barlow Condensed",sans-serif;text-transform:uppercase}
+header img{width:34px;height:34px}
+.lang button{background:none;border:1px solid var(--line);color:var(--mu);padding:6px 14px;border-radius:99px;font:700 14px "DM Sans";cursor:pointer}.lang button.on{background:var(--o);border-color:var(--o);color:#fff}
+main{max-width:880px;margin:0 auto;padding:28px 20px 60px}
+h1{font:900 clamp(2.4rem,7vw,4rem)/.95 "Barlow Condensed",sans-serif;text-transform:uppercase;margin-bottom:12px}h1 em{color:var(--o);font-style:normal}
+.lead{color:var(--mu);max-width:640px;margin-bottom:26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+label{display:block;font:700 13px "DM Sans";letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:6px}
+input,select{background:#0F1117;border:2px solid var(--line);color:#fff;border-radius:12px;padding:12px 14px;font:700 22px "DM Sans";min-width:0}
+input{width:170px}select{width:170px}input:focus,select:focus{outline:none;border-color:var(--o)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chips button{background:none;border:1px solid var(--line);color:#fff;padding:7px 14px;border-radius:99px;font:700 14px "DM Sans";cursor:pointer}.chips button:hover{border-color:var(--o)}
+#res{margin-top:22px;border-top:1px solid var(--line);padding-top:22px}
+.dose{display:flex;flex-wrap:wrap;gap:26px;align-items:baseline}
+.big{font:900 clamp(4rem,14vw,6.5rem)/.9 "Barlow Condensed",sans-serif;color:var(--o)}.big small{font-size:.4em;color:#fff;margin-left:6px}
+.meta{font:700 22px "Barlow Condensed",sans-serif;text-transform:uppercase}.meta span{display:block;font:500 15px "DM Sans";color:var(--mu);text-transform:none}
+.note{margin-top:14px;color:var(--mu);font-size:15px}
+.warn{margin-top:14px;padding:12px 16px;border-left:4px solid var(--o);background:rgba(212,84,26,.12);border-radius:8px;font-size:15px}
+table{width:100%;border-collapse:collapse;margin-top:28px;font-size:15px}th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}th{font:700 13px "DM Sans";letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}tr.hl td{background:rgba(212,84,26,.18);font-weight:700}
+h2{font:800 28px "Barlow Condensed",sans-serif;text-transform:uppercase;margin:34px 0 10px}
+ul{padding-left:20px;color:var(--mu)}li{margin-bottom:6px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}.cta a{background:var(--o);color:#fff;text-decoration:none;font:800 20px "Barlow Condensed",sans-serif;text-transform:uppercase;padding:13px 26px;border-radius:99px}.cta a.s{background:none;border:2px solid var(--o)}
+footer{margin-top:40px;color:var(--mu);font-size:13px}
+</style></head><body>
+<header><a class="b" href="/"><img src="/assets/logo-knockout.png" alt="">K11 America</a><div class="lang"><button id="len" class="on" type="button">EN</button> <button id="les" type="button">ES</button></div></header>
+<main>
+<h1 data-k="h1">TapaFugas dosage <em>calculator</em></h1>
+<p class="lead" data-k="lead">Enter the size of the system and get the dose of TapaFugas K11 and how many 10 ml syringes to use.</p>
+<div class="card">
+<div class="row">
+<div><label for="n" data-k="size">System size</label><input id="n" type="number" inputmode="decimal" min="0" step="any" value="5"></div>
+<div><label for="u" data-k="unit">Unit</label><select id="u"><option value="tr">Tons (TR)</option><option value="btu">BTU/h</option></select></div>
+</div>
+<div class="chips" id="chips"></div>
+<div id="res" aria-live="polite"></div>
+</div>
+<table><thead><tr><th data-k="th1">Dose</th><th data-k="th2">System up to</th><th data-k="th3">10 ml syringes</th></tr></thead><tbody id="tb"></tbody></table>
+<h2 data-k="how">How to apply</h2>
+<ul id="how"></ul>
+<h2 data-k="comp">Compatibility</h2>
+<ul id="comp"></ul>
+<div class="cta"><a href="/preorder" data-k="c1">Pre-order K11 · 15% off</a><a class="s" href="mailto:info@wylcosolutions.com?subject=K11%20dosage%20question" data-k="c2">Ask us about your system</a></div>
+<footer id="ft"></footer>
+</main>
+<script>
+(function(){
+var T=[[3,10,1],[4,15,2],[5,20,2],[8,30,3],[Infinity,60,0]];
+var L={en:{h1:'TapaFugas dosage <em>calculator</em>',lead:'Enter the size of the system and get the dose of TapaFugas K11 and how many 10 ml syringes to use.',size:'System size',unit:'Unit',th1:'Dose',th2:'System up to',th3:'10 ml syringes',how:'How to apply',comp:'Compatibility',c1:'Pre-order K11 · 15% off',c2:'Ask us about your system',
+dose:'Dose',syr:'syringe',syrs:'syringes',use:'Use',big:'Above 8 TR the dose is 60 ml. The manufacturer recommends diluting it in the system lubricant (60 ml refill, applied with an oil injector). Contact us and we will help you with the setup.',min:'The universal minimum dose for any system is 10 ml.',bad:'Enter a size greater than 0.',above:'Above 8 TR',
+chips:[['Small split · 3 TR',3],['5 TR',5],['10 TR rooftop',10]],
+steps:['Screw the 10 ml syringe onto the K11 syringe connector.','Connect it to the low-pressure service valve, preferably with the system under vacuum or without pressure, and apply the dose slowly.','Disconnect and continue vacuum and charging as the system manufacturer specifies.'],
+comps:['Refrigerants listed by the manufacturer: R-134a, R-404A, R-452A and R-1234yf.','Compatible with all oil types and lubricants. Polymer-free.','Designed for micro-leaks. Larger leaks must be repaired mechanically.','Other refrigerants (for example R-22 or R-410A)? Ask us before applying.'],
+ft:'Doses follow the manufacturer table. This is a guide, not a substitute for the technical data sheet. Wylco Solutions LLC · info@wylcosolutions.com · +1 (954) 881-8870',tr:'TR'},
+es:{h1:'Calculadora de dosis <em>TapaFugas</em>',lead:'Ingresá el tamaño del sistema y te decimos la dosis de TapaFugas K11 y cuántas jeringas de 10 ml usar.',size:'Tamaño del sistema',unit:'Unidad',th1:'Dosis',th2:'Sistema hasta',th3:'Jeringas de 10 ml',how:'Cómo aplicar',comp:'Compatibilidad',c1:'Preventa K11 · 15% off',c2:'Consultanos por tu sistema',
+dose:'Dosis',syr:'jeringa',syrs:'jeringas',use:'Usá',big:'Arriba de 8 TR la dosis es de 60 ml. El fabricante recomienda diluirla en el lubricante del sistema (refil de 60 ml, con inyector de aceite). Escribinos y te ayudamos con la aplicación.',min:'La dosis mínima universal para cualquier sistema es de 10 ml.',bad:'Ingresá un tamaño mayor que 0.',above:'Más de 8 TR',
+chips:[['Split chico · 3 TR',3],['5 TR',5],['Rooftop 10 TR',10]],
+steps:['Enroscá la jeringa de 10 ml al conector de jeringa K11.','Conectala a la válvula de servicio de baja presión, preferentemente con el sistema en vacío o sin presión, y aplicá la dosis lento.','Desconectá y seguí con el vacío y la carga según las especificaciones del fabricante del equipo.'],
+comps:['Refrigerantes que indica el fabricante: R-134a, R-404A, R-452A y R-1234yf.','Compatible con todos los tipos de aceite y lubricante. Sin polímeros.','Pensado para microfugas. Las fugas grandes se reparan mecánicamente.','¿Otro refrigerante (por ejemplo R-22 o R-410A)? Consultanos antes de aplicar.'],
+ft:'Las dosis siguen la tabla del fabricante. Es una guía y no reemplaza la ficha técnica. Wylco Solutions LLC · info@wylcosolutions.com · +1 (954) 881-8870',tr:'TR'}};
+var lang='en',$=function(i){return document.getElementById(i)};
+try{var q=new URLSearchParams(location.search).get('lang');if(q==='es'||(!q&&/^es/i.test(navigator.language||'')))lang='es'}catch(e){}
+function tr(){var v=parseFloat($('n').value);return $('u').value==='btu'?v/12000:v}
+function render(){var t=L[lang],v=tr(),r=$('res');
+if(!(v>0)){r.innerHTML='<p class="note">'+t.bad+'</p>';hl(-1);return}
+var i=T.findIndex(function(x){return v<=x[0]}),d=T[i];hl(i);
+var h='<div class="dose"><div class="big">'+d[1]+'<small>ml</small></div>';
+if(d[2])h+='<div class="meta">'+t.use+' '+d[2]+' '+(d[2]>1?t.syrs:t.syr)+'<span>'+t.dose+' · '+(Math.round(v*10)/10)+' TR</span></div></div><p class="note">'+t.min+'</p>';
+else h+='<div class="meta">'+t.above+'<span>'+(Math.round(v*10)/10)+' TR</span></div></div><div class="warn">'+t.big+'</div>';
+r.innerHTML=h}
+function hl(i){var rs=$('tb').children;for(var k=0;k<rs.length;k++)rs[k].className=k===i?'hl':''}
+function paint(){var t=L[lang];document.documentElement.lang=lang;
+document.querySelectorAll('[data-k]').forEach(function(e){var k=e.getAttribute('data-k');if(typeof t[k]==='string')e.innerHTML=t[k]});
+$('how').innerHTML=t.steps.map(function(x){return'<li>'+x+'</li>'}).join('');
+$('comp').innerHTML=t.comps.map(function(x){return'<li>'+x+'</li>'}).join('');
+$('chips').innerHTML=t.chips.map(function(c){return'<button type="button" data-v="'+c[1]+'">'+c[0]+'</button>'}).join('');
+$('ft').textContent=t.ft;
+$('len').className=lang==='en'?'on':'';$('les').className=lang==='es'?'on':'';
+$('tb').innerHTML=[[3,'10 ml','3 TR · 36,000 BTU/h','1'],[4,'15 ml','4 TR · 48,000 BTU/h','2'],[5,'20 ml','5 TR · 60,000 BTU/h','2'],[8,'30 ml','8 TR · 96,000 BTU/h','3'],[0,'60 ml',t.above+' · 96,000 BTU/h','—']].map(function(r){return'<tr><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>'}).join('');
+render()}
+$('n').addEventListener('input',render);$('u').addEventListener('change',render);
+$('chips').addEventListener('click',function(e){var v=e.target.getAttribute('data-v');if(v){$('u').value='tr';$('n').value=v;render()}});
+$('len').onclick=function(){lang='en';paint()};$('les').onclick=function(){lang='es';paint()};
+paint();
+})();
+</script></body></html>

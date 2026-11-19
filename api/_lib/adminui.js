@@ -89,7 +89,7 @@ const COBRADO = o => ['pagado', 'enviado'].includes(o.estado);
 const neto = o => Math.max(0, (o.total || 0) - (o.tax || 0));
 const costoV = (o, co) => (o.items || []).reduce((a, i) => a + (i.cases || 0) * (+co[i.slug] || 0), 0) + (+o.envio_costo || 0) + (+o.fee || 0);
 const sinCosto = (o, co) => (o.items || []).some(i => !(+co[i.slug] > 0));
-function ventas({ ps, f, q, co = {} }) {
+function ventas({ ps, f, q, co = {}, mu = '' }) {
   const act = ps.filter(ACTIVOS);
   const cobT = ps.filter(COBRADO), cob = cobT.filter(o => !sinCosto(o, co)), falt = cobT.length - cob.length, ing = cob.reduce((a, o) => a + neto(o), 0), cst = cob.reduce((a, o) => a + costoV(o, co), 0), gan = ing - cst;
   const porCobrar = act.filter(o => ['confirmado', 'pago pendiente'].includes(o.estado));

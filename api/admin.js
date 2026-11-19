@@ -233,7 +233,7 @@ module.exports = async (req, res) => {
   else if (v === 'compras') { title = 'Compras'; body = CO.vLista(cps); }
   else if (v === 'compra') { const c = cps.find(x => x.id === q.id); title = c ? c.nombre : 'Compra'; body = c ? CO.vDetalle(c, Object.fromEntries(t.map(p => [p.slug, p.cases_available]))) : '<p>No encontrado. <a href="/admin?v=compras">Volver</a></p>'; }
   else if (v === 'muestras') { title = 'Muestras'; body = MU.vista({ list: mus, f: q.f || 'todas', q: q.q || '', e: q.e }); }
-  else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '' }); }
+  else if (v === 'ventas') { title = 'Ventas'; body = UI.ventas({ ps, co, f: q.f || 'activas', q: q.q || '', mu: MU.card(mus) }); }
   else {
     let mail = null;
     try { const { est, stop } = await leerEstado(); const vals = Object.values(est); mail = { enviado: vals.filter(x => x.e === 'enviado').length, pendiente: D.rows.length - vals.length, bajas: Object.values(stop).filter(x => x === 'baja').length }; } catch {}

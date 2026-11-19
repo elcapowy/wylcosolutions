@@ -20,6 +20,7 @@ a{color:#F08A5D}a:hover{color:#fff}
 <p id="p1"><b>Thank you.</b> We received your request and sent a confirmation to your email.</p>
 <p id="p2">We will email the invoice with payment instructions within 1 business day.</p>
 <p id="p3">Questions? <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a></p>
+<p style="margin-top:6px"><a href="/calculator" id="cl">TapaFugas dosage calculator</a></p>
 <a class="btn" id="b" href="/">Back to K11 America</a>
 </main>
 <script>
@@ -27,7 +28,7 @@ a{color:#F08A5D}a:hover{color:#fff}
 var q=new URLSearchParams(location.search),es=q.get('lang')==='es',pre=q.get('t')==='pre',ref=(q.get('ref')||'').replace(/[^\w\-]/g,'').slice(0,40);
 var T=es?{h:'Pedido recibido',p1:'<b>Gracias.</b> Recibimos tu solicitud y te enviamos una confirmación por mail.',p2:pre?'Te enviamos la factura con las instrucciones de pago en 1 día hábil.':'Te enviamos la factura de Stripe en 1 día hábil: pagás con tarjeta, ACH o transferencia.',p3:'¿Dudas? <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a>',b:'Volver a K11 America'}:{h:pre?'Pre-order received':'Order received',p1:'<b>Thank you.</b> We received your request and sent a confirmation to your email.',p2:pre?'We will email the invoice with payment instructions within 1 business day.':'We will email you a Stripe invoice within 1 business day: pay by card, ACH or wire.',p3:'Questions? <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a>',b:'Back to K11 America'};
 document.documentElement.lang=es?'es':'en';
-document.getElementById('h').textContent=T.h;document.getElementById('p1').innerHTML=T.p1;document.getElementById('p2').textContent=T.p2;document.getElementById('p3').innerHTML=T.p3;document.getElementById('b').textContent=T.b;
+document.getElementById('h').textContent=T.h;document.getElementById('p1').innerHTML=T.p1;document.getElementById('p2').textContent=T.p2;document.getElementById('p3').innerHTML=T.p3;document.getElementById('b').textContent=T.b;document.getElementById('cl').textContent=es?'Calculadora de dosis TapaFugas':'TapaFugas dosage calculator';document.getElementById('cl').href=es?'/calculadora':'/calculator';
 if(ref){var r=document.getElementById('r');r.textContent=(es?'Referencia ':'Ref. ')+ref;r.hidden=false}
 }catch(e){}})();
 </script>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Request received | Wylco · K11</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800;900&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{margin:0;background:#0F1117;color:#fff;font:16px/1.6 "DM Sans",system-ui,sans-serif;display:grid;place-items:center;min-height:100vh;padding:24px}
+main{max-width:560px}
+h1{font:900 clamp(2.6rem,7vw,3.8rem)/.95 "Barlow Condensed",sans-serif;text-transform:uppercase;margin:0 0 18px}h1 em{color:#D4541A;font-style:normal}
+p{color:rgba(255,255,255,.78);margin-bottom:12px}p b{color:#fff}
+.ref{display:inline-block;margin:6px 0 18px;padding:8px 14px;border:2px solid #D4541A;border-radius:10px;font:800 1.3rem "Barlow Condensed",sans-serif;letter-spacing:.06em;color:#fff}
+a{color:#F08A5D}a:hover{color:#fff}
+.btn{display:inline-block;margin-top:8px;background:#D4541A;color:#fff;text-decoration:none;font:800 1.1rem "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.04em;padding:12px 22px;border-radius:99px}.btn:hover{background:#F08A5D;color:#0F1117}
+</style></head><body>
+<main>
+<h1><em>✓</em> <span id="h">Request received</span></h1>
+<div id="r" class="ref" hidden></div>
+<p id="p1"><b>Thank you.</b> We received your request and sent a confirmation to your email.</p>
+<p id="p2">We will email the invoice with payment instructions within 1 business day.</p>
+<p id="p3">Questions? <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a></p>
+<a class="btn" id="b" href="/">Back to K11 America</a>
+</main>
+<script>
+(function(){try{
+var q=new URLSearchParams(location.search),es=q.get('lang')==='es',pre=q.get('t')==='pre',ref=(q.get('ref')||'').replace(/[^\w\-]/g,'').slice(0,40);
+var T=es?{h:'Pedido recibido',p1:'<b>Gracias.</b> Recibimos tu solicitud y te enviamos una confirmación por mail.',p2:pre?'Te enviamos la factura con las instrucciones de pago en 1 día hábil.':'Te enviamos la factura de Stripe en 1 día hábil: pagás con tarjeta, ACH o transferencia.',p3:'¿Dudas? <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a>',b:'Volver a K11 America'}:{h:pre?'Pre-order received':'Order received',p1:'<b>Thank you.</b> We received your request and sent a confirmation to your email.',p2:pre?'We will email the invoice with payment instructions within 1 business day.':'We will email you a Stripe invoice within 1 business day: pay by card, ACH or wire.',p3:'Questions? <a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a> · <a href="tel:+19548818870">+1 (954) 881-8870</a>',b:'Back to K11 America'};
+document.documentElement.lang=es?'es':'en';
+document.getElementById('h').textContent=T.h;document.getElementById('p1').innerHTML=T.p1;document.getElementById('p2').textContent=T.p2;document.getElementById('p3').innerHTML=T.p3;document.getElementById('b').textContent=T.b;
+if(ref){var r=document.getElementById('r');r.textContent=(es?'Referencia ':'Ref. ')+ref;r.hidden=false}
+}catch(e){}})();
+</script>
+</body></html>

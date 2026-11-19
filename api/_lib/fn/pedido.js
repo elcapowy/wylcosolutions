@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
   const lang = b.lang === 'es' ? 'es' : 'en', es = lang === 'es';
   const preventa = String(b.preorder || '') === '15';
   const wantsJson = /json/.test(req.headers.accept || '') || /json/.test(req.headers['content-type'] || '');
-  const reply = (code, ok, msg, extra = {}, lines) => wantsJson ? res.status(code).json({ ok, message: msg, ...extra }) : res.status(code).setHeader('Content-Type', 'text/html; charset=utf-8').send(page(lang, ok, msg, lines));
+  const reply = (code, ok, msg, extra = {}, lines) => (!wantsJson && ok && extra.reference) ? res.status(303).setHeader('Location', '/thank-you?ref=' + encodeURIComponent(extra.reference) + '&lang=' + lang + (preventa ? '&t=pre' : '&t=order')).end() : wantsJson ? res.status(code).json({ ok, message: msg, ...extra }) : res.status(code).setHeader('Content-Type', 'text/html; charset=utf-8').send(page(lang, ok, msg, lines));
   if (b.website) return reply(200, true, 'OK');
 
   const f = {}; for (const k of ['company', 'contact', 'email', 'phone', 'address', 'city', 'state', 'zip', 'business_type', 'ein', 'payment', 'notes']) f[k] = clean(b[k]);

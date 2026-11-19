@@ -150,6 +150,10 @@
       "destination": "/preorder.html"
     },
     {
+      "source": "/thank-you",
+      "destination": "/thank-you.html"
+    },
+    {
       "source": "/es/products",
       "destination": "/es/products.html"
     },

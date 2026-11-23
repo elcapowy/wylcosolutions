@@ -1,17 +1,6 @@
-Subir a GitHub (repo elcapowy/wylcosolutions, branch main), respetando las carpetas:
-- api/admin.js
-- api/_lib/adminui.js
-- api/_lib/muestras.js (nuevo)
-- api/_lib/fn/tareas.js
-- CLAUDE.md (notas)
-Luego esperar el deploy de Vercel y abrir /admin.
-Opcional: SHIPPO_API_KEY para tracking automatico.
-
-
-POSTS POST-GIRA
-Subí también la carpeta social/ (6 imágenes pg1..pg6.png) y api/_lib/social.js. Después de publicar, entrá a /admin?v=redes: el borrador de noviembre se regenera solo con los posts nuevos. Revisá y tocá Aprobar mes.
-
-
-PAQUETES STARTER (23 nov 2026)
-Subir tambien: preorder.html, api/_lib/precios.js, api/_lib/tienda.js, api/_lib/fn/pedido.js, api/_lib/mejoras.js, api/_lib/adminui.js, api/admin.js.
-Despues del deploy: abrir /preorder (seccion Starter), hacer un pedido de prueba, y en /admin?v=nueva aparecen los 3 paquetes al final de Productos.
+Subir a GitHub (repo elcapowy/wylcosolutions, branch main), respetando las carpetas.
+- api/_lib/orderpage.js: /order sin "Free shipping"; en su lugar, tile "Starter packs" y seccion con los 3 paquetes (boton -> /preorder#starter).
+- api/_lib/envio.js: envio gratis desactivado (checkout y facturas cobran el flete por caja siempre). Para reactivarlo: GRATIS_OFF = false.
+- preorder.html: ancla #starter.
+- api/_lib/adminui2.js: el mail mensual ya no menciona envio gratis.
+- Papeles (Formulario, Kit, Listas, Margenes, Flyer, Tarjeta, Carta, Materiales) y api/_lib/data.json: "Lette" corregido a "Lete" y sin envio gratis; las listas de precios suman los Starter.

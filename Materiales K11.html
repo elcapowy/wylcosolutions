@@ -34,7 +34,7 @@ main{padding:28px 24px 48px}
 </div></header>
 <main><div class="in">
 <div class="grid" id="g"></div>
-<div class="ft"><span>Fernando Lette · +1 (954) 881-8870 (call / WhatsApp)</span><a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a><a href="/">wylcosolutions.com</a></div>
+<div class="ft"><span>Fernando Lete · +1 (954) 881-8870 (call / WhatsApp)</span><a href="mailto:info@wylcosolutions.com">info@wylcosolutions.com</a><a href="/">wylcosolutions.com</a></div>
 </div></main>
 <script>
 const M=[
@@ -44,7 +44,7 @@ const M=[
 ['margenes','Distributor margins','Your cost, suggested resale and profit per case.','Márgenes del distribuidor.'],
 ['carta','Introduction letter','English and Spanish versions.','Carta de presentación EN / ES.'],
 ['formulario','Application & order form','Distributor sign-up and purchase order.','Alta de distribuidor y nota de pedido.'],
-['tarjeta','Business card','Fernando Lette · Distributor Development.','Tarjeta personal.']
+['tarjeta','Business card','Fernando Lete · Distributor Development.','Tarjeta personal.']
 ];
 const o=location.origin.startsWith('http')?location.origin:'https://wylcosolutions.com';
 document.getElementById('g').innerHTML=M.map(([s,t,d,e],i)=>`<div class="it"><span class="n">${String(i+1).padStart(2,'0')}</span><h2>${t}</h2><p>${d}<i>${e}</i></p><span class="url">${o.replace(/^https?:\/\//,'')}/k11/${s}</span><div class="act"><a href="/k11/${s}" target="_blank" rel="noopener">Open · Abrir</a><button data-copy="/k11/${s}">Copy link · Copiar</button></div></div>`).join('');

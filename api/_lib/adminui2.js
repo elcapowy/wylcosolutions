@@ -41,7 +41,7 @@ ${last ? `<p style="margin:14px 0 0"><a class="btn sec" href="/admin?v=nueva&id=
 function borradorMensual({ t, lleg = {}, mes }) {
   const disp = t.filter(p => p.cases_available > 0).map(p => `• ${p.name}: ${p.cases_available} case(s) in stock`);
   const ll = t.filter(p => lleg[p.slug] && lleg[p.slug].fecha).map(p => `• ${p.name}: arriving ${lleg[p.slug].fecha}`);
-  return { s: `K11 update · ${mes}`, b: `Hi {nombre},\n\nHere is what is available this month for your counter:\n\n${disp.join('\n') || '• Stock arriving soon — pre-orders open.'}${ll.length ? '\n\nOn the way:\n' + ll.join('\n') : ''}\n\nOrder by the case (free shipping from $2,000): https://wylcosolutions.com/order?utm_source=email&utm_medium=monthly\n\n— Wylco · K11 America\nMiami, FL · +1 (954) 881-8870` };
+  return { s: `K11 update · ${mes}`, b: `Hi {nombre},\n\nHere is what is available this month for your counter:\n\n${disp.join('\n') || '• Stock arriving soon — pre-orders open.'}${ll.length ? '\n\nOn the way:\n' + ll.join('\n') : ''}\n\nOrder by the case, or start small with a Starter pack: https://wylcosolutions.com/order?utm_source=email&utm_medium=monthly\n\n— Wylco · K11 America\nMiami, FL · +1 (954) 881-8870` };
 }
 function mensual({ cs, borrador }) {
   const n = cs.filter(c => !c.nomail && c.id).length;

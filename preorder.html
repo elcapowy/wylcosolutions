@@ -65,8 +65,11 @@ footer{margin-top:40px;padding:22px 0 30px;border-top:.5pt solid var(--wm3);font
 <input type="hidden" name="preorder" value="15"><input type="hidden" name="lang" value="en"><input type="hidden" name="utm" id="utm">
 <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
 
-<h2>1 · Choose your cases <small>Elija sus cajas</small></h2>
+<h2>1 · Choose your cases or packs <small>Elija sus cajas o paquetes</small></h2>
 <div id="prods"></div>
+<h2>Starter packs <small>Paquetes Starter · for new businesses · para negocios nuevos</small></h2>
+<p style="font-size:.9rem;color:var(--mid);margin:-4px 0 12px">Not ready for a full case? Start small with a mixed pack, loose units at one fixed price. Same products, same resale certificate rules. <i style="color:var(--mu)">¿No necesita una caja completa? Empiece con un paquete mixto a precio cerrado.</i></p>
+<div id="kits"></div>
 <div class="tot" id="tot"></div>
 
 <h2>2 · Your business <small>Su empresa</small></h2>
@@ -97,7 +100,7 @@ footer{margin-top:40px;padding:22px 0 30px;border-top:.5pt solid var(--wm3);font
 <div><b>Shipping</b>Quoted for each order, continental US. Free pickup in Miami.<i>Envío cotizado por cada operación; retiro sin cargo en Miami.</i></div>
 <div><b>Sales tax</b>Exempt with a valid Florida Annual Resale Certificate.<i>Exento con certificado de reventa de Florida.</i></div>
 </div>
-<p style="font-size:.8rem;color:var(--mu);margin-top:14px">Prices in USD, sold by full case, before sales tax. The 15% pre-order discount applies to orders paid in full by Nov 30, 2026 and replaces other volume discounts. Launch offer; the regular price list applies afterwards.</p>
+<p style="font-size:.8rem;color:var(--mu);margin-top:14px">Prices in USD, sold by full case or Starter pack, before sales tax. The 15% pre-order discount applies to full cases paid in full by Nov 30, 2026 and replaces other volume discounts. Starter packs are sold at their fixed price (about 10% above the case price per unit) and are not discounted further. Launch offer; the regular price list applies afterwards.</p>
 
 <footer><span>Wylco Solutions LLC · 4350 Hillcrest Dr, Apt 220, Hollywood, FL 33021 · wylcosolutions.com</span><span>Fernando Lete · +1 (954) 881-8870 · info@wylcosolutions.com</span></footer>
 </main>
@@ -110,10 +113,16 @@ var P=[
 {s:'20002',n:'Coupler 1/4"',d:'Syringe injection coupler, 1/4" SAE',e:'Acople de inyección',u:400,l:2380.00,p:2023.00,i:'/assets/tile_adapter.png'}];
 var $=function(s){return document.querySelector(s)},m=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})};
 $('#prods').innerHTML=P.map(function(x){return '<div class="pr"><div class="im"><img src="'+x.i+'" alt=""></div><div><h3>'+x.n+'</h3><p>'+x.d+' <i>· '+x.e+'</i></p><div class="pc"><s>'+m(x.l)+'</s><b>'+m(x.p)+'</b> per case of '+x.u+' · '+m(x.p/x.u)+' per unit</div></div><label class="q">Cases<input type="number" min="0" max="99" step="1" value="0" name="qty_'+x.s+'" data-s="'+x.s+'" inputmode="numeric"></label></div>'}).join('');
-function calc(){var n=0,sub=0,list=0;P.forEach(function(x){var q=Math.max(0,Math.floor(+document.querySelector('[data-s="'+x.s+'"]').value||0));n+=q;sub+=q*x.p;list+=q*x.l});
-var pick=$('#retiro').checked,sh=0;
-$('#tot').innerHTML=n?'<div><span>'+n+' case'+(n>1?'s':'')+' at list price</span><span><s>'+m(list)+'</s></span></div><div><span>Pre-order subtotal (15% off)</span><span>'+m(sub)+'</span></div><div><span>You save</span><span>'+m(list-sub)+'</span></div><div><span>Shipping</span><span>'+(pick?'Pickup in Miami: free':'Quoted for your order')+'</span></div><div class="g"><span>Total</span><span>'+m(sub+sh)+'</span></div><small>Before shipping and sales tax. We quote shipping for your order and add it to the invoice. Pay by Nov 30 via ACH, wire or Zelle · Antes de impuestos.</small>':'<div><span>Pick at least one case to see your total · Elija al menos una caja</span></div>';
-$('#go').disabled=!n}
+var K=[
+{s:'starter-tecnico',n:'Starter · Technician',es:'Técnico independiente o empresa nueva',c:'6 TapaFugas · 6 TapaFugas 2-in-1 · 2 Sella Plus · 1 Coupler',u:15,p:260,r:431},
+{s:'starter-mostrador',n:'Starter · Counter',es:'Casa de suministros chica o tienda nueva',c:'24 TapaFugas · 24 2-in-1 · 12 Sella Plus · 4 Coupler',u:64,p:1080,r:1789},
+{s:'starter-plus',n:'Starter · Plus',es:'Mostrador con movimiento o 2 sucursales',c:'48 TapaFugas · 48 2-in-1 · 24 Sella Plus · 8 Coupler',u:128,p:2150,r:3578}];
+$('#kits').innerHTML=K.map(function(x){return '<div class="pr"><div class="im"><img src="/assets/products/tfk11-box.png" alt=""></div><div><h3>'+x.n+'</h3><p>'+x.c+' <i>· '+x.u+' units · '+x.es+'</i></p><div class="pc"><b>'+m(x.p)+'</b> per pack · suggested resale value '+m(x.r)+'</div></div><label class="q">Packs<input type="number" min="0" max="99" step="1" value="0" name="qty_'+x.s+'" data-s="'+x.s+'" inputmode="numeric"></label></div>'}).join('');
+function qv(s){return Math.max(0,Math.floor(+document.querySelector('[data-s="'+s+'"]').value||0))}
+function calc(){var n=0,sub=0,list=0,nk=0,ks=0;P.forEach(function(x){var q=qv(x.s);n+=q;sub+=q*x.p;list+=q*x.l});K.forEach(function(x){var q=qv(x.s);nk+=q;ks+=q*x.p});
+var pick=$('#retiro').checked,sh=0,t=n+nk,tot=sub+ks;
+$('#tot').innerHTML=t?(n?'<div><span>'+n+' case'+(n>1?'s':'')+' at list price</span><span><s>'+m(list)+'</s></span></div><div><span>Pre-order subtotal, cases (15% off)</span><span>'+m(sub)+'</span></div><div><span>You save</span><span>'+m(list-sub)+'</span></div>':'')+(nk?'<div><span>'+nk+' Starter pack'+(nk>1?'s':'')+' (fixed price, no further discount)</span><span>'+m(ks)+'</span></div>':'')+'<div><span>Shipping</span><span>'+(pick?'Pickup in Miami: free':'Quoted for your order')+'</span></div><div class="g"><span>Total</span><span>'+m(tot+sh)+'</span></div><small>Before shipping and sales tax. We quote shipping for your order and add it to the invoice. Pay by Nov 30 via ACH, wire or Zelle · Antes de impuestos.</small>':'<div><span>Pick at least one case or pack to see your total · Elija al menos una caja o paquete</span></div>';
+$('#go').disabled=!t}
 document.addEventListener('input',calc);document.addEventListener('change',calc);calc();
 try{var u=new URLSearchParams(location.search);$('#utm').value=[u.get('utm_source'),u.get('utm_medium')].filter(Boolean).join('/')||'direct'}catch(e){}
 </script>

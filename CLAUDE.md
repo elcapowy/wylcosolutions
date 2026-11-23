@@ -99,3 +99,8 @@ Archivos: js/i18n.js, pages/*.jsx, páginas estáticas (index.html, products.htm
 - Posts post-gira (nov-2026): imágenes en social/pg1..pg6.png (1080×1350), textos en BANK (pg1..pg6) y fechas fijas en FIXED de api/_lib/social.js (20/23/25/27/30-nov y 2-dic, 10:00 ET). El borrador de cada mes se regenera solo cuando cambia PLAN_VER; un mes ya aprobado no se toca.
 
 - Calculadora de dosis: /calculator (EN) y /calculadora (ES), archivo calculator.html. Tabla de dosis del fabricante (k11america.com/productos/tapa-fugas-k11): hasta 3 TR 10 ml, 4 TR 15 ml, 5 TR 20 ml, 8 TR 30 ml, mas de 8 TR 60 ml (diluir en lubricante). Refrigerantes que lista el fabricante para TapaFugas: R-134a, R-404A, R-452A, R-1234yf (el FAQ del sitio dice mas: revisar).
+
+## Paquetes Starter (23 nov 2026)
+- Kits en api/_lib/precios.js (KITS: starter-tecnico $260 · starter-mostrador $1,080 · starter-plus $2,150; ~10% sobre el precio por unidad de la caja; ship = cajas equivalentes para el flete). Se venden por /preorder (sección Starter, sin 15%) y Nueva venta del admin; NO en /order ni Stripe Checkout (factura manual: línea con price_data).
+- Stock: pool de unidades sueltas Redis k11:sueltas (slug→unidades). tienda.js: reservarKit abre cajas cerradas si faltan sueltas, devolverKit las devuelve al pool, cubrirKits completa pre-pedidos al entrar stock. Items de venta llevan kit:true y precio. Los Starter consumen stock antes que pre-pedidos de cajas completas.
+- Costo por paquete: costoCaja() incluye kits. Cajas de envío Shippo estimadas en mejoras.js (CAJA_DEF starter-*).

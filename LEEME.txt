@@ -10,3 +10,8 @@ Opcional: SHIPPO_API_KEY para tracking automatico.
 
 POSTS POST-GIRA
 Subí también la carpeta social/ (6 imágenes pg1..pg6.png) y api/_lib/social.js. Después de publicar, entrá a /admin?v=redes: el borrador de noviembre se regenera solo con los posts nuevos. Revisá y tocá Aprobar mes.
+
+
+PAQUETES STARTER (23 nov 2026)
+Subir tambien: preorder.html, api/_lib/precios.js, api/_lib/tienda.js, api/_lib/fn/pedido.js, api/_lib/mejoras.js, api/_lib/adminui.js, api/admin.js.
+Despues del deploy: abrir /preorder (seccion Starter), hacer un pedido de prueba, y en /admin?v=nueva aparecen los 3 paquetes al final de Productos.

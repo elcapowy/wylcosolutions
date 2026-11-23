@@ -127,9 +127,12 @@ const CAJA_DEF = {
   'k11-2in1-11': { l: 20, w: 14, h: 14, lb: 18 },
   'spk11-b35': { l: 13, w: 9, h: 8, lb: 10 },
   '20002': { l: 14, w: 10, h: 8, lb: 19 },
-  'rfk11': { l: 12, w: 10, h: 8, lb: 10 }
+  'rfk11': { l: 12, w: 10, h: 8, lb: 10 },
+  'starter-tecnico': { l: 12, w: 9, h: 6, lb: 3 },
+  'starter-mostrador': { l: 16, w: 12, h: 10, lb: 12 },
+  'starter-plus': { l: 20, w: 14, h: 12, lb: 24 }
 };
-async function cajasEnvio() { const c = await X.cfg('cajas', {}); const r = {}; for (const p of T.PRODUCTS) { const d = CAJA_DEF[p.slug] || { l: 16, w: 12, h: 10, lb: 15 }, m = c[p.slug]; r[p.slug] = m ? { ...d, ...m, medido: true } : { ...d, medido: false }; } return r; }
+async function cajasEnvio() { const c = await X.cfg('cajas', {}); const r = {}; for (const p of T.ALL) { const d = CAJA_DEF[p.slug] || { l: 16, w: 12, h: 10, lb: 15 }, m = c[p.slug]; r[p.slug] = m ? { ...d, ...m, medido: true } : { ...d, medido: false }; } return r; }
 const pesoFact = d => Math.max(d.lb, Math.ceil(d.l * d.w * d.h / 139));
 const EST = { alabama: 'AL', alaska: 'AK', arizona: 'AZ', arkansas: 'AR', california: 'CA', colorado: 'CO', connecticut: 'CT', delaware: 'DE', 'district of columbia': 'DC', florida: 'FL', georgia: 'GA', hawaii: 'HI', idaho: 'ID', illinois: 'IL', indiana: 'IN', iowa: 'IA', kansas: 'KS', kentucky: 'KY', louisiana: 'LA', maine: 'ME', maryland: 'MD', massachusetts: 'MA', michigan: 'MI', minnesota: 'MN', mississippi: 'MS', missouri: 'MO', montana: 'MT', nebraska: 'NE', nevada: 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ', 'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', ohio: 'OH', oklahoma: 'OK', oregon: 'OR', pennsylvania: 'PA', 'puerto rico': 'PR', 'rhode island': 'RI', 'south carolina': 'SC', 'south dakota': 'SD', tennessee: 'TN', texas: 'TX', utah: 'UT', vermont: 'VT', virginia: 'VA', washington: 'WA', 'west virginia': 'WV', wisconsin: 'WI', wyoming: 'WY' };
 const estado2 = s => { const x = String(s || '').trim(); return x.length === 2 ? x.toUpperCase() : EST[x.toLowerCase()] || x; };

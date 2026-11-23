@@ -21,8 +21,8 @@ async function clienteStripe(o, c) {
   return id ? stripe('customers/' + id, data) : stripe('customers', data);
 }
 async function crearFactura(o) {
-  const pr = await precios(o.items.map(i => i.slug));
-  const falta = o.items.filter(i => !pr[i.slug]).map(i => i.sku);
+  const pr = await precios(o.items.filter(i => !i.kit).map(i => i.slug));
+  const falta = o.items.filter(i => !i.kit && !pr[i.slug]).map(i => i.sku);
   if (falta.length) throw new Error('Falta precio en Stripe para: ' + falta.join(', ') + ' (cargalo en Stock)');
   const c = o.cliente ? await T.cliente(o.cliente) : null;
   const sc = await clienteStripe(o, c);
@@ -34,12 +34,12 @@ async function crearFactura(o) {
     footer: 'Wylco Solutions LLC · 4350 Hillcrest Dr, Apt 220, Hollywood, FL 33021 · info@wylcosolutions.com · +1 (954) 881-8870',
     payment_settings: { payment_method_types: ['card', 'us_bank_account', 'customer_balance'], payment_method_options: { customer_balance: { funding_type: 'bank_transfer', bank_transfer: { type: 'us_bank_transfer' } } } }
   });
-  const cfg = await E.config(), sub = o.items.reduce((a, i) => a + pr[i.slug].unit_amount * i.cases, 0) / 100, nc = o.items.reduce((a, i) => a + i.cases, 0);
+  const cfg = await E.config(), sub = o.items.reduce((a, i) => a + (i.kit ? Math.round((i.precio || (T.BY[i.slug] || {}).price || 0) * 100) : pr[i.slug].unit_amount) * i.cases, 0) / 100, nc = o.items.reduce((a, i) => a + i.cases * (i.kit ? ((T.BY[i.slug] || {}).ship || 1) : 1), 0);
   const fl = o.flete_manual != null ? +o.flete_manual : E.flete(cfg, sub, nc, o.retiro);
-  for (const i of o.items) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
+  for (const i of o.items) await stripe('invoiceitems', i.kit ? { customer: sc.id, invoice: inv.id, quantity: i.cases, price_data: { currency: 'usd', unit_amount: Math.round((i.precio || (T.BY[i.slug] || {}).price || 0) * 100), tax_behavior: 'exclusive', product_data: { name: i.name } }, description: `${i.sku} ${i.name} — ${i.cases} pack(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` } : { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
   const pct = await X.descuento(c, nc);
   if (pct > 0) { await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: -Math.round(sub * pct), currency: 'usd', tax_behavior: 'exclusive', description: `${c && (+c.desc_pct >= pct || await M.pctNivel(c) >= pct) ? 'Customer' : 'Volume'} discount ${pct}%` }); o.descuento = pct; }
-  if (fl > 0) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: Math.round(fl * 100), currency: 'usd', tax_code: 'txcd_92010001', tax_behavior: 'exclusive', description: `Ground shipping — ${nc} case(s) (free on orders $${cfg.gratis.toLocaleString('en-US')}+)` });
+  if (fl > 0) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: Math.round(fl * 100), currency: 'usd', tax_code: 'txcd_92010001', tax_behavior: 'exclusive', description: `Ground shipping — ${o.items.reduce((x, i) => x + i.cases, 0)} item(s) (free on orders $${cfg.gratis.toLocaleString('en-US')}+)` });
   else if (!o.retiro) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: `Shipping — free (order over $${cfg.gratis.toLocaleString('en-US')})` });
   else await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: 0, currency: 'usd', description: 'Pickup in Miami — no shipping charge' });
   o.flete = fl;
@@ -123,7 +123,7 @@ async function accion(b) {
   if (a === 'nueva') {
     const datos = {}; for (const k of ['company', 'contact', 'email', 'phone', 'address', 'city', 'state', 'zip', 'business_type', 'ein', 'payment', 'notes']) datos[k] = String(b[k] || '').trim();
     datos.email = datos.email.toLowerCase();
-    const items = T.PRODUCTS.map(p => ({ slug: p.slug, q: Math.max(0, parseInt(b['qty_' + p.slug], 10) || 0) })).filter(x => x.q);
+    const items = T.ALL.map(p => ({ slug: p.slug, q: Math.max(0, parseInt(b['qty_' + p.slug], 10) || 0) })).filter(x => x.q);
     if (!datos.email || !datos.company) throw new Error('Falta empresa o email');
     if (!items.length) throw new Error('Cargá al menos una caja');
     const o = await T.crearVenta({ datos, items, origen: 'admin', estado: 'nuevo' });

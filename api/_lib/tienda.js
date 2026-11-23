@@ -7,7 +7,10 @@ const PRODUCTS = [
   { slug: '20002', sku: '20002', name: 'K11 Coupler 1/4"', desc: 'Standard 1/4" service port coupler', desc_es: 'Acople estándar 1/4"', units: 400, img: '/assets/tile_adapter.png', sds: null },
   { slug: 'rfk11', sku: 'RFK11', name: 'K11 Revela Fugas', desc: 'UV fluorescent leak detection dye', desc_es: 'Tinte UV fluorescente detector de fugas', units: null, img: '/assets/products/rfk11-box.png', sds: '/assets/sds/K11-Revela-Fugas-SDS-EN.pdf' }
 ];
-const BY = Object.fromEntries(PRODUCTS.map(p => [p.slug, p]));
+// Paquetes Starter: se arman con unidades sueltas (pool k11:sueltas) y, si faltan, abren cajas del stock
+const KITS = require('./precios').KITS.map(k => ({ slug: k.slug, sku: k.id, name: k.en, name_es: k.n, desc: 'Starter pack for new businesses', desc_es: 'Paquete de inicio para negocios nuevos', kit: true, comp: k.comp, price: k.price, ship: k.ship, units: null, img: '/assets/products/tfk11-box.png', sds: '/assets/sds/K11-TapaFugas-SDS-EN.pdf' }));
+const ALL = [...PRODUCTS, ...KITS];
+const BY = Object.fromEntries(ALL.map(p => [p.slug, p]));
 const SITE = 'https://wylcosolutions.com';
 const now = () => new Date().toISOString();
 const cid = e => String(e || '').trim().toLowerCase();
@@ -51,6 +54,7 @@ async function cubrirPrepedidos(slug) {
     await guardarPedido(o); out.push({ ref: o.ref, company: o.company, email: o.email, sku: i.sku, cajas: r, listo });
     if (i.preorder) break;
   }
+  try { out.push(...await cubrirKits()); } catch (e) { console.error('cubrirKits', e.message); }
   return out;
 }
 // reserva hasta q cajas; devuelve cuántas tomó del stock
@@ -61,8 +65,51 @@ async function reservar(slug, q, ref) {
   await mov(slug, -r, 'venta', ref);
   return r;
 }
+// ── Starter (kits) ──
+async function sueltas() { const [h] = await redis([['HGETALL', 'k11:sueltas']]); const o = toObj(h), r = {}; for (const k in o) r[k] = parseInt(o[k], 10) || 0; return r; }
+// Cuántos paquetes se pueden armar con lo que hay (sueltas + cajas cerradas)
+async function kitsPosibles(kit) {
+  const [s, l] = await Promise.all([redis([['HGETALL', 'k11:stock']]), sueltas()]), st = toObj(s[0]);
+  let max = Infinity;
+  for (const [c, per] of Object.entries(kit.comp)) { const upc = (BY[c] || {}).units || 0, disp = (l[c] || 0) + Math.max(0, parseInt(st[c] || '0', 10) || 0) * upc; max = Math.min(max, Math.floor(disp / per)); }
+  return Number.isFinite(max) ? max : 0;
+}
+// Reserva hasta q paquetes; descuenta unidades sueltas y abre cajas cerradas si hace falta. Devuelve cuántos paquetes tomó.
+async function reservarKit(slug, q, ref) {
+  const kit = BY[slug]; if (!kit || !kit.kit) return 0;
+  const n = Math.max(0, Math.min(q, await kitsPosibles(kit)));
+  if (!n) return 0;
+  const l = await sueltas();
+  for (const [c, per] of Object.entries(kit.comp)) {
+    const need = per * n, upc = BY[c].units, have = l[c] || 0;
+    const take = Math.min(have, need), short = need - take, cajas = short > 0 ? Math.ceil(short / upc) : 0;
+    const delta = -take + (cajas * upc - short); // sueltas finales = have - take + sobrante de cajas abiertas
+    if (cajas) { await redis([['HINCRBY', 'k11:stock', c, -cajas]]); await mov(c, -cajas, 'abierta para Starter', ref); }
+    if (delta) await redis([['HINCRBY', 'k11:sueltas', c, delta]]);
+  }
+  await mov(slug, -n, 'venta Starter', ref);
+  return n;
+}
+async function devolverKit(slug, q, ref) {
+  const kit = BY[slug]; if (!kit || !kit.kit || !(q > 0)) return;
+  for (const [c, per] of Object.entries(kit.comp)) await redis([['HINCRBY', 'k11:sueltas', c, per * q]]);
+  await mov(slug, q, 'devolución Starter', ref);
+}
+// Al entrar stock: completa Starter en pre-pedido, del más viejo al más nuevo
+async function cubrirKits() {
+  const ps = (await pedidos()).filter(o => !['enviado', 'cancelado'].includes(o.estado) && (o.items || []).some(i => (BY[i.slug] || {}).kit && i.preorder > 0)).sort((a, b) => a.at.localeCompare(b.at));
+  const out = [];
+  for (const o of ps) for (const i of o.items.filter(x => (BY[x.slug] || {}).kit && x.preorder > 0)) {
+    const r = await reservarKit(i.slug, i.preorder, o.ref); if (!r) continue;
+    i.reserved = (i.reserved || 0) + r; i.preorder -= r;
+    const listo = o.items.every(x => !x.preorder);
+    hist(o, `Stock asignado: ${r} paquete(s) ${i.sku} de pre-pedido${listo ? ' · pedido completo, listo para despachar' : ''}`);
+    await guardarPedido(o); out.push({ ref: o.ref, company: o.company, email: o.email, sku: i.sku, cajas: r, listo });
+  }
+  return out;
+}
 async function devolver(slug, q, ref) { if (q > 0) { await redis([['HINCRBY', 'k11:stock', slug, q]]); await mov(slug, q, 'devolución', ref); } }
-async function devolverPedido(o) { for (const i of o.items || []) await devolver(i.slug, i.reserved || 0, o.ref); }
+async function devolverPedido(o) { for (const i of o.items || []) { if ((BY[i.slug] || {}).kit) await devolverKit(i.slug, i.reserved || 0, o.ref); else await devolver(i.slug, i.reserved || 0, o.ref); } }
 
 // ── Clientes ──
 async function clientes() { const [h] = await redis([['HGETALL', 'k11:clientes']]); return parseAll(h); }
@@ -87,7 +134,7 @@ async function crearVenta({ datos, items, origen, estado, ref, extra }) {
   const c = await upsertCliente(datos);
   ref = ref || 'K11-' + Date.now().toString(36).toUpperCase();
   const out = [];
-  for (const { slug, q } of items) { const p = BY[slug]; if (!p || !q) continue; const r = await reservar(slug, q, ref); out.push({ slug, sku: p.sku, name: p.name, cases: q, reserved: r, preorder: q - r }); }
+  for (const { slug, q } of items) { const p = BY[slug]; if (!p || !q) continue; const r = p.kit ? await reservarKit(slug, q, ref) : await reservar(slug, q, ref); out.push({ slug, sku: p.sku, name: p.name, cases: q, reserved: r, preorder: q - r, ...(p.kit ? { kit: true, precio: p.price } : {}) }); }
   const o = { ref, at: now(), estado: estado || 'nuevo', origen, cliente: c ? c.id : '', ...pick(datos, ['company', 'contact', 'email', 'phone', 'address', 'city', 'state', 'zip', 'business_type', 'ein', 'payment', 'notes']), items: out, ...(extra || {}) };
   if (c && c.stripe_customer && !o.stripe_customer) o.stripe_customer = c.stripe_customer;
   hist(o, 'Venta creada (' + origen + ')' + (out.some(i => i.preorder) ? ' · incluye pre-pedido' : ''));
@@ -97,4 +144,4 @@ async function crearVenta({ datos, items, origen, estado, ref, extra }) {
 }
 const pick = (o, ks) => { const r = {}; for (const k of ks) if (o && o[k] != null && o[k] !== '') r[k] = o[k]; return r; };
 
-module.exports = { cubrirPrepedidos, PRODUCTS, BY, SITE, cid, leerTienda, mov, movimientos, fijarStock, sumarStock, reservar, devolver, devolverPedido, clientes, cliente, guardarCliente, upsertCliente, pedidos, pedido, guardarPedido, hist, crearVenta };
+module.exports = { cubrirPrepedidos, cubrirKits, reservarKit, devolverKit, sueltas, kitsPosibles, KITS, ALL, PRODUCTS, BY, SITE, cid, leerTienda, mov, movimientos, fijarStock, sumarStock, reservar, devolver, devolverPedido, clientes, cliente, guardarCliente, upsertCliente, pedidos, pedido, guardarPedido, hist, crearVenta };

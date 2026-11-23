@@ -114,9 +114,9 @@ var P=[
 var $=function(s){return document.querySelector(s)},m=function(v){return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})};
 $('#prods').innerHTML=P.map(function(x){return '<div class="pr"><div class="im"><img src="'+x.i+'" alt=""></div><div><h3>'+x.n+'</h3><p>'+x.d+' <i>· '+x.e+'</i></p><div class="pc"><s>'+m(x.l)+'</s><b>'+m(x.p)+'</b> per case of '+x.u+' · '+m(x.p/x.u)+' per unit</div></div><label class="q">Cases<input type="number" min="0" max="99" step="1" value="0" name="qty_'+x.s+'" data-s="'+x.s+'" inputmode="numeric"></label></div>'}).join('');
 var K=[
-{s:'starter-tecnico',n:'Starter · Technician',es:'Técnico independiente o empresa nueva',c:'6 TapaFugas · 6 TapaFugas 2-in-1 · 2 Sella Plus · 1 Coupler',u:15,p:260,r:431},
-{s:'starter-mostrador',n:'Starter · Counter',es:'Casa de suministros chica o tienda nueva',c:'24 TapaFugas · 24 2-in-1 · 12 Sella Plus · 4 Coupler',u:64,p:1080,r:1789},
-{s:'starter-plus',n:'Starter · Plus',es:'Mostrador con movimiento o 2 sucursales',c:'48 TapaFugas · 48 2-in-1 · 24 Sella Plus · 8 Coupler',u:128,p:2150,r:3578}];
+{s:'starter-tecnico',n:'Starter · Technician',es:'Técnico independiente o empresa nueva',c:'6 TapaFugas · 6 TapaFugas 2-in-1 · 2 Sella Plus · 1 Coupler',u:15,p:275,r:431},
+{s:'starter-mostrador',n:'Starter · Counter',es:'Casa de suministros chica o tienda nueva',c:'24 TapaFugas · 24 2-in-1 · 12 Sella Plus · 4 Coupler',u:64,p:1135,r:1789},
+{s:'starter-plus',n:'Starter · Plus',es:'Mostrador con movimiento o 2 sucursales',c:'48 TapaFugas · 48 2-in-1 · 24 Sella Plus · 8 Coupler',u:128,p:2275,r:3578}];
 $('#kits').innerHTML=K.map(function(x){return '<div class="pr"><div class="im"><img src="/assets/products/tfk11-box.png" alt=""></div><div><h3>'+x.n+'</h3><p>'+x.c+' <i>· '+x.u+' units · '+x.es+'</i></p><div class="pc"><b>'+m(x.p)+'</b> per pack · suggested resale value '+m(x.r)+'</div></div><label class="q">Packs<input type="number" min="0" max="99" step="1" value="0" name="qty_'+x.s+'" data-s="'+x.s+'" inputmode="numeric"></label></div>'}).join('');
 function qv(s){return Math.max(0,Math.floor(+document.querySelector('[data-s="'+s+'"]').value||0))}
 function calc(){var n=0,sub=0,list=0,nk=0,ks=0;P.forEach(function(x){var q=qv(x.s);n+=q;sub+=q*x.p;list+=q*x.l});K.forEach(function(x){var q=qv(x.s);nk+=q;ks+=q*x.p});

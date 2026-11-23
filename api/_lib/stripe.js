@@ -25,10 +25,10 @@ async function stripe(path, params, method) {
 }
 const lookup = slug => 'k11_' + slug + '_case';
 async function precios(slugs) {
-  if (!SK) return {};
+  if (!SK || !slugs.length) return {}; // pedido solo de kits: no hay precios por caja que buscar
   const p = {}; slugs.forEach((s, i) => p[`lookup_keys[${i}]`] = lookup(s));
   const r = await stripe('prices?active=true&limit=20&' + new URLSearchParams(p).toString());
-  const out = {}; for (const x of r.data) out[x.lookup_key.replace(/^k11_|_case$/g, '')] = x;
+  const out = {}; for (const x of r.data) if (x.lookup_key) out[x.lookup_key.replace(/^k11_|_case$/g, '')] = x; // ignora precios sin lookup_key (ej. kits Starter)
   return out;
 }
 // Crea/actualiza producto (id fijo) y un precio nuevo por caja; el anterior queda archivado

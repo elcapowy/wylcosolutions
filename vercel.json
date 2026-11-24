@@ -114,7 +114,15 @@
   ],
   "rewrites": [
     {
-      "source": "/api/:fn(buy|checkout|enviar|etiqueta|feed|order|panel|pedido|portal|stock|tareas|test)",
+      "source": "/samples",
+      "destination": "/api/r?fn=muestra"
+    },
+    {
+      "source": "/muestras",
+      "destination": "/api/r?fn=muestra&lang=es"
+    },
+    {
+      "source": "/api/:fn(buy|checkout|enviar|etiqueta|feed|muestra|order|panel|pedido|portal|stock|tareas|test)",
       "destination": "/api/r?fn=:fn"
     },
     {

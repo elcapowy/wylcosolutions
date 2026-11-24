@@ -28,15 +28,17 @@ const marcarStop = (email, motivo) => redis([motivo ? ['HSET', 'k11:stop', email
 
 function hoy() { return new Intl.DateTimeFormat('en-CA', { timeZone: CFG.TZ }).format(new Date()); }
 
-function armar(k, lang, emp, ciudad) {
+function armar(k, lang, emp, ciudad, id) {
+  if (/^mues/.test(k)) return require('./muestras_mail').build(k, lang, emp, id); // campaña de muestras: mail HTML (+ texto)
   const t = D.tpl[k][lang] || D.tpl[k].en;
   const r = s => s.replace(/\{empresa\}/g, emp).replace(/\{enciudad\}/g, ciudad ? ' in ' + ciudad : '').replace(/\{enciudad_es\}/g, ciudad ? ' en ' + ciudad : '');
   return { s: r(t.s), b: r(t.b) + '\n\n' + D.sig[lang] + '\n\n' + r(D.foot[lang]) };
 }
 
-async function enviar(to, s, b, adjuntar) {
+async function enviar(to, s, b, adjuntar, html) {
   const p = { from: CFG.FROM, to: [to], subject: s, text: b, reply_to: CFG.REPLY_TO,
     headers: { 'List-Unsubscribe': '<mailto:' + CFG.REPLY_TO + '?subject=unsubscribe>' } };
+  if (html) p.html = html;
   if (adjuntar && CFG.FICHA_URL) p.attachments = [{ path: CFG.FICHA_URL, filename: 'K11-ficha-tecnica.pdf' }];
   const r = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: 'Bearer ' + process.env.RESEND_API_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(p) });
   const j = await r.json().catch(() => ({}));
@@ -60,7 +62,7 @@ async function enviarHoy({ simular = false } = {}) {
     else if (PRIMERO[r.k] && stop[r.e]) res = { e: 'omitido', n: 'respondió' };
     else if (simular) { log.push({ id: r.id, k: r.k, e: r.e }); n++; continue; }
     else {
-      try { const m = armar(r.k, lang, r.emp, r.c); res = { e: 'enviado', n: await enviar(r.e, m.s, m.b, r.k === 'dist1') }; n++; await pausa(600); }
+      try { const m = armar(r.k, lang, r.emp, r.c, r.id); res = { e: 'enviado', n: await enviar(r.e, m.s, m.b, r.k === 'dist1', m.h) }; n++; await pausa(600); }
       catch (err) { res = { e: 'error', n: String(err.message || err) }; }
     }
     res.at = new Date().toISOString();

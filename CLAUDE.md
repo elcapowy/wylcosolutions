@@ -114,6 +114,6 @@ Archivos: js/i18n.js, pages/*.jsx, páginas estáticas (index.html, products.htm
 
 ## Campaña diciembre 2026 (25-nov)
 - `api/_lib/campana_mail.js`: mails 2-4 (camp2 prevención, camp3 dosis/BTU, camp4 Starter); sufijo a = distribuidores (A), c = contratistas. Heroes `assets/email/camp-hero-{2,3,4}-{en,es}.jpg`.
-- Secuencia por contacto (≥7 días entre mails): A/B/C = prod1,camp2,camp3,camp4; D = prod1,camp2,camp4; E = prod1,camp3. 480 contactos, 1265 envíos, 1-dic-2026 a 5-ene-2027, máx 60/día, lun-vie, sin 24/25/31-dic ni 1-ene.
+- Secuencia por contacto (≥7 días entre mails): A/B/C = prod1,camp2,camp3,camp5,camp4; D = prod1,camp2,camp5,camp4; E = prod1,camp3. camp5 = "¿Por qué Sella Plus es azul?" (del carrusel de Instagram de K11). 480 contactos, 1479 envíos, 1-dic-2026 a 12-ene-2027, máx 60/día, lun-vie, sin 24/25/31-dic ni 1-ene.
 - Interruptor: los rows prod*/camp* NO se envían hasta poner `CAMP_ON=1` en Vercel. camp* se omite si el contacto respondió o se dio de baja.
 - Rows históricos (cont/dist/nac) intactos. Calendario completo en data.json.

@@ -53,6 +53,13 @@ const M = {
            a: ['Sella Plus comes with a blue liquid, and it is there on purpose: it makes the product easier to see at the moment of application. A good point to share with the technicians who buy at your counter.', 'K11 explains it this way: the technician can see better where the product was applied, which adds control to the process.'] },
       listT: 'Why the color matters', list: [['Visible at application', 'The blue liquid makes it easier to see the product as you apply it.'], ['More control', 'You can see better where the product went.'], ['Easier future service', 'When opening or checking a unit, the technician can tell whether a sealant was applied before.'], ['Made for the routine', 'A choice made for those who apply, check and maintain the system.']],
       cta: 'See Sella Plus', ctaHref: 'h' },
+    6: { s: e => `See the leak under UV · TapaFugas 2-in-1 for ${e}`, pre: 'Seals micro-leaks and leaves UV dye at the leak point.',
+      hero: 'The leak, lit up under UV.',
+      photo: 'Field photo: UV dye glowing at the leak point under a UV lamp.',
+      p: { c: ['TapaFugas 2-in-1 does two jobs in one injection: it seals micro-leaks and leaves UV dye at the leak point.', 'With a UV lamp, the dye shows where the leak is, as in the field photo below. Fewer guesses on the next visit.'],
+           a: ['TapaFugas 2-in-1 does two jobs in one injection: it seals micro-leaks and leaves UV dye at the leak point. An easy one to demonstrate at your counter.', 'With a UV lamp, the dye shows where the leak is, as in the field photo below.'] },
+      listT: 'TapaFugas 2-in-1', list: [['Two jobs, one injection', 'Seals micro-leaks and leaves UV dye in the system.'], ['Visible with UV light', 'The dye glows at the leak point under a UV lamp.'], ['Same 10 ml syringe', 'Same dose guide as TapaFugas K11. Always follow the label.']],
+      cta: 'See TapaFugas 2-in-1', ctaHref: 'h' },
     4: { s: e => `Start small. Stock what moves. K11 Starter Packs · ${e}`, pre: 'Mixed units at one fixed price. Ships from Miami.',
       hero: 'Start small. Stock what moves.',
       p: { c: ['Not ready for a full case? K11 Starter Packs are mixed units at one fixed price: the same products and the same terms, to try the line on your own trucks and jobs.'],
@@ -79,6 +86,13 @@ const M = {
            a: ['Sella Plus viene con un líquido azul, y está ahí a propósito: facilita ver el producto en el momento de la aplicación. Un buen dato para compartir con los técnicos que compran en su mostrador.', 'K11 lo explica así: el profesional puede ver mejor dónde fue aplicado el producto, lo que aporta más control al proceso.'] },
       listT: 'Por qué importa el color', list: [['Visible al aplicar', 'El líquido azul facilita ver el producto mientras se aplica.'], ['Más control', 'Se ve mejor dónde fue el producto.'], ['Servicio futuro más simple', 'Al abrir o revisar un equipo, el técnico puede identificar si ya hubo aplicación de sellador anteriormente.'], ['Pensado para la rutina', 'Una elección pensada para quienes aplican, revisan y mantienen el sistema.']],
       cta: 'Ver Sella Plus', ctaHref: 'h' },
+    6: { s: e => `Vea la fuga con luz UV · TapaFugas 2 en 1 para ${e}`, pre: 'Sella micro-fugas y deja tinte UV en el punto de la fuga.',
+      hero: 'La fuga, iluminada con luz UV.',
+      photo: 'Foto de campo: tinte UV brillando en el punto de la fuga bajo lámpara UV.',
+      p: { c: ['TapaFugas 2 en 1 hace dos trabajos en una sola inyección: sella micro-fugas y deja tinte UV en el punto de la fuga.', 'Con una lámpara UV, el tinte muestra dónde está la fuga, como en la foto de campo de abajo. Menos adivinar en la próxima visita.'],
+           a: ['TapaFugas 2 en 1 hace dos trabajos en una sola inyección: sella micro-fugas y deja tinte UV en el punto de la fuga. Fácil de demostrar en su mostrador.', 'Con una lámpara UV, el tinte muestra dónde está la fuga, como en la foto de campo de abajo.'] },
+      listT: 'TapaFugas 2 en 1', list: [['Dos trabajos, una inyección', 'Sella micro-fugas y deja tinte UV en el sistema.'], ['Visible con luz UV', 'El tinte brilla en el punto de la fuga bajo lámpara UV.'], ['Misma jeringa de 10 ml', 'Misma guía de dosis que TapaFugas K11. Siga siempre la etiqueta.']],
+      cta: 'Ver TapaFugas 2 en 1', ctaHref: 'h' },
     4: { s: e => `Empiece de a poco. Surta lo que se mueve. Paquetes Starter K11 · ${e}`, pre: 'Unidades mixtas a precio cerrado. Envío desde Miami.',
       hero: 'Empiece de a poco. Surta lo que se mueve.',
       p: { c: ['¿Todavía no necesita una caja completa? Los paquetes Starter K11 son unidades mixtas a precio cerrado: los mismos productos y las mismas condiciones, para probar la línea en sus propios trabajos.'],
@@ -97,6 +111,7 @@ function build(k, lang, emp) {
   const unsubHref = `mailto:info@wylcosolutions.com?subject=${C.un}`;
   const sec = s => `<div style="${H};font-weight:800;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:${NAVY};border-bottom:3px solid ${ORANGE};display:inline-block;padding-bottom:4px">${esc(s)}</div>`;
   const paras = t.p[aud] || t.p.c;
+  const photoH = t.photo ? `<tr><td class="pad" style="padding:6px 28px 0"><img src="${SITE}/assets/email/uv-field.jpg" width="544" alt="${esc(t.photo)}" style="display:block;width:100%;height:auto;border-radius:8px;border:0"><div style="${B};font-size:12px;color:#5b6070;margin-top:6px">${esc(t.photo)}</div></td></tr>` : '';
   let mid = '';
   if (t.list) mid = `<tr><td class="pad" style="padding:14px 28px 0">${sec(t.listT)}</td></tr><tr><td style="padding:12px 22px 6px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${SOFT};border-radius:10px"><tr><td style="padding:14px 18px 8px">${t.list.map(x => `<div style="${B};font-size:14px;line-height:1.5;color:#1c1f27;margin:0 0 9px"><span style="${H};font-weight:800;font-size:17px;letter-spacing:.04em;text-transform:uppercase;color:${BLUE}">${esc(x[0])}</span><br>${esc(x[1])}</div>`).join('')}</td></tr></table></td></tr>`;
   if (t.table) {
@@ -112,7 +127,7 @@ function build(k, lang, emp) {
 <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#fff;border-radius:12px;overflow:hidden">
 <tr><td><a href="${href}"><img src="${SITE}/assets/email/camp-hero-${n}-${L}.jpg" width="600" alt="${esc(t.hero)}" style="display:block;width:100%;height:auto;border:0"></a></td></tr>
 <tr><td class="pad" style="padding:24px 28px 4px;${B};font-size:16px;line-height:1.55;color:#1c1f27"><p style="margin:0 0 12px">${esc(C.hi(emp))}</p>${paras.map(x => `<p style="margin:0 0 12px">${esc(x)}</p>`).join('')}</td></tr>
-${mid}
+${photoH}${mid}
 <tr><td align="center" style="padding:18px 28px 6px"><a href="${href}" style="display:inline-block;background:${ORANGE};color:#fff;text-decoration:none;${H};font-weight:800;font-size:20px;line-height:1;letter-spacing:.08em;text-transform:uppercase;padding:16px 30px;border-radius:8px">${esc(t.cta)} &rarr;</a><div style="${B};font-size:14px;line-height:1.4;color:#3A3F4D;margin-top:12px">${esc(C.contact)} <a href="${C.docs}" style="color:${BLUE}">${esc(C.sds)}</a></div></td></tr>
 <tr><td class="pad" style="padding:14px 28px 20px;${B};font-size:14px;line-height:1.5;color:#3A3F4D">${esc(C.sig).replace(/\n/g, '<br>')}</td></tr>
 <tr><td style="background:${NAVY};padding:6px 14px"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>${C.bar.map(pill).join('')}</tr></table></td></tr>

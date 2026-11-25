@@ -177,6 +177,26 @@
 "s": "(campaña)",
 "b": "(campana_mail.js)"
 }
+},
+"camp6a": {
+"en": {
+"s": "(campaña)",
+"b": "(campana_mail.js)"
+},
+"es": {
+"s": "(campaña)",
+"b": "(campana_mail.js)"
+}
+},
+"camp6c": {
+"en": {
+"s": "(campaña)",
+"b": "(campana_mail.js)"
+},
+"es": {
+"s": "(campaña)",
+"b": "(campana_mail.js)"
+}
 }
 },
 "sig": {
@@ -11621,7 +11641,7 @@
 {
 "id": 1144,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Efficient Air Conditioning, Inc",
 "c": "",
@@ -11631,7 +11651,7 @@
 {
 "id": 1145,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Elite air systems",
 "c": "",
@@ -11641,7 +11661,7 @@
 {
 "id": 1146,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Emerald Coast Air",
 "c": "",
@@ -11651,7 +11671,7 @@
 {
 "id": 1147,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Freedom Heating and Cooling",
 "c": "",
@@ -11661,7 +11681,7 @@
 {
 "id": 1148,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Service Professionals of Florida",
 "c": "",
@@ -11671,7 +11691,7 @@
 {
 "id": 1149,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Cool Baby Air",
 "c": "Altamonte Springs",
@@ -11681,7 +11701,7 @@
 {
 "id": 1150,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Max Cool Air Conditioning",
 "c": "Apollo Beach",
@@ -11691,7 +11711,7 @@
 {
 "id": 1151,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Gordon AC",
 "c": "Baker",
@@ -11701,7 +11721,7 @@
 {
 "id": 1152,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Williams Air Solutions",
 "c": "Belleair",
@@ -11711,7 +11731,7 @@
 {
 "id": 1153,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Home Rite HVAC",
 "c": "Bldg 200 Ste. 207 Jacksonville",
@@ -11721,7 +11741,7 @@
 {
 "id": 1154,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Ray George&Assoc",
 "c": "Bonita Springs",
@@ -11731,7 +11751,7 @@
 {
 "id": 1155,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Unique Air",
 "c": "Bradenton",
@@ -11741,7 +11761,7 @@
 {
 "id": 1156,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Unique Services",
 "c": "Bradenton",
@@ -11751,7 +11771,7 @@
 {
 "id": 1157,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Always Honest Air",
 "c": "Cape Coral",
@@ -11761,7 +11781,7 @@
 {
 "id": 1158,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "CJ's Heating and Air Condiitoning of SWFL Inc.",
 "c": "Cape Coral",
@@ -11771,7 +11791,7 @@
 {
 "id": 1159,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Wilbur’s ac",
 "c": "Cape Coral",
@@ -11781,7 +11801,7 @@
 {
 "id": 1160,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Carr Air Conditioning",
 "c": "Clearwater",
@@ -11791,7 +11811,7 @@
 {
 "id": 1161,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Kamikaze Cooling and Heating LLC",
 "c": "Clermont",
@@ -11801,7 +11821,7 @@
 {
 "id": 1162,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Elite Heating & Air Conditioning",
 "c": "East Bradenton",
@@ -11811,7 +11831,7 @@
 {
 "id": 1163,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Rinaldis Air Conditioning and Plumbing",
 "c": "East Colonial Dr.Orlando",
@@ -11821,7 +11841,7 @@
 {
 "id": 1164,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Weather Engineers",
 "c": "Edison Ave.Jacksonville",
@@ -11831,7 +11851,7 @@
 {
 "id": 1165,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "King Heating Air And Heating",
 "c": "Elkton",
@@ -11841,7 +11861,7 @@
 {
 "id": 1166,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Certified Heating and Cooling Inc.",
 "c": "Estero",
@@ -11851,7 +11871,7 @@
 {
 "id": 1167,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Amelia’s Best Comfort",
 "c": "Fernandina Beach",
@@ -11861,7 +11881,7 @@
 {
 "id": 1168,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Advanced Air & Refrigeration, Inc.",
 "c": "Fort Myers",
@@ -11871,7 +11891,7 @@
 {
 "id": 1169,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Comfort Peeps",
 "c": "Fort Myers",
@@ -11881,7 +11901,7 @@
 {
 "id": 1170,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Hurricane Air Conditioning of SW Florida, Inc.",
 "c": "Fort Myers",
@@ -11891,7 +11911,7 @@
 {
 "id": 1171,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Island Aire Of Southwest Florida Inc.",
 "c": "Fort Myers",
@@ -11901,7 +11921,7 @@
 {
 "id": 1172,
 "f": "2026-12-14",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Sunset Air and Home Services",
 "c": "Fort Myers",
@@ -11911,7 +11931,7 @@
 {
 "id": 1173,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Tru Air Cooling and Heating, LLC",
 "c": "Fort Pierce",
@@ -11921,7 +11941,7 @@
 {
 "id": 1174,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Comfort Temp Company",
 "c": "Gainesville",
@@ -11931,7 +11951,7 @@
 {
 "id": 1175,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Air Excel Heating and Cooling LLc",
 "c": "Green Cove Springs",
@@ -11941,7 +11961,7 @@
 {
 "id": 1176,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "J&W Heating and Air + Plumbing",
 "c": "Jacksonville",
@@ -11951,7 +11971,7 @@
 {
 "id": 1177,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Thigpen Heating & Cooling",
 "c": "Jacksonville",
@@ -11961,7 +11981,7 @@
 {
 "id": 1178,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Master Cooling Mechanical LLC",
 "c": "Kissimmee",
@@ -11971,7 +11991,7 @@
 {
 "id": 1179,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Ward's Heating & Air Conditioning",
 "c": "Lakeland",
@@ -11981,7 +12001,7 @@
 {
 "id": 1180,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Cool Edge AC & Appliances",
 "c": "Land O' Lakes",
@@ -11991,7 +12011,7 @@
 {
 "id": 1181,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Cornerstone",
 "c": "Land O' Lakes",
@@ -12001,7 +12021,7 @@
 {
 "id": 1182,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "AirZero Air Conditioning",
 "c": "Largo",
@@ -12011,7 +12031,7 @@
 {
 "id": 1183,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Florida AC Services",
 "c": "Largo",
@@ -12021,7 +12041,7 @@
 {
 "id": 1184,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Rusty’s Air Conditioning & Heating, Inc.",
 "c": "Largo",
@@ -12031,7 +12051,7 @@
 {
 "id": 1185,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Tool Pros",
 "c": "Lehigh Acres",
@@ -12041,7 +12061,7 @@
 {
 "id": 1186,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "A/C Authority",
 "c": "Lucie",
@@ -12051,7 +12071,7 @@
 {
 "id": 1187,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "American Air Cares",
 "c": "Lucie",
@@ -12061,7 +12081,7 @@
 {
 "id": 1188,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Austin’s Pro Home Services",
 "c": "Lucie",
@@ -12071,7 +12091,7 @@
 {
 "id": 1189,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Eben's Air Conditioning",
 "c": "Lucie",
@@ -12081,7 +12101,7 @@
 {
 "id": 1190,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Ierna's Heating Cooling & Plumbing",
 "c": "Lutz",
@@ -12091,7 +12111,7 @@
 {
 "id": 1191,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "dependable ac",
 "c": "Macclenny",
@@ -12101,7 +12121,7 @@
 {
 "id": 1192,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Climate Experts",
 "c": "Melbourne",
@@ -12111,7 +12131,7 @@
 {
 "id": 1193,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Precision Ac Services, LLC",
 "c": "Mulberry",
@@ -12121,7 +12141,7 @@
 {
 "id": 1194,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Cool Air Today",
 "c": "Naples",
@@ -12131,7 +12151,7 @@
 {
 "id": 1195,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "J.P. Brett & Sons, Inc.",
 "c": "Naples",
@@ -12141,7 +12161,7 @@
 {
 "id": 1196,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Key to Cool",
 "c": "Naples",
@@ -12151,7 +12171,7 @@
 {
 "id": 1197,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Pickler Air",
 "c": "Naples",
@@ -12161,7 +12181,7 @@
 {
 "id": 1198,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Semper Fidelis AC",
 "c": "Naples",
@@ -12171,7 +12191,7 @@
 {
 "id": 1199,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Speedy Air Conditioning",
 "c": "Naples",
@@ -12181,7 +12201,7 @@
 {
 "id": 1200,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Wicked Cool AC",
 "c": "Naples",
@@ -12191,7 +12211,7 @@
 {
 "id": 1201,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "paradise home serviced",
 "c": "Navarre",
@@ -12201,7 +12221,7 @@
 {
 "id": 1202,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Comfort Airz",
 "c": "New Port Richey",
@@ -12211,7 +12231,7 @@
 {
 "id": 1203,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "aback breeze air conditioning",
 "c": "North Fort Myers",
@@ -12221,7 +12241,7 @@
 {
 "id": 1204,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Jarred's Air",
 "c": "North Port",
@@ -12231,7 +12251,7 @@
 {
 "id": 1205,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Air Hawk Heating & Cooling",
 "c": "Odessa",
@@ -12241,7 +12261,7 @@
 {
 "id": 1206,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Millers Central Air",
 "c": "Okeechobee",
@@ -12251,7 +12271,7 @@
 {
 "id": 1207,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Aarco Air",
 "c": "Orlando",
@@ -12261,7 +12281,7 @@
 {
 "id": 1208,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "AIR2 Homes, LLC",
 "c": "Orlando",
@@ -12271,7 +12291,7 @@
 {
 "id": 1209,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Cool Zone AC",
 "c": "Orlando",
@@ -12281,7 +12301,7 @@
 {
 "id": 1210,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Downtown Air and Heat",
 "c": "Orlando",
@@ -12291,7 +12311,7 @@
 {
 "id": 1211,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "EC Waters",
 "c": "Orlando",
@@ -12301,7 +12321,7 @@
 {
 "id": 1212,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "VanEddie's Heat & Air",
 "c": "Orlando",
@@ -12311,7 +12331,7 @@
 {
 "id": 1213,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "R and A Industries",
 "c": "Oviedo",
@@ -12321,7 +12341,7 @@
 {
 "id": 1214,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Bogans Air Conditioning and Heating inc",
 "c": "Palm Bay",
@@ -12331,7 +12351,7 @@
 {
 "id": 1215,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Arctic Breeze Air Conditioning and Heating",
 "c": "Palm Coast",
@@ -12341,7 +12361,7 @@
 {
 "id": 1216,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Kev Air Heating and Air Conditioning",
 "c": "Palm Coast",
@@ -12351,7 +12371,7 @@
 {
 "id": 1217,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "All American AC",
 "c": "Panama City",
@@ -12361,7 +12381,7 @@
 {
 "id": 1218,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Whitehead Plumbing & Air Conditioning",
 "c": "Panama City",
@@ -12371,7 +12391,7 @@
 {
 "id": 1219,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "A Superior Air Conditioning",
 "c": "Panama City Beach",
@@ -12381,7 +12401,7 @@
 {
 "id": 1220,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Modern Air Solutions, LLC",
 "c": "Panama City Beach",
@@ -12391,7 +12411,7 @@
 {
 "id": 1221,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "C&S Heating and Cooling, LLC.",
 "c": "Parrish",
@@ -12401,7 +12421,7 @@
 {
 "id": 1222,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Peaden Air Conditioning",
 "c": "Pensacola",
@@ -12411,7 +12431,7 @@
 {
 "id": 1223,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Total Air",
 "c": "Petersburg",
@@ -12421,7 +12441,7 @@
 {
 "id": 1224,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Duvall Heating & Air Conditioning",
 "c": "Plant City",
@@ -12431,7 +12451,7 @@
 {
 "id": 1225,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Strategic Air",
 "c": "Plant City",
@@ -12441,7 +12461,7 @@
 {
 "id": 1226,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "OCEAN AIR COND of SWF Inc.",
 "c": "Port Charlotte",
@@ -12451,7 +12471,7 @@
 {
 "id": 1227,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Precision Air Conditioning of Florida, LLC",
 "c": "Port Charlotte",
@@ -12461,7 +12481,7 @@
 {
 "id": 1228,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Clean Air Technologies",
 "c": "Port Saint Lucie",
@@ -12471,7 +12491,7 @@
 {
 "id": 1229,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "One Call Air Conditioning and Heating Inc",
 "c": "Port Saint Lucie",
@@ -12481,7 +12501,7 @@
 {
 "id": 1230,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "First Choice Plus plumbing and air",
 "c": "Port St. Lucie",
@@ -12491,7 +12511,7 @@
 {
 "id": 1231,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Harmony Air Llc",
 "c": "Port St. Lucie",
@@ -12501,7 +12521,7 @@
 {
 "id": 1232,
 "f": "2026-12-15",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Hawk Air Conditioning Repair & Service",
 "c": "Port St. Lucie",
@@ -12511,7 +12531,7 @@
 {
 "id": 1233,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "True Temp LLC",
 "c": "Port St. Lucie",
@@ -12521,7 +12541,7 @@
 {
 "id": 1234,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Bohall's Total Comfort",
 "c": "Punta Gorda",
@@ -12531,7 +12551,7 @@
 {
 "id": 1235,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "ATAR",
 "c": "Riverview",
@@ -12541,7 +12561,7 @@
 {
 "id": 1236,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "HERON AC",
 "c": "Saint James City",
@@ -12551,7 +12571,7 @@
 {
 "id": 1237,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Facemyer Air Conditioning & Heating",
 "c": "Sanford",
@@ -12561,7 +12581,7 @@
 {
 "id": 1238,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Sole Aire Air Conditioning Services",
 "c": "Sanford",
@@ -12571,7 +12591,7 @@
 {
 "id": 1239,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Adkins Heating and Air",
 "c": "Santa Rosa Beach",
@@ -12581,7 +12601,7 @@
 {
 "id": 1240,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Gary Air",
 "c": "Sarasota",
@@ -12591,7 +12611,7 @@
 {
 "id": 1241,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "arnold air conditioning",
 "c": "Sebastian",
@@ -12601,7 +12621,7 @@
 {
 "id": 1242,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Michael Pollitt Inc",
 "c": "Sebring",
@@ -12611,7 +12631,7 @@
 {
 "id": 1243,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Jerry Brittingham A/C & Heat, Inc.",
 "c": "South Daytona",
@@ -12621,7 +12641,7 @@
 {
 "id": 1244,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Waychoff's Air Conditioning",
 "c": "South Jacksonville",
@@ -12631,7 +12651,7 @@
 {
 "id": 1245,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Comfort Control Specialists",
 "c": "Spring Hill",
@@ -12641,7 +12661,7 @@
 {
 "id": 1246,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Action Heating & Air Inc",
 "c": "St. Augustine",
@@ -12651,7 +12671,7 @@
 {
 "id": 1247,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Titan heating and air",
 "c": "St. Augustine",
@@ -12661,7 +12681,7 @@
 {
 "id": 1248,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Osceola Air",
 "c": "St. Cloud",
@@ -12671,7 +12691,7 @@
 {
 "id": 1249,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Barineau AC",
 "c": "Tallahassee",
@@ -12681,7 +12701,7 @@
 {
 "id": 1250,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Parker Services Air Conditioning & Heating",
 "c": "Tallahassee",
@@ -12691,7 +12711,7 @@
 {
 "id": 1251,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "peaden llc",
 "c": "Tallahassee",
@@ -12701,7 +12721,7 @@
 {
 "id": 1252,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Air 360 Heating and Cooling",
 "c": "Tamiami Trl Port Charlotte",
@@ -12711,7 +12731,7 @@
 {
 "id": 1253,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Air 24/7",
 "c": "Tampa",
@@ -12721,7 +12741,7 @@
 {
 "id": 1254,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Air Rescue Tampa Bay",
 "c": "Tampa",
@@ -12731,7 +12751,7 @@
 {
 "id": 1255,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Alvarez Plumbing and Air Conditioning",
 "c": "Tampa",
@@ -12741,7 +12761,7 @@
 {
 "id": 1256,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Always Bee Cool",
 "c": "Tampa",
@@ -12751,7 +12771,7 @@
 {
 "id": 1257,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Comfort All Stars",
 "c": "Tampa",
@@ -12761,7 +12781,7 @@
 {
 "id": 1258,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Home Service Heros",
 "c": "Tampa",
@@ -12771,7 +12791,7 @@
 {
 "id": 1259,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Plan B Ac",
 "c": "Tampa",
@@ -12781,7 +12801,7 @@
 {
 "id": 1260,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Air Docs",
 "c": "Vero Beach",
@@ -12791,7 +12811,7 @@
 {
 "id": 1261,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Barker Air Conditioning and Heating",
 "c": "Vero Beach",
@@ -12801,7 +12821,7 @@
 {
 "id": 1262,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Best Choice AC",
 "c": "Vero Beach",
@@ -12811,7 +12831,7 @@
 {
 "id": 1263,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Smith Services",
 "c": "Vero Beach",
@@ -12821,7 +12841,7 @@
 {
 "id": 1264,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Tropic Air and Heat Vero",
 "c": "Vero Beach",
@@ -12831,7 +12851,7 @@
 {
 "id": 1265,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Pro-Tech Air Conditioning & Plumbing",
 "c": "Winter Park",
@@ -12841,7 +12861,7 @@
 {
 "id": 1266,
 "f": "2026-12-16",
-"k": "camp2c",
+"k": "camp6c",
 "g": "D",
 "emp": "Custom Air Conditioning & Air Quality",
 "c": "Zephyrhills",
@@ -15511,7 +15531,7 @@
 {
 "id": 1533,
 "f": "2026-12-23",
-"k": "camp3a",
+"k": "camp6a",
 "g": "A",
 "emp": "Tropic Supply",
 "c": "Miami / Broward (6 sucursales)",
@@ -15521,7 +15541,7 @@
 {
 "id": 1534,
 "f": "2026-12-23",
-"k": "camp3a",
+"k": "camp6a",
 "g": "A",
 "emp": "United Refrigeration",
 "c": "Miami West #F9",
@@ -15531,7 +15551,7 @@
 {
 "id": 1535,
 "f": "2026-12-23",
-"k": "camp3a",
+"k": "camp6a",
 "g": "A",
 "emp": "United Refrigeration",
 "c": "Sunrise #S4",
@@ -15541,7 +15561,7 @@
 {
 "id": 1536,
 "f": "2026-12-23",
-"k": "camp3a",
+"k": "camp6a",
 "g": "A",
 "emp": "Johnstone Supply #299",
 "c": "Cutler Bay",
@@ -15551,7 +15571,7 @@
 {
 "id": 1537,
 "f": "2026-12-23",
-"k": "camp3a",
+"k": "camp6a",
 "g": "A",
 "emp": "Johnstone Supply #473 / #468",
 "c": "Miami Lakes / Dania",
@@ -15561,7 +15581,7 @@
 {
 "id": 1538,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "true cool ac",
 "c": "Coral Gables",
@@ -15571,7 +15591,7 @@
 {
 "id": 1539,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "ARS - Miami",
 "c": "Doral",
@@ -15581,7 +15601,7 @@
 {
 "id": 1540,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Air Guide Air Conditioning and Heating",
 "c": "Miami",
@@ -15591,7 +15611,7 @@
 {
 "id": 1541,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Air On Demand",
 "c": "Miami",
@@ -15601,7 +15621,7 @@
 {
 "id": 1542,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Air Q Contractors",
 "c": "Miami",
@@ -15611,7 +15631,7 @@
 {
 "id": 1543,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Chill Air Conditioning",
 "c": "Miami",
@@ -15621,7 +15641,7 @@
 {
 "id": 1544,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Emerald Ostel Mechanical",
 "c": "Miami",
@@ -15631,7 +15651,7 @@
 {
 "id": 1545,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Galo Air Conditioning Inc",
 "c": "Miami",
@@ -15641,7 +15661,7 @@
 {
 "id": 1546,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Go Ac Repair",
 "c": "Miami",
@@ -15651,7 +15671,7 @@
 {
 "id": 1547,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Living Air",
 "c": "Miami",
@@ -15661,7 +15681,7 @@
 {
 "id": 1548,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Mr Cool Guys",
 "c": "Miami",
@@ -15671,7 +15691,7 @@
 {
 "id": 1549,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Nel & Son Air Conditioning",
 "c": "Miami",
@@ -15681,7 +15701,7 @@
 {
 "id": 1550,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "The Best Air Conditioning",
 "c": "Miami Shores",
@@ -15691,7 +15711,7 @@
 {
 "id": 1551,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "HVAC PROVIDERS",
 "c": "Princeton",
@@ -15701,7 +15721,7 @@
 {
 "id": 1552,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "M&S Air Conditioning",
 "c": "Ave.Deerfield Beach",
@@ -15711,7 +15731,7 @@
 {
 "id": 1553,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Green Tree Air Conditioning Inc.",
 "c": "Building E Suite 1-4 Pompano Beach",
@@ -15721,7 +15741,7 @@
 {
 "id": 1554,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Art's Plumbing, Air Conditioning & Electric",
 "c": "Coral Springs",
@@ -15731,7 +15751,7 @@
 {
 "id": 1555,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "advance cool air",
 "c": "Davie",
@@ -15741,7 +15761,7 @@
 {
 "id": 1556,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Briggs Cooling and Refrigeration Inc.",
 "c": "Davie",
@@ -15751,7 +15771,7 @@
 {
 "id": 1557,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Air Necessity",
 "c": "Deerfield Beach",
@@ -15761,7 +15781,7 @@
 {
 "id": 1558,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Cousin's Air Inc.",
 "c": "Deerfield Beach",
@@ -15771,7 +15791,7 @@
 {
 "id": 1559,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Ferrara's Air",
 "c": "F Pompano Beach",
@@ -15781,7 +15801,7 @@
 {
 "id": 1560,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "serv tech air conditioning solutions",
 "c": "Ft. Lauderdale",
@@ -15791,7 +15811,7 @@
 {
 "id": 1561,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Air Anytime",
 "c": "Oakland Park",
@@ -15801,7 +15821,7 @@
 {
 "id": 1562,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Air by Speedy",
 "c": "Oakland Park",
@@ -15811,7 +15831,7 @@
 {
 "id": 1563,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Cool By Design",
 "c": "Oakland Park",
@@ -15821,7 +15841,7 @@
 {
 "id": 1564,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Pembroke Pines Air",
 "c": "Pembroke Pines",
@@ -15831,7 +15851,7 @@
 {
 "id": 1565,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "AC Squad Pro",
 "c": "Pompano Beach",
@@ -15841,7 +15861,7 @@
 {
 "id": 1566,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "aire Serv of Coral Springs",
 "c": "Pompano Beach",
@@ -15851,7 +15871,7 @@
 {
 "id": 1567,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Pride Air Conditioning & Appliance",
 "c": "Pompano Beach",
@@ -15861,7 +15881,7 @@
 {
 "id": 1568,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Pannarale ac",
 "c": "Sunrise",
@@ -15871,7 +15891,7 @@
 {
 "id": 1569,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "PROTOCOOL Cooling Solutions",
 "c": "Sunrise",
@@ -15881,7 +15901,7 @@
 {
 "id": 1570,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "AC Brothers",
 "c": "Hialeah",
@@ -15891,7 +15911,7 @@
 {
 "id": 1571,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Central Air Comfort",
 "c": "Hialeah Gardens",
@@ -15901,7 +15921,7 @@
 {
 "id": 1572,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "All Florida Air and Heat",
 "c": "Hialeah",
@@ -15911,7 +15931,7 @@
 {
 "id": 1573,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "ACTL Group",
 "c": "Hialeah",
@@ -15921,7 +15941,7 @@
 {
 "id": 1574,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "911 Cold Air & Refrigeration",
 "c": "Medley",
@@ -15931,7 +15951,7 @@
 {
 "id": 1575,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Rightway A/C & Refrigeration",
 "c": "Hialeah",
@@ -15941,7 +15961,7 @@
 {
 "id": 1576,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Aircond Mechanical",
 "c": "Hialeah",
@@ -15951,7 +15971,7 @@
 {
 "id": 1577,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Lombard Air Conditioning",
 "c": "Hialeah",
@@ -15961,7 +15981,7 @@
 {
 "id": 1578,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "B",
 "emp": "Aircon Management",
 "c": "Hialeah",
@@ -15971,7 +15991,7 @@
 {
 "id": 1579,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Aire Serv of Boca Raton",
 "c": "Boca Raton",
@@ -15981,7 +16001,7 @@
 {
 "id": 1580,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "central air",
 "c": "Boca Raton",
@@ -15991,7 +16011,7 @@
 {
 "id": 1581,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "County Line Air",
 "c": "Boca Raton",
@@ -16001,7 +16021,7 @@
 {
 "id": 1582,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "DM Air Conditioning, LLC",
 "c": "Boca Raton",
@@ -16011,7 +16031,7 @@
 {
 "id": 1583,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Laresi HVAC",
 "c": "Boca Raton",
@@ -16021,7 +16041,7 @@
 {
 "id": 1584,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "A2Z Air Inc",
 "c": "Boynton Beach",
@@ -16031,7 +16051,7 @@
 {
 "id": 1585,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Cool Air Services",
 "c": "Boynton Beach",
@@ -16041,7 +16061,7 @@
 {
 "id": 1586,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Polair",
 "c": "D Delray Beach",
@@ -16051,7 +16071,7 @@
 {
 "id": 1587,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Air Ref",
 "c": "Delray Beach",
@@ -16061,7 +16081,7 @@
 {
 "id": 1588,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Island Air Conditioning",
 "c": "Delray Beach",
@@ -16071,7 +16091,7 @@
 {
 "id": 1589,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Sansone Air Conditioning",
 "c": "Haverhill",
@@ -16081,7 +16101,7 @@
 {
 "id": 1590,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Complete Comfort",
 "c": "Jupiter",
@@ -16091,7 +16111,7 @@
 {
 "id": 1591,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Dukes AC",
 "c": "Jupiter",
@@ -16101,7 +16121,7 @@
 {
 "id": 1592,
 "f": "2026-12-23",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "South Florida Air Solutions",
 "c": "Jupiter",
@@ -16111,7 +16131,7 @@
 {
 "id": 1593,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Stephen K Denny, Inc.",
 "c": "Jupiter",
@@ -16121,7 +16141,7 @@
 {
 "id": 1594,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "CMI Air Conditioning & Electrical",
 "c": "Lake Park",
@@ -16131,7 +16151,7 @@
 {
 "id": 1595,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Cleary Plumbing & Air",
 "c": "Lake Worth",
@@ -16141,7 +16161,7 @@
 {
 "id": 1596,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Cool World AC",
 "c": "Lake Worth",
@@ -16151,7 +16171,7 @@
 {
 "id": 1597,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Crest Air LLC",
 "c": "Lake Worth",
@@ -16161,7 +16181,7 @@
 {
 "id": 1598,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "CSI",
 "c": "Lake Worth Beach",
@@ -16171,7 +16191,7 @@
 {
 "id": 1599,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "TRI-COUNTY HVAC",
 "c": "Loxahatchee",
@@ -16181,7 +16201,7 @@
 {
 "id": 1600,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Spectrum AC",
 "c": "Mangonia Park",
@@ -16191,7 +16211,7 @@
 {
 "id": 1601,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Brown Mechanical Services",
 "c": "North Jupiter",
@@ -16201,7 +16221,7 @@
 {
 "id": 1602,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "ER Air Conditioning Inc",
 "c": "Palm Beach Gardens",
@@ -16211,7 +16231,7 @@
 {
 "id": 1603,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "A/C Doctors of South Florida",
 "c": "Palm Springs",
@@ -16221,7 +16241,7 @@
 {
 "id": 1604,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "John c cassidy",
 "c": "Riviera Beach",
@@ -16231,7 +16251,7 @@
 {
 "id": 1605,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Gulfstream Cooling Inc",
 "c": "Royal Palm Beach",
@@ -16241,7 +16261,7 @@
 {
 "id": 1606,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Alford ac",
 "c": "Tequesta",
@@ -16251,7 +16271,7 @@
 {
 "id": 1607,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "AC Brothers.com",
 "c": "West Palm Beach",
@@ -16261,7 +16281,7 @@
 {
 "id": 1608,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "All Star Plumbing & Air",
 "c": "West Palm Beach",
@@ -16271,7 +16291,7 @@
 {
 "id": 1609,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Aztil Air Conditioning",
 "c": "West Palm Beach",
@@ -16281,7 +16301,7 @@
 {
 "id": 1610,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "David air",
 "c": "West Palm Beach",
@@ -16291,7 +16311,7 @@
 {
 "id": 1611,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Eldred Air conditioning inc.",
 "c": "West Palm Beach",
@@ -16301,7 +16321,7 @@
 {
 "id": 1612,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Go Green Air",
 "c": "West Palm Beach",
@@ -16311,7 +16331,7 @@
 {
 "id": 1613,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Hopkins Air",
 "c": "West Palm Beach",
@@ -16321,7 +16341,7 @@
 {
 "id": 1614,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Kyzar Air Conditioning",
 "c": "West Palm Beach",
@@ -16331,7 +16351,7 @@
 {
 "id": 1615,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "NOVA AIR CONDITIONING",
 "c": "West Palm Beach",
@@ -16341,7 +16361,7 @@
 {
 "id": 1616,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "One Hour Air Conditioning of West Palm Beach",
 "c": "West Palm Beach",
@@ -16351,7 +16371,7 @@
 {
 "id": 1617,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Pelagic Air Conditioner",
 "c": "West Palm Beach",
@@ -16361,7 +16381,7 @@
 {
 "id": 1618,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "The Air Squad",
 "c": "West Palm Beach",
@@ -16371,7 +16391,7 @@
 {
 "id": 1619,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Zimmer Air Conditioning",
 "c": "West Palm Beach",
@@ -16381,7 +16401,7 @@
 {
 "id": 1620,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Ranger Air Conditioning",
 "c": "Hobe Sound",
@@ -16391,7 +16411,7 @@
 {
 "id": 1621,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Local Guy Air Conditioning Services, Inc",
 "c": "Palm City",
@@ -16401,7 +16421,7 @@
 {
 "id": 1622,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Billfish Air Conditioning",
 "c": "Stuart",
@@ -16411,7 +16431,7 @@
 {
 "id": 1623,
 "f": "2026-12-28",
-"k": "camp3c",
+"k": "camp6c",
 "g": "C",
 "emp": "Irwins Air",
 "c": "Key Largo",
@@ -17651,7 +17671,7 @@
 {
 "id": 1747,
 "f": "2026-12-30",
-"k": "camp5a",
+"k": "camp3a",
 "g": "A",
 "emp": "Tropic Supply",
 "c": "Miami / Broward (6 sucursales)",
@@ -17661,7 +17681,7 @@
 {
 "id": 1748,
 "f": "2026-12-30",
-"k": "camp5a",
+"k": "camp3a",
 "g": "A",
 "emp": "United Refrigeration",
 "c": "Miami West #F9",
@@ -17671,7 +17691,7 @@
 {
 "id": 1749,
 "f": "2026-12-30",
-"k": "camp5a",
+"k": "camp3a",
 "g": "A",
 "emp": "United Refrigeration",
 "c": "Sunrise #S4",
@@ -17681,7 +17701,7 @@
 {
 "id": 1750,
 "f": "2026-12-30",
-"k": "camp5a",
+"k": "camp3a",
 "g": "A",
 "emp": "Johnstone Supply #299",
 "c": "Cutler Bay",
@@ -17691,7 +17711,7 @@
 {
 "id": 1751,
 "f": "2026-12-30",
-"k": "camp5a",
+"k": "camp3a",
 "g": "A",
 "emp": "Johnstone Supply #473 / #468",
 "c": "Miami Lakes / Dania",
@@ -17701,7 +17721,7 @@
 {
 "id": 1752,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "true cool ac",
 "c": "Coral Gables",
@@ -17711,7 +17731,7 @@
 {
 "id": 1753,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "ARS - Miami",
 "c": "Doral",
@@ -17721,7 +17741,7 @@
 {
 "id": 1754,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Air Guide Air Conditioning and Heating",
 "c": "Miami",
@@ -17731,7 +17751,7 @@
 {
 "id": 1755,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Air On Demand",
 "c": "Miami",
@@ -17741,7 +17761,7 @@
 {
 "id": 1756,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Air Q Contractors",
 "c": "Miami",
@@ -17751,7 +17771,7 @@
 {
 "id": 1757,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Chill Air Conditioning",
 "c": "Miami",
@@ -17761,7 +17781,7 @@
 {
 "id": 1758,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Emerald Ostel Mechanical",
 "c": "Miami",
@@ -17771,7 +17791,7 @@
 {
 "id": 1759,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Galo Air Conditioning Inc",
 "c": "Miami",
@@ -17781,7 +17801,7 @@
 {
 "id": 1760,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Go Ac Repair",
 "c": "Miami",
@@ -17791,7 +17811,7 @@
 {
 "id": 1761,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Living Air",
 "c": "Miami",
@@ -17801,7 +17821,7 @@
 {
 "id": 1762,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Mr Cool Guys",
 "c": "Miami",
@@ -17811,7 +17831,7 @@
 {
 "id": 1763,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Nel & Son Air Conditioning",
 "c": "Miami",
@@ -17821,7 +17841,7 @@
 {
 "id": 1764,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "The Best Air Conditioning",
 "c": "Miami Shores",
@@ -17831,7 +17851,7 @@
 {
 "id": 1765,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "HVAC PROVIDERS",
 "c": "Princeton",
@@ -17841,7 +17861,7 @@
 {
 "id": 1766,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "M&S Air Conditioning",
 "c": "Ave.Deerfield Beach",
@@ -17851,7 +17871,7 @@
 {
 "id": 1767,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Green Tree Air Conditioning Inc.",
 "c": "Building E Suite 1-4 Pompano Beach",
@@ -17861,7 +17881,7 @@
 {
 "id": 1768,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Art's Plumbing, Air Conditioning & Electric",
 "c": "Coral Springs",
@@ -17871,7 +17891,7 @@
 {
 "id": 1769,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "advance cool air",
 "c": "Davie",
@@ -17881,7 +17901,7 @@
 {
 "id": 1770,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Briggs Cooling and Refrigeration Inc.",
 "c": "Davie",
@@ -17891,7 +17911,7 @@
 {
 "id": 1771,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Air Necessity",
 "c": "Deerfield Beach",
@@ -17901,7 +17921,7 @@
 {
 "id": 1772,
 "f": "2026-12-30",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Cousin's Air Inc.",
 "c": "Deerfield Beach",
@@ -17911,7 +17931,7 @@
 {
 "id": 1773,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Ferrara's Air",
 "c": "F Pompano Beach",
@@ -17921,7 +17941,7 @@
 {
 "id": 1774,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "serv tech air conditioning solutions",
 "c": "Ft. Lauderdale",
@@ -17931,7 +17951,7 @@
 {
 "id": 1775,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Air Anytime",
 "c": "Oakland Park",
@@ -17941,7 +17961,7 @@
 {
 "id": 1776,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Air by Speedy",
 "c": "Oakland Park",
@@ -17951,7 +17971,7 @@
 {
 "id": 1777,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Cool By Design",
 "c": "Oakland Park",
@@ -17961,7 +17981,7 @@
 {
 "id": 1778,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Pembroke Pines Air",
 "c": "Pembroke Pines",
@@ -17971,7 +17991,7 @@
 {
 "id": 1779,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "AC Squad Pro",
 "c": "Pompano Beach",
@@ -17981,7 +18001,7 @@
 {
 "id": 1780,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "aire Serv of Coral Springs",
 "c": "Pompano Beach",
@@ -17991,7 +18011,7 @@
 {
 "id": 1781,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Pride Air Conditioning & Appliance",
 "c": "Pompano Beach",
@@ -18001,7 +18021,7 @@
 {
 "id": 1782,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Pannarale ac",
 "c": "Sunrise",
@@ -18011,7 +18031,7 @@
 {
 "id": 1783,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "PROTOCOOL Cooling Solutions",
 "c": "Sunrise",
@@ -18021,7 +18041,7 @@
 {
 "id": 1784,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "AC Brothers",
 "c": "Hialeah",
@@ -18031,7 +18051,7 @@
 {
 "id": 1785,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Central Air Comfort",
 "c": "Hialeah Gardens",
@@ -18041,7 +18061,7 @@
 {
 "id": 1786,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "All Florida Air and Heat",
 "c": "Hialeah",
@@ -18051,7 +18071,7 @@
 {
 "id": 1787,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "ACTL Group",
 "c": "Hialeah",
@@ -18061,7 +18081,7 @@
 {
 "id": 1788,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "911 Cold Air & Refrigeration",
 "c": "Medley",
@@ -18071,7 +18091,7 @@
 {
 "id": 1789,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Rightway A/C & Refrigeration",
 "c": "Hialeah",
@@ -18081,7 +18101,7 @@
 {
 "id": 1790,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Aircond Mechanical",
 "c": "Hialeah",
@@ -18091,7 +18111,7 @@
 {
 "id": 1791,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Lombard Air Conditioning",
 "c": "Hialeah",
@@ -18101,7 +18121,7 @@
 {
 "id": 1792,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "B",
 "emp": "Aircon Management",
 "c": "Hialeah",
@@ -18111,7 +18131,7 @@
 {
 "id": 1793,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Aire Serv of Boca Raton",
 "c": "Boca Raton",
@@ -18121,7 +18141,7 @@
 {
 "id": 1794,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "central air",
 "c": "Boca Raton",
@@ -18131,7 +18151,7 @@
 {
 "id": 1795,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "County Line Air",
 "c": "Boca Raton",
@@ -18141,7 +18161,7 @@
 {
 "id": 1796,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "DM Air Conditioning, LLC",
 "c": "Boca Raton",
@@ -18151,7 +18171,7 @@
 {
 "id": 1797,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Laresi HVAC",
 "c": "Boca Raton",
@@ -18161,7 +18181,7 @@
 {
 "id": 1798,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "A2Z Air Inc",
 "c": "Boynton Beach",
@@ -18171,7 +18191,7 @@
 {
 "id": 1799,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Cool Air Services",
 "c": "Boynton Beach",
@@ -18181,7 +18201,7 @@
 {
 "id": 1800,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Polair",
 "c": "D Delray Beach",
@@ -18191,7 +18211,7 @@
 {
 "id": 1801,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Air Ref",
 "c": "Delray Beach",
@@ -18201,7 +18221,7 @@
 {
 "id": 1802,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Island Air Conditioning",
 "c": "Delray Beach",
@@ -18211,7 +18231,7 @@
 {
 "id": 1803,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Sansone Air Conditioning",
 "c": "Haverhill",
@@ -18221,7 +18241,7 @@
 {
 "id": 1804,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Complete Comfort",
 "c": "Jupiter",
@@ -18231,7 +18251,7 @@
 {
 "id": 1805,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Dukes AC",
 "c": "Jupiter",
@@ -18241,7 +18261,7 @@
 {
 "id": 1806,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "South Florida Air Solutions",
 "c": "Jupiter",
@@ -18251,7 +18271,7 @@
 {
 "id": 1807,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Stephen K Denny, Inc.",
 "c": "Jupiter",
@@ -18261,7 +18281,7 @@
 {
 "id": 1808,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "CMI Air Conditioning & Electrical",
 "c": "Lake Park",
@@ -18271,7 +18291,7 @@
 {
 "id": 1809,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Cleary Plumbing & Air",
 "c": "Lake Worth",
@@ -18281,7 +18301,7 @@
 {
 "id": 1810,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Cool World AC",
 "c": "Lake Worth",
@@ -18291,7 +18311,7 @@
 {
 "id": 1811,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Crest Air LLC",
 "c": "Lake Worth",
@@ -18301,7 +18321,7 @@
 {
 "id": 1812,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "CSI",
 "c": "Lake Worth Beach",
@@ -18311,7 +18331,7 @@
 {
 "id": 1813,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "TRI-COUNTY HVAC",
 "c": "Loxahatchee",
@@ -18321,7 +18341,7 @@
 {
 "id": 1814,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Spectrum AC",
 "c": "Mangonia Park",
@@ -18331,7 +18351,7 @@
 {
 "id": 1815,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Brown Mechanical Services",
 "c": "North Jupiter",
@@ -18341,7 +18361,7 @@
 {
 "id": 1816,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "ER Air Conditioning Inc",
 "c": "Palm Beach Gardens",
@@ -18351,7 +18371,7 @@
 {
 "id": 1817,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "A/C Doctors of South Florida",
 "c": "Palm Springs",
@@ -18361,7 +18381,7 @@
 {
 "id": 1818,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "John c cassidy",
 "c": "Riviera Beach",
@@ -18371,7 +18391,7 @@
 {
 "id": 1819,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Gulfstream Cooling Inc",
 "c": "Royal Palm Beach",
@@ -18381,7 +18401,7 @@
 {
 "id": 1820,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Alford ac",
 "c": "Tequesta",
@@ -18391,7 +18411,7 @@
 {
 "id": 1821,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "AC Brothers.com",
 "c": "West Palm Beach",
@@ -18401,7 +18421,7 @@
 {
 "id": 1822,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "All Star Plumbing & Air",
 "c": "West Palm Beach",
@@ -18411,7 +18431,7 @@
 {
 "id": 1823,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Aztil Air Conditioning",
 "c": "West Palm Beach",
@@ -18421,7 +18441,7 @@
 {
 "id": 1824,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "David air",
 "c": "West Palm Beach",
@@ -18431,7 +18451,7 @@
 {
 "id": 1825,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Eldred Air conditioning inc.",
 "c": "West Palm Beach",
@@ -18441,7 +18461,7 @@
 {
 "id": 1826,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Go Green Air",
 "c": "West Palm Beach",
@@ -18451,7 +18471,7 @@
 {
 "id": 1827,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Hopkins Air",
 "c": "West Palm Beach",
@@ -18461,7 +18481,7 @@
 {
 "id": 1828,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Kyzar Air Conditioning",
 "c": "West Palm Beach",
@@ -18471,7 +18491,7 @@
 {
 "id": 1829,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "NOVA AIR CONDITIONING",
 "c": "West Palm Beach",
@@ -18481,7 +18501,7 @@
 {
 "id": 1830,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "One Hour Air Conditioning of West Palm Beach",
 "c": "West Palm Beach",
@@ -18491,7 +18511,7 @@
 {
 "id": 1831,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Pelagic Air Conditioner",
 "c": "West Palm Beach",
@@ -18501,7 +18521,7 @@
 {
 "id": 1832,
 "f": "2027-01-04",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "The Air Squad",
 "c": "West Palm Beach",
@@ -18511,7 +18531,7 @@
 {
 "id": 1833,
 "f": "2027-01-05",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Zimmer Air Conditioning",
 "c": "West Palm Beach",
@@ -18521,7 +18541,7 @@
 {
 "id": 1834,
 "f": "2027-01-05",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Ranger Air Conditioning",
 "c": "Hobe Sound",
@@ -18531,7 +18551,7 @@
 {
 "id": 1835,
 "f": "2027-01-05",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Local Guy Air Conditioning Services, Inc",
 "c": "Palm City",
@@ -18541,7 +18561,7 @@
 {
 "id": 1836,
 "f": "2027-01-05",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Billfish Air Conditioning",
 "c": "Stuart",
@@ -18551,7 +18571,7 @@
 {
 "id": 1837,
 "f": "2027-01-05",
-"k": "camp5c",
+"k": "camp3c",
 "g": "C",
 "emp": "Irwins Air",
 "c": "Key Largo",
@@ -19791,7 +19811,7 @@
 {
 "id": 1961,
 "f": "2027-01-07",
-"k": "camp4a",
+"k": "camp5a",
 "g": "A",
 "emp": "Tropic Supply",
 "c": "Miami / Broward (6 sucursales)",
@@ -19801,7 +19821,7 @@
 {
 "id": 1962,
 "f": "2027-01-07",
-"k": "camp4a",
+"k": "camp5a",
 "g": "A",
 "emp": "United Refrigeration",
 "c": "Miami West #F9",
@@ -19811,7 +19831,7 @@
 {
 "id": 1963,
 "f": "2027-01-07",
-"k": "camp4a",
+"k": "camp5a",
 "g": "A",
 "emp": "United Refrigeration",
 "c": "Sunrise #S4",
@@ -19821,7 +19841,7 @@
 {
 "id": 1964,
 "f": "2027-01-07",
-"k": "camp4a",
+"k": "camp5a",
 "g": "A",
 "emp": "Johnstone Supply #299",
 "c": "Cutler Bay",
@@ -19831,7 +19851,7 @@
 {
 "id": 1965,
 "f": "2027-01-07",
-"k": "camp4a",
+"k": "camp5a",
 "g": "A",
 "emp": "Johnstone Supply #473 / #468",
 "c": "Miami Lakes / Dania",
@@ -19841,7 +19861,7 @@
 {
 "id": 1966,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "true cool ac",
 "c": "Coral Gables",
@@ -19851,7 +19871,7 @@
 {
 "id": 1967,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "ARS - Miami",
 "c": "Doral",
@@ -19861,7 +19881,7 @@
 {
 "id": 1968,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Air Guide Air Conditioning and Heating",
 "c": "Miami",
@@ -19871,7 +19891,7 @@
 {
 "id": 1969,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Air On Demand",
 "c": "Miami",
@@ -19881,7 +19901,7 @@
 {
 "id": 1970,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Air Q Contractors",
 "c": "Miami",
@@ -19891,7 +19911,7 @@
 {
 "id": 1971,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Chill Air Conditioning",
 "c": "Miami",
@@ -19901,7 +19921,7 @@
 {
 "id": 1972,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Emerald Ostel Mechanical",
 "c": "Miami",
@@ -19911,7 +19931,7 @@
 {
 "id": 1973,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Galo Air Conditioning Inc",
 "c": "Miami",
@@ -19921,7 +19941,7 @@
 {
 "id": 1974,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Go Ac Repair",
 "c": "Miami",
@@ -19931,7 +19951,7 @@
 {
 "id": 1975,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Living Air",
 "c": "Miami",
@@ -19941,7 +19961,7 @@
 {
 "id": 1976,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Mr Cool Guys",
 "c": "Miami",
@@ -19951,7 +19971,7 @@
 {
 "id": 1977,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Nel & Son Air Conditioning",
 "c": "Miami",
@@ -19961,7 +19981,7 @@
 {
 "id": 1978,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "The Best Air Conditioning",
 "c": "Miami Shores",
@@ -19971,7 +19991,7 @@
 {
 "id": 1979,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "HVAC PROVIDERS",
 "c": "Princeton",
@@ -19981,7 +20001,7 @@
 {
 "id": 1980,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "M&S Air Conditioning",
 "c": "Ave.Deerfield Beach",
@@ -19991,7 +20011,7 @@
 {
 "id": 1981,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Green Tree Air Conditioning Inc.",
 "c": "Building E Suite 1-4 Pompano Beach",
@@ -20001,7 +20021,7 @@
 {
 "id": 1982,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Art's Plumbing, Air Conditioning & Electric",
 "c": "Coral Springs",
@@ -20011,7 +20031,7 @@
 {
 "id": 1983,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "advance cool air",
 "c": "Davie",
@@ -20021,7 +20041,7 @@
 {
 "id": 1984,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Briggs Cooling and Refrigeration Inc.",
 "c": "Davie",
@@ -20031,7 +20051,7 @@
 {
 "id": 1985,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Air Necessity",
 "c": "Deerfield Beach",
@@ -20041,7 +20061,7 @@
 {
 "id": 1986,
 "f": "2027-01-07",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Cousin's Air Inc.",
 "c": "Deerfield Beach",
@@ -20051,7 +20071,7 @@
 {
 "id": 1987,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Ferrara's Air",
 "c": "F Pompano Beach",
@@ -20061,7 +20081,7 @@
 {
 "id": 1988,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "serv tech air conditioning solutions",
 "c": "Ft. Lauderdale",
@@ -20071,7 +20091,7 @@
 {
 "id": 1989,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Air Anytime",
 "c": "Oakland Park",
@@ -20081,7 +20101,7 @@
 {
 "id": 1990,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Air by Speedy",
 "c": "Oakland Park",
@@ -20091,7 +20111,7 @@
 {
 "id": 1991,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Cool By Design",
 "c": "Oakland Park",
@@ -20101,7 +20121,7 @@
 {
 "id": 1992,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Pembroke Pines Air",
 "c": "Pembroke Pines",
@@ -20111,7 +20131,7 @@
 {
 "id": 1993,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "AC Squad Pro",
 "c": "Pompano Beach",
@@ -20121,7 +20141,7 @@
 {
 "id": 1994,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "aire Serv of Coral Springs",
 "c": "Pompano Beach",
@@ -20131,7 +20151,7 @@
 {
 "id": 1995,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Pride Air Conditioning & Appliance",
 "c": "Pompano Beach",
@@ -20141,7 +20161,7 @@
 {
 "id": 1996,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Pannarale ac",
 "c": "Sunrise",
@@ -20151,7 +20171,7 @@
 {
 "id": 1997,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "PROTOCOOL Cooling Solutions",
 "c": "Sunrise",
@@ -20161,7 +20181,7 @@
 {
 "id": 1998,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "AC Brothers",
 "c": "Hialeah",
@@ -20171,7 +20191,7 @@
 {
 "id": 1999,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Central Air Comfort",
 "c": "Hialeah Gardens",
@@ -20181,7 +20201,7 @@
 {
 "id": 2000,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "All Florida Air and Heat",
 "c": "Hialeah",
@@ -20191,7 +20211,7 @@
 {
 "id": 2001,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "ACTL Group",
 "c": "Hialeah",
@@ -20201,7 +20221,7 @@
 {
 "id": 2002,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "911 Cold Air & Refrigeration",
 "c": "Medley",
@@ -20211,7 +20231,7 @@
 {
 "id": 2003,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Rightway A/C & Refrigeration",
 "c": "Hialeah",
@@ -20221,7 +20241,7 @@
 {
 "id": 2004,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Aircond Mechanical",
 "c": "Hialeah",
@@ -20231,7 +20251,7 @@
 {
 "id": 2005,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Lombard Air Conditioning",
 "c": "Hialeah",
@@ -20241,7 +20261,7 @@
 {
 "id": 2006,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "B",
 "emp": "Aircon Management",
 "c": "Hialeah",
@@ -20251,7 +20271,7 @@
 {
 "id": 2007,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Aire Serv of Boca Raton",
 "c": "Boca Raton",
@@ -20261,7 +20281,7 @@
 {
 "id": 2008,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "central air",
 "c": "Boca Raton",
@@ -20271,7 +20291,7 @@
 {
 "id": 2009,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "County Line Air",
 "c": "Boca Raton",
@@ -20281,7 +20301,7 @@
 {
 "id": 2010,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "DM Air Conditioning, LLC",
 "c": "Boca Raton",
@@ -20291,7 +20311,7 @@
 {
 "id": 2011,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Laresi HVAC",
 "c": "Boca Raton",
@@ -20301,7 +20321,7 @@
 {
 "id": 2012,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "A2Z Air Inc",
 "c": "Boynton Beach",
@@ -20311,7 +20331,7 @@
 {
 "id": 2013,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Cool Air Services",
 "c": "Boynton Beach",
@@ -20321,7 +20341,7 @@
 {
 "id": 2014,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Polair",
 "c": "D Delray Beach",
@@ -20331,7 +20351,7 @@
 {
 "id": 2015,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Air Ref",
 "c": "Delray Beach",
@@ -20341,7 +20361,7 @@
 {
 "id": 2016,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Island Air Conditioning",
 "c": "Delray Beach",
@@ -20351,7 +20371,7 @@
 {
 "id": 2017,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Sansone Air Conditioning",
 "c": "Haverhill",
@@ -20361,7 +20381,7 @@
 {
 "id": 2018,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Complete Comfort",
 "c": "Jupiter",
@@ -20371,7 +20391,7 @@
 {
 "id": 2019,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Dukes AC",
 "c": "Jupiter",
@@ -20381,7 +20401,7 @@
 {
 "id": 2020,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "South Florida Air Solutions",
 "c": "Jupiter",
@@ -20391,7 +20411,7 @@
 {
 "id": 2021,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Stephen K Denny, Inc.",
 "c": "Jupiter",
@@ -20401,7 +20421,7 @@
 {
 "id": 2022,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "CMI Air Conditioning & Electrical",
 "c": "Lake Park",
@@ -20411,7 +20431,7 @@
 {
 "id": 2023,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Cleary Plumbing & Air",
 "c": "Lake Worth",
@@ -20421,7 +20441,7 @@
 {
 "id": 2024,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Cool World AC",
 "c": "Lake Worth",
@@ -20431,7 +20451,7 @@
 {
 "id": 2025,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Crest Air LLC",
 "c": "Lake Worth",
@@ -20441,7 +20461,7 @@
 {
 "id": 2026,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "CSI",
 "c": "Lake Worth Beach",
@@ -20451,7 +20471,7 @@
 {
 "id": 2027,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "TRI-COUNTY HVAC",
 "c": "Loxahatchee",
@@ -20461,7 +20481,7 @@
 {
 "id": 2028,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Spectrum AC",
 "c": "Mangonia Park",
@@ -20471,7 +20491,7 @@
 {
 "id": 2029,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Brown Mechanical Services",
 "c": "North Jupiter",
@@ -20481,7 +20501,7 @@
 {
 "id": 2030,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "ER Air Conditioning Inc",
 "c": "Palm Beach Gardens",
@@ -20491,7 +20511,7 @@
 {
 "id": 2031,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "A/C Doctors of South Florida",
 "c": "Palm Springs",
@@ -20501,7 +20521,7 @@
 {
 "id": 2032,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "John c cassidy",
 "c": "Riviera Beach",
@@ -20511,7 +20531,7 @@
 {
 "id": 2033,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Gulfstream Cooling Inc",
 "c": "Royal Palm Beach",
@@ -20521,7 +20541,7 @@
 {
 "id": 2034,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Alford ac",
 "c": "Tequesta",
@@ -20531,7 +20551,7 @@
 {
 "id": 2035,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "AC Brothers.com",
 "c": "West Palm Beach",
@@ -20541,7 +20561,7 @@
 {
 "id": 2036,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "All Star Plumbing & Air",
 "c": "West Palm Beach",
@@ -20551,7 +20571,7 @@
 {
 "id": 2037,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Aztil Air Conditioning",
 "c": "West Palm Beach",
@@ -20561,7 +20581,7 @@
 {
 "id": 2038,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "David air",
 "c": "West Palm Beach",
@@ -20571,7 +20591,7 @@
 {
 "id": 2039,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Eldred Air conditioning inc.",
 "c": "West Palm Beach",
@@ -20581,7 +20601,7 @@
 {
 "id": 2040,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Go Green Air",
 "c": "West Palm Beach",
@@ -20591,7 +20611,7 @@
 {
 "id": 2041,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Hopkins Air",
 "c": "West Palm Beach",
@@ -20601,7 +20621,7 @@
 {
 "id": 2042,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Kyzar Air Conditioning",
 "c": "West Palm Beach",
@@ -20611,7 +20631,7 @@
 {
 "id": 2043,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "NOVA AIR CONDITIONING",
 "c": "West Palm Beach",
@@ -20621,7 +20641,7 @@
 {
 "id": 2044,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "One Hour Air Conditioning of West Palm Beach",
 "c": "West Palm Beach",
@@ -20631,7 +20651,7 @@
 {
 "id": 2045,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Pelagic Air Conditioner",
 "c": "West Palm Beach",
@@ -20641,7 +20661,7 @@
 {
 "id": 2046,
 "f": "2027-01-11",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "The Air Squad",
 "c": "West Palm Beach",
@@ -20651,7 +20671,7 @@
 {
 "id": 2047,
 "f": "2027-01-12",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Zimmer Air Conditioning",
 "c": "West Palm Beach",
@@ -20661,7 +20681,7 @@
 {
 "id": 2048,
 "f": "2027-01-12",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Ranger Air Conditioning",
 "c": "Hobe Sound",
@@ -20671,7 +20691,7 @@
 {
 "id": 2049,
 "f": "2027-01-12",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Local Guy Air Conditioning Services, Inc",
 "c": "Palm City",
@@ -20681,7 +20701,7 @@
 {
 "id": 2050,
 "f": "2027-01-12",
-"k": "camp4c",
+"k": "camp5c",
 "g": "C",
 "emp": "Billfish Air Conditioning",
 "c": "Stuart",
@@ -20691,6 +20711,916 @@
 {
 "id": 2051,
 "f": "2027-01-12",
+"k": "camp5c",
+"g": "C",
+"emp": "Irwins Air",
+"c": "Key Largo",
+"e": "info@irwinsair.com",
+"l": "en"
+},
+{
+"id": 2052,
+"f": "2027-01-14",
+"k": "camp4a",
+"g": "A",
+"emp": "Tropic Supply",
+"c": "Miami / Broward (6 sucursales)",
+"e": "customerservice@tropicsupply.com",
+"l": "en"
+},
+{
+"id": 2053,
+"f": "2027-01-14",
+"k": "camp4a",
+"g": "A",
+"emp": "United Refrigeration",
+"c": "Miami West #F9",
+"e": "branchf9@uri.com",
+"l": "en"
+},
+{
+"id": 2054,
+"f": "2027-01-14",
+"k": "camp4a",
+"g": "A",
+"emp": "United Refrigeration",
+"c": "Sunrise #S4",
+"e": "branchs4@uri.com",
+"l": "en"
+},
+{
+"id": 2055,
+"f": "2027-01-14",
+"k": "camp4a",
+"g": "A",
+"emp": "Johnstone Supply #299",
+"c": "Cutler Bay",
+"e": "store299@johnstonesupply.com",
+"l": "en"
+},
+{
+"id": 2056,
+"f": "2027-01-14",
+"k": "camp4a",
+"g": "A",
+"emp": "Johnstone Supply #473 / #468",
+"c": "Miami Lakes / Dania",
+"e": "info@johnstonewaregroup.com",
+"l": "en"
+},
+{
+"id": 2057,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "true cool ac",
+"c": "Coral Gables",
+"e": "robert@truecoolac.com",
+"l": "en"
+},
+{
+"id": 2058,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "ARS - Miami",
+"c": "Doral",
+"e": "aquintero@ars.com",
+"l": "en"
+},
+{
+"id": 2059,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Air Guide Air Conditioning and Heating",
+"c": "Miami",
+"e": "ac.airguys@gmail.com",
+"l": "en"
+},
+{
+"id": 2060,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Air On Demand",
+"c": "Miami",
+"e": "todd@airondemand.com",
+"l": "en"
+},
+{
+"id": 2061,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Air Q Contractors",
+"c": "Miami",
+"e": "ra@airqcontractors.com",
+"l": "en"
+},
+{
+"id": 2062,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Chill Air Conditioning",
+"c": "Miami",
+"e": "info@chillsairconditioning.com",
+"l": "en"
+},
+{
+"id": 2063,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Emerald Ostel Mechanical",
+"c": "Miami",
+"e": "info@emeraldostel.com",
+"l": "en"
+},
+{
+"id": 2064,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Galo Air Conditioning Inc",
+"c": "Miami",
+"e": "info@galoair.com",
+"l": "en"
+},
+{
+"id": 2065,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Go Ac Repair",
+"c": "Miami",
+"e": "goacrepair@gmail.com",
+"l": "en"
+},
+{
+"id": 2066,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Living Air",
+"c": "Miami",
+"e": "livingair@ymail.com",
+"l": "en"
+},
+{
+"id": 2067,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Mr Cool Guys",
+"c": "Miami",
+"e": "david@mrcoolguys.com",
+"l": "en"
+},
+{
+"id": 2068,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Nel & Son Air Conditioning",
+"c": "Miami",
+"e": "tony@nelandsonsair.com",
+"l": "en"
+},
+{
+"id": 2069,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "The Best Air Conditioning",
+"c": "Miami Shores",
+"e": "bestair.office@gmail.com",
+"l": "en"
+},
+{
+"id": 2070,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "HVAC PROVIDERS",
+"c": "Princeton",
+"e": "andreatm@hvacproviders.com",
+"l": "en"
+},
+{
+"id": 2071,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "M&S Air Conditioning",
+"c": "Ave.Deerfield Beach",
+"e": "msac@bellsouth.net",
+"l": "en"
+},
+{
+"id": 2072,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Green Tree Air Conditioning Inc.",
+"c": "Building E Suite 1-4 Pompano Beach",
+"e": "info@greentreeac.com",
+"l": "en"
+},
+{
+"id": 2073,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Art's Plumbing, Air Conditioning & Electric",
+"c": "Coral Springs",
+"e": "chrisd@artcanfixit.com",
+"l": "en"
+},
+{
+"id": 2074,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "advance cool air",
+"c": "Davie",
+"e": "myac@advancecoolair.com",
+"l": "en"
+},
+{
+"id": 2075,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Briggs Cooling and Refrigeration Inc.",
+"c": "Davie",
+"e": "briggscooling@gmail.com",
+"l": "en"
+},
+{
+"id": 2076,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Air Necessity",
+"c": "Deerfield Beach",
+"e": "airnecessity@gmail.com",
+"l": "en"
+},
+{
+"id": 2077,
+"f": "2027-01-14",
+"k": "camp4c",
+"g": "B",
+"emp": "Cousin's Air Inc.",
+"c": "Deerfield Beach",
+"e": "mitchelll@cousinsair.com",
+"l": "en"
+},
+{
+"id": 2078,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Ferrara's Air",
+"c": "F Pompano Beach",
+"e": "office@ferrarasair.com",
+"l": "en"
+},
+{
+"id": 2079,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "serv tech air conditioning solutions",
+"c": "Ft. Lauderdale",
+"e": "servicesac@servicestechac.com",
+"l": "en"
+},
+{
+"id": 2080,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Air Anytime",
+"c": "Oakland Park",
+"e": "airanytime@airanytime.com",
+"l": "en"
+},
+{
+"id": 2081,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Air by Speedy",
+"c": "Oakland Park",
+"e": "airbyspeedy@aol.com",
+"l": "en"
+},
+{
+"id": 2082,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Cool By Design",
+"c": "Oakland Park",
+"e": "corey@coolbydesignfl.com",
+"l": "en"
+},
+{
+"id": 2083,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Pembroke Pines Air",
+"c": "Pembroke Pines",
+"e": "pembrokepinesair@gmail.com",
+"l": "en"
+},
+{
+"id": 2084,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "AC Squad Pro",
+"c": "Pompano Beach",
+"e": "bruno@acsquad.biz",
+"l": "en"
+},
+{
+"id": 2085,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "aire Serv of Coral Springs",
+"c": "Pompano Beach",
+"e": "coralsprings.owner@aireserv.com",
+"l": "en"
+},
+{
+"id": 2086,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Pride Air Conditioning & Appliance",
+"c": "Pompano Beach",
+"e": "info@prideac.com",
+"l": "en"
+},
+{
+"id": 2087,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Pannarale ac",
+"c": "Sunrise",
+"e": "michelepann@gmail.com",
+"l": "en"
+},
+{
+"id": 2088,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "PROTOCOOL Cooling Solutions",
+"c": "Sunrise",
+"e": "cpompilio@protocoolac.com",
+"l": "en"
+},
+{
+"id": 2089,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "AC Brothers",
+"c": "Hialeah",
+"e": "info@acbrothers.com",
+"l": "es"
+},
+{
+"id": 2090,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Central Air Comfort",
+"c": "Hialeah Gardens",
+"e": "Info@centralaircomfort.com",
+"l": "es"
+},
+{
+"id": 2091,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "All Florida Air and Heat",
+"c": "Hialeah",
+"e": "Arian@allfloridaairandheat.com",
+"l": "es"
+},
+{
+"id": 2092,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "ACTL Group",
+"c": "Hialeah",
+"e": "info@actlgroup.com",
+"l": "es"
+},
+{
+"id": 2093,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "911 Cold Air & Refrigeration",
+"c": "Medley",
+"e": "info@911coldair.com",
+"l": "es"
+},
+{
+"id": 2094,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Rightway A/C & Refrigeration",
+"c": "Hialeah",
+"e": "info@rightwayacrefrigeration.com",
+"l": "es"
+},
+{
+"id": 2095,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Aircond Mechanical",
+"c": "Hialeah",
+"e": "support@aircondmechanical.com",
+"l": "es"
+},
+{
+"id": 2096,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Lombard Air Conditioning",
+"c": "Hialeah",
+"e": "sales@lombardac.com",
+"l": "es"
+},
+{
+"id": 2097,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "B",
+"emp": "Aircon Management",
+"c": "Hialeah",
+"e": "contact@airconmgt.com",
+"l": "es"
+},
+{
+"id": 2098,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Aire Serv of Boca Raton",
+"c": "Boca Raton",
+"e": "bocaraton@aireserv.com",
+"l": "en"
+},
+{
+"id": 2099,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "central air",
+"c": "Boca Raton",
+"e": "mt3801@comcast.net",
+"l": "en"
+},
+{
+"id": 2100,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "County Line Air",
+"c": "Boca Raton",
+"e": "matt@countylineair.com",
+"l": "en"
+},
+{
+"id": 2101,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "DM Air Conditioning, LLC",
+"c": "Boca Raton",
+"e": "support@dmcoldair.com",
+"l": "en"
+},
+{
+"id": 2102,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Laresi HVAC",
+"c": "Boca Raton",
+"e": "laresiservice@hotmail.com",
+"l": "en"
+},
+{
+"id": 2103,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "A2Z Air Inc",
+"c": "Boynton Beach",
+"e": "ed@a2zairinc.com",
+"l": "en"
+},
+{
+"id": 2104,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Cool Air Services",
+"c": "Boynton Beach",
+"e": "coolairservices1@aol.com",
+"l": "en"
+},
+{
+"id": 2105,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Polair",
+"c": "D Delray Beach",
+"e": "joe@polairusa.com",
+"l": "en"
+},
+{
+"id": 2106,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Air Ref",
+"c": "Delray Beach",
+"e": "parts@airref.com",
+"l": "en"
+},
+{
+"id": 2107,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Island Air Conditioning",
+"c": "Delray Beach",
+"e": "islandair@islandair.com",
+"l": "en"
+},
+{
+"id": 2108,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Sansone Air Conditioning",
+"c": "Haverhill",
+"e": "jgibbs@sansone-ac.com",
+"l": "en"
+},
+{
+"id": 2109,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Complete Comfort",
+"c": "Jupiter",
+"e": "service@mycompletecomfort.com",
+"l": "en"
+},
+{
+"id": 2110,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Dukes AC",
+"c": "Jupiter",
+"e": "service@whyduke.com",
+"l": "en"
+},
+{
+"id": 2111,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "South Florida Air Solutions",
+"c": "Jupiter",
+"e": "scrumbley@sfairsolutions.com",
+"l": "en"
+},
+{
+"id": 2112,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Stephen K Denny, Inc.",
+"c": "Jupiter",
+"e": "info@stephenkdenny.com",
+"l": "en"
+},
+{
+"id": 2113,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "CMI Air Conditioning & Electrical",
+"c": "Lake Park",
+"e": "info@cmiac.com",
+"l": "en"
+},
+{
+"id": 2114,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Cleary Plumbing & Air",
+"c": "Lake Worth",
+"e": "service@cleary-services.com",
+"l": "en"
+},
+{
+"id": 2115,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Cool World AC",
+"c": "Lake Worth",
+"e": "aprille@coolworldac.com",
+"l": "en"
+},
+{
+"id": 2116,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Crest Air LLC",
+"c": "Lake Worth",
+"e": "info@crest-air.com",
+"l": "en"
+},
+{
+"id": 2117,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "CSI",
+"c": "Lake Worth Beach",
+"e": "csicooling@gmail.com",
+"l": "en"
+},
+{
+"id": 2118,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "TRI-COUNTY HVAC",
+"c": "Loxahatchee",
+"e": "ryan@coldairfast.com",
+"l": "en"
+},
+{
+"id": 2119,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Spectrum AC",
+"c": "Mangonia Park",
+"e": "info@myspectrumac.com",
+"l": "en"
+},
+{
+"id": 2120,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Brown Mechanical Services",
+"c": "North Jupiter",
+"e": "scottie@brownmechanicalservices.com",
+"l": "en"
+},
+{
+"id": 2121,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "ER Air Conditioning Inc",
+"c": "Palm Beach Gardens",
+"e": "erairrepair@gmail.com",
+"l": "en"
+},
+{
+"id": 2122,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "A/C Doctors of South Florida",
+"c": "Palm Springs",
+"e": "j.daais@yahoo.com",
+"l": "en"
+},
+{
+"id": 2123,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "John c cassidy",
+"c": "Riviera Beach",
+"e": "kgrimes@cassidyac.com",
+"l": "en"
+},
+{
+"id": 2124,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Gulfstream Cooling Inc",
+"c": "Royal Palm Beach",
+"e": "followup@gulfstreamcooling.com",
+"l": "en"
+},
+{
+"id": 2125,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Alford ac",
+"c": "Tequesta",
+"e": "admin@alfordac.com",
+"l": "en"
+},
+{
+"id": 2126,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "AC Brothers.com",
+"c": "West Palm Beach",
+"e": "carlosoler88@hotmail.com",
+"l": "en"
+},
+{
+"id": 2127,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "All Star Plumbing & Air",
+"c": "West Palm Beach",
+"e": "pwiseman@247allstar.com",
+"l": "en"
+},
+{
+"id": 2128,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Aztil Air Conditioning",
+"c": "West Palm Beach",
+"e": "jack.bridges@aztilac.com",
+"l": "en"
+},
+{
+"id": 2129,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "David air",
+"c": "West Palm Beach",
+"e": "dbalanza1984@yahoo.com",
+"l": "en"
+},
+{
+"id": 2130,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Eldred Air conditioning inc.",
+"c": "West Palm Beach",
+"e": "brandoneldred@eldredairconditioning.com",
+"l": "en"
+},
+{
+"id": 2131,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Go Green Air",
+"c": "West Palm Beach",
+"e": "info@gogreenair.com",
+"l": "en"
+},
+{
+"id": 2132,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Hopkins Air",
+"c": "West Palm Beach",
+"e": "rich@hopkinsair.com",
+"l": "en"
+},
+{
+"id": 2133,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Kyzar Air Conditioning",
+"c": "West Palm Beach",
+"e": "service@kyzarairconditioning.com",
+"l": "en"
+},
+{
+"id": 2134,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "NOVA AIR CONDITIONING",
+"c": "West Palm Beach",
+"e": "novaair@ymail.com",
+"l": "en"
+},
+{
+"id": 2135,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "One Hour Air Conditioning of West Palm Beach",
+"c": "West Palm Beach",
+"e": "service@kingofcool.com",
+"l": "en"
+},
+{
+"id": 2136,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "Pelagic Air Conditioner",
+"c": "West Palm Beach",
+"e": "pelagicair@gmail.com",
+"l": "en"
+},
+{
+"id": 2137,
+"f": "2027-01-18",
+"k": "camp4c",
+"g": "C",
+"emp": "The Air Squad",
+"c": "West Palm Beach",
+"e": "mark@myairsquad.com",
+"l": "en"
+},
+{
+"id": 2138,
+"f": "2027-01-19",
+"k": "camp4c",
+"g": "C",
+"emp": "Zimmer Air Conditioning",
+"c": "West Palm Beach",
+"e": "zimmer65@bellsouth.net",
+"l": "en"
+},
+{
+"id": 2139,
+"f": "2027-01-19",
+"k": "camp4c",
+"g": "C",
+"emp": "Ranger Air Conditioning",
+"c": "Hobe Sound",
+"e": "info@rangerac.com",
+"l": "en"
+},
+{
+"id": 2140,
+"f": "2027-01-19",
+"k": "camp4c",
+"g": "C",
+"emp": "Local Guy Air Conditioning Services, Inc",
+"c": "Palm City",
+"e": "office@localguyac.com",
+"l": "en"
+},
+{
+"id": 2141,
+"f": "2027-01-19",
+"k": "camp4c",
+"g": "C",
+"emp": "Billfish Air Conditioning",
+"c": "Stuart",
+"e": "edsmith@billfishac.com",
+"l": "en"
+},
+{
+"id": 2142,
+"f": "2027-01-19",
 "k": "camp4c",
 "g": "C",
 "emp": "Irwins Air",

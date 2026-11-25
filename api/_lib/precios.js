@@ -8,11 +8,11 @@
     { slug: 'spk11-b35', id: 'SPK11-B35', n: 'Sella Plus K11', d: 'Botella 35 ml', u: 48, c: 5.00, p: 9.60, pt: 10.20, s: 15.95 },
     { slug: '20002', id: '20002', n: 'Coupler 1/4"', d: 'Acople', u: 400, c: 2.25, o: 'CN', p: 5.95, pt: 6.40, s: 9.95 }
   ];
-  // Paquetes Starter (nov 2026): unidades sueltas a precio cerrado (~10% sobre la caja de lista). comp = unidades por SKU; ship = cajas equivalentes para el flete.
+  // Paquetes Starter (nov 2026): unidades sueltas a precio cerrado (~15% sobre la caja de lista). comp = unidades por SKU; ship = cajas equivalentes para el flete.
   const KITS = [
-    { slug: 'starter-tecnico', id: 'STARTER-TECH', n: 'Starter Técnico', en: 'Starter Pack · Technician', comp: { 'tfk11-10': 6, 'k11-2in1-11': 6, 'spk11-b35': 2, '20002': 1 }, price: 260, ship: 0.35 },
-    { slug: 'starter-mostrador', id: 'STARTER-COUNTER', n: 'Starter Mostrador', en: 'Starter Pack · Counter', comp: { 'tfk11-10': 24, 'k11-2in1-11': 24, 'spk11-b35': 12, '20002': 4 }, price: 1080, ship: 0.6 },
-    { slug: 'starter-plus', id: 'STARTER-PLUS', n: 'Starter Plus', en: 'Starter Pack · Plus', comp: { 'tfk11-10': 48, 'k11-2in1-11': 48, 'spk11-b35': 24, '20002': 8 }, price: 2150, ship: 0.9 }
+    { slug: 'starter-tecnico', id: 'STARTER-TECH', n: 'Starter Técnico', en: 'Starter Pack · Technician', comp: { 'tfk11-10': 6, 'k11-2in1-11': 6, 'spk11-b35': 2, '20002': 1 }, price: 275, ship: 0.35 },
+    { slug: 'starter-mostrador', id: 'STARTER-COUNTER', n: 'Starter Mostrador', en: 'Starter Pack · Counter', comp: { 'tfk11-10': 24, 'k11-2in1-11': 24, 'spk11-b35': 12, '20002': 4 }, price: 1135, ship: 0.6 },
+    { slug: 'starter-plus', id: 'STARTER-PLUS', n: 'Starter Plus', en: 'Starter Pack · Plus', comp: { 'tfk11-10': 48, 'k11-2in1-11': 48, 'spk11-b35': 24, '20002': 8 }, price: 2275, ship: 0.9 }
   ];
   // Supuestos de importación (por embarque) y venta. q = cajas por SKU — primer embarque SO-26-1111-001 (1 pallet, marítimo LCL San Luis Potosí → Veracruz → Miami, cotización 00019834: USD 1.316,90 CFR; ISF 100 aparte). whs=400: reserva ESTIMADA de descarga en Miami + entrega a Hialeah (sin cotizar). usmca=1 supone certificado T-MEC de Proxima; con 0 el arancel pasa de $333 a ~$1.802.
   // cn = arancel total % para origen China (MFN 2 + Sección 301 25 + IEEPA 10) — ESTIMADO, confirmar con el despachante.

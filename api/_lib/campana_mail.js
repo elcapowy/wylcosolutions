@@ -64,7 +64,7 @@ const M = {
       hero: 'Start small. Stock what moves.',
       p: { c: ['Not ready for a full case? K11 Starter Packs are mixed units at one fixed price: the same products and the same terms, to try the line on your own trucks and jobs.'],
            a: ['Not ready for a full case of every product? K11 Starter Packs are mixed units at one fixed price: the same products and the same terms, to test how the line moves at your counter.'] },
-      listT: 'How Starter Packs work', list: [['Mixed units', 'TapaFugas K11, TapaFugas 2-in-1 and Sella Plus in one pack.'], ['One fixed price', 'Packs start at $260.'], ['Order by invoice', 'Order on our site, we invoice you. Ships from Miami at a lower rate quoted on your invoice.'], ['Documents ready', 'Safety Data Sheets for every product are on our site.']],
+      listT: 'How Starter Packs work', list: [['Mixed units', 'TapaFugas K11, TapaFugas 2-in-1 and Sella Plus in one pack.'], ['One fixed price', 'Packs start at $275.'], ['Order by invoice', 'Order on our site, we invoice you. Ships from Miami at a lower rate quoted on your invoice.'], ['Documents ready', 'Safety Data Sheets for every product are on our site.']],
       cta: 'See Starter Packs', ctaHref: 'st' }
   },
   es: {
@@ -97,7 +97,7 @@ const M = {
       hero: 'Empiece de a poco. Surta lo que se mueve.',
       p: { c: ['¿Todavía no necesita una caja completa? Los paquetes Starter K11 son unidades mixtas a precio cerrado: los mismos productos y las mismas condiciones, para probar la línea en sus propios trabajos.'],
            a: ['¿Todavía no necesita una caja completa de cada producto? Los paquetes Starter K11 son unidades mixtas a precio cerrado: los mismos productos y las mismas condiciones, para probar cómo se mueve la línea en su mostrador.'] },
-      listT: 'Cómo funcionan los paquetes Starter', list: [['Unidades mixtas', 'TapaFugas K11, TapaFugas 2 en 1 y Sella Plus en un mismo paquete.'], ['Un precio cerrado', 'Los paquetes arrancan en $260.'], ['Pedido por factura', 'Pide en nuestro sitio y le facturamos. Sale de Miami con una tarifa de envío menor, indicada en la factura.'], ['Documentos listos', 'Las hojas de seguridad de cada producto están en nuestro sitio.']],
+      listT: 'Cómo funcionan los paquetes Starter', list: [['Unidades mixtas', 'TapaFugas K11, TapaFugas 2 en 1 y Sella Plus en un mismo paquete.'], ['Un precio cerrado', 'Los paquetes arrancan en $275.'], ['Pedido por factura', 'Pide en nuestro sitio y le facturamos. Sale de Miami con una tarifa de envío menor, indicada en la factura.'], ['Documentos listos', 'Las hojas de seguridad de cada producto están en nuestro sitio.']],
       cta: 'Ver paquetes Starter', ctaHref: 'st' }
   }
 };

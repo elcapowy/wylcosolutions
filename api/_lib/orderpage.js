@@ -4,7 +4,7 @@ const T = {
   en: { pre: '', title: 'Buy K11 Wholesale — HVAC-R Distributors & Supply Houses | Wylco, Miami', desc: 'Wholesale K11 TapaFugas, TapaFugas 2-in-1, Sella Plus and adapters by the case, with live stock. For HVAC-R distributors, supply houses and contractors. Minimum 1 case. Card, ACH, wire or Zelle. Ships from Miami.',
     nav: ['Products', 'SDS', 'Distributor program'], other: 'Español', otherHref: '/es/order', home: '/',
     eyebrow: 'Wholesale · Distributors', h1: ['Stock K11', 'for your counter.'], lead: 'Order by the case with live stock from Miami. Pay online now or get a Stripe invoice — whichever fits your purchasing.',
-    facts: [['1 case', 'minimum per SKU'], ['Starter packs', 'from $260 · for new businesses'], ['Card · ACH · Wire · Zelle', 'payment'], ['Tax-exempt', 'with resale certificate']],
+    facts: [['1 case', 'minimum per SKU'], ['Starter packs', 'from $275 · for new businesses'], ['Card · ACH · Wire · Zelle', 'payment'], ['Tax-exempt', 'with resale certificate']],
     stH: 'Starter packs for new businesses', stP: 'Not ready for a full case? Start with a mixed pack: loose units at one fixed price. Same products, same terms. Order by invoice.', stB: 'Order a Starter pack', stN: 'New · Start here', stT: 'Most popular', stU: 'units', stR: 'suggested resale value',
     sec1: 'Choose your cases', sec1s: 'Stock updates live. If you order more than we have, the rest is held as a pre-order.',
     perCase: 'units / case', inStock: n => `${n} case${n === 1 ? '' : 's'} in stock`, preOrder: 'Pre-order', sds: 'Safety Data Sheet',
@@ -19,7 +19,7 @@ const T = {
   es: { pre: '/es', title: 'Comprar K11 mayorista — Distribuidores y casas de repuestos HVAC-R | Wylco, Miami', desc: 'K11 TapaFugas, TapaFugas 2-en-1, Sella Plus y adaptadores por caja, con stock en vivo. Para distribuidores HVAC-R, casas de repuestos y contratistas. Mínimo 1 caja. Tarjeta, ACH, transferencia o Zelle. Envío desde Miami.',
     nav: ['Productos', 'SDS', 'Programa distribuidores'], other: 'English', otherHref: '/order', home: '/es',
     eyebrow: 'Mayorista · Distribuidores', h1: ['K11 en tu', 'mostrador.'], lead: 'Pedí por caja con stock en vivo desde Miami. Pagá online ahora o recibí una factura de Stripe, como te quede mejor.',
-    facts: [['1 caja', 'mínimo por SKU'], ['Paquetes Starter', 'desde USD 260 · para negocios nuevos'], ['Tarjeta · ACH · Wire · Zelle', 'formas de pago'], ['Exento', 'con certificado de reventa']],
+    facts: [['1 caja', 'mínimo por SKU'], ['Paquetes Starter', 'desde USD 275 · para negocios nuevos'], ['Tarjeta · ACH · Wire · Zelle', 'formas de pago'], ['Exento', 'con certificado de reventa']],
     stH: 'Paquetes Starter para negocios nuevos', stP: '¿Todavía no necesitás una caja completa? Empezá con un paquete mixto: unidades sueltas a precio cerrado. Mismos productos, mismas condiciones. Se pide por factura.', stB: 'Pedir un paquete Starter', stN: 'Nuevo · Empezá acá', stT: 'El más pedido', stU: 'unidades', stR: 'valor de venta sugerido',
     sec1: 'Elegí tus cajas', sec1s: 'El stock se actualiza en vivo. Si pedís más de lo que hay, el resto queda en pre-pedido.',
     perCase: 'unidades / caja', inStock: n => `${n} caja${n === 1 ? '' : 's'} en stock`, preOrder: 'Pre-pedido', sds: 'Hoja de seguridad',
@@ -52,9 +52,9 @@ function display(p, L) {
 }
 
 const STARTERS = [
-  { en: 'Starter · Technician', es: 'Starter · Técnico', c: '6 TapaFugas · 6 TapaFugas 2-in-1 · 2 Sella Plus · 1 Coupler', u: 15, p: 260, r: 431 },
-  { en: 'Starter · Counter', es: 'Starter · Mostrador', c: '24 TapaFugas · 24 2-in-1 · 12 Sella Plus · 4 Coupler', u: 64, p: 1080, r: 1789 },
-  { en: 'Starter · Plus', es: 'Starter · Plus', c: '48 TapaFugas · 48 2-in-1 · 24 Sella Plus · 8 Coupler', u: 128, p: 2150, r: 3578 }
+  { en: 'Starter · Technician', es: 'Starter · Técnico', c: '6 TapaFugas · 6 TapaFugas 2-in-1 · 2 Sella Plus · 1 Coupler', u: 15, p: 275, r: 431 },
+  { en: 'Starter · Counter', es: 'Starter · Mostrador', c: '24 TapaFugas · 24 2-in-1 · 12 Sella Plus · 4 Coupler', u: 64, p: 1135, r: 1789 },
+  { en: 'Starter · Plus', es: 'Starter · Plus', c: '48 TapaFugas · 48 2-in-1 · 24 Sella Plus · 8 Coupler', u: 128, p: 2275, r: 3578 }
 ];
 function render(L, products, sel, paid, opts = {}) {
   const t0 = T[L], url = SITE + t0.pre + '/order', pre = opts.qty || {}, PR = opts.prices || {}, EV = opts.envio || { caja: 35, gratis: 2000 }, LL = opts.llegada || {}, DS = opts.desc || [];

@@ -20,6 +20,13 @@ async function clienteStripe(o, c) {
   const id = (c && c.stripe_customer) || o.stripe_customer;
   return id ? stripe('customers/' + id, data) : stripe('customers', data);
 }
+// Los items de factura no aceptan price_data.product_data (API 2024-06-20): se usa un producto fijo por kit
+async function productoKit(i) {
+  const id = 'k11_kit_' + String(i.slug).replace(/[^a-z0-9]/g, '_');
+  try { await stripe('products', { id, name: i.name, tax_code: process.env.STRIPE_TAX_CODE || 'txcd_99999999', metadata: { sku: i.sku, slug: i.slug } }); }
+  catch (e) { if (e.code !== 'resource_already_exists') throw e; }
+  return id;
+}
 async function crearFactura(o) {
   const pr = await precios(o.items.filter(i => !i.kit).map(i => i.slug));
   const falta = o.items.filter(i => !i.kit && !pr[i.slug]).map(i => i.sku);
@@ -36,7 +43,7 @@ async function crearFactura(o) {
   });
   const cfg = await E.config(), sub = o.items.reduce((a, i) => a + (i.kit ? Math.round((i.precio || (T.BY[i.slug] || {}).price || 0) * 100) : pr[i.slug].unit_amount) * i.cases, 0) / 100, nc = o.items.reduce((a, i) => a + i.cases * (i.kit ? ((T.BY[i.slug] || {}).ship || 1) : 1), 0);
   const fl = o.flete_manual != null ? +o.flete_manual : E.flete(cfg, sub, nc, o.retiro);
-  for (const i of o.items) await stripe('invoiceitems', i.kit ? { customer: sc.id, invoice: inv.id, quantity: i.cases, price_data: { currency: 'usd', unit_amount: Math.round((i.precio || (T.BY[i.slug] || {}).price || 0) * 100), tax_behavior: 'exclusive', product_data: { name: i.name } }, description: `${i.sku} ${i.name} — ${i.cases} pack(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` } : { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
+  for (const i of o.items) await stripe('invoiceitems', i.kit ? { customer: sc.id, invoice: inv.id, quantity: i.cases, price_data: { currency: 'usd', unit_amount: Math.round((i.precio || (T.BY[i.slug] || {}).price || 0) * 100), tax_behavior: 'exclusive', product: await productoKit(i) }, description: `${i.sku} ${i.name} — ${i.cases} pack(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` } : { customer: sc.id, invoice: inv.id, price: pr[i.slug].id, quantity: i.cases, description: `${i.sku} ${i.name} — ${i.cases} case(s)${i.preorder ? ` (${i.preorder} pre-order)` : ''}` });
   const pct = await X.descuento(c, nc);
   if (pct > 0) { await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: -Math.round(sub * pct), currency: 'usd', tax_behavior: 'exclusive', description: `${c && (+c.desc_pct >= pct || await M.pctNivel(c) >= pct) ? 'Customer' : 'Volume'} discount ${pct}%` }); o.descuento = pct; }
   if (fl > 0) await stripe('invoiceitems', { customer: sc.id, invoice: inv.id, amount: Math.round(fl * 100), currency: 'usd', tax_code: 'txcd_92010001', tax_behavior: 'exclusive', description: `Ground shipping — ${o.items.reduce((x, i) => x + i.cases, 0)} item(s) (free on orders $${cfg.gratis.toLocaleString('en-US')}+)` });

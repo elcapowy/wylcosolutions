@@ -56,7 +56,7 @@ async function enviarHoy({ simular = false } = {}) {
   let n = 0;
   for (const r of D.rows) {
     if (n >= CFG.MAX_POR_DIA) break;
-    if (est[r.id] || r.f > h) continue;
+    if ((est[r.id] && !(est[r.id].e === 'error' && /^429/.test(String(est[r.id].n)))) || r.f > h) continue; // los errores 429 (cuota/ritmo de Resend) se reintentan
     const lang = String(r.l).slice(0, 2) === 'es' ? 'es' : 'en';
     let res;
     if (/^(prod|camp)/.test(r.k) && process.env.CAMP_ON !== '1') continue; // campaña apagada hasta CAMP_ON=1
@@ -67,7 +67,7 @@ async function enviarHoy({ simular = false } = {}) {
     else if (simular) { log.push({ id: r.id, k: r.k, e: r.e }); n++; continue; }
     else {
       try { const m = armar(r.k, lang, r.emp, r.c, r.id); res = { e: 'enviado', n: await enviar(r.e, m.s, m.b, r.k === 'dist1', m.h) }; n++; await pausa(600); }
-      catch (err) { res = { e: 'error', n: String(err.message || err) }; }
+      catch (err) { if (/^429/.test(String(err.message))) { log.push({ id: r.id, k: r.k, e: r.e, parado: 'Resend: cuota o ritmo (429). Se reintenta en la próxima corrida.' }); break; } res = { e: 'error', n: String(err.message || err) }; }
     }
     res.at = new Date().toISOString();
     if (!simular) await guardar(r.id, res);

@@ -29,6 +29,7 @@ const marcarStop = (email, motivo) => redis([motivo ? ['HSET', 'k11:stop', email
 function hoy() { return new Intl.DateTimeFormat('en-CA', { timeZone: CFG.TZ }).format(new Date()); }
 
 function armar(k, lang, emp, ciudad, id) {
+  if (/^prod/.test(k)) return require('./producto_mail').build(k, lang, emp); // mail de presentación de producto (HTML + texto)
   if (/^mues/.test(k)) return require('./muestras_mail').build(k, lang, emp, id); // campaña de muestras: mail HTML (+ texto)
   const t = D.tpl[k][lang] || D.tpl[k].en;
   const r = s => s.replace(/\{empresa\}/g, emp).replace(/\{enciudad\}/g, ciudad ? ' in ' + ciudad : '').replace(/\{enciudad_es\}/g, ciudad ? ' en ' + ciudad : '');

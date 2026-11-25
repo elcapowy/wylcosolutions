@@ -29,6 +29,7 @@ const marcarStop = (email, motivo) => redis([motivo ? ['HSET', 'k11:stop', email
 function hoy() { return new Intl.DateTimeFormat('en-CA', { timeZone: CFG.TZ }).format(new Date()); }
 
 function armar(k, lang, emp, ciudad, id) {
+  if (/^camp/.test(k)) return require('./campana_mail').build(k, lang, emp); // campaña diciembre: mails 2-4
   if (/^prod/.test(k)) return require('./producto_mail').build(k, lang, emp); // mail de presentación de producto (HTML + texto)
   if (/^mues/.test(k)) return require('./muestras_mail').build(k, lang, emp, id); // campaña de muestras: mail HTML (+ texto)
   const t = D.tpl[k][lang] || D.tpl[k].en;
@@ -58,7 +59,9 @@ async function enviarHoy({ simular = false } = {}) {
     if (est[r.id] || r.f > h) continue;
     const lang = String(r.l).slice(0, 2) === 'es' ? 'es' : 'en';
     let res;
-    if (stop[r.e] === 'baja') res = { e: 'omitido', n: 'baja' };
+    if (/^(prod|camp)/.test(r.k) && process.env.CAMP_ON !== '1') continue; // campaña apagada hasta CAMP_ON=1
+    if (/^camp/.test(r.k) && stop[r.e]) res = { e: 'omitido', n: stop[r.e] === 'baja' ? 'baja' : 'respondió' };
+    else if (stop[r.e] === 'baja') res = { e: 'omitido', n: 'baja' };
     else if (PRIMERO[r.k] && !enviados[r.e + '|' + PRIMERO[r.k]]) res = { e: 'omitido', n: 'no se envió el primero' };
     else if (PRIMERO[r.k] && stop[r.e]) res = { e: 'omitido', n: 'respondió' };
     else if (simular) { log.push({ id: r.id, k: r.k, e: r.e }); n++; continue; }
